@@ -70,9 +70,9 @@ export function FindLetterPage() {
             {current.choices.map((letter) => (
               <button
                 key={letter}
-                className={`game-card ${
-                  game.solved && letter === current.letter ? 'game-card--ok' : ''
-                } ${wrong.includes(letter) ? 'game-card--off' : ''}`}
+                className={`choice-card ${
+                  game.solved && letter === current.letter ? 'choice-card--ok' : ''
+                } ${wrong.includes(letter) ? 'choice-card--off' : ''}`}
                 onClick={() => pick(letter)}
                 disabled={game.solved || wrong.includes(letter)}
               >

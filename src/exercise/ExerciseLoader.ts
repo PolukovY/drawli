@@ -73,3 +73,22 @@ export function loadArticles(): Promise<Record<'en' | 'es', Record<string, strin
   }
   return articlesPromise
 }
+
+export interface PaintRegion {
+  id: string
+  color: string
+  number: number
+}
+
+let regionsPromise: Promise<Record<string, PaintRegion[]>> | null = null
+
+/** Which colour belongs to which region — the key to colour-by-numbers. */
+export function loadRegions(): Promise<Record<string, PaintRegion[]>> {
+  if (!regionsPromise) {
+    regionsPromise = fetch(assetUrl('regions.json')).then((r) => {
+      if (!r.ok) throw new Error(`regions ${r.status}`)
+      return r.json() as Promise<Record<string, PaintRegion[]>>
+    })
+  }
+  return regionsPromise
+}

@@ -1,0 +1,76 @@
+.puzzle {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 0;
+}
+
+.puzzle__frame {
+  width: min(46vh, 360px);
+  height: min(46vh, 360px);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 4px;
+  padding: 8px;
+}
+
+.puzzle__slot {
+  border-radius: var(--r-md);
+  background: var(--c-inset);
+  border: 2px dashed #CFC7E6;
+  overflow: hidden;
+  padding: 0;
+  min-height: 0;
+}
+.puzzle__slot--filled { border-style: solid; border-color: transparent; background: transparent; }
+
+/* Each piece shows one quarter of the same picture, scaled up and shifted. */
+.puzzle__piece {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.puzzle__piece img {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+}
+.puzzle__piece[data-piece="0"] img { left: 0; top: 0; }
+.puzzle__piece[data-piece="1"] img { left: -100%; top: 0; }
+.puzzle__piece[data-piece="2"] img { left: 0; top: -100%; }
+.puzzle__piece[data-piece="3"] img { left: -100%; top: -100%; }
+
+.puzzle__tray { display: flex; gap: 14px; }
+
+.puzzle__loose {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  box-shadow: var(--sh-raised);
+  border: 3px solid transparent;
+  overflow: hidden;
+  padding: 0;
+  transition: transform 0.1s ease, border-color 0.2s ease, opacity 0.25s ease;
+}
+.puzzle__loose--held { border-color: var(--c-accent); transform: scale(1.06); }
+.puzzle__loose--used { opacity: 0.25; box-shadow: none; }
+
+@media (max-width: 700px) {
+  .puzzle__frame { width: min(38vh, 250px); height: min(38vh, 250px); }
+  .puzzle__loose { width: 68px; height: 68px; }
+  .puzzle__tray { gap: 10px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .puzzle { flex-direction: row; }
+  .puzzle__frame { width: 200px; height: 200px; }
+  .puzzle__tray { flex-direction: column; }
+  .puzzle__loose { width: 60px; height: 60px; }
+}

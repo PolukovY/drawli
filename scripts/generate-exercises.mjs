@@ -69,6 +69,7 @@ const wordList = { uk: {}, en: {}, es: {} }
  * game reads these. English follows the vowel rule; Spanish gender is data.
  */
 const articleList = { en: {}, es: {} }
+const paintByNumber = {}
 const englishArticle = (word) => ('AEIOU'.includes(word.trim()[0]?.toUpperCase()) ? 'an' : 'a')
 
 for (const exercise of EXERCISES) {
@@ -101,6 +102,15 @@ for (const exercise of EXERCISES) {
   }
   await writeFile(resolve(dir, 'exercise.json'), `${JSON.stringify(json, null, 2)}\n`)
 
+  if (exercise.regions?.length) {
+    // The colour-by-numbers game needs to know which colour belongs where.
+    paintByNumber[exercise.id] = exercise.regions.map((r, i) => ({
+      id: r.id,
+      color: r.color,
+      number: i + 1,
+    }))
+  }
+
   index.exercises.push({
     id: exercise.id,
     titleKey,
@@ -132,6 +142,7 @@ for (const exercise of EXERCISES) {
 await writeFile(resolve(outDir, 'index.json'), `${JSON.stringify(index, null, 2)}\n`)
 await writeFile(resolve(outDir, 'words.json'), `${JSON.stringify(wordList, null, 2)}\n`)
 await writeFile(resolve(outDir, 'articles.json'), `${JSON.stringify(articleList, null, 2)}\n`)
+await writeFile(resolve(outDir, 'regions.json'), `${JSON.stringify(paintByNumber, null, 2)}\n`)
 
 const missingEs = index.exercises.filter(
   (e) => !e.glyph && !wordList.es[e.id] && ['animals', 'nature', 'food', 'home', 'transport', 'shapes'].includes(e.category),

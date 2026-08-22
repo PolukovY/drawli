@@ -1,0 +1,32 @@
+.count-draw { flex-grow: 1; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+
+.count-draw__task { display: flex; align-items: center; gap: 16px; justify-content: center; }
+.count-draw__number {
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--c-accent);
+  line-height: 1;
+}
+
+.count-draw__canvas { position: relative; flex-grow: 1; min-height: 0; }
+
+.count-draw__counter {
+  position: absolute;
+  right: 18px;
+  top: 16px;
+  padding: 8px 16px;
+  border-radius: var(--r-pill);
+  background: var(--c-inset);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--c-text-soft);
+  pointer-events: none;
+}
+
+.count-draw__actions { justify-content: center; gap: 12px; }
+
+@media (max-width: 700px) {
+  .count-draw__number { font-size: 38px; }
+  .count-draw__task .muted { font-size: 14px; }
+  .count-draw__counter { font-size: 15px; padding: 6px 12px; right: 10px; top: 10px; }
+}

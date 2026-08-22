@@ -1,0 +1,1609 @@
+{
+  "circle": [
+    {
+      "id": "ring-outer",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "ring-inner",
+      "color": "#F5893B",
+      "number": 2
+    },
+    {
+      "id": "core",
+      "color": "#E4443B",
+      "number": 3
+    }
+  ],
+  "square": [
+    {
+      "id": "outer",
+      "color": "#4E86E8",
+      "number": 1
+    },
+    {
+      "id": "inner",
+      "color": "#FFC53D",
+      "number": 2
+    }
+  ],
+  "triangle": [
+    {
+      "id": "body",
+      "color": "#4EA55F",
+      "number": 1
+    }
+  ],
+  "rectangle": [
+    {
+      "id": "body",
+      "color": "#9B5CE0",
+      "number": 1
+    }
+  ],
+  "oval": [
+    {
+      "id": "outer",
+      "color": "#5FC7C0",
+      "number": 1
+    },
+    {
+      "id": "inner",
+      "color": "#FFFFFF",
+      "number": 2
+    }
+  ],
+  "heart": [
+    {
+      "id": "body",
+      "color": "#E4443B",
+      "number": 1
+    }
+  ],
+  "star": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    }
+  ],
+  "diamond": [
+    {
+      "id": "body",
+      "color": "#4E86E8",
+      "number": 1
+    }
+  ],
+  "pentagon": [
+    {
+      "id": "body",
+      "color": "#F5893B",
+      "number": 1
+    }
+  ],
+  "hexagon": [
+    {
+      "id": "body",
+      "color": "#5FC7C0",
+      "number": 1
+    }
+  ],
+  "octagon": [
+    {
+      "id": "body",
+      "color": "#E4443B",
+      "number": 1
+    }
+  ],
+  "crescent": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    }
+  ],
+  "cross": [
+    {
+      "id": "body",
+      "color": "#E4443B",
+      "number": 1
+    }
+  ],
+  "arrow": [
+    {
+      "id": "body",
+      "color": "#4EA55F",
+      "number": 1
+    }
+  ],
+  "semicircle": [
+    {
+      "id": "body",
+      "color": "#9B5CE0",
+      "number": 1
+    }
+  ],
+  "trapezoid": [
+    {
+      "id": "body",
+      "color": "#F08BB4",
+      "number": 1
+    }
+  ],
+  "ring": [
+    {
+      "id": "ring",
+      "color": "#5FC7C0",
+      "number": 1
+    }
+  ],
+  "egg": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    }
+  ],
+  "cloudshape": [
+    {
+      "id": "body",
+      "color": "#D7EAF7",
+      "number": 1
+    }
+  ],
+  "sun": [
+    {
+      "id": "disc",
+      "color": "#FFC53D",
+      "number": 1
+    }
+  ],
+  "cloud": [
+    {
+      "id": "cloud",
+      "color": "#D7EAF7",
+      "number": 1
+    }
+  ],
+  "rainbow": [
+    {
+      "id": "outer",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "middle",
+      "color": "#FFC53D",
+      "number": 2
+    },
+    {
+      "id": "inner",
+      "color": "#4E86E8",
+      "number": 3
+    }
+  ],
+  "raindrop": [
+    {
+      "id": "drop",
+      "color": "#4E86E8",
+      "number": 1
+    }
+  ],
+  "moon": [
+    {
+      "id": "moon",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "stars",
+      "color": "#F0B429",
+      "number": 2
+    }
+  ],
+  "tree": [
+    {
+      "id": "crown",
+      "color": "#4EA55F",
+      "number": 1
+    },
+    {
+      "id": "trunk",
+      "color": "#8B5E3C",
+      "number": 2
+    },
+    {
+      "id": "apples",
+      "color": "#E4443B",
+      "number": 3
+    }
+  ],
+  "firtree": [
+    {
+      "id": "tree",
+      "color": "#4EA55F",
+      "number": 1
+    },
+    {
+      "id": "trunk",
+      "color": "#8B5E3C",
+      "number": 2
+    },
+    {
+      "id": "star",
+      "color": "#FFC53D",
+      "number": 3
+    }
+  ],
+  "palm": [
+    {
+      "id": "leaves",
+      "color": "#4EA55F",
+      "number": 1
+    },
+    {
+      "id": "coconuts",
+      "color": "#8B5E3C",
+      "number": 2
+    }
+  ],
+  "flower": [
+    {
+      "id": "petals",
+      "color": "#F08BB4",
+      "number": 1
+    },
+    {
+      "id": "center",
+      "color": "#FFC53D",
+      "number": 2
+    },
+    {
+      "id": "leaves",
+      "color": "#4EA55F",
+      "number": 3
+    }
+  ],
+  "tulip": [
+    {
+      "id": "cup",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "leaves",
+      "color": "#4EA55F",
+      "number": 2
+    }
+  ],
+  "sunflower": [
+    {
+      "id": "petals",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "center",
+      "color": "#8B5E3C",
+      "number": 2
+    },
+    {
+      "id": "leaf",
+      "color": "#4EA55F",
+      "number": 3
+    }
+  ],
+  "mushroom": [
+    {
+      "id": "cap",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "stem",
+      "color": "#EDE6F5",
+      "number": 2
+    },
+    {
+      "id": "dots",
+      "color": "#FFFFFF",
+      "number": 3
+    }
+  ],
+  "leaf": [
+    {
+      "id": "leaf",
+      "color": "#4EA55F",
+      "number": 1
+    }
+  ],
+  "acorn": [
+    {
+      "id": "nut",
+      "color": "#E0A860",
+      "number": 1
+    },
+    {
+      "id": "cap",
+      "color": "#8B5E3C",
+      "number": 2
+    }
+  ],
+  "cactus": [
+    {
+      "id": "cactus",
+      "color": "#4EA55F",
+      "number": 1
+    },
+    {
+      "id": "pot",
+      "color": "#F5893B",
+      "number": 2
+    },
+    {
+      "id": "flower",
+      "color": "#F08BB4",
+      "number": 3
+    }
+  ],
+  "mountain": [
+    {
+      "id": "mountain",
+      "color": "#A9AFC0",
+      "number": 1
+    },
+    {
+      "id": "snow",
+      "color": "#FFFFFF",
+      "number": 2
+    }
+  ],
+  "shell": [
+    {
+      "id": "shell",
+      "color": "#F08BB4",
+      "number": 1
+    }
+  ],
+  "skystars": [
+    {
+      "id": "stars",
+      "color": "#FFC53D",
+      "number": 1
+    }
+  ],
+  "lightning": [
+    {
+      "id": "bolt",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "cloud",
+      "color": "#A9AFC0",
+      "number": 2
+    }
+  ],
+  "planet": [
+    {
+      "id": "globe",
+      "color": "#9B5CE0",
+      "number": 1
+    },
+    {
+      "id": "ring",
+      "color": "#FFC53D",
+      "number": 2
+    }
+  ],
+  "anthill": [
+    {
+      "id": "stone",
+      "color": "#A9AFC0",
+      "number": 1
+    }
+  ],
+  "ladybug": [
+    {
+      "id": "shell",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "head",
+      "color": "#2A2340",
+      "number": 2
+    },
+    {
+      "id": "spots",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "fish": [
+    {
+      "id": "body",
+      "color": "#5FC7C0",
+      "number": 1
+    },
+    {
+      "id": "tail",
+      "color": "#4E86E8",
+      "number": 2
+    }
+  ],
+  "butterfly": [
+    {
+      "id": "wings-top",
+      "color": "#9B5CE0",
+      "number": 1
+    },
+    {
+      "id": "wings-bottom",
+      "color": "#F08BB4",
+      "number": 2
+    },
+    {
+      "id": "body",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "cat": [
+    {
+      "id": "head",
+      "color": "#F5893B",
+      "number": 1
+    },
+    {
+      "id": "body",
+      "color": "#F5893B",
+      "number": 2
+    },
+    {
+      "id": "eyes",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "dog": [
+    {
+      "id": "head",
+      "color": "#C98A4B",
+      "number": 1
+    },
+    {
+      "id": "ears",
+      "color": "#8B5E3C",
+      "number": 2
+    },
+    {
+      "id": "body",
+      "color": "#C98A4B",
+      "number": 3
+    },
+    {
+      "id": "nose",
+      "color": "#2A2340",
+      "number": 4
+    }
+  ],
+  "bunny": [
+    {
+      "id": "head",
+      "color": "#EDE6F5",
+      "number": 1
+    },
+    {
+      "id": "paws",
+      "color": "#EDE6F5",
+      "number": 2
+    },
+    {
+      "id": "nose",
+      "color": "#F08BB4",
+      "number": 3
+    }
+  ],
+  "bear": [
+    {
+      "id": "head",
+      "color": "#8B5E3C",
+      "number": 1
+    },
+    {
+      "id": "muzzle",
+      "color": "#E0A860",
+      "number": 2
+    },
+    {
+      "id": "nose",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "turtle": [
+    {
+      "id": "shell",
+      "color": "#4EA55F",
+      "number": 1
+    },
+    {
+      "id": "body",
+      "color": "#B7D24A",
+      "number": 2
+    }
+  ],
+  "duck": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "beak",
+      "color": "#F5893B",
+      "number": 2
+    },
+    {
+      "id": "wing",
+      "color": "#F0B429",
+      "number": 3
+    }
+  ],
+  "owl": [
+    {
+      "id": "body",
+      "color": "#8B5E3C",
+      "number": 1
+    },
+    {
+      "id": "eyes",
+      "color": "#FFFFFF",
+      "number": 2
+    },
+    {
+      "id": "beak",
+      "color": "#F5893B",
+      "number": 3
+    }
+  ],
+  "bee": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "wings",
+      "color": "#D7EAF7",
+      "number": 2
+    }
+  ],
+  "snail": [
+    {
+      "id": "shell",
+      "color": "#F5893B",
+      "number": 1
+    },
+    {
+      "id": "body",
+      "color": "#B7D24A",
+      "number": 2
+    }
+  ],
+  "frog": [
+    {
+      "id": "body",
+      "color": "#4EA55F",
+      "number": 1
+    },
+    {
+      "id": "belly",
+      "color": "#B7D24A",
+      "number": 2
+    }
+  ],
+  "penguin": [
+    {
+      "id": "body",
+      "color": "#2A2340",
+      "number": 1
+    },
+    {
+      "id": "belly",
+      "color": "#FFFFFF",
+      "number": 2
+    },
+    {
+      "id": "beak",
+      "color": "#F5893B",
+      "number": 3
+    }
+  ],
+  "elephant": [
+    {
+      "id": "head",
+      "color": "#A9AFC0",
+      "number": 1
+    },
+    {
+      "id": "ears",
+      "color": "#C4C9D6",
+      "number": 2
+    }
+  ],
+  "giraffe": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "spots",
+      "color": "#C98A4B",
+      "number": 2
+    }
+  ],
+  "mouse": [
+    {
+      "id": "head",
+      "color": "#A9AFC0",
+      "number": 1
+    },
+    {
+      "id": "nose",
+      "color": "#F08BB4",
+      "number": 2
+    }
+  ],
+  "pig": [
+    {
+      "id": "head",
+      "color": "#F08BB4",
+      "number": 1
+    },
+    {
+      "id": "snout",
+      "color": "#E77CA5",
+      "number": 2
+    }
+  ],
+  "cow": [
+    {
+      "id": "head",
+      "color": "#FFFFFF",
+      "number": 1
+    },
+    {
+      "id": "spot",
+      "color": "#2A2340",
+      "number": 2
+    },
+    {
+      "id": "muzzle",
+      "color": "#F08BB4",
+      "number": 3
+    }
+  ],
+  "sheep": [
+    {
+      "id": "wool",
+      "color": "#EDE6F5",
+      "number": 1
+    },
+    {
+      "id": "face",
+      "color": "#2A2340",
+      "number": 2
+    }
+  ],
+  "chick": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "beak",
+      "color": "#F5893B",
+      "number": 2
+    },
+    {
+      "id": "wing",
+      "color": "#F0B429",
+      "number": 3
+    }
+  ],
+  "crab": [
+    {
+      "id": "body",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "claws",
+      "color": "#F5893B",
+      "number": 2
+    }
+  ],
+  "whale": [
+    {
+      "id": "body",
+      "color": "#4E86E8",
+      "number": 1
+    },
+    {
+      "id": "belly",
+      "color": "#D7EAF7",
+      "number": 2
+    }
+  ],
+  "fox": [
+    {
+      "id": "head",
+      "color": "#F5893B",
+      "number": 1
+    },
+    {
+      "id": "muzzle",
+      "color": "#FFFFFF",
+      "number": 2
+    },
+    {
+      "id": "nose",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "apple": [
+    {
+      "id": "body",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "leaf",
+      "color": "#4EA55F",
+      "number": 2
+    }
+  ],
+  "pear": [
+    {
+      "id": "body",
+      "color": "#B7D24A",
+      "number": 1
+    },
+    {
+      "id": "leaf",
+      "color": "#4EA55F",
+      "number": 2
+    }
+  ],
+  "banana": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    }
+  ],
+  "cherries": [
+    {
+      "id": "berries",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "leaf",
+      "color": "#4EA55F",
+      "number": 2
+    }
+  ],
+  "watermelon": [
+    {
+      "id": "rind",
+      "color": "#4EA55F",
+      "number": 1
+    },
+    {
+      "id": "flesh",
+      "color": "#E4443B",
+      "number": 2
+    },
+    {
+      "id": "seeds",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "strawberry": [
+    {
+      "id": "body",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "leaves",
+      "color": "#4EA55F",
+      "number": 2
+    }
+  ],
+  "grapes": [
+    {
+      "id": "berries",
+      "color": "#9B5CE0",
+      "number": 1
+    },
+    {
+      "id": "leaf",
+      "color": "#4EA55F",
+      "number": 2
+    }
+  ],
+  "orange": [
+    {
+      "id": "body",
+      "color": "#F5893B",
+      "number": 1
+    },
+    {
+      "id": "leaf",
+      "color": "#4EA55F",
+      "number": 2
+    }
+  ],
+  "lemon": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "leaf",
+      "color": "#4EA55F",
+      "number": 2
+    }
+  ],
+  "icecream": [
+    {
+      "id": "cone",
+      "color": "#C98A4B",
+      "number": 1
+    },
+    {
+      "id": "scoops",
+      "color": "#F08BB4",
+      "number": 2
+    },
+    {
+      "id": "cherry",
+      "color": "#E4443B",
+      "number": 3
+    }
+  ],
+  "popsicle": [
+    {
+      "id": "body",
+      "color": "#F08BB4",
+      "number": 1
+    },
+    {
+      "id": "stick",
+      "color": "#C98A4B",
+      "number": 2
+    }
+  ],
+  "cupcake": [
+    {
+      "id": "cup",
+      "color": "#F5893B",
+      "number": 1
+    },
+    {
+      "id": "cream",
+      "color": "#F08BB4",
+      "number": 2
+    },
+    {
+      "id": "cherry",
+      "color": "#E4443B",
+      "number": 3
+    }
+  ],
+  "donut": [
+    {
+      "id": "dough",
+      "color": "#C98A4B",
+      "number": 1
+    },
+    {
+      "id": "glaze",
+      "color": "#F08BB4",
+      "number": 2
+    }
+  ],
+  "cookie": [
+    {
+      "id": "body",
+      "color": "#E0A860",
+      "number": 1
+    },
+    {
+      "id": "chips",
+      "color": "#6B4423",
+      "number": 2
+    }
+  ],
+  "candy": [
+    {
+      "id": "body",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "wrappers",
+      "color": "#F08BB4",
+      "number": 2
+    }
+  ],
+  "lollipop": [
+    {
+      "id": "head",
+      "color": "#F08BB4",
+      "number": 1
+    },
+    {
+      "id": "stick",
+      "color": "#FFFFFF",
+      "number": 2
+    }
+  ],
+  "pizza": [
+    {
+      "id": "crust",
+      "color": "#E0A860",
+      "number": 1
+    },
+    {
+      "id": "cheese",
+      "color": "#FFC53D",
+      "number": 2
+    },
+    {
+      "id": "toppings",
+      "color": "#E4443B",
+      "number": 3
+    }
+  ],
+  "cake": [
+    {
+      "id": "base",
+      "color": "#F08BB4",
+      "number": 1
+    },
+    {
+      "id": "top",
+      "color": "#FFC53D",
+      "number": 2
+    },
+    {
+      "id": "flame",
+      "color": "#F5893B",
+      "number": 3
+    }
+  ],
+  "croissant": [
+    {
+      "id": "body",
+      "color": "#E0A860",
+      "number": 1
+    }
+  ],
+  "carrot": [
+    {
+      "id": "body",
+      "color": "#F5893B",
+      "number": 1
+    },
+    {
+      "id": "leaves",
+      "color": "#4EA55F",
+      "number": 2
+    }
+  ],
+  "corn": [
+    {
+      "id": "cob",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "husk",
+      "color": "#4EA55F",
+      "number": 2
+    }
+  ],
+  "juice": [
+    {
+      "id": "box",
+      "color": "#F5893B",
+      "number": 1
+    },
+    {
+      "id": "label",
+      "color": "#FFFFFF",
+      "number": 2
+    },
+    {
+      "id": "fruit",
+      "color": "#FFC53D",
+      "number": 3
+    }
+  ],
+  "house": [
+    {
+      "id": "walls",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "roof",
+      "color": "#E4443B",
+      "number": 2
+    },
+    {
+      "id": "door",
+      "color": "#8B5E3C",
+      "number": 3
+    },
+    {
+      "id": "windows",
+      "color": "#4E86E8",
+      "number": 4
+    }
+  ],
+  "castle": [
+    {
+      "id": "stone",
+      "color": "#C4C9D6",
+      "number": 1
+    },
+    {
+      "id": "roofs",
+      "color": "#9B5CE0",
+      "number": 2
+    },
+    {
+      "id": "gate",
+      "color": "#8B5E3C",
+      "number": 3
+    }
+  ],
+  "umbrella": [
+    {
+      "id": "canopy",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "handle",
+      "color": "#8B5E3C",
+      "number": 2
+    }
+  ],
+  "cup": [
+    {
+      "id": "cup",
+      "color": "#4E86E8",
+      "number": 1
+    },
+    {
+      "id": "drink",
+      "color": "#8B5E3C",
+      "number": 2
+    }
+  ],
+  "teapot": [
+    {
+      "id": "body",
+      "color": "#F08BB4",
+      "number": 1
+    },
+    {
+      "id": "lid",
+      "color": "#E77CA5",
+      "number": 2
+    }
+  ],
+  "clock": [
+    {
+      "id": "case",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "face",
+      "color": "#FFFFFF",
+      "number": 2
+    }
+  ],
+  "key": [
+    {
+      "id": "key",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "hole",
+      "color": "#FFFFFF",
+      "number": 2
+    }
+  ],
+  "lamp": [
+    {
+      "id": "shade",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "stand",
+      "color": "#2A2340",
+      "number": 2
+    }
+  ],
+  "bed": [
+    {
+      "id": "frame",
+      "color": "#8B5E3C",
+      "number": 1
+    },
+    {
+      "id": "blanket",
+      "color": "#4E86E8",
+      "number": 2
+    },
+    {
+      "id": "pillow",
+      "color": "#FFFFFF",
+      "number": 3
+    }
+  ],
+  "chair": [
+    {
+      "id": "chair",
+      "color": "#C98A4B",
+      "number": 1
+    }
+  ],
+  "door": [
+    {
+      "id": "door",
+      "color": "#8B5E3C",
+      "number": 1
+    },
+    {
+      "id": "panels",
+      "color": "#C98A4B",
+      "number": 2
+    },
+    {
+      "id": "handle",
+      "color": "#FFC53D",
+      "number": 3
+    }
+  ],
+  "window": [
+    {
+      "id": "glass",
+      "color": "#D7EAF7",
+      "number": 1
+    },
+    {
+      "id": "frame",
+      "color": "#8B5E3C",
+      "number": 2
+    }
+  ],
+  "book": [
+    {
+      "id": "pages",
+      "color": "#FFFFFF",
+      "number": 1
+    },
+    {
+      "id": "cover",
+      "color": "#E4443B",
+      "number": 2
+    }
+  ],
+  "backpack": [
+    {
+      "id": "body",
+      "color": "#4E86E8",
+      "number": 1
+    },
+    {
+      "id": "pocket",
+      "color": "#FFC53D",
+      "number": 2
+    }
+  ],
+  "ball": [
+    {
+      "id": "ball",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "stripe",
+      "color": "#FFFFFF",
+      "number": 2
+    }
+  ],
+  "kite": [
+    {
+      "id": "top",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "right",
+      "color": "#FFC53D",
+      "number": 2
+    },
+    {
+      "id": "left",
+      "color": "#4E86E8",
+      "number": 3
+    },
+    {
+      "id": "bottom",
+      "color": "#4EA55F",
+      "number": 4
+    }
+  ],
+  "balloon": [
+    {
+      "id": "balloon",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "knot",
+      "color": "#C0342C",
+      "number": 2
+    }
+  ],
+  "gift": [
+    {
+      "id": "box",
+      "color": "#4E86E8",
+      "number": 1
+    },
+    {
+      "id": "ribbon",
+      "color": "#FFC53D",
+      "number": 2
+    }
+  ],
+  "candle": [
+    {
+      "id": "body",
+      "color": "#F08BB4",
+      "number": 1
+    },
+    {
+      "id": "flame",
+      "color": "#FFC53D",
+      "number": 2
+    }
+  ],
+  "vase": [
+    {
+      "id": "vase",
+      "color": "#5FC7C0",
+      "number": 1
+    },
+    {
+      "id": "pattern",
+      "color": "#FFC53D",
+      "number": 2
+    }
+  ],
+  "car": [
+    {
+      "id": "body",
+      "color": "#4E86E8",
+      "number": 1
+    },
+    {
+      "id": "cabin",
+      "color": "#8FC0FA",
+      "number": 2
+    },
+    {
+      "id": "wheels",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "bus": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "windows",
+      "color": "#D7EAF7",
+      "number": 2
+    },
+    {
+      "id": "wheels",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "truck": [
+    {
+      "id": "trailer",
+      "color": "#4EA55F",
+      "number": 1
+    },
+    {
+      "id": "cabin",
+      "color": "#E4443B",
+      "number": 2
+    },
+    {
+      "id": "wheels",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "tractor": [
+    {
+      "id": "body",
+      "color": "#4EA55F",
+      "number": 1
+    },
+    {
+      "id": "wheels",
+      "color": "#2A2340",
+      "number": 2
+    }
+  ],
+  "boat": [
+    {
+      "id": "hull",
+      "color": "#8B5E3C",
+      "number": 1
+    },
+    {
+      "id": "sail-right",
+      "color": "#E4443B",
+      "number": 2
+    },
+    {
+      "id": "sail-left",
+      "color": "#FFFFFF",
+      "number": 3
+    }
+  ],
+  "ship": [
+    {
+      "id": "hull",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "deck",
+      "color": "#FFFFFF",
+      "number": 2
+    },
+    {
+      "id": "funnel",
+      "color": "#4E86E8",
+      "number": 3
+    }
+  ],
+  "submarine": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "windows",
+      "color": "#D7EAF7",
+      "number": 2
+    }
+  ],
+  "rocket": [
+    {
+      "id": "body",
+      "color": "#FFFFFF",
+      "number": 1
+    },
+    {
+      "id": "fins",
+      "color": "#E4443B",
+      "number": 2
+    },
+    {
+      "id": "window",
+      "color": "#4E86E8",
+      "number": 3
+    },
+    {
+      "id": "flame",
+      "color": "#F5893B",
+      "number": 4
+    }
+  ],
+  "plane": [
+    {
+      "id": "body",
+      "color": "#FFFFFF",
+      "number": 1
+    },
+    {
+      "id": "wings",
+      "color": "#4E86E8",
+      "number": 2
+    }
+  ],
+  "helicopter": [
+    {
+      "id": "body",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "window",
+      "color": "#D7EAF7",
+      "number": 2
+    }
+  ],
+  "train": [
+    {
+      "id": "engine",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "cabin",
+      "color": "#4E86E8",
+      "number": 2
+    },
+    {
+      "id": "wheels",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "bike": [
+    {
+      "id": "wheels",
+      "color": "#D7EAF7",
+      "number": 1
+    },
+    {
+      "id": "seat",
+      "color": "#2A2340",
+      "number": 2
+    }
+  ],
+  "scooter": [
+    {
+      "id": "frame",
+      "color": "#9B5CE0",
+      "number": 1
+    },
+    {
+      "id": "wheels",
+      "color": "#2A2340",
+      "number": 2
+    }
+  ],
+  "motorbike": [
+    {
+      "id": "wheels",
+      "color": "#2A2340",
+      "number": 1
+    },
+    {
+      "id": "body",
+      "color": "#E4443B",
+      "number": 2
+    }
+  ],
+  "ambulance": [
+    {
+      "id": "body",
+      "color": "#FFFFFF",
+      "number": 1
+    },
+    {
+      "id": "cross",
+      "color": "#E4443B",
+      "number": 2
+    },
+    {
+      "id": "wheels",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "firetruck": [
+    {
+      "id": "body",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "ladder",
+      "color": "#C4C9D6",
+      "number": 2
+    },
+    {
+      "id": "wheels",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "hotairballoon": [
+    {
+      "id": "left",
+      "color": "#E4443B",
+      "number": 1
+    },
+    {
+      "id": "right",
+      "color": "#FFC53D",
+      "number": 2
+    },
+    {
+      "id": "basket",
+      "color": "#8B5E3C",
+      "number": 3
+    }
+  ],
+  "taxi": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "wheels",
+      "color": "#2A2340",
+      "number": 2
+    }
+  ],
+  "digger": [
+    {
+      "id": "body",
+      "color": "#FFC53D",
+      "number": 1
+    },
+    {
+      "id": "bucket",
+      "color": "#F5893B",
+      "number": 2
+    },
+    {
+      "id": "tracks",
+      "color": "#2A2340",
+      "number": 3
+    }
+  ],
+  "sled": [
+    {
+      "id": "sled",
+      "color": "#E4443B",
+      "number": 1
+    }
+  ]
+}

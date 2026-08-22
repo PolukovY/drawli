@@ -404,9 +404,14 @@ src/
   pages/      HomePage, DrawingPage, FreeDrawPage, SpellGamePage,
               GuessGamePage, ArticleGamePage, MyDrawingsPage, ProgressPage,
               SettingsPage, OnboardingPage
+  pages/games/ по одному файлу на гру: пропущені букви, лічба, порівняння,
+              зайвий, літери, пари, розфарбовування за номерами, плутанина,
+              лічба з олівцем, симетрія, памʼять, слухання
   components/ DrawingCanvas, DrawingToolbar, ColorPalette, GuideLayer,
               ColoringLayer, StepPreview, CoachMarks, CompletionScreen, Icon
   audio/      sounds.ts — Web Audio effects, no asset files
+  games/      GameShell (рамка), useGameSession (раунди, зірочки,
+              автоперехід), useGameContent (каталог для ігор), catalogue.ts
   drawing/    DrawingEngine.ts, DrawingDocument.ts, thumbnail.ts,
               history/HistoryManager.ts
   exercise/   Exercise.ts (типи), ExerciseLoader.ts (fetch + кеш у пам'яті)

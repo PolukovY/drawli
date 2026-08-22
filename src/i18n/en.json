@@ -527,7 +527,10 @@
     "memoryTrace": "Trace from memory",
     "memoryTraceHint": "Remember the outline, then draw it",
     "listen": "Listen and spell",
-    "listenHint": "Listen to the word and build it"
+    "listenHint": "Listen to the word and build it",
+    "memoryTraceLook": "Look closely and remember",
+    "listenPeek": "Show the picture",
+    "listenNoVoice": "This device cannot speak the words"
   },
   "free": {
     "title": "Blank sheet",

@@ -73,9 +73,9 @@ export function OddOneOutPage() {
             {current.choices.map((choice) => (
               <button
                 key={choice.id}
-                className={`game-card ${
-                  game.solved && choice.id === current.odd.id ? 'game-card--ok' : ''
-                } ${wrong.includes(choice.id) ? 'game-card--off' : ''}`}
+                className={`choice-card ${
+                  game.solved && choice.id === current.odd.id ? 'choice-card--ok' : ''
+                } ${wrong.includes(choice.id) ? 'choice-card--off' : ''}`}
                 onClick={() => pick(choice.id)}
                 disabled={game.solved || wrong.includes(choice.id)}
               >

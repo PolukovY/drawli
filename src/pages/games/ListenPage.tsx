@@ -1,0 +1,169 @@
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
+import { assetUrl, type WordLanguage } from '../../exercise/ExerciseLoader'
+import { GameShell } from '../../games/GameShell'
+import { useGameContent } from '../../games/useGameContent'
+import { useGameSession } from '../../games/useGameSession'
+import { shuffle } from '../../games/shuffle'
+import { playSound } from '../../audio/sounds'
+import { Icon } from '../../components/Icon'
+import './ListenPage.css'
+
+const ROUNDS = 5
+const MAX_WORD = 7
+
+const LANGUAGE_LABELS: Record<WordLanguage, string> = {
+  uk: 'Українська', en: 'English', es: 'Español',
+}
+
+const VOICE_LOCALE: Record<WordLanguage, string> = {
+  uk: 'uk-UA', en: 'en-US', es: 'es-ES',
+}
+
+interface Round {
+  word: string
+  thumbnail: string
+  tiles: string[]
+}
+
+/** Hear the word, then build it. The picture is the safety net, not the prompt. */
+export function ListenPage() {
+  const [search] = useSearchParams()
+  const { t } = useTranslation()
+  const requested = search.get('lang')
+  const language: WordLanguage = requested === 'en' || requested === 'es' ? requested : 'uk'
+
+  const content = useGameContent(language)
+  const [seed, setSeed] = useState(1)
+  const [typed, setTyped] = useState<string[]>([])
+  const [used, setUsed] = useState<number[]>([])
+  const [revealed, setRevealed] = useState(false)
+
+  const speech = typeof window !== 'undefined' && 'speechSynthesis' in window
+
+  const rounds = useMemo<Round[]>(() => {
+    if (!content.ready) return []
+    const candidates = content.pictures
+      .map((picture) => ({ picture, word: (content.words[picture.id] ?? '').toUpperCase() }))
+      .filter(({ word }) => /^[^\s·]+$/u.test(word) && word.length >= 3 && word.length <= MAX_WORD)
+
+    return shuffle(candidates, seed).slice(0, ROUNDS).map(({ picture, word }, i) => {
+      const spare = shuffle(
+        content.letters.filter((letter) => !word.includes(letter)),
+        seed + i * 31,
+      ).slice(0, 3)
+      return {
+        word,
+        thumbnail: picture.thumbnail,
+        tiles: shuffle([...word.split(''), ...spare], seed + i * 47),
+      }
+    })
+  }, [content.ready, content.pictures, content.words, content.letters, seed])
+
+  const game = useGameSession(rounds)
+  const current = game.current
+
+  const say = useCallback((word: string) => {
+    if (!speech || !word) return
+    const utterance = new SpeechSynthesisUtterance(word.toLowerCase())
+    utterance.lang = VOICE_LOCALE[language]
+    utterance.rate = 0.8
+    window.speechSynthesis.cancel()
+    window.speechSynthesis.speak(utterance)
+  }, [language, speech])
+
+  useEffect(() => {
+    setTyped([])
+    setUsed([])
+    setRevealed(false)
+    if (current) say(current.word)
+  }, [current, say])
+
+  useEffect(() => () => { if (speech) window.speechSynthesis.cancel() }, [speech])
+
+  const solved = game.solved
+  const solve = game.solve
+  useEffect(() => {
+    if (!current || solved) return
+    if (typed.join('') === current.word) void solve()
+  }, [typed, current, solved, solve])
+
+  function pick(letter: string, index: number) {
+    if (!current || game.solved || used.includes(index)) return
+    const position = typed.length
+    if (current.word[position] !== letter) { game.miss(); return }
+    playSound('tap')
+    setTyped((prev) => [...prev, letter])
+    setUsed((prev) => [...prev, index])
+  }
+
+  return (
+    <GameShell
+      title={t('play.listen')}
+      language={LANGUAGE_LABELS[language]}
+      round={game.round}
+      total={game.total}
+      solved={game.solved}
+      finished={game.finished}
+      earned={game.earned}
+      onPlayAgain={() => { setSeed((s) => s + 67); game.restart() }}
+    >
+      {current ? (
+        <div className="game-board listen">
+          {!speech ? (
+            <div className="muted game-hint">{t('play.listenNoVoice')}</div>
+          ) : null}
+
+          <button className="listen__speaker" onClick={() => say(current.word)}>
+            <Icon name="sound" size={44} color="#fff" width={2.2} />
+          </button>
+
+          <div className="listen__slots">
+            {current.word.split('').map((_letter, index) => (
+              <span key={index} className={`listen__slot ${typed[index] ? 'listen__slot--filled' : ''}`}>
+                {typed[index] ?? ''}
+              </span>
+            ))}
+          </div>
+
+          {game.solved || revealed ? (
+            <div className="listen__picture card">
+              <img src={assetUrl(current.thumbnail)} alt="" />
+            </div>
+          ) : (
+            <button className="btn listen__peek" onClick={() => { playSound('tap'); setRevealed(true) }}>
+              <Icon name="gallery" size={22} color="var(--c-text-soft)" width={2.2} />
+              {t('play.listenPeek')}
+            </button>
+          )}
+
+          {game.solved ? (
+            <button className="btn btn--primary btn--hero game-next" onClick={game.next}>
+              <span className="game-next__fill" />
+              <span className="game-next__label">
+                {t('play.next')}
+                <Icon name="arrow" size={24} color="#fff" width={2.6} />
+              </span>
+            </button>
+          ) : (
+            <div className="listen__tiles">
+              {current.tiles.map((letter, index) => (
+                <button
+                  key={`${letter}-${index}`}
+                  className={`tile-letter ${used.includes(index) ? 'tile-letter--used' : ''}`}
+                  onClick={() => pick(letter, index)}
+                  disabled={used.includes(index)}
+                >
+                  {letter}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="subtitle">{t('play.loading')}</div>
+      )}
+    </GameShell>
+  )
+}

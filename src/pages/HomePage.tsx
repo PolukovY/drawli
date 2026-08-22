@@ -234,8 +234,9 @@ export function HomePage() {
         </div>
       )}
 
-      {/* The blank sheet and the gallery belong to drawing, not to games. */}
-      {mode === 'play' ? null : (
+      {/* The blank sheet, the gallery and progress belong to drawing. Letters,
+          numbers and games get the screen to themselves. */}
+      {mode === 'draw' ? (
       <nav className="home__nav">
         <button className="btn btn--primary" onClick={() => navigate('/free')}>
           <Icon name="pencil" size={26} color="#fff" />
@@ -250,7 +251,7 @@ export function HomePage() {
           {t('nav.progress')}
         </button>
       </nav>
-      )}
+      ) : null}
 
       {showCoach ? (
         <CoachMarks steps={coachSteps} onDone={() => void markTutorialDone('home')} />

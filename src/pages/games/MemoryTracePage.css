@@ -1,0 +1,38 @@
+.trace { flex-grow: 1; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+.trace__stage { position: relative; flex-grow: 1; min-height: 0; }
+
+.trace__picture {
+  position: absolute;
+  inset: 8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.trace__picture svg { width: 100%; height: 100%; }
+/* On the compare step the original returns, faint, behind the child's drawing. */
+.trace__picture--ghost { opacity: 0.3; }
+
+.trace__countdown {
+  position: absolute;
+  right: 20px;
+  top: 16px;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--r-pill);
+  background: var(--c-accent);
+  color: #fff;
+  font-size: 26px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.trace__actions { justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 700px) {
+  .trace__countdown { width: 44px; height: 44px; font-size: 20px; right: 10px; top: 10px; }
+  .trace__actions .game-hint { flex-basis: 100%; text-align: center; }
+}

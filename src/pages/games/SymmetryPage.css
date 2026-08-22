@@ -1,0 +1,38 @@
+.symmetry { flex-grow: 1; display: flex; flex-direction: column; gap: 12px; min-height: 0; }
+
+.symmetry__stage { position: relative; flex-grow: 1; min-height: 0; overflow: hidden; }
+
+.symmetry__half,
+.symmetry__ghost {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.symmetry__half svg,
+.symmetry__ghost svg { width: 100%; height: 100%; }
+
+/* Only the left half is on show — the right is the child's job. */
+.symmetry__half { clip-path: inset(0 50% 0 0); }
+
+/* Once done, the missing half appears faintly so both can be compared. */
+.symmetry__ghost { clip-path: inset(0 0 0 50%); opacity: 0.28; }
+
+.symmetry__axis {
+  position: absolute;
+  left: 50%;
+  top: 6%;
+  bottom: 6%;
+  width: 3px;
+  transform: translateX(-50%);
+  background: repeating-linear-gradient(to bottom, var(--c-accent-border) 0 10px, transparent 10px 20px);
+  pointer-events: none;
+}
+
+.symmetry__actions { justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+@media (max-width: 700px) {
+  .symmetry__actions .game-hint { flex-basis: 100%; text-align: center; }
+}

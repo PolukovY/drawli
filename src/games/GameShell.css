@@ -26,7 +26,7 @@
   max-width: 900px;
 }
 
-.game-card {
+.choice-card {
   background: var(--c-surface);
   border: 3px solid transparent;
   border-radius: var(--r-xl);
@@ -41,16 +41,16 @@
   color: var(--c-text);
   transition: transform 0.1s ease, border-color 0.2s ease, opacity 0.25s ease, background 0.2s ease;
 }
-.game-card:active { transform: scale(0.96); }
-.game-card img { max-width: 100%; max-height: 100%; }
+.choice-card:active { transform: scale(0.96); }
+.choice-card img { max-width: 100%; max-height: 100%; }
 
-.game-card--ok {
+.choice-card--ok {
   border-color: var(--c-success);
   background: var(--c-success-bg);
   animation: game-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 /* A wrong pick steps aside rather than being marked as a mistake. */
-.game-card--off { opacity: 0.28; box-shadow: none; }
+.choice-card--off { opacity: 0.28; box-shadow: none; }
 
 @keyframes game-pop {
   0% { transform: scale(1); }
@@ -75,7 +75,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .game-card--ok, .game-next__fill { animation: none; }
+  .choice-card--ok, .game-next__fill { animation: none; }
 }
 
 @media (max-width: 700px) {
@@ -89,7 +89,7 @@
   .game-prompt { font-size: 28px; }
   .game-hint { font-size: 14px; text-align: center; }
   .game-choices { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .game-card { padding: 8px; border-radius: var(--r-lg); font-size: 30px; }
+  .choice-card { padding: 8px; border-radius: var(--r-lg); font-size: 30px; }
 }
 
 @media (max-height: 500px) and (orientation: landscape) {
