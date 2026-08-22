@@ -130,3 +130,17 @@
   border-radius: var(--r-lg);
 }
 .preview__zoom-art svg { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); }
+
+
+@media (max-width: 700px) {
+  .preview { order: 1; padding: 8px 10px; gap: 10px; border-radius: var(--r-lg); }
+  .preview__art { width: 52px; height: 52px; }
+  .preview__label { font-size: 12px; letter-spacing: 0.4px; }
+  .preview__pip { width: 20px; height: 20px; font-size: 11px; }
+  .preview__zoom-card { padding: 16px; }
+  .preview__zoom-art { width: min(78vw, 52vh); height: min(78vw, 52vh); }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .preview { display: none; }
+}

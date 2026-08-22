@@ -484,7 +484,10 @@
   "mode": {
     "draw": "Draw",
     "write": "Letters & numbers",
-    "play": "Games"
+    "play": "Games",
+    "drawShort": "Draw",
+    "writeShort": "Letters",
+    "playShort": "Games"
   },
   "play": {
     "title": "What shall we play?",
@@ -493,7 +496,9 @@
     "next": "Next",
     "finished": "Game complete!",
     "again": "Play again",
-    "loading": "Getting words ready…"
+    "loading": "Getting words ready…",
+    "guess": "Find the picture",
+    "guessHint": "Tap the picture with this name"
   },
   "free": {
     "title": "Blank sheet",

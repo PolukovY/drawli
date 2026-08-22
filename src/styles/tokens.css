@@ -58,4 +58,32 @@
   --tap-hero: 72px;
 
   --font: Nunito, "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+
+  /* Notch and home indicator; zero on everything that has neither. */
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Phones: a 393px screen cannot carry tablet spacing, but a finger still
+   needs 44px minimum — Apple's floor, not a number we may shave. */
+@media (max-width: 700px) {
+  :root {
+    --tap-min: 44px;
+    --tap-primary: 52px;
+    --tap-hero: 56px;
+    --r-2xl: 22px;
+    --r-xl: 20px;
+    --r-lg: 16px;
+  }
+}
+
+/* Phone held sideways: height is the scarce resource. */
+@media (max-height: 500px) and (orientation: landscape) {
+  :root {
+    --tap-min: 42px;
+    --tap-primary: 46px;
+    --tap-hero: 48px;
+  }
 }

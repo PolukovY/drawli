@@ -94,3 +94,27 @@
   .spell__board { flex-direction: column; }
   .spell__picture { width: auto; max-height: 200px; }
 }
+
+
+@media (max-width: 700px) {
+  .spell { gap: 10px; }
+  .spell > header .title { font-size: 16px; white-space: nowrap; }
+  .spell > header .muted { white-space: nowrap; font-size: 14px; }
+  .spell > header .chip { font-size: 13px; padding: 0 10px; }
+  .spell__board { flex-direction: column; gap: 12px; align-items: center; }
+  .spell__picture { width: 150px; height: 150px; padding: 10px; }
+  .spell__right { max-width: 100%; gap: 14px; align-items: center; }
+  .spell__slots { justify-content: center; gap: 8px; }
+  .slot { width: 48px; height: 60px; min-height: 60px; font-size: 28px; border-radius: 14px; }
+  .spell__tiles { justify-content: center; gap: 8px; }
+  .tile-letter { width: 48px; height: 48px; min-height: 48px; font-size: 24px; border-radius: 14px; }
+  .spell__win { align-items: center; }
+  .spell__word { font-size: 24px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .spell__board { flex-direction: row; gap: 16px; }
+  .spell__picture { width: 130px; height: 130px; }
+  .slot { width: 42px; height: 52px; min-height: 52px; font-size: 24px; }
+  .tile-letter { width: 42px; height: 42px; min-height: 42px; font-size: 20px; }
+}

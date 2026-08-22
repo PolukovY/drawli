@@ -17,3 +17,9 @@
 }
 .paint:active { transform: scale(0.9); }
 .paint--on { box-shadow: 0 0 0 4px var(--c-surface), 0 0 0 8px currentColor; }
+
+
+@media (max-width: 700px) {
+  .palette { gap: 8px; padding: 8px; }
+  .paint { width: 40px; height: 40px; min-height: 40px; }
+}

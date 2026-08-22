@@ -320,6 +320,7 @@ graph LR
     home["/<br/>бібліотека"] --> draw["/draw/:exerciseId<br/>вправа по кроках"]
     home --> free["/free<br/>чистий аркуш"]
     home --> spell["/spell?lang=uk · en · es<br/>склади слово"]
+    home --> guess["/guess?lang=uk · en · es<br/>знайди малюнок"]
     home --> gallery["/drawings<br/>мої малюнки"]
     home --> progress["/progress<br/>прогрес і зірочки"]
     home --> settings["/settings<br/>налаштування, бекап"]
@@ -385,7 +386,8 @@ graph LR
 src/
   app/        App.tsx (гейт старту), router.tsx, store.ts
   pages/      HomePage, DrawingPage, FreeDrawPage, SpellGamePage,
-              MyDrawingsPage, ProgressPage, SettingsPage, OnboardingPage
+              GuessGamePage, MyDrawingsPage, ProgressPage, SettingsPage,
+              OnboardingPage
   components/ DrawingCanvas, DrawingToolbar, ColorPalette, GuideLayer,
               ColoringLayer, StepPreview, CoachMarks, CompletionScreen, Icon
   drawing/    DrawingEngine.ts, DrawingDocument.ts, thumbnail.ts,

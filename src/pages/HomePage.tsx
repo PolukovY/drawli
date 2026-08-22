@@ -86,9 +86,11 @@ export function HomePage() {
             <Icon name="pencil" size={24} color="#fff" />
           </div>
           <div>
-            <div style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.5px' }}>Drawli</div>
+            <div className="home__brand" style={{ fontSize: 26, fontWeight: 800, letterSpacing: '-0.5px' }}>
+              Drawli
+            </div>
             {settings ? (
-              <div className="muted" style={{ fontSize: 15 }}>
+              <div className="muted home__greeting" style={{ fontSize: 15 }}>
                 {t('home.greeting', { name: settings.childName })}
               </div>
             ) : null}
@@ -130,26 +132,29 @@ export function HomePage() {
       <div className="mode-tabs">
         <button className={`mode-tab ${mode === 'draw' ? 'mode-tab--on' : ''}`} onClick={() => switchMode('draw')}>
           <Icon name="pencil" size={24} color={mode === 'draw' ? '#fff' : 'var(--c-text-muted)'} />
-          {t('mode.draw')}
+          <span className="mode-tab__full">{t('mode.draw')}</span>
+          <span className="mode-tab__short">{t('mode.drawShort')}</span>
         </button>
         <button className={`mode-tab ${mode === 'write' ? 'mode-tab--on' : ''}`} onClick={() => switchMode('write')}>
           <span className="mode-tab__glyph">Aa1</span>
-          {t('mode.write')}
+          <span className="mode-tab__full">{t('mode.write')}</span>
+          <span className="mode-tab__short">{t('mode.writeShort')}</span>
         </button>
         <button className={`mode-tab ${mode === 'play' ? 'mode-tab--on' : ''}`} onClick={() => switchMode('play')}>
           <Icon name="star" size={24} color={mode === 'play' ? '#fff' : 'var(--c-text-muted)'} filled={mode === 'play'} />
-          {t('mode.play')}
+          <span className="mode-tab__full">{t('mode.play')}</span>
+          <span className="mode-tab__short">{t('mode.playShort')}</span>
         </button>
       </div>
 
-      <div className="row" style={{ gap: 12 }}>
-        <div className="title grow">
+      <div className="row home__head" style={{ gap: 12 }}>
+        <div className="title grow home__question">
           {mode === 'play' ? t('play.title') : mode === 'write' ? t('home.writeQuestion') : t('home.question')}
         </div>
         {/* Games do not have categories — the choice that matters there is
             which language the child wants to spell in. */}
         {mode === 'play' ? (
-          <div className="home__categories">
+          <div className="home__categories scroll-row">
             {PLAY_LANGUAGES.map((lang) => (
               <button
                 key={lang.id}
@@ -161,7 +166,7 @@ export function HomePage() {
             ))}
           </div>
         ) : (
-          <div className="home__categories">
+          <div className="home__categories scroll-row">
             <button className={`chip ${category === 'all' ? 'chip--on' : ''}`} onClick={() => setCategory('all')}>
               {t('home.all')}
             </button>
@@ -183,6 +188,14 @@ export function HomePage() {
           <button className="exercise-card game-card" onClick={() => navigate(`/spell?lang=${playLanguage}`)}>
             <span className="game-card__art">🔤</span>
             <span>{t('play.spell')}</span>
+            <span className="muted" style={{ fontSize: 15, fontWeight: 600 }}>
+              {PLAY_LANGUAGES.find((l) => l.id === playLanguage)?.label}
+            </span>
+          </button>
+
+          <button className="exercise-card game-card" onClick={() => navigate(`/guess?lang=${playLanguage}`)}>
+            <span className="game-card__art">🔍</span>
+            <span>{t('play.guess')}</span>
             <span className="muted" style={{ fontSize: 15, fontWeight: 600 }}>
               {PLAY_LANGUAGES.find((l) => l.id === playLanguage)?.label}
             </span>

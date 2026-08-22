@@ -67,3 +67,10 @@
 @media (prefers-reduced-motion: reduce) {
   .coach, .coach__card, .coach__hand { animation: none; }
 }
+
+
+@media (max-width: 700px) {
+  .coach__card { width: min(380px, calc(100vw - 24px)); padding: 16px 18px; gap: 10px; }
+  .coach__title { font-size: 18px; }
+  .coach__text { font-size: 15px; }
+}

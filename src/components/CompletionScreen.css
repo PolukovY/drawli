@@ -55,3 +55,20 @@
 @media (prefers-reduced-motion: reduce) {
   .confetti span { animation: none; opacity: 0.9; }
 }
+
+
+@media (max-width: 700px) {
+  .completion { gap: 12px; padding: 0 16px; }
+  .completion__title { font-size: 26px; }
+  .completion__frame { width: 200px; height: 176px; border-radius: 24px; }
+  .completion__stars { font-size: 20px; padding: 10px 20px; }
+  .completion__stars svg { width: 26px; height: 26px; }
+  .completion .row { flex-direction: column; width: 100%; max-width: 320px; }
+  .completion .btn { width: 100%; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .completion__title { font-size: 22px; }
+  .completion__frame { width: 130px; height: 120px; }
+  .completion .row { flex-direction: row; }
+}

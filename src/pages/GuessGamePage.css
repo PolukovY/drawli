@@ -1,0 +1,78 @@
+.guess { gap: 14px; }
+
+.guess__board {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 0;
+}
+
+.guess__word {
+  font-size: 46px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--c-accent);
+}
+
+.guess__hint { font-size: 17px; }
+
+.guess__choices {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.guess-card {
+  background: var(--c-surface);
+  border: 3px solid transparent;
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-raised);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  transition: transform 0.1s ease, border-color 0.2s ease, opacity 0.25s ease;
+}
+.guess-card:active { transform: scale(0.96); }
+.guess-card img { max-width: 100%; max-height: 100%; }
+
+.guess-card--ok {
+  border-color: var(--c-success);
+  background: var(--c-success-bg);
+  animation: guess-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* A wrong pick fades out of the way instead of scolding the child. */
+.guess-card--off { opacity: 0.3; box-shadow: none; }
+
+@keyframes guess-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guess-card--ok { animation: none; }
+}
+
+@media (max-width: 700px) {
+  .guess > header .title { font-size: 16px; white-space: nowrap; }
+  .guess > header .muted { white-space: nowrap; font-size: 14px; }
+  .guess > header .chip { font-size: 13px; padding: 0 10px; }
+  .guess__word { font-size: 30px; }
+  .guess__hint { font-size: 14px; text-align: center; }
+  .guess__choices { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .guess-card { padding: 8px; border-radius: var(--r-lg); }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .guess__word { font-size: 26px; }
+  .guess__hint { display: none; }
+  .guess__choices { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+}

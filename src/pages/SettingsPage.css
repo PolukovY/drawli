@@ -65,3 +65,21 @@
 }
 .switch--on { background: var(--c-success); }
 .switch--on span { transform: translateX(44px); }
+
+
+@media (max-width: 700px) {
+  .settings-list { gap: 10px; }
+  .setting { flex-wrap: wrap; gap: 12px; padding: 12px 14px; }
+  .setting__icon { width: 42px; height: 42px; border-radius: 14px; }
+  .setting__icon svg { width: 22px; height: 22px; }
+  .setting__title { font-size: 16px; }
+  .setting .muted { font-size: 14px; }
+  /* Controls drop to their own line rather than squeezing the label out. */
+  .setting > .row,
+  .setting__input { flex-basis: 100%; width: 100%; }
+  .setting > .row { justify-content: stretch; }
+  .setting > .row .btn { flex: 1 1 0; }
+  .switch { width: 76px; height: 44px; min-height: 44px; }
+  .switch span { width: 34px; height: 34px; }
+  .switch--on span { transform: translateX(32px); }
+}

@@ -77,6 +77,7 @@
 }
 
 .mode-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+.mode-tab__short { display: none; }
 
 /* Narrow tablets: shorter labels, so the three modes always fit on one line. */
 @media (max-width: 900px) {
@@ -124,4 +125,72 @@
   align-items: center;
   justify-content: center;
   box-shadow: 0 8px 20px rgba(124, 92, 255, 0.32);
+}
+
+
+/* ── Phones ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 700px) {
+  .home { gap: 8px; }
+
+  .home__logo { width: 36px; height: 36px; border-radius: 12px; }
+  .home__brand { font-size: 20px; }
+  /* The greeting is a nicety; on a 393px header it costs a whole line. */
+  .home__greeting { display: none; }
+
+  .mode-tabs { flex-wrap: nowrap; gap: 6px; }
+  .mode-tab { height: var(--tap-primary); padding: 0 12px; font-size: 14px; gap: 6px; flex: 1 1 0; justify-content: center; }
+  .mode-tab svg { width: 20px; height: 20px; }
+  .mode-tab__glyph { font-size: 15px; }
+  /* "Літери й цифри" wraps to two lines on a 393px screen; the short label
+     says the same thing in one. */
+  .mode-tab__full { display: none; }
+  .mode-tab__short { display: inline; }
+
+  /* Title above the chips: side by side, each gets half a phone and both lose. */
+  .home__head { flex-direction: column; align-items: stretch; gap: 8px; }
+  .home__question { font-size: 17px; }
+  .home__categories { max-width: 100%; }
+
+  .home__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .exercise-card { min-height: 116px; padding: 10px; font-size: 15px; gap: 6px; }
+  .exercise-card img { width: 52px; height: 52px; }
+  .exercise-card__glyph { font-size: 44px; }
+  .free-card__art { width: 52px; height: 52px; border-radius: 14px; }
+  .free-card__art svg { width: 28px; height: 28px; }
+
+  .resume { padding: 8px 10px; gap: 10px; border-radius: var(--r-lg); }
+  .resume__thumb { width: 40px; height: 40px; }
+  .resume__thumb img { width: 30px; height: 30px; }
+  .resume__title { font-size: 15px; }
+  .resume .btn { padding: 0 14px; font-size: 14px; }
+
+  /* Three equal buttons that always fit, labels included. */
+  .home__nav { gap: 8px; }
+  .home__nav .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    padding: 0 8px;
+    font-size: 13px;
+    gap: 6px;
+    height: var(--tap-primary);
+  }
+  .home__nav .btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+  .home__nav .btn { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
+
+/* Phone held sideways: height is what runs out, so everything optional goes. */
+@media (max-height: 500px) and (orientation: landscape) {
+  .home { gap: 6px; }
+  .home__question { display: none; }
+  .resume { display: none; }
+  .exercise-card { min-height: 92px; padding: 8px; font-size: 13px; }
+  .exercise-card img { width: 40px; height: 40px; }
+  .exercise-card__glyph { font-size: 34px; }
+  .home__grid { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+  .home__logo { width: 32px; height: 32px; }
+  .home__brand { font-size: 18px; }
+  .home__greeting { display: none; }
+  .mode-tab { height: 42px; font-size: 13px; }
+  .home__nav .btn { height: 42px; font-size: 13px; }
 }

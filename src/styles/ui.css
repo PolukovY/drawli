@@ -160,3 +160,54 @@
   gap: 20px;
   box-shadow: 0 24px 60px rgba(42, 35, 64, 0.25);
 }
+
+
+/* ── Phones ─────────────────────────────────────────────────────────────── */
+
+@media (max-width: 700px) {
+  .screen {
+    padding: calc(10px + var(--safe-top)) calc(12px + var(--safe-right))
+             calc(10px + var(--safe-bottom)) calc(12px + var(--safe-left));
+    gap: 10px;
+  }
+
+  .center-screen {
+    gap: 14px;
+    padding: calc(12px + var(--safe-top)) 16px calc(12px + var(--safe-bottom));
+  }
+
+  .title { font-size: 19px; }
+  .subtitle { font-size: 16px; }
+
+  .btn { height: var(--tap-primary); padding: 0 18px; font-size: 16px; gap: 8px; }
+  .btn--hero { height: var(--tap-hero); padding: 0 22px; font-size: 17px; }
+
+  .chip { height: 40px; padding: 0 14px; font-size: 14px; min-height: 40px; }
+
+  .star-badge { padding: 8px 14px 8px 10px; font-size: 17px; }
+
+  .name-input { width: 100%; max-width: none; height: 64px; font-size: 24px; }
+
+  .pill-note { font-size: 14px; padding: 10px 16px; text-align: left; }
+
+  .modal {
+    padding: 20px;
+    max-width: calc(100vw - 32px);
+    gap: 14px;
+  }
+}
+
+/* A row of buttons must never be wider than the phone: it scrolls sideways
+   instead of being clipped by the screen's overflow. */
+@media (max-width: 700px) {
+  .scroll-row {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+    -webkit-overflow-scrolling: touch;
+  }
+  .scroll-row::-webkit-scrollbar { display: none; }
+  .scroll-row > * { flex-shrink: 0; }
+}
