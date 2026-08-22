@@ -1,0 +1,115 @@
+{
+  "app": { "name": "Drawli", "tagline": "Learn to Draw" },
+  "onboarding": {
+    "hello": "Hi! I am Drawli",
+    "askName": "What is your name?",
+    "placeholder": "Your name",
+    "start": "Let's go",
+    "privacy": "No sign-up · everything stays on this tablet"
+  },
+  "home": {
+    "greeting": "Hi, {{name}}!",
+    "question": "What shall we draw today?",
+    "resume": "Continue drawing?",
+    "resumeStep": "{{title}} · step {{step}} of {{total}}",
+    "continue": "Continue",
+    "all": "All"
+  },
+  "nav": { "draw": "Draw", "drawings": "My Drawings", "progress": "Progress", "settings": "Settings" },
+  "drawing": {
+    "step": "Step {{step}} of {{total}}",
+    "next": "Next",
+    "done": "Done",
+    "colorTitle": "Color the",
+    "hintDraw": "Trace the grey outline",
+    "hintColor": "Pick a color and tap the drawing",
+    "tool": {
+      "pencil": "Pencil",
+      "brush": "Brush",
+      "fill": "Fill",
+      "eraser": "Eraser",
+      "undo": "Undo",
+      "redo": "Redo"
+    }
+  },
+  "complete": {
+    "title": "Great job, {{name}}!",
+    "subtitle": "You finished your drawing",
+    "stars": "+{{count}} stars",
+    "another": "Choose another drawing",
+    "again": "Draw again"
+  },
+  "gallery": {
+    "title": "My Drawings",
+    "empty": "Your drawings will show up here",
+    "new": "New drawing",
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "inProgress": "In progress",
+    "stepShort": "Step {{step}} of {{total}}",
+    "delete": "Delete",
+    "deleteConfirm": "Delete this drawing?",
+    "cancel": "Cancel"
+  },
+  "progress": {
+    "title": "My Progress",
+    "stars": "stars collected",
+    "completed": "drawings finished",
+    "ofTotal": "{{done}} of {{total}}"
+  },
+  "settings": {
+    "title": "Settings",
+    "name": "Name",
+    "nameHint": "How Drawli greets you",
+    "language": "Language",
+    "sound": "Sound",
+    "backup": "Backup",
+    "backupHint": "Drawings, progress and stars in one file",
+    "export": "Export",
+    "import": "Restore",
+    "reset": "Reset progress",
+    "resetHint": "Needs confirmation",
+    "resetConfirm": "Delete all drawings and progress? This cannot be undone.",
+    "resetDo": "Reset",
+    "cancel": "Cancel",
+    "importConfirm": "Replace all data from this file?",
+    "importSummary": "{{drawings}} drawings · {{stars}} stars",
+    "importDo": "Restore",
+    "importBadFile": "This file does not fit",
+    "privacy": "No sign-up, no ads. Data stays on this tablet."
+  },
+  "category": {
+    "motor": "Motor skills",
+    "shapes": "Shapes",
+    "animals": "Animals",
+    "nature": "Nature",
+    "home": "Home & things",
+    "transport": "Transport",
+    "food": "Treats",
+    "fantasy": "Party & fantasy"
+  },
+  "exercise": {
+    "lines": "Lines",
+    "waves": "Waves",
+    "zigzag": "Zigzag",
+    "loops": "Loops",
+    "circle": "Circle",
+    "square": "Square",
+    "triangle": "Triangle",
+    "star": "Star",
+    "sun": "Sun",
+    "cloud": "Cloud",
+    "flower": "Flower",
+    "tree": "Tree",
+    "apple": "Apple",
+    "icecream": "Ice cream",
+    "ladybug": "Ladybug",
+    "fish": "Fish",
+    "butterfly": "Butterfly",
+    "cat": "Cat",
+    "house": "House",
+    "car": "Car",
+    "boat": "Boat",
+    "rocket": "Rocket"
+  }
+}
