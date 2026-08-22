@@ -50,8 +50,12 @@ export function DrawingPage() {
   const cardRef = useRef<HTMLDivElement>(null)
   const drawingIdRef = useRef<string>('')
   const saveTimer = useRef<number | null>(null)
-  /** Actions present when the current step opened — Next unlocks above this. */
-  const stepBaselineRef = useRef(0)
+  /**
+   * Actions present when each step opened — Next unlocks above the current
+   * step's mark. Kept per step (and saved) so returning to a drawing does not
+   * demand a fresh stroke on work the child already finished.
+   */
+  const stepBaselinesRef = useRef<number[]>([0])
   const stepIndexRef = useRef(0)
   stepIndexRef.current = stepIndex
 
@@ -83,12 +87,14 @@ export function DrawingPage() {
         drawingIdRef.current = existing.id
         setActions(existing.document.actions)
         setLoadedActions(existing.document.actions)
-        stepBaselineRef.current = existing.document.actions.length
+        // Drawings saved before baselines were tracked fall back to 0, which
+        // keeps the button enabled rather than trapping the child.
+        stepBaselinesRef.current = existing.stepBaselines ?? [0]
       } else {
         drawingIdRef.current = crypto.randomUUID()
         setActions([])
         setLoadedActions([])
-        stepBaselineRef.current = 0
+        stepBaselinesRef.current = [0]
       }
 
       setStepIndex(startStep)
@@ -111,6 +117,7 @@ export function DrawingPage() {
       id: drawingIdRef.current,
       exerciseId,
       currentStep: step,
+      stepBaselines: [...stepBaselinesRef.current],
       document: { ...createDocument(exerciseId, 1, 1), actions: nextActions },
     })
     await markStarted(exerciseId, step)
@@ -156,7 +163,7 @@ export function DrawingPage() {
 
   // --- step flow --------------------------------------------------------
 
-  const canProceed = actions.length > stepBaselineRef.current
+  const canProceed = actions.length > (stepBaselinesRef.current[stepIndex] ?? 0)
 
   const showCoach = Boolean(settings && !settings.tutorialDrawDone && exercise)
   const coachSteps: CoachStep[] = [
@@ -171,7 +178,7 @@ export function DrawingPage() {
 
     if (!isLastStep) {
       const next = stepIndex + 1
-      stepBaselineRef.current = actions.length
+      stepBaselinesRef.current[next] = actions.length
       setStepIndex(next)
       const defaultTool = exercise.steps[next]?.defaultTool
       if (defaultTool) setTool(defaultTool as ToolId)
@@ -193,6 +200,7 @@ export function DrawingPage() {
       exerciseId: exercise.id,
       currentStep: exercise.steps.length,
       document: { ...createDocument(exercise.id, 1, 1), actions },
+      stepBaselines: [...stepBaselinesRef.current],
       status: 'COMPLETED',
       thumbnail: thumbnailBlob,
     })

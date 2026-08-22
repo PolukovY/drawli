@@ -40,6 +40,11 @@ export interface SavedDrawing {
   exerciseId: string
   status: DrawingStatus
   currentStep: number
+  /**
+   * How many actions existed when each step opened. Without it, a resumed
+   * drawing cannot tell which strokes belong to the step being shown.
+   */
+  stepBaselines?: number[]
   document: DrawingDocument
   thumbnail?: Blob
   createdAt: string

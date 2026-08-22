@@ -29,6 +29,7 @@ export async function upsertDrawing(params: {
   exerciseId: string
   currentStep: number
   document: DrawingDocument
+  stepBaselines?: number[]
   status?: SavedDrawing['status']
   thumbnail?: Blob
 }): Promise<void> {
@@ -39,6 +40,7 @@ export async function upsertDrawing(params: {
     exerciseId: params.exerciseId,
     status: params.status ?? existing?.status ?? 'IN_PROGRESS',
     currentStep: params.currentStep,
+    stepBaselines: params.stepBaselines ?? existing?.stepBaselines,
     document: params.document,
     thumbnail: params.thumbnail ?? existing?.thumbnail,
     createdAt: existing?.createdAt ?? now,
