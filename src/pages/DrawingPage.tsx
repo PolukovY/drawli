@@ -333,7 +333,7 @@ export function DrawingPage() {
               {isColoring
                 ? t('drawing.hintColor')
                 : exercise?.glyph
-                  ? t('drawing.hintWrite')
+                  ? t(/^\d+$/.test(exercise.glyph) ? 'drawing.hintNumber' : 'drawing.hintWrite')
                   : t('drawing.hintDraw')}
             </div>
           </div>

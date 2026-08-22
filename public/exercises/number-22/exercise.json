@@ -1,0 +1,20 @@
+{
+  "id": "number-22",
+  "titleKey": "exercise.number-22",
+  "glyph": "22",
+  "category": "numbers",
+  "difficulty": "VERY_EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "stroke-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "stroke-2",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

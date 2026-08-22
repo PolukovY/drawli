@@ -105,6 +105,35 @@ const DIGITS = {
   9: [[`<ellipse cx="${CX}" cy="150" rx="70" ry="65"/>`], [`<path d="M270 150 q0 130 -110 180"/>`]],
 }
 
+
+/**
+ * Numbers past nine are the same digit shapes placed side by side and scaled
+ * down, one step per digit — which is exactly how a child writes them.
+ */
+const GLYPH_LEFT = 120
+const GLYPH_WIDTH = 160
+const GLYPH_MID_Y = (T + B) / 2
+
+const placeDigit = (shapes, index, count) => {
+  const scale = count === 2 ? 0.62 : 0.44
+  const gap = 24
+  const width = GLYPH_WIDTH * scale
+  const total = width * count + gap * (count - 1)
+  const x = CX - total / 2 + index * (width + gap)
+  const tx = x - GLYPH_LEFT * scale
+  const ty = GLYPH_MID_Y - GLYPH_MID_Y * scale
+  // Scaling a group scales its stroke too; compensate so every guide keeps
+  // the same visual weight as a single-digit one.
+  return `<g transform="translate(${tx.toFixed(1)} ${ty.toFixed(1)}) scale(${scale})" stroke-width="${(5 / scale).toFixed(2)}">${shapes.join('')}</g>`
+}
+
+const numberSteps = (value) => {
+  const digits = String(value).split('')
+  return digits.map((digit, i) => [placeDigit(DIGITS[digit].flat(), i, digits.length)])
+}
+
+const NUMBERS = Array.from({ length: 91 }, (_, i) => i + 10)
+
 const ES_NAMES = {
   A: 'a', B: 'be', C: 'ce', D: 'de', E: 'e', F: 'efe', G: 'ge', H: 'hache', I: 'i',
   J: 'jota', K: 'ka', L: 'ele', M: 'eme', N: 'ene', 'Ñ': 'eñe', O: 'o', P: 'pe',
@@ -139,4 +168,7 @@ export const GLYPHS = [
 
   ...Object.entries(DIGITS).map(([glyph, steps]) =>
     toExercise(`digit-${glyph}`, 'digits', glyph, steps)),
+
+  ...NUMBERS.map((value) =>
+    toExercise(`number-${value}`, 'numbers', String(value), numberSteps(value))),
 ]

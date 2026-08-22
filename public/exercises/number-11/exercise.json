@@ -1,0 +1,20 @@
+{
+  "id": "number-11",
+  "titleKey": "exercise.number-11",
+  "glyph": "11",
+  "category": "numbers",
+  "difficulty": "VERY_EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "stroke-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "stroke-2",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

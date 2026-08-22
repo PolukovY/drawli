@@ -107,3 +107,15 @@
 
 .game-card { gap: 6px; }
 .game-card__art { font-size: 56px; line-height: 1; }
+
+.free-card { border: 3px dashed var(--c-accent-border); background: var(--c-accent-soft); box-shadow: none; }
+.free-card__art {
+  width: 74px;
+  height: 74px;
+  border-radius: var(--r-lg);
+  background: var(--c-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(124, 92, 255, 0.32);
+}

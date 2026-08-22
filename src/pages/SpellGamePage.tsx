@@ -1,16 +1,23 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '../components/Icon'
 import { useAppStore } from '../app/store'
-import { assetUrl, loadIndex } from '../exercise/ExerciseLoader'
+import { assetUrl, loadIndex, loadWords, type WordLanguage } from '../exercise/ExerciseLoader'
 import type { ExerciseSummary } from '../exercise/Exercise'
 import '../styles/ui.css'
 import './SpellGamePage.css'
 
-const ALPHABETS: Record<string, string> = {
+const ALPHABETS: Record<WordLanguage, string> = {
   uk: 'АБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЮЯ',
   en: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  es: 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ',
+}
+
+const LANGUAGE_LABELS: Record<WordLanguage, string> = {
+  uk: 'Українська',
+  en: 'English',
+  es: 'Español',
 }
 
 const ROUNDS = 5
@@ -38,11 +45,17 @@ function shuffle<T>(items: T[], seed: number): T[] {
 
 export function SpellGamePage() {
   const navigate = useNavigate()
-  const { t, i18n } = useTranslation()
+  const [search] = useSearchParams()
+  const { t } = useTranslation()
+
+  const requested = search.get('lang')
+  const language: WordLanguage =
+    requested === 'en' || requested === 'es' || requested === 'uk' ? requested : 'uk'
   const awardStars = useAppStore((s) => s.awardStars)
   const stars = useAppStore((s) => s.settings?.stars ?? 0)
 
   const [pool, setPool] = useState<ExerciseSummary[]>([])
+  const [dictionary, setDictionary] = useState<Record<string, string>>({})
   const [round, setRound] = useState(0)
   const [seed, setSeed] = useState(1)
   // Slots and the used-tile set move together: keeping them in two states meant
@@ -54,7 +67,13 @@ export function SpellGamePage() {
   const [hintShown, setHintShown] = useState(false)
   const [earned, setEarned] = useState(0)
 
-  const alphabet = ALPHABETS[i18n.language] ?? ALPHABETS.en
+  const alphabet = ALPHABETS[language]
+
+  useEffect(() => {
+    void loadWords()
+      .then((words) => setDictionary(words[language] ?? {}))
+      .catch(() => undefined)
+  }, [language])
 
   useEffect(() => {
     void loadIndex()
@@ -78,13 +97,13 @@ export function SpellGamePage() {
   const [words, setWords] = useState<Array<{ exercise: ExerciseSummary; word: string }>>([])
 
   useEffect(() => {
-    if (pool.length === 0) return
+    if (pool.length === 0 || Object.keys(dictionary).length === 0) return
     const candidates = pool
-      .map((exercise) => ({ exercise, word: i18n.t(exercise.titleKey).toUpperCase() }))
+      .map((exercise) => ({ exercise, word: (dictionary[exercise.id] ?? '').toUpperCase() }))
       .filter(({ word }) => /^[^\s·]+$/u.test(word) && word.length >= 3 && word.length <= MAX_WORD_LENGTH)
     setWords(shuffle(candidates, seed).slice(0, ROUNDS))
     setRound(0)
-  }, [pool, seed, i18n, i18n.language])
+  }, [pool, dictionary, seed])
 
   const current = words[round]
   const word = current?.word ?? ''
@@ -210,6 +229,7 @@ export function SpellGamePage() {
           <Icon name="back" size={26} color="var(--c-text)" width={2.6} />
         </button>
         <div className="title grow">{t('play.spell')}</div>
+        <div className="chip">{LANGUAGE_LABELS[language]}</div>
         <div className="muted" style={{ fontSize: 17 }}>
           {round + 1} / {words.length || ROUNDS}
         </div>

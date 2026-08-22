@@ -6,10 +6,17 @@ import { Icon } from '../components/Icon'
 import { CoachMarks, type CoachStep } from '../components/CoachMarks'
 import { assetUrl, loadIndex } from '../exercise/ExerciseLoader'
 import type { CategoryKind, ExerciseIndex } from '../exercise/Exercise'
+import type { WordLanguage } from '../exercise/ExerciseLoader'
 import { latestInProgress } from '../storage/DrawingRepository'
 import type { SavedDrawing } from '../storage/types'
 import '../styles/ui.css'
 import './HomePage.css'
+
+const PLAY_LANGUAGES: Array<{ id: WordLanguage; label: string }> = [
+  { id: 'uk', label: 'Українська' },
+  { id: 'en', label: 'English' },
+  { id: 'es', label: 'Español' },
+]
 
 export function HomePage() {
   const navigate = useNavigate()
@@ -17,9 +24,14 @@ export function HomePage() {
   const settings = useAppStore((s) => s.settings)
   const markTutorialDone = useAppStore((s) => s.markTutorialDone)
 
+  useEffect(() => {
+    if (settings?.language) setPlayLanguage(settings.language)
+  }, [settings?.language])
+
   const [index, setIndex] = useState<ExerciseIndex | null>(null)
   const [mode, setMode] = useState<CategoryKind | 'play'>('draw')
   const [category, setCategory] = useState<string>('all')
+  const [playLanguage, setPlayLanguage] = useState<WordLanguage>('uk')
   const [resume, setResume] = useState<SavedDrawing | null>(null)
 
   useEffect(() => {
@@ -134,32 +146,59 @@ export function HomePage() {
         <div className="title grow">
           {mode === 'play' ? t('play.title') : mode === 'write' ? t('home.writeQuestion') : t('home.question')}
         </div>
-        <div className="home__categories" hidden={mode === 'play'}>
-          <button className={`chip ${category === 'all' ? 'chip--on' : ''}`} onClick={() => setCategory('all')}>
-            {t('home.all')}
-          </button>
-          {categories.map((c) => (
-            <button
-              key={c.id}
-              className={`chip ${category === c.id ? 'chip--on' : ''}`}
-              onClick={() => setCategory(c.id)}
-            >
-              {t(c.titleKey)}
+        {/* Games do not have categories — the choice that matters there is
+            which language the child wants to spell in. */}
+        {mode === 'play' ? (
+          <div className="home__categories">
+            {PLAY_LANGUAGES.map((lang) => (
+              <button
+                key={lang.id}
+                className={`chip ${playLanguage === lang.id ? 'chip--on' : ''}`}
+                onClick={() => setPlayLanguage(lang.id)}
+              >
+                {lang.label}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div className="home__categories">
+            <button className={`chip ${category === 'all' ? 'chip--on' : ''}`} onClick={() => setCategory('all')}>
+              {t('home.all')}
             </button>
-          ))}
-        </div>
+            {categories.map((c) => (
+              <button
+                key={c.id}
+                className={`chip ${category === c.id ? 'chip--on' : ''}`}
+                onClick={() => setCategory(c.id)}
+              >
+                {t(c.titleKey)}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       {mode === 'play' ? (
         <div className="home__grid">
-          <button className="exercise-card game-card" onClick={() => navigate('/spell')}>
+          <button className="exercise-card game-card" onClick={() => navigate(`/spell?lang=${playLanguage}`)}>
             <span className="game-card__art">🔤</span>
             <span>{t('play.spell')}</span>
-            <span className="muted" style={{ fontSize: 15, fontWeight: 600 }}>{t('play.spellHint')}</span>
+            <span className="muted" style={{ fontSize: 15, fontWeight: 600 }}>
+              {PLAY_LANGUAGES.find((l) => l.id === playLanguage)?.label}
+            </span>
           </button>
         </div>
       ) : (
         <div className="home__grid">
+          {mode === 'draw' ? (
+            <button className="exercise-card free-card" onClick={() => navigate('/free')}>
+              <span className="free-card__art">
+                <Icon name="pencil" size={40} color="#fff" />
+              </span>
+              <span>{t('free.title')}</span>
+            </button>
+          ) : null}
+
           {exercises.map((exercise) => (
             <button
               key={exercise.id}
@@ -180,9 +219,9 @@ export function HomePage() {
       )}
 
       <nav className="home__nav">
-        <button className="btn btn--primary" onClick={() => navigate('/')}>
+        <button className="btn btn--primary" onClick={() => navigate('/free')}>
           <Icon name="pencil" size={26} color="#fff" />
-          {t('nav.draw')}
+          {t('free.title')}
         </button>
         <button className="btn" onClick={() => navigate('/drawings')}>
           <Icon name="gallery" size={26} color="var(--c-text-muted)" />

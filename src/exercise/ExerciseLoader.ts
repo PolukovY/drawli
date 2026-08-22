@@ -45,3 +45,18 @@ export function loadSvg(exerciseId: string, file: string): Promise<string> {
   }
   return promise
 }
+
+export type WordLanguage = 'uk' | 'en' | 'es'
+
+let wordsPromise: Promise<Record<WordLanguage, Record<string, string>>> | null = null
+
+/** Picture names per language — including Spanish, which the UI itself has not. */
+export function loadWords(): Promise<Record<WordLanguage, Record<string, string>>> {
+  if (!wordsPromise) {
+    wordsPromise = fetch(assetUrl('words.json')).then((r) => {
+      if (!r.ok) throw new Error(`words ${r.status}`)
+      return r.json() as Promise<Record<WordLanguage, Record<string, string>>>
+    })
+  }
+  return wordsPromise
+}

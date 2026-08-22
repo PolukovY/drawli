@@ -45,6 +45,13 @@ export function MyDrawingsPage() {
     return index?.exercises.find((e) => e.id === drawing.exerciseId)
   }
 
+  /** Free-hand sheets have no exercise behind them, so they name themselves. */
+  function titleFor(drawing: SavedDrawing) {
+    const summary = summaryFor(drawing)
+    if (summary) return t(summary.titleKey)
+    return drawing.exerciseId === 'free' ? t('free.title') : drawing.exerciseId
+  }
+
   function whenLabel(iso: string) {
     const date = new Date(iso)
     const today = new Date()
@@ -93,7 +100,7 @@ export function MyDrawingsPage() {
                 ) : null}
               </span>
               <span className="drawing-card__meta">
-                <span className="drawing-card__title">{summary ? t(summary.titleKey) : drawing.exerciseId}</span>
+                <span className="drawing-card__title">{titleFor(drawing)}</span>
                 <span className="muted" style={{ fontSize: 14 }}>
                   {inProgress && summary
                     ? t('gallery.stepShort', { step: Math.min(drawing.currentStep + 1, summary.steps), total: summary.steps })
@@ -120,23 +127,30 @@ export function MyDrawingsPage() {
       {selected ? (
         <div className="modal-backdrop" onClick={() => setSelected(null)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <div className="title">
-              {summaryFor(selected) ? t(summaryFor(selected)!.titleKey) : selected.exerciseId}
-            </div>
+            <div className="title">{titleFor(selected)}</div>
             {thumbnails[selected.id] ? (
               <img src={thumbnails[selected.id]} alt="" style={{ maxWidth: '100%', borderRadius: 20 }} />
             ) : null}
             <div className="row" style={{ justifyContent: 'center', gap: 12 }}>
-              {selected.status === 'IN_PROGRESS' ? (
-                <button className="btn btn--primary" onClick={() => navigate(`/draw/${selected.exerciseId}`)}>
-                  <Icon name="play" size={20} color="#fff" filled />
-                  {t('home.continue')}
+              {selected.exerciseId === 'free' ? (
+                <button className="btn btn--primary" onClick={() => navigate('/free')}>
+                  <Icon name="pencil" size={22} color="#fff" width={2.2} />
+                  {t('free.newSheet')}
                 </button>
-              ) : null}
-              <button className="btn" onClick={() => navigate(`/draw/${selected.exerciseId}?new=1`)}>
-                <Icon name="again" size={22} color="var(--c-text-soft)" width={2.4} />
-                {t('complete.again')}
-              </button>
+              ) : (
+                <>
+                  {selected.status === 'IN_PROGRESS' ? (
+                    <button className="btn btn--primary" onClick={() => navigate(`/draw/${selected.exerciseId}`)}>
+                      <Icon name="play" size={20} color="#fff" filled />
+                      {t('home.continue')}
+                    </button>
+                  ) : null}
+                  <button className="btn" onClick={() => navigate(`/draw/${selected.exerciseId}?new=1`)}>
+                    <Icon name="again" size={22} color="var(--c-text-soft)" width={2.4} />
+                    {t('complete.again')}
+                  </button>
+                </>
+              )}
             </div>
             <button className="btn btn--danger" onClick={() => void remove(selected.id)}>
               <Icon name="trash" size={22} color="var(--c-danger)" width={2.2} />

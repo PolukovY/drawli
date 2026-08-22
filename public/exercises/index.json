@@ -77,6 +77,13 @@
       "color": "#34C77B",
       "order": 11,
       "kind": "write"
+    },
+    {
+      "id": "numbers",
+      "titleKey": "category.numbers",
+      "color": "#5FC7C0",
+      "order": 12,
+      "kind": "write"
     }
   ],
   "exercises": [
@@ -2127,6 +2134,825 @@
       "thumbnail": "digit-9/thumbnail.svg",
       "steps": 2,
       "glyph": "9"
+    },
+    {
+      "id": "number-10",
+      "titleKey": "exercise.number-10",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-10/thumbnail.svg",
+      "steps": 2,
+      "glyph": "10"
+    },
+    {
+      "id": "number-11",
+      "titleKey": "exercise.number-11",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-11/thumbnail.svg",
+      "steps": 2,
+      "glyph": "11"
+    },
+    {
+      "id": "number-12",
+      "titleKey": "exercise.number-12",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-12/thumbnail.svg",
+      "steps": 2,
+      "glyph": "12"
+    },
+    {
+      "id": "number-13",
+      "titleKey": "exercise.number-13",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-13/thumbnail.svg",
+      "steps": 2,
+      "glyph": "13"
+    },
+    {
+      "id": "number-14",
+      "titleKey": "exercise.number-14",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-14/thumbnail.svg",
+      "steps": 2,
+      "glyph": "14"
+    },
+    {
+      "id": "number-15",
+      "titleKey": "exercise.number-15",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-15/thumbnail.svg",
+      "steps": 2,
+      "glyph": "15"
+    },
+    {
+      "id": "number-16",
+      "titleKey": "exercise.number-16",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-16/thumbnail.svg",
+      "steps": 2,
+      "glyph": "16"
+    },
+    {
+      "id": "number-17",
+      "titleKey": "exercise.number-17",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-17/thumbnail.svg",
+      "steps": 2,
+      "glyph": "17"
+    },
+    {
+      "id": "number-18",
+      "titleKey": "exercise.number-18",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-18/thumbnail.svg",
+      "steps": 2,
+      "glyph": "18"
+    },
+    {
+      "id": "number-19",
+      "titleKey": "exercise.number-19",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-19/thumbnail.svg",
+      "steps": 2,
+      "glyph": "19"
+    },
+    {
+      "id": "number-20",
+      "titleKey": "exercise.number-20",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-20/thumbnail.svg",
+      "steps": 2,
+      "glyph": "20"
+    },
+    {
+      "id": "number-21",
+      "titleKey": "exercise.number-21",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-21/thumbnail.svg",
+      "steps": 2,
+      "glyph": "21"
+    },
+    {
+      "id": "number-22",
+      "titleKey": "exercise.number-22",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-22/thumbnail.svg",
+      "steps": 2,
+      "glyph": "22"
+    },
+    {
+      "id": "number-23",
+      "titleKey": "exercise.number-23",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-23/thumbnail.svg",
+      "steps": 2,
+      "glyph": "23"
+    },
+    {
+      "id": "number-24",
+      "titleKey": "exercise.number-24",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-24/thumbnail.svg",
+      "steps": 2,
+      "glyph": "24"
+    },
+    {
+      "id": "number-25",
+      "titleKey": "exercise.number-25",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-25/thumbnail.svg",
+      "steps": 2,
+      "glyph": "25"
+    },
+    {
+      "id": "number-26",
+      "titleKey": "exercise.number-26",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-26/thumbnail.svg",
+      "steps": 2,
+      "glyph": "26"
+    },
+    {
+      "id": "number-27",
+      "titleKey": "exercise.number-27",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-27/thumbnail.svg",
+      "steps": 2,
+      "glyph": "27"
+    },
+    {
+      "id": "number-28",
+      "titleKey": "exercise.number-28",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-28/thumbnail.svg",
+      "steps": 2,
+      "glyph": "28"
+    },
+    {
+      "id": "number-29",
+      "titleKey": "exercise.number-29",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-29/thumbnail.svg",
+      "steps": 2,
+      "glyph": "29"
+    },
+    {
+      "id": "number-30",
+      "titleKey": "exercise.number-30",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-30/thumbnail.svg",
+      "steps": 2,
+      "glyph": "30"
+    },
+    {
+      "id": "number-31",
+      "titleKey": "exercise.number-31",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-31/thumbnail.svg",
+      "steps": 2,
+      "glyph": "31"
+    },
+    {
+      "id": "number-32",
+      "titleKey": "exercise.number-32",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-32/thumbnail.svg",
+      "steps": 2,
+      "glyph": "32"
+    },
+    {
+      "id": "number-33",
+      "titleKey": "exercise.number-33",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-33/thumbnail.svg",
+      "steps": 2,
+      "glyph": "33"
+    },
+    {
+      "id": "number-34",
+      "titleKey": "exercise.number-34",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-34/thumbnail.svg",
+      "steps": 2,
+      "glyph": "34"
+    },
+    {
+      "id": "number-35",
+      "titleKey": "exercise.number-35",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-35/thumbnail.svg",
+      "steps": 2,
+      "glyph": "35"
+    },
+    {
+      "id": "number-36",
+      "titleKey": "exercise.number-36",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-36/thumbnail.svg",
+      "steps": 2,
+      "glyph": "36"
+    },
+    {
+      "id": "number-37",
+      "titleKey": "exercise.number-37",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-37/thumbnail.svg",
+      "steps": 2,
+      "glyph": "37"
+    },
+    {
+      "id": "number-38",
+      "titleKey": "exercise.number-38",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-38/thumbnail.svg",
+      "steps": 2,
+      "glyph": "38"
+    },
+    {
+      "id": "number-39",
+      "titleKey": "exercise.number-39",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-39/thumbnail.svg",
+      "steps": 2,
+      "glyph": "39"
+    },
+    {
+      "id": "number-40",
+      "titleKey": "exercise.number-40",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-40/thumbnail.svg",
+      "steps": 2,
+      "glyph": "40"
+    },
+    {
+      "id": "number-41",
+      "titleKey": "exercise.number-41",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-41/thumbnail.svg",
+      "steps": 2,
+      "glyph": "41"
+    },
+    {
+      "id": "number-42",
+      "titleKey": "exercise.number-42",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-42/thumbnail.svg",
+      "steps": 2,
+      "glyph": "42"
+    },
+    {
+      "id": "number-43",
+      "titleKey": "exercise.number-43",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-43/thumbnail.svg",
+      "steps": 2,
+      "glyph": "43"
+    },
+    {
+      "id": "number-44",
+      "titleKey": "exercise.number-44",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-44/thumbnail.svg",
+      "steps": 2,
+      "glyph": "44"
+    },
+    {
+      "id": "number-45",
+      "titleKey": "exercise.number-45",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-45/thumbnail.svg",
+      "steps": 2,
+      "glyph": "45"
+    },
+    {
+      "id": "number-46",
+      "titleKey": "exercise.number-46",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-46/thumbnail.svg",
+      "steps": 2,
+      "glyph": "46"
+    },
+    {
+      "id": "number-47",
+      "titleKey": "exercise.number-47",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-47/thumbnail.svg",
+      "steps": 2,
+      "glyph": "47"
+    },
+    {
+      "id": "number-48",
+      "titleKey": "exercise.number-48",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-48/thumbnail.svg",
+      "steps": 2,
+      "glyph": "48"
+    },
+    {
+      "id": "number-49",
+      "titleKey": "exercise.number-49",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-49/thumbnail.svg",
+      "steps": 2,
+      "glyph": "49"
+    },
+    {
+      "id": "number-50",
+      "titleKey": "exercise.number-50",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-50/thumbnail.svg",
+      "steps": 2,
+      "glyph": "50"
+    },
+    {
+      "id": "number-51",
+      "titleKey": "exercise.number-51",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-51/thumbnail.svg",
+      "steps": 2,
+      "glyph": "51"
+    },
+    {
+      "id": "number-52",
+      "titleKey": "exercise.number-52",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-52/thumbnail.svg",
+      "steps": 2,
+      "glyph": "52"
+    },
+    {
+      "id": "number-53",
+      "titleKey": "exercise.number-53",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-53/thumbnail.svg",
+      "steps": 2,
+      "glyph": "53"
+    },
+    {
+      "id": "number-54",
+      "titleKey": "exercise.number-54",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-54/thumbnail.svg",
+      "steps": 2,
+      "glyph": "54"
+    },
+    {
+      "id": "number-55",
+      "titleKey": "exercise.number-55",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-55/thumbnail.svg",
+      "steps": 2,
+      "glyph": "55"
+    },
+    {
+      "id": "number-56",
+      "titleKey": "exercise.number-56",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-56/thumbnail.svg",
+      "steps": 2,
+      "glyph": "56"
+    },
+    {
+      "id": "number-57",
+      "titleKey": "exercise.number-57",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-57/thumbnail.svg",
+      "steps": 2,
+      "glyph": "57"
+    },
+    {
+      "id": "number-58",
+      "titleKey": "exercise.number-58",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-58/thumbnail.svg",
+      "steps": 2,
+      "glyph": "58"
+    },
+    {
+      "id": "number-59",
+      "titleKey": "exercise.number-59",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-59/thumbnail.svg",
+      "steps": 2,
+      "glyph": "59"
+    },
+    {
+      "id": "number-60",
+      "titleKey": "exercise.number-60",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-60/thumbnail.svg",
+      "steps": 2,
+      "glyph": "60"
+    },
+    {
+      "id": "number-61",
+      "titleKey": "exercise.number-61",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-61/thumbnail.svg",
+      "steps": 2,
+      "glyph": "61"
+    },
+    {
+      "id": "number-62",
+      "titleKey": "exercise.number-62",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-62/thumbnail.svg",
+      "steps": 2,
+      "glyph": "62"
+    },
+    {
+      "id": "number-63",
+      "titleKey": "exercise.number-63",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-63/thumbnail.svg",
+      "steps": 2,
+      "glyph": "63"
+    },
+    {
+      "id": "number-64",
+      "titleKey": "exercise.number-64",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-64/thumbnail.svg",
+      "steps": 2,
+      "glyph": "64"
+    },
+    {
+      "id": "number-65",
+      "titleKey": "exercise.number-65",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-65/thumbnail.svg",
+      "steps": 2,
+      "glyph": "65"
+    },
+    {
+      "id": "number-66",
+      "titleKey": "exercise.number-66",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-66/thumbnail.svg",
+      "steps": 2,
+      "glyph": "66"
+    },
+    {
+      "id": "number-67",
+      "titleKey": "exercise.number-67",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-67/thumbnail.svg",
+      "steps": 2,
+      "glyph": "67"
+    },
+    {
+      "id": "number-68",
+      "titleKey": "exercise.number-68",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-68/thumbnail.svg",
+      "steps": 2,
+      "glyph": "68"
+    },
+    {
+      "id": "number-69",
+      "titleKey": "exercise.number-69",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-69/thumbnail.svg",
+      "steps": 2,
+      "glyph": "69"
+    },
+    {
+      "id": "number-70",
+      "titleKey": "exercise.number-70",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-70/thumbnail.svg",
+      "steps": 2,
+      "glyph": "70"
+    },
+    {
+      "id": "number-71",
+      "titleKey": "exercise.number-71",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-71/thumbnail.svg",
+      "steps": 2,
+      "glyph": "71"
+    },
+    {
+      "id": "number-72",
+      "titleKey": "exercise.number-72",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-72/thumbnail.svg",
+      "steps": 2,
+      "glyph": "72"
+    },
+    {
+      "id": "number-73",
+      "titleKey": "exercise.number-73",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-73/thumbnail.svg",
+      "steps": 2,
+      "glyph": "73"
+    },
+    {
+      "id": "number-74",
+      "titleKey": "exercise.number-74",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-74/thumbnail.svg",
+      "steps": 2,
+      "glyph": "74"
+    },
+    {
+      "id": "number-75",
+      "titleKey": "exercise.number-75",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-75/thumbnail.svg",
+      "steps": 2,
+      "glyph": "75"
+    },
+    {
+      "id": "number-76",
+      "titleKey": "exercise.number-76",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-76/thumbnail.svg",
+      "steps": 2,
+      "glyph": "76"
+    },
+    {
+      "id": "number-77",
+      "titleKey": "exercise.number-77",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-77/thumbnail.svg",
+      "steps": 2,
+      "glyph": "77"
+    },
+    {
+      "id": "number-78",
+      "titleKey": "exercise.number-78",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-78/thumbnail.svg",
+      "steps": 2,
+      "glyph": "78"
+    },
+    {
+      "id": "number-79",
+      "titleKey": "exercise.number-79",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-79/thumbnail.svg",
+      "steps": 2,
+      "glyph": "79"
+    },
+    {
+      "id": "number-80",
+      "titleKey": "exercise.number-80",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-80/thumbnail.svg",
+      "steps": 2,
+      "glyph": "80"
+    },
+    {
+      "id": "number-81",
+      "titleKey": "exercise.number-81",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-81/thumbnail.svg",
+      "steps": 2,
+      "glyph": "81"
+    },
+    {
+      "id": "number-82",
+      "titleKey": "exercise.number-82",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-82/thumbnail.svg",
+      "steps": 2,
+      "glyph": "82"
+    },
+    {
+      "id": "number-83",
+      "titleKey": "exercise.number-83",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-83/thumbnail.svg",
+      "steps": 2,
+      "glyph": "83"
+    },
+    {
+      "id": "number-84",
+      "titleKey": "exercise.number-84",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-84/thumbnail.svg",
+      "steps": 2,
+      "glyph": "84"
+    },
+    {
+      "id": "number-85",
+      "titleKey": "exercise.number-85",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-85/thumbnail.svg",
+      "steps": 2,
+      "glyph": "85"
+    },
+    {
+      "id": "number-86",
+      "titleKey": "exercise.number-86",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-86/thumbnail.svg",
+      "steps": 2,
+      "glyph": "86"
+    },
+    {
+      "id": "number-87",
+      "titleKey": "exercise.number-87",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-87/thumbnail.svg",
+      "steps": 2,
+      "glyph": "87"
+    },
+    {
+      "id": "number-88",
+      "titleKey": "exercise.number-88",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-88/thumbnail.svg",
+      "steps": 2,
+      "glyph": "88"
+    },
+    {
+      "id": "number-89",
+      "titleKey": "exercise.number-89",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-89/thumbnail.svg",
+      "steps": 2,
+      "glyph": "89"
+    },
+    {
+      "id": "number-90",
+      "titleKey": "exercise.number-90",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-90/thumbnail.svg",
+      "steps": 2,
+      "glyph": "90"
+    },
+    {
+      "id": "number-91",
+      "titleKey": "exercise.number-91",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-91/thumbnail.svg",
+      "steps": 2,
+      "glyph": "91"
+    },
+    {
+      "id": "number-92",
+      "titleKey": "exercise.number-92",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-92/thumbnail.svg",
+      "steps": 2,
+      "glyph": "92"
+    },
+    {
+      "id": "number-93",
+      "titleKey": "exercise.number-93",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-93/thumbnail.svg",
+      "steps": 2,
+      "glyph": "93"
+    },
+    {
+      "id": "number-94",
+      "titleKey": "exercise.number-94",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-94/thumbnail.svg",
+      "steps": 2,
+      "glyph": "94"
+    },
+    {
+      "id": "number-95",
+      "titleKey": "exercise.number-95",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-95/thumbnail.svg",
+      "steps": 2,
+      "glyph": "95"
+    },
+    {
+      "id": "number-96",
+      "titleKey": "exercise.number-96",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-96/thumbnail.svg",
+      "steps": 2,
+      "glyph": "96"
+    },
+    {
+      "id": "number-97",
+      "titleKey": "exercise.number-97",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-97/thumbnail.svg",
+      "steps": 2,
+      "glyph": "97"
+    },
+    {
+      "id": "number-98",
+      "titleKey": "exercise.number-98",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-98/thumbnail.svg",
+      "steps": 2,
+      "glyph": "98"
+    },
+    {
+      "id": "number-99",
+      "titleKey": "exercise.number-99",
+      "category": "numbers",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "number-99/thumbnail.svg",
+      "steps": 2,
+      "glyph": "99"
+    },
+    {
+      "id": "number-100",
+      "titleKey": "exercise.number-100",
+      "category": "numbers",
+      "difficulty": "EASY",
+      "thumbnail": "number-100/thumbnail.svg",
+      "steps": 3,
+      "glyph": "100"
     }
   ]
 }

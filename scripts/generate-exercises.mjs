@@ -2,6 +2,7 @@ import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { CATEGORIES, EXERCISES } from './exercise-data.mjs'
+import { ES_WORDS } from './exercises/es-words.mjs'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const outDir = resolve(root, 'public/exercises')
@@ -62,6 +63,7 @@ const index = {
 }
 
 const titles = { uk: {}, en: {} }
+const wordList = { uk: {}, en: {}, es: {} }
 
 for (const exercise of EXERCISES) {
   const dir = resolve(outDir, exercise.id)
@@ -105,9 +107,23 @@ for (const exercise of EXERCISES) {
 
   titles.uk[exercise.id] = exercise.title.uk
   titles.en[exercise.id] = exercise.title.en
+
+  // The spelling game reads words from here, so it can run in a language the
+  // interface is not translated into (Spanish).
+  if (!exercise.glyph) {
+    wordList.uk[exercise.id] = exercise.title.uk
+    wordList.en[exercise.id] = exercise.title.en
+    if (ES_WORDS[exercise.id]) wordList.es[exercise.id] = ES_WORDS[exercise.id]
+  }
 }
 
 await writeFile(resolve(outDir, 'index.json'), `${JSON.stringify(index, null, 2)}\n`)
+await writeFile(resolve(outDir, 'words.json'), `${JSON.stringify(wordList, null, 2)}\n`)
+
+const missingEs = index.exercises.filter(
+  (e) => !e.glyph && !wordList.es[e.id] && ['animals', 'nature', 'food', 'home', 'transport', 'shapes'].includes(e.category),
+)
+if (missingEs.length) console.warn(`no Spanish word for: ${missingEs.map((e) => e.id).join(', ')}`)
 
 // Exercise names live beside their geometry; the translation files are generated
 // so a new exercise can never ship with a missing title in one language.
