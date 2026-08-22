@@ -1,0 +1,89 @@
+.spell { gap: 18px; }
+
+.spell__board { flex-grow: 1; display: flex; gap: 24px; min-height: 0; }
+
+.spell__picture {
+  width: 320px;
+  height: 320px;
+  align-self: center;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.spell__picture img { max-width: 100%; max-height: 100%; }
+
+.spell__right {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 28px;
+}
+
+.spell__slots { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.slot {
+  width: 74px;
+  height: 92px;
+  min-height: 92px;
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  border: 3px dashed #CFC7E6;
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--c-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.12s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.slot--filled { border-style: solid; border-color: var(--c-accent); box-shadow: var(--sh-card); }
+.slot--ok { border-color: var(--c-success); background: var(--c-success-bg); }
+.slot__hint { color: var(--c-disabled); font-weight: 700; }
+
+.spell__slots--retry { animation: slots-nudge 0.45s ease; }
+@keyframes slots-nudge {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+.spell__tiles { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.tile-letter {
+  width: 74px;
+  height: 74px;
+  min-height: 74px;
+  border-radius: var(--r-lg);
+  background: var(--c-accent);
+  color: #fff;
+  font-size: 34px;
+  font-weight: 800;
+  box-shadow: 0 8px 18px rgba(124, 92, 255, 0.3);
+  transition: transform 0.1s ease, opacity 0.2s ease;
+}
+.tile-letter:active { transform: scale(0.92); }
+.tile-letter--used { opacity: 0.25; box-shadow: none; }
+
+.spell__win { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+.spell__word {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--c-success);
+  animation: word-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes word-pop {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spell__slots--retry, .spell__word { animation: none; }
+}
+
+@media (max-width: 900px) {
+  .spell__board { flex-direction: column; }
+  .spell__picture { width: auto; max-height: 200px; }
+}
