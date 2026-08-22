@@ -7,7 +7,7 @@ import { CoachMarks, type CoachStep } from '../components/CoachMarks'
 import { assetUrl, loadIndex } from '../exercise/ExerciseLoader'
 import type { CategoryKind, ExerciseIndex } from '../exercise/Exercise'
 import type { WordLanguage } from '../exercise/ExerciseLoader'
-import { latestInProgress } from '../storage/DrawingRepository'
+import { latestInProgress, subscribeDrawings } from '../storage/DrawingRepository'
 import type { SavedDrawing } from '../storage/types'
 import '../styles/ui.css'
 import './HomePage.css'
@@ -36,7 +36,11 @@ export function HomePage() {
 
   useEffect(() => {
     void loadIndex().then(setIndex).catch(() => undefined)
-    void latestInProgress().then((d) => setResume(d ?? null))
+
+    const refresh = () => { void latestInProgress().then((d) => setResume(d ?? null)) }
+    refresh()
+    // Autosave can land just after the child leaves the drawing screen.
+    return subscribeDrawings(refresh)
   }, [])
 
   // Modes split the library: pictures to draw, glyphs to write, games to play.

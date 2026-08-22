@@ -278,17 +278,29 @@ flowchart TD
     A["pointerup — дія закомічена"] --> B{"чекати 400 мс"}
     B -->|"новий штрих раніше"| B
     B -->|"тиша"| S["upsertDrawing"]
-    C["зміна кроку"] --> S
-    D["visibilitychange → hidden"] --> E["скинути таймер"] --> S
+
+    C["зміна кроку"] --> FL
+    D["visibilitychange → hidden"] --> FL
+    E["pagehide — iOS закриває вкладку"] --> FL
+    U["дитина йде з екрана<br/>(unmount)"] --> FL
+    FL["flush: дописати те,<br/>що чекало в таймері"] --> S
+
     S --> F{"дій нема<br/>і крок перший?"}
     F -->|"так"| G["не зберігати<br/>порожня вправа не малюнок"]
-    F -->|"ні"| H[("IndexedDB")]
+    F -->|"ні"| T{"минуло 4 с<br/>від мініатюри?"}
+    T -->|"так"| TH["перемалювати мініатюру"] --> H
+    T -->|"ні"| H[("IndexedDB")]
+    H --> N["notify → головна і галерея<br/>перечитують список"]
 
     classDef save fill:#E6F8EE,stroke:#34C77B
     classDef skip fill:#FDECEA,stroke:#E4443B
-    class S,H save
+    class S,H,TH,N save
     class G skip
 ```
+
+Ключове: таймер ніколи не скасовується без запису. `useAutosave` дописує
+незбережене при `visibilitychange`, `pagehide` і при розмонтуванні екрана —
+інакше штрих, після якого дитина одразу вийшла, зникав би разом із таймером.
 
 ## 5. Стан застосунку
 

@@ -9,13 +9,15 @@ import { Icon } from '../components/Icon'
 import type { DrawingEngine } from '../drawing/DrawingEngine'
 import { createDocument } from '../drawing/DrawingDocument'
 import { composeThumbnail } from '../drawing/thumbnail'
+import { useAutosave } from '../drawing/useAutosave'
 import { playSound } from '../audio/sounds'
 import type { DrawingAction } from '../storage/types'
-import { upsertDrawing } from '../storage/DrawingRepository'
+import { findInProgress, upsertDrawing } from '../storage/DrawingRepository'
 import '../styles/ui.css'
 import './DrawingPage.css'
 
 const AUTOSAVE_DELAY = 400
+const THUMBNAIL_INTERVAL = 4000
 
 /** A blank sheet: no steps, no guide, no Next — just paper and tools. */
 export function FreeDrawPage() {
@@ -31,35 +33,63 @@ export function FreeDrawPage() {
   const [history, setHistory] = useState({ canUndo: false, canRedo: false, isEmpty: true })
   const [confirmClear, setConfirmClear] = useState(false)
   const [savedToast, setSavedToast] = useState(false)
+  const [savedAt, setSavedAt] = useState(0)
+  const [loadedActions, setLoadedActions] = useState<DrawingAction[] | undefined>()
 
   const engineRef = useRef<DrawingEngine | null>(null)
   const cardRef = useRef<HTMLDivElement>(null)
   const drawingIdRef = useRef<string>(crypto.randomUUID())
-  const saveTimer = useRef<number | null>(null)
+  const lastThumbnailAt = useRef(0)
+
+  // Pick up the sheet the child was on: leaving the screen should not mean
+  // starting over, and a half-finished drawing is easy to walk away from.
+  useEffect(() => {
+    let cancelled = false
+    void findInProgress('free').then((drawing) => {
+      if (cancelled || !drawing) {
+        setLoadedActions([])
+        return
+      }
+      drawingIdRef.current = drawing.id
+      setActions(drawing.document.actions)
+      setLoadedActions(drawing.document.actions)
+    })
+    return () => { cancelled = true }
+  }, [])
 
   const persist = useCallback(async (next: DrawingAction[], thumbnail?: Blob) => {
     if (next.length === 0) return
+
+    let picture = thumbnail
+    const now = Date.now()
+    if (!picture && now - lastThumbnailAt.current > THUMBNAIL_INTERVAL) {
+      const canvasEl = cardRef.current?.querySelector('canvas') ?? null
+      if (canvasEl) {
+        picture = await composeThumbnail(canvasEl, null)
+        lastThumbnailAt.current = now
+      }
+    }
+
     await upsertDrawing({
       id: drawingIdRef.current,
       exerciseId: 'free',
       currentStep: 0,
       document: { ...createDocument('free', 1, 1), actions: next },
-      thumbnail,
+      thumbnail: picture,
     })
+    setSavedAt(Date.now())
   }, [])
+
+  const autosave = useAutosave<DrawingAction[]>((pending) => persist(pending), AUTOSAVE_DELAY)
 
   const handleActions = useCallback((next: DrawingAction[]) => {
     const copy = [...next]
     setActions(copy)
-    if (saveTimer.current !== null) window.clearTimeout(saveTimer.current)
-    saveTimer.current = window.setTimeout(() => void persist(copy), AUTOSAVE_DELAY)
-  }, [persist])
-
-  useEffect(() => () => {
-    if (saveTimer.current !== null) window.clearTimeout(saveTimer.current)
-  }, [])
+    autosave.schedule(copy)
+  }, [autosave])
 
   async function handleSave() {
+    autosave.flush()
     const canvasEl = cardRef.current?.querySelector('canvas') ?? null
     const thumbnail = canvasEl ? await composeThumbnail(canvasEl, null) : undefined
     await persist(actions, thumbnail)
@@ -69,7 +99,9 @@ export function FreeDrawPage() {
   }
 
   function startNewSheet() {
+    autosave.flush()
     drawingIdRef.current = crypto.randomUUID()
+    lastThumbnailAt.current = 0
     engineRef.current?.clear()
     setActions([])
   }
@@ -85,6 +117,13 @@ export function FreeDrawPage() {
           <div className="title">{t('free.title')}</div>
           <div className="muted" style={{ fontSize: 16 }}>{t('free.hint')}</div>
         </div>
+
+        {savedAt ? (
+          <span key={savedAt} className="saved-mark" role="status">
+            <Icon name="check" size={18} color="var(--c-success)" width={3} />
+            {t('drawing.autosaved')}
+          </span>
+        ) : null}
 
         <button className="btn save-now" onClick={() => void handleSave()} disabled={actions.length === 0}>
           <Icon name="download" size={22} color="var(--c-text-soft)" width={2.2} />
@@ -122,6 +161,7 @@ export function FreeDrawPage() {
               <DrawingCanvas
                 tool={tool}
                 color={color}
+                actions={loadedActions}
                 onEngineReady={(engine) => { engineRef.current = engine }}
                 onActionCommitted={handleActions}
                 onHistoryChange={setHistory}

@@ -1,13 +1,34 @@
 import { db } from './DrawliDatabase'
 import type { DrawingDocument, SavedDrawing } from './types'
 
+/**
+ * Screens that list drawings need to know when one is written. Autosave can
+ * land a moment after the child has already navigated away, so a screen that
+ * only reads on mount shows yesterday's picture.
+ */
+type Listener = () => void
+const listeners = new Set<Listener>()
+
+export function subscribeDrawings(listener: Listener): () => void {
+  listeners.add(listener)
+  return () => listeners.delete(listener)
+}
+
+function notify() {
+  for (const listener of listeners) listener()
+}
+
 export async function getDrawing(id: string): Promise<SavedDrawing | undefined> {
   return db.drawings.get(id)
 }
 
 export async function findInProgress(exerciseId: string): Promise<SavedDrawing | undefined> {
   const rows = await db.drawings.where('exerciseId').equals(exerciseId).toArray()
-  return rows.find((d) => d.status === 'IN_PROGRESS')
+  // Most recent wins: a child can have several unfinished sheets of the same
+  // kind, and the one they were last on is the one they mean to continue.
+  return rows
+    .filter((d) => d.status === 'IN_PROGRESS')
+    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))[0]
 }
 
 export async function latestInProgress(): Promise<SavedDrawing | undefined> {
@@ -22,6 +43,7 @@ export async function listDrawings(): Promise<SavedDrawing[]> {
 
 export async function saveDrawing(drawing: SavedDrawing): Promise<void> {
   await db.drawings.put(drawing)
+  notify()
 }
 
 export async function upsertDrawing(params: {
@@ -46,8 +68,10 @@ export async function upsertDrawing(params: {
     createdAt: existing?.createdAt ?? now,
     updatedAt: now,
   })
+  notify()
 }
 
 export async function deleteDrawing(id: string): Promise<void> {
   await db.drawings.delete(id)
+  notify()
 }

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Icon } from '../components/Icon'
 import { assetUrl, loadIndex } from '../exercise/ExerciseLoader'
 import type { ExerciseIndex } from '../exercise/Exercise'
-import { deleteDrawing, listDrawings } from '../storage/DrawingRepository'
+import { deleteDrawing, listDrawings, subscribeDrawings } from '../storage/DrawingRepository'
 import type { SavedDrawing } from '../storage/types'
 import { useAppStore } from '../app/store'
 import '../styles/ui.css'
@@ -32,8 +32,11 @@ export function MyDrawingsPage() {
   const thumbnails = useThumbnails(drawings)
 
   useEffect(() => {
-    void listDrawings().then(setDrawings)
     void loadIndex().then(setIndex).catch(() => undefined)
+
+    const refresh = () => { void listDrawings().then(setDrawings) }
+    refresh()
+    return subscribeDrawings(refresh)
   }, [])
 
   // Blob URLs leak if the list is replaced without revoking them.

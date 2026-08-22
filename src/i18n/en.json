@@ -57,7 +57,8 @@
     "clearHint": "You can bring it back with the forward arrow",
     "save": "Save",
     "saved": "Saved to My Drawings",
-    "hintNumber": "Trace the number along the grey line"
+    "hintNumber": "Trace the number along the grey line",
+    "autosaved": "Saved"
   },
   "complete": {
     "title": "Great job, {{name}}!",

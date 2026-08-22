@@ -16,6 +16,7 @@ import { loadExercise } from '../exercise/ExerciseLoader'
 import type { Exercise } from '../exercise/Exercise'
 import { createDocument } from '../drawing/DrawingDocument'
 import { composeThumbnail } from '../drawing/thumbnail'
+import { useAutosave } from '../drawing/useAutosave'
 import { playSound } from '../audio/sounds'
 import type { DrawingAction, ToolId } from '../storage/types'
 import { findInProgress, upsertDrawing } from '../storage/DrawingRepository'
@@ -24,6 +25,8 @@ import '../styles/ui.css'
 import './DrawingPage.css'
 
 const AUTOSAVE_DELAY = 400
+/** A gallery picture is worth redrawing at most this often while drawing. */
+const THUMBNAIL_INTERVAL = 4000
 
 export function DrawingPage() {
   const { exerciseId = '' } = useParams()
@@ -47,12 +50,14 @@ export function DrawingPage() {
   const [paletteOpen, setPaletteOpen] = useState(false)
   const [confirmClear, setConfirmClear] = useState(false)
   const [savedToast, setSavedToast] = useState(false)
+  const [savedAt, setSavedAt] = useState(0)
   const [finished, setFinished] = useState<{ stars: number; thumbnail?: string } | null>(null)
 
   const engineRef = useRef<DrawingEngine | null>(null)
   const cardRef = useRef<HTMLDivElement>(null)
   const drawingIdRef = useRef<string>('')
-  const saveTimer = useRef<number | null>(null)
+  /** Thumbnails are the expensive part of a save, so they lag behind. */
+  const lastThumbnailAt = useRef(0)
   /**
    * Actions present when each step opened — Next unlocks above the current
    * step's mark. Kept per step (and saved) so returning to a drawing does not
@@ -116,41 +121,42 @@ export function DrawingPage() {
     // An opened-but-untouched exercise is not a drawing: saving it would put an
     // empty card in the gallery and hijack the "continue" prompt on the home screen.
     if (nextActions.length === 0 && step === 0) return
+
+    // Refresh the picture now and then, so an unfinished drawing shows what the
+    // child actually made rather than a grey outline of the exercise.
+    let thumbnail: Blob | undefined
+    const now = Date.now()
+    if (nextActions.length > 0 && now - lastThumbnailAt.current > THUMBNAIL_INTERVAL) {
+      const canvasEl = cardRef.current?.querySelector('canvas') ?? null
+      const overlaySvg = cardRef.current?.querySelector<SVGSVGElement>('.coloring-layer svg') ?? null
+      if (canvasEl) {
+        thumbnail = await composeThumbnail(canvasEl, overlaySvg)
+        lastThumbnailAt.current = now
+      }
+    }
+
     await upsertDrawing({
       id: drawingIdRef.current,
       exerciseId,
       currentStep: step,
       stepBaselines: [...stepBaselinesRef.current],
       document: { ...createDocument(exerciseId, 1, 1), actions: nextActions },
+      thumbnail,
     })
     await markStarted(exerciseId, step)
+    setSavedAt(Date.now())
   }, [exerciseId])
 
-  const scheduleSave = useCallback((nextActions: DrawingAction[]) => {
-    if (saveTimer.current !== null) window.clearTimeout(saveTimer.current)
-    saveTimer.current = window.setTimeout(() => {
-      void persist(nextActions, stepIndexRef.current)
-    }, AUTOSAVE_DELAY)
-  }, [persist])
-
-  // A tablet can be locked mid-stroke; flush before the page goes away.
-  useEffect(() => {
-    const flush = () => {
-      if (document.visibilityState !== 'hidden') return
-      if (saveTimer.current !== null) window.clearTimeout(saveTimer.current)
-      void persist(engineRef.current?.actions ?? [], stepIndexRef.current)
-    }
-    document.addEventListener('visibilitychange', flush)
-    return () => {
-      document.removeEventListener('visibilitychange', flush)
-      if (saveTimer.current !== null) window.clearTimeout(saveTimer.current)
-    }
-  }, [persist])
+  const autosave = useAutosave<{ actions: DrawingAction[]; step: number }>(
+    ({ actions: pending, step }) => persist(pending, step),
+    AUTOSAVE_DELAY,
+  )
 
   const handleActions = useCallback((next: DrawingAction[]) => {
-    setActions([...next])
-    scheduleSave([...next])
-  }, [scheduleSave])
+    const copy = [...next]
+    setActions(copy)
+    autosave.schedule({ actions: copy, step: stepIndexRef.current })
+  }, [autosave])
 
   // --- colouring --------------------------------------------------------
 
@@ -208,6 +214,7 @@ export function DrawingPage() {
       setStepIndex(next)
       const defaultTool = exercise.steps[next]?.defaultTool
       if (defaultTool) setTool(defaultTool as ToolId)
+      autosave.flush()
       void persist(actions, next)
       return
     }
@@ -215,6 +222,7 @@ export function DrawingPage() {
     // Capture what the child actually sees: coloured regions under their strokes.
     const canvasEl = cardRef.current?.querySelector('canvas') ?? null
     const overlaySvg = cardRef.current?.querySelector<SVGSVGElement>('.coloring-layer svg') ?? null
+    autosave.flush()
     const thumbnailBlob = canvasEl
       ? await composeThumbnail(canvasEl, overlaySvg)
       : await engineRef.current?.toThumbnail()
@@ -271,6 +279,13 @@ export function DrawingPage() {
             ))}
           </div>
         </div>
+
+        {savedAt ? (
+          <span key={savedAt} className="saved-mark" role="status">
+            <Icon name="check" size={18} color="var(--c-success)" width={3} />
+            {t('drawing.autosaved')}
+          </span>
+        ) : null}
 
         <button
           className="btn save-now"

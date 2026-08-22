@@ -80,6 +80,29 @@
 
 .save-now { height: var(--tap-min); padding: 0 20px; font-size: 16px; }
 
+/* Quiet reassurance that the drawing is safe; it fades on its own. */
+.saved-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-success);
+  white-space: nowrap;
+  animation: saved-fade 2.2s ease forwards;
+}
+
+@keyframes saved-fade {
+  0% { opacity: 0; transform: translateY(-4px); }
+  15% { opacity: 1; transform: none; }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .saved-mark { animation: none; opacity: 0.9; }
+}
+
 .toast {
   position: fixed;
   left: 50%;
@@ -123,6 +146,7 @@
 
   /* Save and New sheet keep their icon and drop their label. */
   .save-now { height: var(--tap-min); padding: 0 12px; font-size: 0; gap: 0; }
+  .saved-mark { font-size: 0; gap: 0; }
   .save-now svg { width: 22px; height: 22px; }
 
   .draw-body { flex-direction: column; gap: 8px; }
