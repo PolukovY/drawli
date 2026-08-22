@@ -1,0 +1,19 @@
+{
+  "id": "eights",
+  "titleKey": "exercise.eights",
+  "category": "motor",
+  "difficulty": "MEDIUM",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "eight-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "eight-2",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

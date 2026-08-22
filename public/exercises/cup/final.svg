@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="cup" data-region="cup" data-default-color="#4E86E8" fill="#FFFFFF" stroke="none"><g><path d="M100 130 L124 320 q4 26 30 26 h92 q26 0 30 -26 L300 130 Z"/><path d="M296 160 q66 -6 62 50 q-6 50 -70 44 v-20 q46 6 50 -26 q4 -34 -46 -28 z"/></g></g>
+  <g id="drink" data-region="drink" data-default-color="#8B5E3C" fill="#FFFFFF" stroke="none"><path d="M104 156 h192 l-6 44 h-180 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M100 130 L124 320 q4 26 30 26 h92 q26 0 30 -26 L300 130 Z"/>
+    <path d="M296 160 q66 -6 62 50 q-6 50 -70 44"/>
+    <path d="M170 100 q-16 -40 8 -66"/>
+    <path d="M230 100 q16 -40 -8 -66"/>
+  </g>
+</svg>

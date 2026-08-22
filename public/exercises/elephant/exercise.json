@@ -1,0 +1,40 @@
+{
+  "id": "elephant",
+  "titleKey": "exercise.elephant",
+  "category": "animals",
+  "difficulty": "MEDIUM",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "head",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "ears",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "trunk",
+      "guide": "step-03.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "face",
+      "guide": "step-04.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "tusks",
+      "guide": "step-05.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "color",
+      "mode": "COLORING",
+      "guide": "final.svg",
+      "defaultTool": "FILL"
+    }
+  ]
+}

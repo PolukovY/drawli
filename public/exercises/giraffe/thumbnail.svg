@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#FFC53D" fill="#FFC53D" stroke="none"><g><path d="M164 360 L164 150 L240 150 L240 360 Z"/><ellipse cx="204" cy="118" rx="72" ry="52"/><ellipse cx="266" cy="140" rx="30" ry="24"/></g></g>
+  <g id="spots" data-region="spots" data-default-color="#C98A4B" fill="#C98A4B" stroke="none"><g><circle cx="186" cy="200" r="16"/><circle cx="220" cy="248" r="14"/><circle cx="186" cy="296" r="15"/><circle cx="222" cy="336" r="13"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M164 360 L164 150"/>
+    <path d="M240 360 L240 150"/>
+    <ellipse cx="204" cy="118" rx="72" ry="52"/>
+    <ellipse cx="266" cy="140" rx="30" ry="24"/>
+    <path d="M176 74 L168 40"/>
+    <circle cx="166" cy="32" r="12"/>
+    <path d="M232 74 L240 40"/>
+    <circle cx="242" cy="32" r="12"/>
+    <circle cx="186" cy="106" r="10"/>
+    <circle cx="278" cy="132" r="6"/>
+    <circle cx="186" cy="200" r="16"/>
+    <circle cx="220" cy="248" r="14"/>
+    <circle cx="186" cy="296" r="15"/>
+    <circle cx="222" cy="336" r="13"/>
+  </g>
+</svg>

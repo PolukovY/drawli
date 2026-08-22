@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="mountain" data-region="mountain" data-default-color="#A9AFC0" fill="#A9AFC0" stroke="none"><g><path d="M200 60 L340 320 L60 320 Z"/><path d="M300 160 L390 320 L246 320 Z"/></g></g>
+  <g id="snow" data-region="snow" data-default-color="#FFFFFF" fill="#FFFFFF" stroke="none"><path d="M200 60 L256 164 q-24 22 -44 -4 q-18 26 -36 2 q-10 22 -32 0 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M200 60 L340 320 L60 320 Z"/>
+    <path d="M144 164 q22 22 32 0 q18 24 36 -2 q20 26 44 4"/>
+    <path d="M300 160 L390 320 L246 320 Z"/>
+  </g>
+</svg>

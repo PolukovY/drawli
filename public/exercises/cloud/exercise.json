@@ -1,0 +1,25 @@
+{
+  "id": "cloud",
+  "titleKey": "exercise.cloud",
+  "category": "nature",
+  "difficulty": "VERY_EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "puffs",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "face",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "color",
+      "mode": "COLORING",
+      "guide": "final.svg",
+      "defaultTool": "FILL"
+    }
+  ]
+}

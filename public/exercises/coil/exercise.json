@@ -1,0 +1,14 @@
+{
+  "id": "coil",
+  "titleKey": "exercise.coil",
+  "category": "motor",
+  "difficulty": "MEDIUM",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "coil",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

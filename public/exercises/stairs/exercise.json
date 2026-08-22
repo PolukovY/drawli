@@ -1,0 +1,14 @@
+{
+  "id": "stairs",
+  "titleKey": "exercise.stairs",
+  "category": "motor",
+  "difficulty": "EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "up",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

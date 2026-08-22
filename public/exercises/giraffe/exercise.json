@@ -1,0 +1,40 @@
+{
+  "id": "giraffe",
+  "titleKey": "exercise.giraffe",
+  "category": "animals",
+  "difficulty": "MEDIUM",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "neck",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "head",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "horns",
+      "guide": "step-03.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "face",
+      "guide": "step-04.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "spots",
+      "guide": "step-05.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "color",
+      "mode": "COLORING",
+      "guide": "final.svg",
+      "defaultTool": "FILL"
+    }
+  ]
+}

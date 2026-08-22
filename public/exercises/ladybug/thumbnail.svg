@@ -1,5 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-  <g id="shell" data-region="shell" data-default-color="#E4443B" fill="#E4443B" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><ellipse cx="200" cy="220" rx="130" ry="124"/></g>
-  <g id="head" data-region="head" data-default-color="#2A2340" fill="#2A2340" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><circle cx="200" cy="105" r="52"/></g>
-  <g id="spots" data-region="spots" data-default-color="#2A2340" fill="#2A2340" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><g><circle cx="145" cy="170" r="20"/><circle cx="108" cy="237" r="17"/><circle cx="160" cy="267" r="18"/><circle cx="255" cy="170" r="20"/><circle cx="292" cy="237" r="17"/><circle cx="240" cy="267" r="18"/></g></g>
+  <g id="shell" data-region="shell" data-default-color="#E4443B" fill="#E4443B" stroke="none"><ellipse cx="200" cy="220" rx="130" ry="124"/></g>
+  <g id="head" data-region="head" data-default-color="#2A2340" fill="#2A2340" stroke="none"><circle cx="200" cy="105" r="52"/></g>
+  <g id="spots" data-region="spots" data-default-color="#2A2340" fill="#2A2340" stroke="none"><g><circle cx="145" cy="170" r="20"/><circle cx="108" cy="237" r="17"/><circle cx="160" cy="267" r="18"/><circle cx="255" cy="170" r="20"/><circle cx="292" cy="237" r="17"/><circle cx="240" cy="267" r="18"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <ellipse cx="200" cy="220" rx="130" ry="124"/>
+    <circle cx="200" cy="105" r="52"/>
+    <path d="M200 97 L200 343"/>
+    <circle cx="145" cy="170" r="20"/>
+    <circle cx="108" cy="237" r="17"/>
+    <circle cx="160" cy="267" r="18"/>
+    <circle cx="255" cy="170" r="20"/>
+    <circle cx="292" cy="237" r="17"/>
+    <circle cx="240" cy="267" r="18"/>
+    <path d="M178 65 L152 33"/>
+    <circle cx="149" cy="29" r="9"/>
+    <path d="M222 65 L248 33"/>
+    <circle cx="251" cy="29" r="9"/>
+    <path d="M78 165 L36 143"/>
+    <path d="M72 220 L26 220"/>
+    <path d="M80 277 L38 301"/>
+    <path d="M322 165 L364 143"/>
+    <path d="M328 220 L374 220"/>
+    <path d="M320 277 L362 301"/>
+  </g>
 </svg>

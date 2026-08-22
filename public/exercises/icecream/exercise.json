@@ -1,0 +1,35 @@
+{
+  "id": "icecream",
+  "titleKey": "exercise.icecream",
+  "category": "food",
+  "difficulty": "EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "cone",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "waffle",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "scoops",
+      "guide": "step-03.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "cherry",
+      "guide": "step-04.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "color",
+      "mode": "COLORING",
+      "guide": "final.svg",
+      "defaultTool": "FILL"
+    }
+  ]
+}

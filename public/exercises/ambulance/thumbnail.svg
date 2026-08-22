@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#FFFFFF" fill="#FFFFFF" stroke="none"><path d="M40 290 v-140 h180 v50 h60 l60 50 v40 z"/></g>
+  <g id="cross" data-region="cross" data-default-color="#E4443B" fill="#E4443B" stroke="none"><g><rect x="150" y="188" width="60" height="24"/><rect x="168" y="170" width="24" height="60"/></g></g>
+  <g id="wheels" data-region="wheels" data-default-color="#2A2340" fill="#2A2340" stroke="none"><g><circle cx="110" cy="300" r="34"/><circle cx="290" cy="300" r="34"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M40 290 v-140 h180 v50 h60 l60 50 v40 z"/>
+    <rect x="66" y="176" width="60" height="50" rx="8"/>
+    <rect x="234" y="216" width="60" height="34" rx="8"/>
+    <path d="M150 200 h60"/>
+    <path d="M180 170 v60"/>
+    <circle cx="110" cy="300" r="34"/>
+    <circle cx="290" cy="300" r="34"/>
+    <rect x="80" y="128" width="50" height="24" rx="10"/>
+  </g>
+</svg>

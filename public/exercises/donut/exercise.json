@@ -1,0 +1,30 @@
+{
+  "id": "donut",
+  "titleKey": "exercise.donut",
+  "category": "food",
+  "difficulty": "VERY_EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "ring",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "glaze",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "sprinkles",
+      "guide": "step-03.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "color",
+      "mode": "COLORING",
+      "guide": "final.svg",
+      "defaultTool": "FILL"
+    }
+  ]
+}

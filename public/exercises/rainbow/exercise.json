@@ -1,0 +1,35 @@
+{
+  "id": "rainbow",
+  "titleKey": "exercise.rainbow",
+  "category": "nature",
+  "difficulty": "EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "arc-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "arc-2",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "arc-3",
+      "guide": "step-03.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "clouds",
+      "guide": "step-04.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "color",
+      "mode": "COLORING",
+      "guide": "final.svg",
+      "defaultTool": "FILL"
+    }
+  ]
+}

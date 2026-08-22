@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="petals" data-region="petals" data-default-color="#FFC53D" fill="#FFFFFF" stroke="none"><g><ellipse cx="200" cy="52" rx="22" ry="38"/><ellipse cx="288" cy="140" rx="38" ry="22"/><ellipse cx="200" cy="228" rx="22" ry="38"/><ellipse cx="112" cy="140" rx="38" ry="22"/><ellipse cx="262" cy="78" rx="22" ry="38" transform="rotate(45 262 78)"/><ellipse cx="262" cy="202" rx="38" ry="22" transform="rotate(45 262 202)"/><ellipse cx="138" cy="202" rx="22" ry="38" transform="rotate(45 138 202)"/><ellipse cx="138" cy="78" rx="38" ry="22" transform="rotate(45 138 78)"/></g></g>
+  <g id="center" data-region="center" data-default-color="#8B5E3C" fill="#FFFFFF" stroke="none"><circle cx="200" cy="140" r="56"/></g>
+  <g id="leaf" data-region="leaf" data-default-color="#4EA55F" fill="#FFFFFF" stroke="none"><path d="M200 310 q-64 -26 -80 22 q52 24 80 -22"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <circle cx="200" cy="140" r="56"/>
+    <ellipse cx="200" cy="52" rx="22" ry="38"/>
+    <ellipse cx="288" cy="140" rx="38" ry="22"/>
+    <ellipse cx="200" cy="228" rx="22" ry="38"/>
+    <ellipse cx="112" cy="140" rx="38" ry="22"/>
+    <ellipse cx="262" cy="78" rx="22" ry="38" transform="rotate(45 262 78)"/>
+    <ellipse cx="262" cy="202" rx="38" ry="22" transform="rotate(45 262 202)"/>
+    <ellipse cx="138" cy="202" rx="22" ry="38" transform="rotate(45 138 202)"/>
+    <ellipse cx="138" cy="78" rx="38" ry="22" transform="rotate(45 138 78)"/>
+    <path d="M200 266 L200 372"/>
+    <path d="M200 310 q-64 -26 -80 22 q52 24 80 -22"/>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+{
+  "id": "hotairballoon",
+  "titleKey": "exercise.hotairballoon",
+  "category": "transport",
+  "difficulty": "EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "envelope",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "stripes",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "ropes",
+      "guide": "step-03.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "basket",
+      "guide": "step-04.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "color",
+      "mode": "COLORING",
+      "guide": "final.svg",
+      "defaultTool": "FILL"
+    }
+  ]
+}

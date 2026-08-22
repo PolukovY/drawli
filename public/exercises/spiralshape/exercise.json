@@ -1,0 +1,14 @@
+{
+  "id": "spiralshape",
+  "titleKey": "exercise.spiralshape",
+  "category": "shapes",
+  "difficulty": "MEDIUM",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "spiral",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

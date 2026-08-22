@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="stars" data-region="stars" data-default-color="#FFC53D" fill="#FFC53D" stroke="none"><g><path d="M150 60 l24 54 l58 8 l-42 40 l10 58 l-50 -28 l-50 28 l10 -58 l-42 -40 l58 -8 z"/><path d="M290 170 l16 36 l40 6 l-28 27 l7 39 l-35 -19 l-35 19 l7 -39 l-28 -27 l40 -6 z"/><path d="M170 280 l12 26 l28 4 l-20 19 l5 28 l-25 -14 l-25 14 l5 -28 l-20 -19 l28 -4 z"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M150 60 l24 54 l58 8 l-42 40 l10 58 l-50 -28 l-50 28 l10 -58 l-42 -40 l58 -8 z"/>
+    <path d="M290 170 l16 36 l40 6 l-28 27 l7 39 l-35 -19 l-35 19 l7 -39 l-28 -27 l40 -6 z"/>
+    <path d="M170 280 l12 26 l28 4 l-20 19 l5 28 l-25 -14 l-25 14 l5 -28 l-20 -19 l28 -4 z"/>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="balloon" data-region="balloon" data-default-color="#E4443B" fill="#E4443B" stroke="none"><ellipse cx="200" cy="170" rx="110" ry="130"/></g>
+  <g id="knot" data-region="knot" data-default-color="#C0342C" fill="#C0342C" stroke="none"><path d="M186 300 L200 320 L214 300 Z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <ellipse cx="200" cy="170" rx="110" ry="130"/>
+    <path d="M186 300 L200 320 L214 300 Z"/>
+    <path d="M200 320 q30 30 0 60 q-30 30 0 40"/>
+  </g>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="head" data-region="head" data-default-color="#F5893B" fill="#F5893B" stroke="none"><g><circle cx="200" cy="170" r="110"/><path d="M124 92 L112 20 L182 62 Z"/><path d="M276 92 L288 20 L218 62 Z"/></g></g>
+  <g id="body" data-region="body" data-default-color="#F5893B" fill="#F5893B" stroke="none"><path d="M118 258 q-14 100 82 100 q96 0 82 -100 z"/></g>
+  <g id="eyes" data-region="eyes" data-default-color="#2A2340" fill="#2A2340" stroke="none"><g><circle cx="162" cy="158" r="12"/><circle cx="238" cy="158" r="12"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <circle cx="200" cy="170" r="110"/>
+    <path d="M124 92 L112 20 L182 62 Z"/>
+    <path d="M276 92 L288 20 L218 62 Z"/>
+    <circle cx="162" cy="158" r="12"/>
+    <circle cx="238" cy="158" r="12"/>
+    <path d="M200 196 l-16 -12 h32 z"/>
+    <path d="M200 200 q-4 26 -30 26"/>
+    <path d="M200 200 q4 26 30 26"/>
+    <path d="M120 186 L44 172"/>
+    <path d="M120 206 L46 214"/>
+    <path d="M280 186 L356 172"/>
+    <path d="M280 206 L354 214"/>
+    <path d="M118 258 q-14 100 82 100 q96 0 82 -100"/>
+    <path d="M282 320 q60 22 62 -46"/>
+  </g>
+</svg>

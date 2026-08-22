@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#E4443B" fill="#E4443B" stroke="none"><path d="M200 130 c70 0 120 40 120 90 c0 70 -70 130 -120 130 s-120 -60 -120 -130 c0 -50 50 -90 120 -90 z"/></g>
+  <g id="leaves" data-region="leaves" data-default-color="#4EA55F" fill="#4EA55F" stroke="none"><path d="M200 130 l-58 -34 l30 40 l-46 6 l52 22 l22 -18 l22 18 l52 -22 l-46 -6 l30 -40 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M200 130 c70 0 120 40 120 90 c0 70 -70 130 -120 130 s-120 -60 -120 -130 c0 -50 50 -90 120 -90 z"/>
+    <path d="M200 130 l-58 -34 l30 40 l-46 6 l52 22 l22 -18 l22 18 l52 -22 l-46 -6 l30 -40 z"/>
+    <circle cx="164" cy="196" r="6"/>
+    <circle cx="236" cy="196" r="6"/>
+    <circle cx="200" cy="238" r="6"/>
+    <circle cx="150" cy="252" r="6"/>
+    <circle cx="250" cy="252" r="6"/>
+  </g>
+</svg>

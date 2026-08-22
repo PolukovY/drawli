@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="stone" data-region="stone" data-default-color="#A9AFC0" fill="#A9AFC0" stroke="none"><path d="M70 300 q-20 -110 90 -140 q120 -34 168 60 q34 66 -28 100 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M70 300 q-20 -110 90 -140 q120 -34 168 60 q34 66 -28 100 z"/>
+    <path d="M120 240 q60 -30 130 -6"/>
+    <path d="M140 286 q70 -22 140 -2"/>
+  </g>
+</svg>

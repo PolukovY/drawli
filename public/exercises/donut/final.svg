@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="dough" data-region="dough" data-default-color="#C98A4B" fill="#FFFFFF" stroke="none"><path d="M200 60 a140 140 0 1 0 0.1 0 z m0 92 a48 48 0 1 1 -0.1 0 z"/></g>
+  <g id="glaze" data-region="glaze" data-default-color="#F08BB4" fill="#FFFFFF" stroke="none"><path d="M62 190 q30 40 62 6 q34 -34 66 4 q30 34 62 -4 q30 -34 48 6 q6 60 -38 96 q-40 34 -100 34 q-56 0 -92 -40 q-32 -38 -8 -96 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <circle cx="200" cy="200" r="140"/>
+    <circle cx="200" cy="200" r="48"/>
+    <path d="M62 190 q30 40 62 6 q34 -34 66 4 q30 34 62 -4 q30 -34 48 6"/>
+    <path d="M140 120 l16 12"/>
+    <path d="M250 118 l14 -14"/>
+    <path d="M300 190 l4 18"/>
+    <path d="M110 220 l-16 8"/>
+    <path d="M200 92 l0 18"/>
+  </g>
+</svg>

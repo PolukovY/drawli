@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="outer" data-region="outer" data-default-color="#5FC7C0" fill="#5FC7C0" stroke="none"><ellipse cx="200" cy="200" rx="150" ry="100"/></g>
+  <g id="inner" data-region="inner" data-default-color="#FFFFFF" fill="#FFFFFF" stroke="none"><ellipse cx="200" cy="200" rx="80" ry="52"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <ellipse cx="200" cy="200" rx="150" ry="100"/>
+    <ellipse cx="200" cy="200" rx="80" ry="52"/>
+  </g>
+</svg>

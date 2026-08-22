@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#F5893B" fill="#F5893B" stroke="none"><path d="M148 140 L200 350 L252 140 Z"/></g>
+  <g id="leaves" data-region="leaves" data-default-color="#4EA55F" fill="#4EA55F" stroke="none"><g><path d="M200 140 q-16 -60 -60 -74 q14 46 44 74"/><path d="M200 140 q0 -66 0 -86 q22 40 22 86"/><path d="M200 140 q26 -54 70 -66 q-16 44 -46 66"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M148 140 L200 350 L252 140 Z"/>
+    <path d="M162 190 L238 190"/>
+    <path d="M176 244 L224 244"/>
+    <path d="M200 140 q-16 -60 -60 -74 q14 46 44 74"/>
+    <path d="M200 140 q0 -66 0 -86 q22 40 22 86"/>
+    <path d="M200 140 q26 -54 70 -66 q-16 44 -46 66"/>
+  </g>
+</svg>

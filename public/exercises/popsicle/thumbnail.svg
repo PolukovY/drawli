@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#F08BB4" fill="#F08BB4" stroke="none"><rect x="120" y="60" width="160" height="220" rx="60"/></g>
+  <g id="stick" data-region="stick" data-default-color="#C98A4B" fill="#C98A4B" stroke="none"><rect x="180" y="278" width="40" height="80" rx="14"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <rect x="120" y="60" width="160" height="220" rx="60"/>
+    <rect x="180" y="278" width="40" height="80" rx="14"/>
+    <path d="M120 200 q26 26 54 6 q30 -22 56 6 q26 24 50 -6"/>
+  </g>
+</svg>

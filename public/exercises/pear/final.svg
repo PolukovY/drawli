@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#B7D24A" fill="#FFFFFF" stroke="none"><path d="M200 120 c46 0 62 44 44 78 c-16 30 -4 44 10 66 c22 34 6 96 -54 96 s-76 -62 -54 -96 c14 -22 26 -36 10 -66 c-18 -34 -2 -78 44 -78 z"/></g>
+  <g id="leaf" data-region="leaf" data-default-color="#4EA55F" fill="#FFFFFF" stroke="none"><path d="M198 96 q44 -44 80 -18 q-24 48 -80 18 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M200 120 c46 0 62 44 44 78 c-16 30 -4 44 10 66 c22 34 6 96 -54 96 s-76 -62 -54 -96 c14 -22 26 -36 10 -66 c-18 -34 -2 -78 44 -78 z"/>
+    <path d="M200 120 q0 -40 -14 -54"/>
+    <path d="M198 96 q44 -44 80 -18 q-24 48 -80 18 z"/>
+  </g>
+</svg>

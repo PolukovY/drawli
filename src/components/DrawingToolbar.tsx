@@ -29,6 +29,26 @@ const LABELS: Record<ToolId, string> = {
   ERASER: 'drawing.tool.eraser',
 }
 
+const HINTS: Record<ToolId, string> = {
+  PENCIL: 'drawing.tool.pencilHint',
+  BRUSH: 'drawing.tool.brushHint',
+  FILL: 'drawing.tool.fillHint',
+  ERASER: 'drawing.tool.eraserHint',
+}
+
+/** Hover/focus explains the tool; a tablet still gets the label via aria. */
+function Tip({ title, hint, children }: { title: string; hint: string; children: React.ReactNode }) {
+  return (
+    <span className="tool-wrap">
+      {children}
+      <span className="tool-tip" role="tooltip">
+        <b>{title}</b>
+        <i>{hint}</i>
+      </span>
+    </span>
+  )
+}
+
 export function DrawingToolbar({
   tool, color, canUndo, canRedo, tools = ['PENCIL', 'BRUSH', 'FILL', 'ERASER'],
   onToolChange, onColorTap, onUndo, onRedo,
@@ -38,31 +58,39 @@ export function DrawingToolbar({
   return (
     <div className="toolbar">
       {tools.map((id) => (
-        <button
-          key={id}
-          className={`tool ${tool === id ? 'tool--on' : ''}`}
-          onClick={() => onToolChange(id)}
-          aria-label={t(LABELS[id])}
-          aria-pressed={tool === id}
-        >
-          <Icon name={ICONS[id]} size={30} color={tool === id ? '#fff' : 'var(--c-text-soft)'} />
-        </button>
+        <Tip key={id} title={t(LABELS[id])} hint={t(HINTS[id])}>
+          <button
+            className={`tool ${tool === id ? 'tool--on' : ''}`}
+            onClick={() => onToolChange(id)}
+            aria-label={t(LABELS[id])}
+            aria-pressed={tool === id}
+          >
+            <Icon name={ICONS[id]} size={30} color={tool === id ? '#fff' : 'var(--c-text-soft)'} />
+          </button>
+        </Tip>
       ))}
 
       <div className="tool-divider" />
 
-      <button className="tool" onClick={onColorTap} aria-label={t('drawing.tool.pencil')}>
-        <span className="swatch" style={{ background: color }} />
-      </button>
+      <Tip title={t('drawing.tool.color')} hint={t('drawing.tool.colorHint')}>
+        <button className="tool" onClick={onColorTap} aria-label={t('drawing.tool.color')}>
+          <span className="swatch" style={{ background: color }} />
+        </button>
+      </Tip>
 
       <div className="tool-divider" />
 
-      <button className="tool" onClick={onUndo} disabled={!canUndo} aria-label={t('drawing.tool.undo')}>
-        <Icon name="undo" size={30} color={canUndo ? 'var(--c-text-soft)' : 'var(--c-disabled)'} width={2.4} />
-      </button>
-      <button className="tool" onClick={onRedo} disabled={!canRedo} aria-label={t('drawing.tool.redo')}>
-        <Icon name="redo" size={30} color={canRedo ? 'var(--c-text-soft)' : 'var(--c-disabled)'} width={2.4} />
-      </button>
+      <Tip title={t('drawing.tool.undo')} hint={t('drawing.tool.undoHint')}>
+        <button className="tool" onClick={onUndo} disabled={!canUndo} aria-label={t('drawing.tool.undo')}>
+          <Icon name="undo" size={30} color={canUndo ? 'var(--c-text-soft)' : 'var(--c-disabled)'} width={2.4} />
+        </button>
+      </Tip>
+
+      <Tip title={t('drawing.tool.redo')} hint={t('drawing.tool.redoHint')}>
+        <button className="tool" onClick={onRedo} disabled={!canRedo} aria-label={t('drawing.tool.redo')}>
+          <Icon name="redo" size={30} color={canRedo ? 'var(--c-text-soft)' : 'var(--c-disabled)'} width={2.4} />
+        </button>
+      </Tip>
     </div>
   )
 }

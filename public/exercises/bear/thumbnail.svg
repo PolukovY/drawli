@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="head" data-region="head" data-default-color="#8B5E3C" fill="#8B5E3C" stroke="none"><g><circle cx="200" cy="190" r="112"/><circle cx="118" cy="106" r="40"/><circle cx="282" cy="106" r="40"/></g></g>
+  <g id="muzzle" data-region="muzzle" data-default-color="#E0A860" fill="#E0A860" stroke="none"><ellipse cx="200" cy="232" rx="62" ry="48"/></g>
+  <g id="nose" data-region="nose" data-default-color="#2A2340" fill="#2A2340" stroke="none"><ellipse cx="200" cy="212" rx="20" ry="15"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <circle cx="200" cy="190" r="112"/>
+    <circle cx="118" cy="106" r="40"/>
+    <circle cx="282" cy="106" r="40"/>
+    <ellipse cx="200" cy="232" rx="62" ry="48"/>
+    <ellipse cx="200" cy="212" rx="20" ry="15"/>
+    <circle cx="160" cy="170" r="12"/>
+    <circle cx="240" cy="170" r="12"/>
+    <path d="M200 227 L200 246"/>
+    <path d="M200 246 q-20 18 -34 -2"/>
+    <path d="M200 246 q20 18 34 -2"/>
+  </g>
+</svg>

@@ -54,12 +54,28 @@
       "steps": 3
     },
     {
+      "id": "longlines",
+      "titleKey": "exercise.longlines",
+      "category": "motor",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "longlines/thumbnail.svg",
+      "steps": 2
+    },
+    {
       "id": "waves",
       "titleKey": "exercise.waves",
       "category": "motor",
       "difficulty": "VERY_EASY",
       "thumbnail": "waves/thumbnail.svg",
       "steps": 3
+    },
+    {
+      "id": "bigwaves",
+      "titleKey": "exercise.bigwaves",
+      "category": "motor",
+      "difficulty": "EASY",
+      "thumbnail": "bigwaves/thumbnail.svg",
+      "steps": 2
     },
     {
       "id": "zigzag",
@@ -70,11 +86,123 @@
       "steps": 3
     },
     {
+      "id": "sharpzigzag",
+      "titleKey": "exercise.sharpzigzag",
+      "category": "motor",
+      "difficulty": "EASY",
+      "thumbnail": "sharpzigzag/thumbnail.svg",
+      "steps": 2
+    },
+    {
       "id": "loops",
       "titleKey": "exercise.loops",
       "category": "motor",
       "difficulty": "EASY",
       "thumbnail": "loops/thumbnail.svg",
+      "steps": 2
+    },
+    {
+      "id": "spiral",
+      "titleKey": "exercise.spiral",
+      "category": "motor",
+      "difficulty": "MEDIUM",
+      "thumbnail": "spiral/thumbnail.svg",
+      "steps": 2
+    },
+    {
+      "id": "arcs",
+      "titleKey": "exercise.arcs",
+      "category": "motor",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "arcs/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "hills",
+      "titleKey": "exercise.hills",
+      "category": "motor",
+      "difficulty": "EASY",
+      "thumbnail": "hills/thumbnail.svg",
+      "steps": 2
+    },
+    {
+      "id": "circles",
+      "titleKey": "exercise.circles",
+      "category": "motor",
+      "difficulty": "EASY",
+      "thumbnail": "circles/thumbnail.svg",
+      "steps": 2
+    },
+    {
+      "id": "eights",
+      "titleKey": "exercise.eights",
+      "category": "motor",
+      "difficulty": "MEDIUM",
+      "thumbnail": "eights/thumbnail.svg",
+      "steps": 2
+    },
+    {
+      "id": "stairs",
+      "titleKey": "exercise.stairs",
+      "category": "motor",
+      "difficulty": "EASY",
+      "thumbnail": "stairs/thumbnail.svg",
+      "steps": 1
+    },
+    {
+      "id": "fence",
+      "titleKey": "exercise.fence",
+      "category": "motor",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "fence/thumbnail.svg",
+      "steps": 2
+    },
+    {
+      "id": "ladder",
+      "titleKey": "exercise.ladder",
+      "category": "motor",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "ladder/thumbnail.svg",
+      "steps": 2
+    },
+    {
+      "id": "rain",
+      "titleKey": "exercise.rain",
+      "category": "motor",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "rain/thumbnail.svg",
+      "steps": 2
+    },
+    {
+      "id": "coil",
+      "titleKey": "exercise.coil",
+      "category": "motor",
+      "difficulty": "MEDIUM",
+      "thumbnail": "coil/thumbnail.svg",
+      "steps": 1
+    },
+    {
+      "id": "snake",
+      "titleKey": "exercise.snake",
+      "category": "motor",
+      "difficulty": "EASY",
+      "thumbnail": "snake/thumbnail.svg",
+      "steps": 1
+    },
+    {
+      "id": "dots",
+      "titleKey": "exercise.dots",
+      "category": "motor",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "dots/thumbnail.svg",
+      "steps": 2
+    },
+    {
+      "id": "maze",
+      "titleKey": "exercise.maze",
+      "category": "motor",
+      "difficulty": "MEDIUM",
+      "thumbnail": "maze/thumbnail.svg",
       "steps": 2
     },
     {
@@ -102,12 +230,140 @@
       "steps": 4
     },
     {
+      "id": "rectangle",
+      "titleKey": "exercise.rectangle",
+      "category": "shapes",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "rectangle/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "oval",
+      "titleKey": "exercise.oval",
+      "category": "shapes",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "oval/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "heart",
+      "titleKey": "exercise.heart",
+      "category": "shapes",
+      "difficulty": "EASY",
+      "thumbnail": "heart/thumbnail.svg",
+      "steps": 3
+    },
+    {
       "id": "star",
       "titleKey": "exercise.star",
       "category": "shapes",
       "difficulty": "EASY",
       "thumbnail": "star/thumbnail.svg",
       "steps": 5
+    },
+    {
+      "id": "diamond",
+      "titleKey": "exercise.diamond",
+      "category": "shapes",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "diamond/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "pentagon",
+      "titleKey": "exercise.pentagon",
+      "category": "shapes",
+      "difficulty": "EASY",
+      "thumbnail": "pentagon/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "hexagon",
+      "titleKey": "exercise.hexagon",
+      "category": "shapes",
+      "difficulty": "EASY",
+      "thumbnail": "hexagon/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "octagon",
+      "titleKey": "exercise.octagon",
+      "category": "shapes",
+      "difficulty": "MEDIUM",
+      "thumbnail": "octagon/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "crescent",
+      "titleKey": "exercise.crescent",
+      "category": "shapes",
+      "difficulty": "EASY",
+      "thumbnail": "crescent/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "cross",
+      "titleKey": "exercise.cross",
+      "category": "shapes",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "cross/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "arrow",
+      "titleKey": "exercise.arrow",
+      "category": "shapes",
+      "difficulty": "EASY",
+      "thumbnail": "arrow/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "semicircle",
+      "titleKey": "exercise.semicircle",
+      "category": "shapes",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "semicircle/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "trapezoid",
+      "titleKey": "exercise.trapezoid",
+      "category": "shapes",
+      "difficulty": "EASY",
+      "thumbnail": "trapezoid/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "ring",
+      "titleKey": "exercise.ring",
+      "category": "shapes",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "ring/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "egg",
+      "titleKey": "exercise.egg",
+      "category": "shapes",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "egg/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "cloudshape",
+      "titleKey": "exercise.cloudshape",
+      "category": "shapes",
+      "difficulty": "EASY",
+      "thumbnail": "cloudshape/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "spiralshape",
+      "titleKey": "exercise.spiralshape",
+      "category": "shapes",
+      "difficulty": "MEDIUM",
+      "thumbnail": "spiralshape/thumbnail.svg",
+      "steps": 1
     },
     {
       "id": "sun",
@@ -118,6 +374,70 @@
       "steps": 4
     },
     {
+      "id": "cloud",
+      "titleKey": "exercise.cloud",
+      "category": "nature",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "cloud/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "rainbow",
+      "titleKey": "exercise.rainbow",
+      "category": "nature",
+      "difficulty": "EASY",
+      "thumbnail": "rainbow/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "raindrop",
+      "titleKey": "exercise.raindrop",
+      "category": "nature",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "raindrop/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "snowflake",
+      "titleKey": "exercise.snowflake",
+      "category": "nature",
+      "difficulty": "MEDIUM",
+      "thumbnail": "snowflake/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "moon",
+      "titleKey": "exercise.moon",
+      "category": "nature",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "moon/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "tree",
+      "titleKey": "exercise.tree",
+      "category": "nature",
+      "difficulty": "EASY",
+      "thumbnail": "tree/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "firtree",
+      "titleKey": "exercise.firtree",
+      "category": "nature",
+      "difficulty": "EASY",
+      "thumbnail": "firtree/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "palm",
+      "titleKey": "exercise.palm",
+      "category": "nature",
+      "difficulty": "MEDIUM",
+      "thumbnail": "palm/thumbnail.svg",
+      "steps": 5
+    },
+    {
       "id": "flower",
       "titleKey": "exercise.flower",
       "category": "nature",
@@ -126,12 +446,100 @@
       "steps": 5
     },
     {
-      "id": "apple",
-      "titleKey": "exercise.apple",
-      "category": "food",
+      "id": "tulip",
+      "titleKey": "exercise.tulip",
+      "category": "nature",
       "difficulty": "EASY",
-      "thumbnail": "apple/thumbnail.svg",
+      "thumbnail": "tulip/thumbnail.svg",
       "steps": 4
+    },
+    {
+      "id": "sunflower",
+      "titleKey": "exercise.sunflower",
+      "category": "nature",
+      "difficulty": "MEDIUM",
+      "thumbnail": "sunflower/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "mushroom",
+      "titleKey": "exercise.mushroom",
+      "category": "nature",
+      "difficulty": "EASY",
+      "thumbnail": "mushroom/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "leaf",
+      "titleKey": "exercise.leaf",
+      "category": "nature",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "leaf/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "acorn",
+      "titleKey": "exercise.acorn",
+      "category": "nature",
+      "difficulty": "EASY",
+      "thumbnail": "acorn/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "cactus",
+      "titleKey": "exercise.cactus",
+      "category": "nature",
+      "difficulty": "EASY",
+      "thumbnail": "cactus/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "mountain",
+      "titleKey": "exercise.mountain",
+      "category": "nature",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "mountain/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "shell",
+      "titleKey": "exercise.shell",
+      "category": "nature",
+      "difficulty": "EASY",
+      "thumbnail": "shell/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "skystars",
+      "titleKey": "exercise.skystars",
+      "category": "nature",
+      "difficulty": "EASY",
+      "thumbnail": "skystars/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "lightning",
+      "titleKey": "exercise.lightning",
+      "category": "nature",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "lightning/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "planet",
+      "titleKey": "exercise.planet",
+      "category": "nature",
+      "difficulty": "EASY",
+      "thumbnail": "planet/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "anthill",
+      "titleKey": "exercise.anthill",
+      "category": "nature",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "anthill/thumbnail.svg",
+      "steps": 3
     },
     {
       "id": "ladybug",
@@ -158,6 +566,350 @@
       "steps": 6
     },
     {
+      "id": "cat",
+      "titleKey": "exercise.cat",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "cat/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "dog",
+      "titleKey": "exercise.dog",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "dog/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "bunny",
+      "titleKey": "exercise.bunny",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "bunny/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "bear",
+      "titleKey": "exercise.bear",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "bear/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "turtle",
+      "titleKey": "exercise.turtle",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "turtle/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "duck",
+      "titleKey": "exercise.duck",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "duck/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "owl",
+      "titleKey": "exercise.owl",
+      "category": "animals",
+      "difficulty": "MEDIUM",
+      "thumbnail": "owl/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "bee",
+      "titleKey": "exercise.bee",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "bee/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "snail",
+      "titleKey": "exercise.snail",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "snail/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "frog",
+      "titleKey": "exercise.frog",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "frog/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "penguin",
+      "titleKey": "exercise.penguin",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "penguin/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "elephant",
+      "titleKey": "exercise.elephant",
+      "category": "animals",
+      "difficulty": "MEDIUM",
+      "thumbnail": "elephant/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "giraffe",
+      "titleKey": "exercise.giraffe",
+      "category": "animals",
+      "difficulty": "MEDIUM",
+      "thumbnail": "giraffe/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "mouse",
+      "titleKey": "exercise.mouse",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "mouse/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "pig",
+      "titleKey": "exercise.pig",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "pig/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "cow",
+      "titleKey": "exercise.cow",
+      "category": "animals",
+      "difficulty": "MEDIUM",
+      "thumbnail": "cow/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "sheep",
+      "titleKey": "exercise.sheep",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "sheep/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "chick",
+      "titleKey": "exercise.chick",
+      "category": "animals",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "chick/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "crab",
+      "titleKey": "exercise.crab",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "crab/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "whale",
+      "titleKey": "exercise.whale",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "whale/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "fox",
+      "titleKey": "exercise.fox",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "fox/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "apple",
+      "titleKey": "exercise.apple",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "apple/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "pear",
+      "titleKey": "exercise.pear",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "pear/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "banana",
+      "titleKey": "exercise.banana",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "banana/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "cherries",
+      "titleKey": "exercise.cherries",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "cherries/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "watermelon",
+      "titleKey": "exercise.watermelon",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "watermelon/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "strawberry",
+      "titleKey": "exercise.strawberry",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "strawberry/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "grapes",
+      "titleKey": "exercise.grapes",
+      "category": "food",
+      "difficulty": "MEDIUM",
+      "thumbnail": "grapes/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "orange",
+      "titleKey": "exercise.orange",
+      "category": "food",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "orange/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "lemon",
+      "titleKey": "exercise.lemon",
+      "category": "food",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "lemon/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "icecream",
+      "titleKey": "exercise.icecream",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "icecream/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "popsicle",
+      "titleKey": "exercise.popsicle",
+      "category": "food",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "popsicle/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "cupcake",
+      "titleKey": "exercise.cupcake",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "cupcake/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "donut",
+      "titleKey": "exercise.donut",
+      "category": "food",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "donut/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "cookie",
+      "titleKey": "exercise.cookie",
+      "category": "food",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "cookie/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "candy",
+      "titleKey": "exercise.candy",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "candy/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "lollipop",
+      "titleKey": "exercise.lollipop",
+      "category": "food",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "lollipop/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "pizza",
+      "titleKey": "exercise.pizza",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "pizza/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "cake",
+      "titleKey": "exercise.cake",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "cake/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "croissant",
+      "titleKey": "exercise.croissant",
+      "category": "food",
+      "difficulty": "MEDIUM",
+      "thumbnail": "croissant/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "carrot",
+      "titleKey": "exercise.carrot",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "carrot/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "corn",
+      "titleKey": "exercise.corn",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "corn/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "juice",
+      "titleKey": "exercise.juice",
+      "category": "food",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "juice/thumbnail.svg",
+      "steps": 4
+    },
+    {
       "id": "house",
       "titleKey": "exercise.house",
       "category": "home",
@@ -166,11 +918,315 @@
       "steps": 5
     },
     {
+      "id": "castle",
+      "titleKey": "exercise.castle",
+      "category": "home",
+      "difficulty": "MEDIUM",
+      "thumbnail": "castle/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "umbrella",
+      "titleKey": "exercise.umbrella",
+      "category": "home",
+      "difficulty": "EASY",
+      "thumbnail": "umbrella/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "cup",
+      "titleKey": "exercise.cup",
+      "category": "home",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "cup/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "teapot",
+      "titleKey": "exercise.teapot",
+      "category": "home",
+      "difficulty": "MEDIUM",
+      "thumbnail": "teapot/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "clock",
+      "titleKey": "exercise.clock",
+      "category": "home",
+      "difficulty": "EASY",
+      "thumbnail": "clock/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "key",
+      "titleKey": "exercise.key",
+      "category": "home",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "key/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "lamp",
+      "titleKey": "exercise.lamp",
+      "category": "home",
+      "difficulty": "EASY",
+      "thumbnail": "lamp/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "bed",
+      "titleKey": "exercise.bed",
+      "category": "home",
+      "difficulty": "EASY",
+      "thumbnail": "bed/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "chair",
+      "titleKey": "exercise.chair",
+      "category": "home",
+      "difficulty": "EASY",
+      "thumbnail": "chair/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "door",
+      "titleKey": "exercise.door",
+      "category": "home",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "door/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "window",
+      "titleKey": "exercise.window",
+      "category": "home",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "window/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "book",
+      "titleKey": "exercise.book",
+      "category": "home",
+      "difficulty": "EASY",
+      "thumbnail": "book/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "backpack",
+      "titleKey": "exercise.backpack",
+      "category": "home",
+      "difficulty": "EASY",
+      "thumbnail": "backpack/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "ball",
+      "titleKey": "exercise.ball",
+      "category": "home",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "ball/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "kite",
+      "titleKey": "exercise.kite",
+      "category": "home",
+      "difficulty": "EASY",
+      "thumbnail": "kite/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "balloon",
+      "titleKey": "exercise.balloon",
+      "category": "home",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "balloon/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "gift",
+      "titleKey": "exercise.gift",
+      "category": "home",
+      "difficulty": "EASY",
+      "thumbnail": "gift/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "candle",
+      "titleKey": "exercise.candle",
+      "category": "home",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "candle/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "vase",
+      "titleKey": "exercise.vase",
+      "category": "home",
+      "difficulty": "EASY",
+      "thumbnail": "vase/thumbnail.svg",
+      "steps": 4
+    },
+    {
       "id": "car",
       "titleKey": "exercise.car",
       "category": "transport",
       "difficulty": "EASY",
       "thumbnail": "car/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "bus",
+      "titleKey": "exercise.bus",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "bus/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "truck",
+      "titleKey": "exercise.truck",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "truck/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "tractor",
+      "titleKey": "exercise.tractor",
+      "category": "transport",
+      "difficulty": "MEDIUM",
+      "thumbnail": "tractor/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "boat",
+      "titleKey": "exercise.boat",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "boat/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "ship",
+      "titleKey": "exercise.ship",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "ship/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "submarine",
+      "titleKey": "exercise.submarine",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "submarine/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "rocket",
+      "titleKey": "exercise.rocket",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "rocket/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "plane",
+      "titleKey": "exercise.plane",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "plane/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "helicopter",
+      "titleKey": "exercise.helicopter",
+      "category": "transport",
+      "difficulty": "MEDIUM",
+      "thumbnail": "helicopter/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "train",
+      "titleKey": "exercise.train",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "train/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "bike",
+      "titleKey": "exercise.bike",
+      "category": "transport",
+      "difficulty": "MEDIUM",
+      "thumbnail": "bike/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "scooter",
+      "titleKey": "exercise.scooter",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "scooter/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "motorbike",
+      "titleKey": "exercise.motorbike",
+      "category": "transport",
+      "difficulty": "MEDIUM",
+      "thumbnail": "motorbike/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "ambulance",
+      "titleKey": "exercise.ambulance",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "ambulance/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "firetruck",
+      "titleKey": "exercise.firetruck",
+      "category": "transport",
+      "difficulty": "MEDIUM",
+      "thumbnail": "firetruck/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "hotairballoon",
+      "titleKey": "exercise.hotairballoon",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "hotairballoon/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "taxi",
+      "titleKey": "exercise.taxi",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "taxi/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "digger",
+      "titleKey": "exercise.digger",
+      "category": "transport",
+      "difficulty": "MEDIUM",
+      "thumbnail": "digger/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "sled",
+      "titleKey": "exercise.sled",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "sled/thumbnail.svg",
       "steps": 5
     }
   ]

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="box" data-region="box" data-default-color="#4E86E8" fill="#4E86E8" stroke="none"><g><rect x="80" y="170" width="240" height="190" rx="10"/><rect x="60" y="120" width="280" height="56" rx="10"/></g></g>
+  <g id="ribbon" data-region="ribbon" data-default-color="#FFC53D" fill="#FFC53D" stroke="none"><g><rect x="186" y="120" width="28" height="240"/><path d="M200 120 q-56 -60 -76 -20 q-16 34 76 20 z"/><path d="M200 120 q56 -60 76 -20 q16 34 -76 20 z"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <rect x="80" y="170" width="240" height="190" rx="10"/>
+    <rect x="60" y="120" width="280" height="56" rx="10"/>
+    <path d="M200 120 L200 360"/>
+    <path d="M200 120 q-56 -60 -76 -20 q-16 34 76 20 z"/>
+    <path d="M200 120 q56 -60 76 -20 q16 34 -76 20 z"/>
+  </g>
+</svg>

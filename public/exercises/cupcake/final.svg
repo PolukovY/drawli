@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="cup" data-region="cup" data-default-color="#F5893B" fill="#FFFFFF" stroke="none"><path d="M110 200 L140 350 L260 350 L290 200 Z"/></g>
+  <g id="cream" data-region="cream" data-default-color="#F08BB4" fill="#FFFFFF" stroke="none"><path d="M110 200 q0 -60 46 -70 q10 -50 60 -44 q46 6 50 50 q40 12 34 64 z"/></g>
+  <g id="cherry" data-region="cherry" data-default-color="#E4443B" fill="#FFFFFF" stroke="none"><circle cx="200" cy="62" r="20"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M110 200 L140 350 L260 350 L290 200 Z"/>
+    <path d="M158 200 L172 350"/>
+    <path d="M200 200 L200 350"/>
+    <path d="M242 200 L228 350"/>
+    <path d="M110 200 q0 -60 46 -70 q10 -50 60 -44 q46 6 50 50 q40 12 34 64 z"/>
+    <circle cx="200" cy="62" r="20"/>
+  </g>
+</svg>

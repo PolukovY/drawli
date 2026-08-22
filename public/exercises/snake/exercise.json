@@ -1,0 +1,14 @@
+{
+  "id": "snake",
+  "titleKey": "exercise.snake",
+  "category": "motor",
+  "difficulty": "EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "path",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

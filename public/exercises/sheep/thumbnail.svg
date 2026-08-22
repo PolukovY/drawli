@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="wool" data-region="wool" data-default-color="#EDE6F5" fill="#EDE6F5" stroke="none"><path d="M120 150 a44 44 0 0 1 44 -44 a48 48 0 0 1 72 0 a44 44 0 0 1 44 44 a44 44 0 0 1 20 60 a44 44 0 0 1 -44 52 h-112 a44 44 0 0 1 -44 -52 a44 44 0 0 1 20 -60 z"/></g>
+  <g id="face" data-region="face" data-default-color="#2A2340" fill="#2A2340" stroke="none"><g><ellipse cx="200" cy="212" rx="52" ry="46"/><ellipse cx="140" cy="196" rx="26" ry="16"/><ellipse cx="260" cy="196" rx="26" ry="16"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M120 150 a44 44 0 0 1 44 -44 a48 48 0 0 1 72 0 a44 44 0 0 1 44 44 a44 44 0 0 1 20 60 a44 44 0 0 1 -44 52 h-112 a44 44 0 0 1 -44 -52 a44 44 0 0 1 20 -60 z"/>
+    <ellipse cx="200" cy="212" rx="52" ry="46"/>
+    <circle cx="182" cy="204" r="9"/>
+    <circle cx="218" cy="204" r="9"/>
+    <ellipse cx="140" cy="196" rx="26" ry="16"/>
+    <ellipse cx="260" cy="196" rx="26" ry="16"/>
+    <path d="M164 306 L164 350"/>
+    <path d="M236 306 L236 350"/>
+  </g>
+</svg>

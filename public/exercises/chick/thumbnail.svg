@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#FFC53D" fill="#FFC53D" stroke="none"><circle cx="200" cy="220" r="110"/></g>
+  <g id="beak" data-region="beak" data-default-color="#F5893B" fill="#F5893B" stroke="none"><path d="M310 214 l30 18 l-30 18 z"/></g>
+  <g id="wing" data-region="wing" data-default-color="#F0B429" fill="#F0B429" stroke="none"><path d="M150 216 q54 -22 84 24 q-48 40 -84 -24 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <circle cx="200" cy="220" r="110"/>
+    <path d="M200 214 l-26 18 l26 18 z" transform="translate(96 0)"/>
+    <path d="M310 214 l30 18 l-30 18 z"/>
+    <circle cx="248" cy="188" r="11"/>
+    <path d="M150 216 q54 -22 84 24 q-48 40 -84 -24 z"/>
+    <path d="M172 326 L158 358"/>
+    <path d="M228 326 L242 358"/>
+  </g>
+</svg>

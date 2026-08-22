@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="bolt" data-region="bolt" data-default-color="#FFC53D" fill="#FFFFFF" stroke="none"><path d="M232 40 L110 220 L186 220 L154 360 L292 168 L214 168 Z"/></g>
+  <g id="cloud" data-region="cloud" data-default-color="#A9AFC0" fill="#FFFFFF" stroke="none"><path d="M96 60 a40 40 0 0 1 40 -36 a52 52 0 0 1 92 -6 a38 38 0 0 1 30 42 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M232 40 L110 220 L186 220 L154 360 L292 168 L214 168 Z"/>
+    <path d="M96 60 a40 40 0 0 1 40 -36 a52 52 0 0 1 92 -6 a38 38 0 0 1 30 42 z"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="box" data-region="box" data-default-color="#F5893B" fill="#F5893B" stroke="none"><rect x="120" y="120" width="160" height="230" rx="14"/></g>
+  <g id="label" data-region="label" data-default-color="#FFFFFF" fill="#FFFFFF" stroke="none"><rect x="146" y="184" width="108" height="86" rx="10"/></g>
+  <g id="fruit" data-region="fruit" data-default-color="#FFC53D" fill="#FFC53D" stroke="none"><circle cx="200" cy="227" r="26"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <rect x="120" y="120" width="160" height="230" rx="14"/>
+    <path d="M250 120 L286 50"/>
+    <path d="M286 50 L322 60"/>
+    <rect x="146" y="184" width="108" height="86" rx="10"/>
+    <circle cx="200" cy="227" r="26"/>
+  </g>
+</svg>

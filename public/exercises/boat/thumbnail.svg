@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="hull" data-region="hull" data-default-color="#8B5E3C" fill="#8B5E3C" stroke="none"><path d="M50 250 h300 l-46 80 h-208 z"/></g>
+  <g id="sail-right" data-region="sail-right" data-default-color="#E4443B" fill="#E4443B" stroke="none"><path d="M200 80 L310 220 L200 220 Z"/></g>
+  <g id="sail-left" data-region="sail-left" data-default-color="#FFFFFF" fill="#FFFFFF" stroke="none"><path d="M186 100 L90 220 L186 220 Z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M50 250 h300 l-46 80 h-208 z"/>
+    <path d="M200 250 L200 60"/>
+    <path d="M200 80 L310 220 L200 220 Z"/>
+    <path d="M186 100 L90 220 L186 220 Z"/>
+    <path d="M30 350 q30 -22 60 0 q30 22 60 0 q30 -22 60 0 q30 22 60 0 q30 -22 60 0"/>
+  </g>
+</svg>

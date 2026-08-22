@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="crust" data-region="crust" data-default-color="#E0A860" fill="#E0A860" stroke="none"><path d="M200 40 L340 330 L60 330 Z"/></g>
+  <g id="cheese" data-region="cheese" data-default-color="#FFC53D" fill="#FFC53D" stroke="none"><path d="M200 40 L326 300 L74 300 Z"/></g>
+  <g id="toppings" data-region="toppings" data-default-color="#E4443B" fill="#E4443B" stroke="none"><g><circle cx="200" cy="160" r="20"/><circle cx="150" cy="250" r="20"/><circle cx="252" cy="250" r="20"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M200 40 L340 330 L60 330 Z"/>
+    <path d="M74 300 L326 300"/>
+    <circle cx="200" cy="160" r="20"/>
+    <circle cx="150" cy="250" r="20"/>
+    <circle cx="252" cy="250" r="20"/>
+  </g>
+</svg>

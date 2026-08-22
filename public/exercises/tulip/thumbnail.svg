@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="cup" data-region="cup" data-default-color="#E4443B" fill="#E4443B" stroke="none"><path d="M124 120 q0 130 76 130 q76 0 76 -130 q-30 40 -46 -6 q-30 46 -60 0 q-16 46 -46 6 z"/></g>
+  <g id="leaves" data-region="leaves" data-default-color="#4EA55F" fill="#4EA55F" stroke="none"><g><path d="M200 300 q-70 -30 -86 26 q56 26 86 -26"/><path d="M200 330 q70 -26 84 30 q-56 22 -84 -30"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M124 120 q0 130 76 130 q76 0 76 -130 q-30 40 -46 -6 q-30 46 -60 0 q-16 46 -46 6 z"/>
+    <path d="M200 250 L200 366"/>
+    <path d="M200 300 q-70 -30 -86 26 q56 26 86 -26"/>
+    <path d="M200 330 q70 -26 84 30 q-56 22 -84 -30"/>
+  </g>
+</svg>

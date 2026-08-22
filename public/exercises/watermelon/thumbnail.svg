@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="rind" data-region="rind" data-default-color="#4EA55F" fill="#4EA55F" stroke="none"><path d="M40 110 L360 110 A160 160 0 0 1 40 110 Z"/></g>
+  <g id="flesh" data-region="flesh" data-default-color="#E4443B" fill="#E4443B" stroke="none"><path d="M40 150 L360 150 A160 160 0 0 1 40 150 Z"/></g>
+  <g id="seeds" data-region="seeds" data-default-color="#2A2340" fill="#2A2340" stroke="none"><g><ellipse cx="150" cy="200" rx="9" ry="14"/><ellipse cx="250" cy="200" rx="9" ry="14"/><ellipse cx="200" cy="240" rx="9" ry="14"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M40 110 L360 110 A160 160 0 0 1 40 110 Z"/>
+    <path d="M40 150 L360 150"/>
+    <ellipse cx="150" cy="200" rx="9" ry="14"/>
+    <ellipse cx="250" cy="200" rx="9" ry="14"/>
+    <ellipse cx="200" cy="240" rx="9" ry="14"/>
+  </g>
+</svg>

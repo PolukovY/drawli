@@ -1,4 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-  <g id="body" data-region="body" data-default-color="#5FC7C0" fill="#5FC7C0" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><ellipse cx="185" cy="200" rx="130" ry="90"/></g>
-  <g id="tail" data-region="tail" data-default-color="#4E86E8" fill="#4E86E8" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><path d="M315 200 L385 145 L385 255 Z"/></g>
+  <g id="body" data-region="body" data-default-color="#5FC7C0" fill="#5FC7C0" stroke="none"><ellipse cx="185" cy="200" rx="130" ry="90"/></g>
+  <g id="tail" data-region="tail" data-default-color="#4E86E8" fill="#4E86E8" stroke="none"><path d="M315 200 L385 145 L385 255 Z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <ellipse cx="185" cy="200" rx="130" ry="90"/>
+    <path d="M315 200 L385 145 L385 255 Z"/>
+    <path d="M170 110 q40 -55 78 -6"/>
+    <path d="M170 290 q40 55 78 6"/>
+    <circle cx="110" cy="175" r="12"/>
+    <path d="M62 210 q22 22 46 6"/>
+    <circle cx="60" cy="120" r="14"/>
+    <circle cx="34" cy="82" r="9"/>
+  </g>
 </svg>

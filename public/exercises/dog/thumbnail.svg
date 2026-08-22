@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="head" data-region="head" data-default-color="#C98A4B" fill="#C98A4B" stroke="none"><circle cx="200" cy="170" r="108"/></g>
+  <g id="ears" data-region="ears" data-default-color="#8B5E3C" fill="#8B5E3C" stroke="none"><g><path d="M104 110 q-56 -20 -60 60 q-4 70 60 62 z"/><path d="M296 110 q56 -20 60 60 q4 70 -60 62 z"/></g></g>
+  <g id="body" data-region="body" data-default-color="#C98A4B" fill="#C98A4B" stroke="none"><path d="M126 250 q-16 108 74 108 q90 0 74 -108 z"/></g>
+  <g id="nose" data-region="nose" data-default-color="#2A2340" fill="#2A2340" stroke="none"><ellipse cx="200" cy="200" rx="22" ry="16"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <circle cx="200" cy="170" r="108"/>
+    <path d="M104 110 q-56 -20 -60 60 q-4 70 60 62 z"/>
+    <path d="M296 110 q56 -20 60 60 q4 70 -60 62 z"/>
+    <circle cx="166" cy="154" r="12"/>
+    <circle cx="234" cy="154" r="12"/>
+    <ellipse cx="200" cy="200" rx="22" ry="16"/>
+    <path d="M200 216 L200 236"/>
+    <path d="M200 236 q-24 20 -42 -4"/>
+    <path d="M200 236 q24 20 42 -4"/>
+    <path d="M126 250 q-16 108 74 108 q90 0 74 -108"/>
+    <path d="M274 322 q52 10 48 -48"/>
+  </g>
+</svg>

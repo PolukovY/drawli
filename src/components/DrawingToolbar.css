@@ -44,3 +44,65 @@
   .toolbar { flex-direction: row; align-self: stretch; justify-content: center; }
   .tool-divider { height: auto; width: 2px; margin: 6px 2px; }
 }
+
+.tool-wrap { position: relative; display: block; }
+
+.tool-tip {
+  position: absolute;
+  left: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-6px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 14px;
+  border-radius: var(--r-sm);
+  background: var(--c-text);
+  color: #fff;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease, visibility 0.16s;
+  z-index: 20;
+  box-shadow: 0 10px 24px rgba(42, 35, 64, 0.28);
+}
+
+.tool-tip::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: var(--c-text);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.tool-tip b { font-size: 16px; font-weight: 800; }
+.tool-tip i { font-size: 14px; font-style: normal; opacity: 0.75; }
+
+.tool-wrap:hover .tool-tip,
+.tool-wrap:focus-within .tool-tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Touch has no hover: a tap must not leave a tooltip stuck over the canvas. */
+@media (hover: none) {
+  .tool-tip { display: none; }
+}
+
+@media (max-width: 900px) {
+  .tool-tip {
+    left: 50%;
+    top: auto;
+    bottom: calc(100% + 14px);
+    transform: translateX(-50%) translateY(6px);
+  }
+  .tool-tip::before { left: 50%; top: auto; bottom: -5px; transform: translateX(-50%) rotate(45deg); }
+  .tool-wrap:hover .tool-tip,
+  .tool-wrap:focus-within .tool-tip { transform: translateX(-50%) translateY(0); }
+}

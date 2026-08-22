@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="moon" data-region="moon" data-default-color="#FFC53D" fill="#FFFFFF" stroke="none"><path d="M250 50 a160 160 0 1 0 0 300 a130 130 0 1 1 0 -300 z"/></g>
+  <g id="stars" data-region="stars" data-default-color="#F0B429" fill="#FFFFFF" stroke="none"><g><path d="M330 120 l8 18 l18 8 l-18 8 l-8 18 l-8 -18 l-18 -8 l18 -8 z"/><path d="M320 280 l6 14 l14 6 l-14 6 l-6 14 l-6 -14 l-14 -6 l14 -6 z"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M250 50 a160 160 0 1 0 0 300 a130 130 0 1 1 0 -300 z"/>
+    <circle cx="196" cy="170" r="10"/>
+    <path d="M186 230 q28 20 50 -6"/>
+    <path d="M330 120 l8 18 l18 8 l-18 8 l-8 18 l-8 -18 l-18 -8 l18 -8 z"/>
+    <path d="M320 280 l6 14 l14 6 l-14 6 l-6 14 l-6 -14 l-14 -6 l14 -6 z"/>
+  </g>
+</svg>

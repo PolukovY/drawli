@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="leaf" data-region="leaf" data-default-color="#4EA55F" fill="#4EA55F" stroke="none"><path d="M200 50 q130 70 130 160 q0 90 -130 130 q-130 -40 -130 -130 q0 -90 130 -160 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M200 50 q130 70 130 160 q0 90 -130 130 q-130 -40 -130 -130 q0 -90 130 -160 z"/>
+    <path d="M200 60 L200 336"/>
+    <path d="M200 140 L120 180"/>
+    <path d="M200 140 L280 180"/>
+    <path d="M200 210 L128 250"/>
+    <path d="M200 210 L272 250"/>
+  </g>
+</svg>

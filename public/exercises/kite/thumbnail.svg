@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="top" data-region="top" data-default-color="#E4443B" fill="#E4443B" stroke="none"><path d="M200 40 L310 170 L200 170 Z"/></g>
+  <g id="right" data-region="right" data-default-color="#FFC53D" fill="#FFC53D" stroke="none"><path d="M310 170 L200 300 L200 170 Z"/></g>
+  <g id="left" data-region="left" data-default-color="#4E86E8" fill="#4E86E8" stroke="none"><path d="M90 170 L200 40 L200 170 Z"/></g>
+  <g id="bottom" data-region="bottom" data-default-color="#4EA55F" fill="#4EA55F" stroke="none"><path d="M90 170 L200 170 L200 300 Z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M200 40 L310 170 L200 300 L90 170 Z"/>
+    <path d="M200 40 L200 300"/>
+    <path d="M90 170 L310 170"/>
+    <path d="M200 300 q-30 40 0 60 q30 24 0 60"/>
+    <path d="M186 330 h28"/>
+    <path d="M186 384 h28"/>
+  </g>
+</svg>

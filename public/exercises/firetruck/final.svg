@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#E4443B" fill="#FFFFFF" stroke="none"><path d="M40 290 v-110 h230 v-40 h50 l40 60 v90 z"/></g>
+  <g id="ladder" data-region="ladder" data-default-color="#C4C9D6" fill="#FFFFFF" stroke="none"><path d="M60 170 L250 110 L262 130 L70 190 z"/></g>
+  <g id="wheels" data-region="wheels" data-default-color="#2A2340" fill="#FFFFFF" stroke="none"><g><circle cx="110" cy="300" r="34"/><circle cx="300" cy="300" r="34"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M40 290 v-110 h230 v-40 h50 l40 60 v90 z"/>
+    <path d="M60 170 L250 110"/>
+    <path d="M70 190 L262 130"/>
+    <path d="M100 162 L110 184"/>
+    <path d="M160 144 L170 166"/>
+    <path d="M220 126 L230 148"/>
+    <rect x="286" y="156" width="50" height="40" rx="8"/>
+    <circle cx="110" cy="300" r="34"/>
+    <circle cx="300" cy="300" r="34"/>
+  </g>
+</svg>

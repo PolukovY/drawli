@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="wheels" data-region="wheels" data-default-color="#2A2340" fill="#2A2340" stroke="none"><g><circle cx="96" cy="280" r="64"/><circle cx="306" cy="280" r="64"/></g></g>
+  <g id="body" data-region="body" data-default-color="#E4443B" fill="#E4443B" stroke="none"><path d="M96 280 L170 190 h90 l46 90 q-60 -50 -210 0 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <circle cx="96" cy="280" r="64"/>
+    <circle cx="306" cy="280" r="64"/>
+    <path d="M96 280 L170 190 h90 l46 90"/>
+    <path d="M160 190 q60 -30 110 0"/>
+    <path d="M150 176 h96 q16 16 -14 22 h-84 q-16 -12 2 -22 z"/>
+    <path d="M262 190 L286 140"/>
+    <path d="M258 134 h56"/>
+  </g>
+</svg>

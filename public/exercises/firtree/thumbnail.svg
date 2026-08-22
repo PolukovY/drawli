@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="tree" data-region="tree" data-default-color="#4EA55F" fill="#4EA55F" stroke="none"><g><path d="M200 40 L146 140 L254 140 Z"/><path d="M200 110 L120 230 L280 230 Z"/><path d="M200 190 L94 320 L306 320 Z"/></g></g>
+  <g id="trunk" data-region="trunk" data-default-color="#8B5E3C" fill="#8B5E3C" stroke="none"><rect x="176" y="320" width="48" height="50"/></g>
+  <g id="star" data-region="star" data-default-color="#FFC53D" fill="#FFC53D" stroke="none"><path d="M200 12 l10 22 l24 4 l-18 16 l4 24 l-20 -12 l-20 12 l4 -24 l-18 -16 l24 -4 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M200 40 L146 140 L254 140 Z"/>
+    <path d="M200 110 L120 230 L280 230 Z"/>
+    <path d="M200 190 L94 320 L306 320 Z"/>
+    <rect x="176" y="320" width="48" height="50"/>
+    <path d="M200 12 l10 22 l24 4 l-18 16 l4 24 l-20 -12 l-20 12 l4 -24 l-18 -16 l24 -4 z"/>
+  </g>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#FFC53D" fill="#FFFFFF" stroke="none"><g><ellipse cx="196" cy="256" rx="112" ry="86"/><circle cx="264" cy="140" r="66"/></g></g>
+  <g id="beak" data-region="beak" data-default-color="#F5893B" fill="#FFFFFF" stroke="none"><path d="M322 140 q56 -6 56 20 q-4 22 -56 12 z"/></g>
+  <g id="wing" data-region="wing" data-default-color="#F0B429" fill="#FFFFFF" stroke="none"><path d="M150 240 q60 -30 96 20 q-52 44 -96 -20 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <ellipse cx="196" cy="256" rx="112" ry="86"/>
+    <circle cx="264" cy="140" r="66"/>
+    <path d="M322 140 q56 -6 56 20 q-4 22 -56 12 z"/>
+    <circle cx="286" cy="122" r="10"/>
+    <path d="M150 240 q60 -30 96 20 q-52 44 -96 -20 z"/>
+    <path d="M124 330 q-16 22 6 26"/>
+  </g>
+</svg>

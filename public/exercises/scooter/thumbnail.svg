@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="frame" data-region="frame" data-default-color="#9B5CE0" fill="#9B5CE0" stroke="none"><g><path d="M120 288 h180 v22 h-204 z"/><rect x="290" y="110" width="20" height="180"/><rect x="262" y="92" width="76" height="18" rx="8"/></g></g>
+  <g id="wheels" data-region="wheels" data-default-color="#2A2340" fill="#2A2340" stroke="none"><g><circle cx="96" cy="310" r="38"/><circle cx="316" cy="310" r="38"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <circle cx="96" cy="310" r="38"/>
+    <circle cx="316" cy="310" r="38"/>
+    <path d="M96 310 h180 l40 -30"/>
+    <path d="M120 288 h160"/>
+    <path d="M300 280 L300 110"/>
+    <path d="M262 100 h76"/>
+  </g>
+</svg>

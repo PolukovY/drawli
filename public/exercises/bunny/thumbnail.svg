@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="head" data-region="head" data-default-color="#EDE6F5" fill="#EDE6F5" stroke="none"><g><circle cx="200" cy="200" r="96"/><ellipse cx="160" cy="80" rx="26" ry="72"/><ellipse cx="240" cy="80" rx="26" ry="72"/></g></g>
+  <g id="paws" data-region="paws" data-default-color="#EDE6F5" fill="#EDE6F5" stroke="none"><g><ellipse cx="152" cy="320" rx="34" ry="26"/><ellipse cx="248" cy="320" rx="34" ry="26"/></g></g>
+  <g id="nose" data-region="nose" data-default-color="#F08BB4" fill="#F08BB4" stroke="none"><path d="M200 216 l-14 -12 h28 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <circle cx="200" cy="200" r="96"/>
+    <ellipse cx="160" cy="80" rx="26" ry="72"/>
+    <ellipse cx="240" cy="80" rx="26" ry="72"/>
+    <circle cx="168" cy="188" r="11"/>
+    <circle cx="232" cy="188" r="11"/>
+    <path d="M200 216 l-14 -12 h28 z"/>
+    <path d="M200 228 q-4 22 -26 22"/>
+    <path d="M200 228 q4 22 26 22"/>
+    <path d="M132 222 L64 210"/>
+    <path d="M132 238 L66 250"/>
+    <path d="M268 222 L336 210"/>
+    <path d="M268 238 L334 250"/>
+    <ellipse cx="152" cy="320" rx="34" ry="26"/>
+    <ellipse cx="248" cy="320" rx="34" ry="26"/>
+  </g>
+</svg>

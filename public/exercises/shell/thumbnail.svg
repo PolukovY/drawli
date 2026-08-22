@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="shell" data-region="shell" data-default-color="#F08BB4" fill="#F08BB4" stroke="none"><path d="M200 60 a150 150 0 0 1 150 260 h-300 a150 150 0 0 1 150 -260 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M200 60 a150 150 0 0 1 150 260 h-300 a150 150 0 0 1 150 -260 z"/>
+    <path d="M200 62 L200 320"/>
+    <path d="M200 62 L96 300"/>
+    <path d="M200 62 L304 300"/>
+    <path d="M200 62 L54 250"/>
+    <path d="M200 62 L346 250"/>
+    <path d="M170 60 q30 -26 60 0"/>
+  </g>
+</svg>

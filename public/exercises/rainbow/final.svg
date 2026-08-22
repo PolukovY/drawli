@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="outer" data-region="outer" data-default-color="#E4443B" fill="#FFFFFF" stroke="none"><path d="M40 300 a160 160 0 0 1 320 0 h-40 a120 120 0 0 0 -240 0 z"/></g>
+  <g id="middle" data-region="middle" data-default-color="#FFC53D" fill="#FFFFFF" stroke="none"><path d="M80 300 a120 120 0 0 1 240 0 h-40 a80 80 0 0 0 -160 0 z"/></g>
+  <g id="inner" data-region="inner" data-default-color="#4E86E8" fill="#FFFFFF" stroke="none"><path d="M120 300 a80 80 0 0 1 160 0 h-40 a40 40 0 0 0 -80 0 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M40 300 a160 160 0 0 1 320 0"/>
+    <path d="M80 300 a120 120 0 0 1 240 0"/>
+    <path d="M120 300 a80 80 0 0 1 160 0"/>
+    <path d="M20 300 a34 34 0 0 1 30 -32 a38 38 0 0 1 62 12 a30 30 0 0 1 -4 20 z"/>
+    <path d="M288 300 a34 34 0 0 1 30 -32 a38 38 0 0 1 62 12 a30 30 0 0 1 -4 20 z"/>
+  </g>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="key" data-region="key" data-default-color="#FFC53D" fill="#FFC53D" stroke="none"><g><circle cx="120" cy="200" r="76"/><rect x="192" y="180" width="176" height="40" rx="14"/><rect x="292" y="220" width="16" height="48"/><rect x="336" y="220" width="16" height="40"/></g></g>
+  <g id="hole" data-region="hole" data-default-color="#FFFFFF" fill="#FFFFFF" stroke="none"><circle cx="120" cy="200" r="30"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <circle cx="120" cy="200" r="76"/>
+    <circle cx="120" cy="200" r="30"/>
+    <rect x="192" y="180" width="176" height="40" rx="14"/>
+    <path d="M300 220 L300 268"/>
+    <path d="M344 220 L344 260"/>
+  </g>
+</svg>

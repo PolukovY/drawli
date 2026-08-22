@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="trailer" data-region="trailer" data-default-color="#4EA55F" fill="#FFFFFF" stroke="none"><rect x="40" y="140" width="200" height="150" rx="12"/></g>
+  <g id="cabin" data-region="cabin" data-default-color="#E4443B" fill="#FFFFFF" stroke="none"><path d="M240 290 v-100 h60 l40 60 v40 z"/></g>
+  <g id="wheels" data-region="wheels" data-default-color="#2A2340" fill="#FFFFFF" stroke="none"><g><circle cx="104" cy="300" r="36"/><circle cx="180" cy="300" r="36"/><circle cx="300" cy="300" r="36"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <rect x="40" y="140" width="200" height="150" rx="12"/>
+    <path d="M240 290 v-100 h60 l40 60 v40 z"/>
+    <rect x="258" y="200" width="52" height="42" rx="8"/>
+    <circle cx="104" cy="300" r="36"/>
+    <circle cx="300" cy="300" r="36"/>
+    <circle cx="180" cy="300" r="36"/>
+  </g>
+</svg>

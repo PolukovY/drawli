@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="shade" data-region="shade" data-default-color="#FFC53D" fill="#FFC53D" stroke="none"><path d="M110 190 L150 90 L250 90 L290 190 Z"/></g>
+  <g id="stand" data-region="stand" data-default-color="#2A2340" fill="#2A2340" stroke="none"><g><rect x="192" y="190" width="16" height="140"/><path d="M140 350 q60 -30 120 0 q-60 22 -120 0 z"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M110 190 L150 90 L250 90 L290 190 Z"/>
+    <path d="M200 190 L200 330"/>
+    <path d="M140 350 q60 -30 120 0 q-60 22 -120 0 z"/>
+    <path d="M96 230 L60 264"/>
+    <path d="M304 230 L340 264"/>
+    <path d="M200 226 L200 268"/>
+  </g>
+</svg>

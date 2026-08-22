@@ -1,0 +1,19 @@
+{
+  "id": "sharpzigzag",
+  "titleKey": "exercise.sharpzigzag",
+  "category": "motor",
+  "difficulty": "EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "zig-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "zig-2",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

@@ -1,5 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-  <g id="wings-top" data-region="wings-top" data-default-color="#9B5CE0" fill="#9B5CE0" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><g><path d="M186 150 q-120 -100 -150 -20 q-24 66 60 88 q52 14 90 -30 z"/><path d="M214 150 q120 -100 150 -20 q24 66 -60 88 q-52 14 -90 -30 z"/></g></g>
-  <g id="wings-bottom" data-region="wings-bottom" data-default-color="#F08BB4" fill="#F08BB4" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><g><path d="M186 235 q-100 -6 -110 62 q-6 54 62 46 q52 -8 62 -70 z"/><path d="M214 235 q100 -6 110 62 q6 54 -62 46 q-52 -8 -62 -70 z"/></g></g>
-  <g id="body" data-region="body" data-default-color="#2A2340" fill="#2A2340" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><g><ellipse cx="200" cy="210" rx="18" ry="88"/><circle cx="200" cy="108" r="22"/></g></g>
+  <g id="wings-top" data-region="wings-top" data-default-color="#9B5CE0" fill="#9B5CE0" stroke="none"><g><path d="M186 150 q-120 -100 -150 -20 q-24 66 60 88 q52 14 90 -30 z"/><path d="M214 150 q120 -100 150 -20 q24 66 -60 88 q-52 14 -90 -30 z"/></g></g>
+  <g id="wings-bottom" data-region="wings-bottom" data-default-color="#F08BB4" fill="#F08BB4" stroke="none"><g><path d="M186 235 q-100 -6 -110 62 q-6 54 62 46 q52 -8 62 -70 z"/><path d="M214 235 q100 -6 110 62 q6 54 -62 46 q-52 -8 -62 -70 z"/></g></g>
+  <g id="body" data-region="body" data-default-color="#2A2340" fill="#2A2340" stroke="none"><g><ellipse cx="200" cy="210" rx="18" ry="88"/><circle cx="200" cy="108" r="22"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <ellipse cx="200" cy="210" rx="18" ry="88"/>
+    <circle cx="200" cy="108" r="22"/>
+    <path d="M186 150 q-120 -100 -150 -20 q-24 66 60 88 q52 14 90 -30 z"/>
+    <path d="M214 150 q120 -100 150 -20 q24 66 -60 88 q-52 14 -90 -30 z"/>
+    <path d="M186 235 q-100 -6 -110 62 q-6 54 62 46 q52 -8 62 -70 z"/>
+    <path d="M214 235 q100 -6 110 62 q6 54 -62 46 q-52 -8 -62 -70 z"/>
+    <path d="M188 92 q-26 -40 -56 -50"/>
+    <path d="M212 92 q26 -40 56 -50"/>
+    <circle cx="112" cy="152" r="18"/>
+    <circle cx="288" cy="152" r="18"/>
+    <circle cx="128" cy="292" r="13"/>
+    <circle cx="272" cy="292" r="13"/>
+  </g>
 </svg>

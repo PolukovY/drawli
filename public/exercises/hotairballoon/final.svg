@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="left" data-region="left" data-default-color="#E4443B" fill="#FFFFFF" stroke="none"><path d="M200 40 q-120 0 -120 130 q0 90 120 130 q-46 -130 0 -260 z"/></g>
+  <g id="right" data-region="right" data-default-color="#FFC53D" fill="#FFFFFF" stroke="none"><path d="M200 40 q120 0 120 130 q0 90 -120 130 q46 -130 0 -260 z"/></g>
+  <g id="basket" data-region="basket" data-default-color="#8B5E3C" fill="#FFFFFF" stroke="none"><path d="M166 330 h68 l-8 44 h-52 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M200 40 q120 0 120 130 q0 90 -120 130 q-120 -40 -120 -130 q0 -130 120 -130 z"/>
+    <path d="M200 40 q-46 130 0 260"/>
+    <path d="M200 40 q46 130 0 260"/>
+    <path d="M150 288 L166 330"/>
+    <path d="M250 288 L234 330"/>
+    <path d="M166 330 h68 l-8 44 h-52 z"/>
+  </g>
+</svg>

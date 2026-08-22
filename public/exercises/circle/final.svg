@@ -1,5 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-  <g id="ring-outer" data-region="ring-outer" data-default-color="#FFC53D" fill="#FFFFFF" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><circle cx="200" cy="200" r="140"/></g>
-  <g id="ring-inner" data-region="ring-inner" data-default-color="#F5893B" fill="#FFFFFF" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><circle cx="200" cy="200" r="90"/></g>
-  <g id="core" data-region="core" data-default-color="#E4443B" fill="#FFFFFF" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><circle cx="200" cy="200" r="42"/></g>
+  <g id="ring-outer" data-region="ring-outer" data-default-color="#FFC53D" fill="#FFFFFF" stroke="none"><circle cx="200" cy="200" r="140"/></g>
+  <g id="ring-inner" data-region="ring-inner" data-default-color="#F5893B" fill="#FFFFFF" stroke="none"><circle cx="200" cy="200" r="90"/></g>
+  <g id="core" data-region="core" data-default-color="#E4443B" fill="#FFFFFF" stroke="none"><circle cx="200" cy="200" r="42"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <circle cx="200" cy="200" r="140"/>
+    <circle cx="200" cy="200" r="90"/>
+    <circle cx="200" cy="200" r="42"/>
+  </g>
 </svg>

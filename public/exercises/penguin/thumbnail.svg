@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#2A2340" fill="#2A2340" stroke="none"><path d="M200 50 q110 0 110 150 q0 150 -110 150 q-110 0 -110 -150 q0 -150 110 -150 z"/></g>
+  <g id="belly" data-region="belly" data-default-color="#FFFFFF" fill="#FFFFFF" stroke="none"><ellipse cx="200" cy="220" rx="72" ry="112"/></g>
+  <g id="beak" data-region="beak" data-default-color="#F5893B" fill="#F5893B" stroke="none"><g><path d="M200 148 l-20 22 h40 z"/><path d="M158 348 q-36 12 -30 26 h56 z"/><path d="M242 348 q36 12 30 26 h-56 z"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M200 50 q110 0 110 150 q0 150 -110 150 q-110 0 -110 -150 q0 -150 110 -150 z"/>
+    <ellipse cx="200" cy="220" rx="72" ry="112"/>
+    <circle cx="172" cy="126" r="11"/>
+    <circle cx="228" cy="126" r="11"/>
+    <path d="M200 148 l-20 22 h40 z"/>
+    <path d="M90 180 q-30 80 18 130"/>
+    <path d="M310 180 q30 80 -18 130"/>
+    <path d="M158 348 q-36 12 -30 26 h56 z"/>
+    <path d="M242 348 q36 12 30 26 h-56 z"/>
+  </g>
+</svg>

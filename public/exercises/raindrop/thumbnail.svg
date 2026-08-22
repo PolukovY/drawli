@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="drop" data-region="drop" data-default-color="#4E86E8" fill="#4E86E8" stroke="none"><path d="M200 60 q100 130 100 180 a100 100 0 0 1 -200 0 q0 -50 100 -180 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M200 60 q100 130 100 180 a100 100 0 0 1 -200 0 q0 -50 100 -180 z"/>
+    <circle cx="172" cy="230" r="10"/>
+    <circle cx="228" cy="230" r="10"/>
+    <path d="M176 268 q24 22 48 0"/>
+  </g>
+</svg>

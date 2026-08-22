@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#E4443B" fill="#FFFFFF" stroke="none"><rect x="120" y="150" width="160" height="100" rx="40"/></g>
+  <g id="wrappers" data-region="wrappers" data-default-color="#F08BB4" fill="#FFFFFF" stroke="none"><g><path d="M120 200 L40 140 L58 200 L40 260 Z"/><path d="M280 200 L360 140 L342 200 L360 260 Z"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <rect x="120" y="150" width="160" height="100" rx="40"/>
+    <path d="M120 200 L40 140 L58 200 L40 260 Z"/>
+    <path d="M280 200 L360 140 L342 200 L360 260 Z"/>
+    <path d="M168 156 L152 244"/>
+    <path d="M212 152 L196 248"/>
+    <path d="M256 158 L242 242"/>
+  </g>
+</svg>

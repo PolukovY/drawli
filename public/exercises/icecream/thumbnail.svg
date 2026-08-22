@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="cone" data-region="cone" data-default-color="#C98A4B" fill="#C98A4B" stroke="none"><path d="M124 210 L200 372 L276 210 Z"/></g>
+  <g id="scoops" data-region="scoops" data-default-color="#F08BB4" fill="#F08BB4" stroke="none"><g><circle cx="160" cy="176" r="50"/><circle cx="240" cy="176" r="50"/><circle cx="200" cy="118" r="50"/></g></g>
+  <g id="cherry" data-region="cherry" data-default-color="#E4443B" fill="#E4443B" stroke="none"><circle cx="200" cy="52" r="18"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M124 210 L200 372 L276 210 Z"/>
+    <path d="M146 262 L226 262"/>
+    <path d="M164 300 L238 300"/>
+    <circle cx="160" cy="176" r="50"/>
+    <circle cx="240" cy="176" r="50"/>
+    <circle cx="200" cy="118" r="50"/>
+    <circle cx="200" cy="52" r="18"/>
+    <path d="M200 34 q10 -18 26 -20"/>
+  </g>
+</svg>

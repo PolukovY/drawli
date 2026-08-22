@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#F5893B" fill="#FFFFFF" stroke="none"><circle cx="200" cy="220" r="130"/></g>
+  <g id="leaf" data-region="leaf" data-default-color="#4EA55F" fill="#FFFFFF" stroke="none"><path d="M200 90 q46 -44 84 -18 q-26 48 -84 18 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <circle cx="200" cy="220" r="130"/>
+    <path d="M200 90 q46 -44 84 -18 q-26 48 -84 18 z"/>
+    <path d="M200 90 L200 66"/>
+    <path d="M132 168 q26 -26 56 -32"/>
+  </g>
+</svg>

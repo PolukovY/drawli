@@ -1,0 +1,24 @@
+{
+  "id": "snowflake",
+  "titleKey": "exercise.snowflake",
+  "category": "nature",
+  "difficulty": "MEDIUM",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "cross",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "diagonals",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "tips",
+      "guide": "step-03.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

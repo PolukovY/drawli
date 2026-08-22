@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="nut" data-region="nut" data-default-color="#E0A860" fill="#FFFFFF" stroke="none"><path d="M96 170 q0 190 104 190 q104 0 104 -190 z"/></g>
+  <g id="cap" data-region="cap" data-default-color="#8B5E3C" fill="#FFFFFF" stroke="none"><path d="M88 170 a112 66 0 0 1 224 0 z"/></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M96 170 q0 190 104 190 q104 0 104 -190 z"/>
+    <path d="M88 170 a112 66 0 0 1 224 0 z"/>
+    <path d="M200 104 L200 62"/>
+  </g>
+</svg>

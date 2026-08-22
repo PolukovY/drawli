@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="leaves" data-region="leaves" data-default-color="#4EA55F" fill="#FFFFFF" stroke="none"><g><path d="M226 152 q-90 -60 -140 0 q80 -22 140 0 z"/><path d="M226 152 q-96 20 -96 84 q60 -60 96 -84 z"/><path d="M226 152 q90 -60 140 0 q-80 -22 -140 0 z"/><path d="M226 152 q96 20 96 84 q-60 -60 -96 -84 z"/></g></g>
+  <g id="coconuts" data-region="coconuts" data-default-color="#8B5E3C" fill="#FFFFFF" stroke="none"><g><circle cx="204" cy="176" r="16"/><circle cx="242" cy="180" r="14"/></g></g>
+  <g data-ink="1" fill="none" stroke="#2A2340" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" pointer-events="none">
+    <path d="M170 360 q10 -140 40 -200"/>
+    <path d="M214 360 q14 -140 40 -196"/>
+    <path d="M226 152 q-90 -60 -140 0 q80 -22 140 0 z"/>
+    <path d="M226 152 q-96 20 -96 84 q60 -60 96 -84 z"/>
+    <path d="M226 152 q90 -60 140 0 q-80 -22 -140 0 z"/>
+    <path d="M226 152 q96 20 96 84 q-60 -60 -96 -84 z"/>
+    <circle cx="204" cy="176" r="16"/>
+    <circle cx="242" cy="180" r="14"/>
+  </g>
+</svg>

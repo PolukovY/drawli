@@ -1,0 +1,24 @@
+{
+  "id": "arcs",
+  "titleKey": "exercise.arcs",
+  "category": "motor",
+  "difficulty": "VERY_EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "arc-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "arc-2",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "arc-3",
+      "guide": "step-03.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}
