@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GameShell } from '../../games/GameShell'
 import { useGameSession } from '../../games/useGameSession'
@@ -36,6 +36,10 @@ export function BiggerNumberPage() {
 
   const game = useGameSession(rounds)
   const current = game.current
+
+  // Wrong picks belong to the round they were made in; the auto-advance does
+  // not run the Next handler, so clearing them there was not enough.
+  useEffect(() => { setWrong([]) }, [game.round, rounds])
   const answer = current ? Math.max(...current.pair) : 0
 
   function pick(value: number) {
@@ -78,7 +82,7 @@ export function BiggerNumberPage() {
           </div>
 
           {game.solved ? (
-            <button className="btn btn--primary btn--hero game-next" onClick={() => { setWrong([]); game.next() }}>
+            <button className="btn btn--primary btn--hero game-next" onClick={game.next}>
               <span className="game-next__fill" />
               <span className="game-next__label">
                 {t('play.next')}

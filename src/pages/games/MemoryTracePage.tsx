@@ -38,6 +38,8 @@ export function MemoryTracePage() {
   const [seed, setSeed] = useState(1)
   const [rounds, setRounds] = useState<Round[]>([])
   const [round, setRound] = useState(0)
+  const roundRef = useRef(0)
+  roundRef.current = round
   const [phase, setPhase] = useState<Phase>('peek')
   const [countdown, setCountdown] = useState(PEEK_SECONDS)
   const [drawn, setDrawn] = useState(0)
@@ -83,11 +85,10 @@ export function MemoryTracePage() {
   const handleActions = useCallback((actions: DrawingAction[]) => setDrawn(actions.length), [])
 
   const next = useCallback(() => {
-    setRound((prev) => {
-      if (prev + 1 < rounds.length) return prev + 1
-      setFinished(true)
-      return prev
-    })
+    // Never call setState from inside an updater: React may re-run it and drop
+    // the call, which used to leave the game running past its last round.
+    if (roundRef.current + 1 < rounds.length) setRound(roundRef.current + 1)
+    else setFinished(true)
   }, [rounds.length])
 
   async function reveal() {

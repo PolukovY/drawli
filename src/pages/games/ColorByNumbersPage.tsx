@@ -13,6 +13,11 @@ import '../../games/GameShell.css'
 import './ColorByNumbersPage.css'
 
 const ROUNDS = 3
+/**
+ * Unpainted regions are tinted rather than white: some pictures are meant to be
+ * painted white, and on a white sheet that reads as "still not done".
+ */
+const UNPAINTED = '#EFEBF6'
 
 interface Round {
   exerciseId: string
@@ -23,6 +28,16 @@ interface Round {
  * The picture is numbered; each number has a colour. Fill every region with the
  * colour its number asks for — matching, counting and colouring in one.
  */
+/** Rough perceptual lightness — enough to pick a readable label colour. */
+function isLight(hex: string): boolean {
+  const value = hex.replace('#', '')
+  if (value.length !== 6) return false
+  const r = Number.parseInt(value.slice(0, 2), 16)
+  const g = Number.parseInt(value.slice(2, 4), 16)
+  const b = Number.parseInt(value.slice(4, 6), 16)
+  return (r * 299 + g * 587 + b * 114) / 1000 > 186
+}
+
 export function ColorByNumbersPage() {
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -31,6 +46,8 @@ export function ColorByNumbersPage() {
 
   const [rounds, setRounds] = useState<Round[]>([])
   const [round, setRound] = useState(0)
+  const roundRef = useRef(0)
+  roundRef.current = round
   const [seed, setSeed] = useState(1)
   const [markup, setMarkup] = useState('')
   const [filled, setFilled] = useState<Record<string, string>>({})
@@ -73,7 +90,7 @@ export function ColorByNumbersPage() {
     for (const region of Array.from(container.querySelectorAll<SVGGElement>('[data-region]'))) {
       const id = region.dataset.region
       if (!id) continue
-      region.setAttribute('fill', filled[id] ?? '#FFFFFF')
+      region.setAttribute('fill', filled[id] ?? UNPAINTED)
     }
   }, [filled, markup])
 
@@ -83,11 +100,10 @@ export function ColorByNumbersPage() {
   )
 
   const next = useCallback(() => {
-    setRound((prev) => {
-      if (prev + 1 < rounds.length) return prev + 1
-      setFinished(true)
-      return prev
-    })
+    // Never call setState from inside an updater: React may re-run it and drop
+    // the call, which used to leave the game running past its last round.
+    if (roundRef.current + 1 < rounds.length) setRound(roundRef.current + 1)
+    else setFinished(true)
   }, [rounds.length])
 
   useEffect(() => {
@@ -184,7 +200,8 @@ export function ColorByNumbersPage() {
                 className={`paint-chip ${picked?.id === region.id ? 'paint-chip--on' : ''} ${
                   filled[region.id] ? 'paint-chip--used' : ''
                 }`}
-                style={{ background: region.color }}
+                // A white or pale chip needs dark digits to be readable.
+                style={{ background: region.color, color: isLight(region.color) ? 'var(--c-text)' : '#fff' }}
                 onClick={() => { playSound('tap'); setPicked(region) }}
               >
                 {region.number}

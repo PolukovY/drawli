@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { assetUrl, loadIndex } from '../../exercise/ExerciseLoader'
@@ -29,6 +29,8 @@ export function PuzzlePage() {
   const [seed, setSeed] = useState(1)
   const [pictures, setPictures] = useState<ExerciseSummary[]>([])
   const [round, setRound] = useState(0)
+  const roundRef = useRef(0)
+  roundRef.current = round
   const [placed, setPlaced] = useState<Record<number, number>>({})
   const [held, setHeld] = useState<number | null>(null)
   const [earned, setEarned] = useState(0)
@@ -61,11 +63,10 @@ export function PuzzlePage() {
   const solved = Object.keys(placed).length === PIECES
 
   const next = useCallback(() => {
-    setRound((prev) => {
-      if (prev + 1 < pictures.length) return prev + 1
-      setFinished(true)
-      return prev
-    })
+    // Never call setState from inside an updater: React may re-run it and drop
+    // the call, which used to leave the game running past its last round.
+    if (roundRef.current + 1 < pictures.length) setRound(roundRef.current + 1)
+    else setFinished(true)
   }, [pictures.length])
 
   useEffect(() => {

@@ -74,26 +74,35 @@ export function MissingLettersPage() {
   // The round is won once every hole holds its own letter.
   const solved = game.solved
   const solve = game.solve
+  const gameOver = game.finished
   useEffect(() => {
-    if (!current || solved) return
+    if (!current || solved || gameOver) return
     const done = current.gaps.length > 0 && current.gaps.every((gap) => filled[gap] === current.word[gap])
     if (done) void solve()
-  }, [filled, current, solved, solve])
+  }, [filled, current, solved, solve, gameOver])
 
+  /**
+   * Which gap comes next has to be read from the latest state: a child tapping
+   * two letters quickly lands both in the same React batch, and the second tap
+   * would otherwise be judged against the gap the first one already filled.
+   */
   function pick(letter: string, choiceIndex: number) {
-    if (!current || game.solved || used.includes(choiceIndex)) return
+    if (!current || game.solved) return
 
-    const gap = current.gaps.find((index) => !filled[index])
-    if (gap === undefined) return
+    setFilled((prev) => {
+      if (used.includes(choiceIndex)) return prev
+      const gap = current.gaps.find((index) => !prev[index])
+      if (gap === undefined) return prev
 
-    if (current.word[gap] !== letter) {
-      game.miss()
-      return
-    }
+      if (current.word[gap] !== letter) {
+        game.miss()
+        return prev
+      }
 
-    playSound('tap')
-    setFilled((prev) => ({ ...prev, [gap]: letter }))
-    setUsed((prev) => [...prev, choiceIndex])
+      playSound('tap')
+      setUsed((usedNow) => (usedNow.includes(choiceIndex) ? usedNow : [...usedNow, choiceIndex]))
+      return { ...prev, [gap]: letter }
+    })
   }
 
   return (

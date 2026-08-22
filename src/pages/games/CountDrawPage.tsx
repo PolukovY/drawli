@@ -25,6 +25,8 @@ export function CountDrawPage() {
 
   const [seed, setSeed] = useState(1)
   const [round, setRound] = useState(0)
+  const roundRef = useRef(0)
+  roundRef.current = round
   const [strokes, setStrokes] = useState(0)
   const [solved, setSolved] = useState(false)
   const [earned, setEarned] = useState(0)
@@ -51,11 +53,10 @@ export function CountDrawPage() {
     setSolved(false)
     setStrokes(0)
     engineRef.current?.clear()
-    setRound((prev) => {
-      if (prev + 1 < targets.length) return prev + 1
-      setFinished(true)
-      return prev
-    })
+    // Never call setState from inside an updater: React may re-run it and drop
+    // the call, which used to leave the game running past its last round.
+    if (roundRef.current + 1 < targets.length) setRound(roundRef.current + 1)
+    else setFinished(true)
   }, [targets.length])
 
   // Counting is the whole exercise, so the check waits for the child to stop.

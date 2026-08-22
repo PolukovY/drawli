@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { assetUrl, type WordLanguage } from '../../exercise/ExerciseLoader'
@@ -54,6 +54,10 @@ export function FirstLetterPage() {
   const game = useGameSession(rounds)
   const current = game.current
 
+  // Wrong picks belong to the round they were made in; the auto-advance does
+  // not run the Next handler, so clearing them there was not enough.
+  useEffect(() => { setWrong([]) }, [game.round, rounds])
+
   function pick(letter: string) {
     if (!current || game.solved || wrong.includes(letter)) return
     if (letter === current.letter) { void game.solve(); return }
@@ -95,7 +99,7 @@ export function FirstLetterPage() {
           </div>
 
           {game.solved ? (
-            <button className="btn btn--primary btn--hero game-next" onClick={() => { setWrong([]); game.next() }}>
+            <button className="btn btn--primary btn--hero game-next" onClick={game.next}>
               <span className="game-next__fill" />
               <span className="game-next__label">
                 {t('play.next')}

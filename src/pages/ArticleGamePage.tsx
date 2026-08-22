@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useState, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '../components/Icon'
@@ -59,6 +59,8 @@ export function ArticleGamePage() {
   const [articles, setArticles] = useState<Record<string, string>>({})
   const [rounds, setRounds] = useState<Round[]>([])
   const [round, setRound] = useState(0)
+  const roundRef = useRef(0)
+  roundRef.current = round
   const [seed, setSeed] = useState(1)
   const [wrong, setWrong] = useState<string[]>([])
   const [solved, setSolved] = useState(false)
@@ -101,11 +103,10 @@ export function ArticleGamePage() {
   const current = rounds[round]
 
   const next = useCallback(() => {
-    setRound((prev) => {
-      if (prev + 1 < rounds.length) return prev + 1
-      setFinished(true)
-      return prev
-    })
+    // Never call setState from inside an updater: React may re-run it and drop
+    // the call, which used to leave the game running past its last round.
+    if (roundRef.current + 1 < rounds.length) setRound(roundRef.current + 1)
+    else setFinished(true)
   }, [rounds.length])
 
   useEffect(() => {

@@ -84,18 +84,23 @@ export function ListenPage() {
 
   const solved = game.solved
   const solve = game.solve
+  const gameOver = game.finished
   useEffect(() => {
-    if (!current || solved) return
+    if (!current || solved || gameOver) return
     if (typed.join('') === current.word) void solve()
-  }, [typed, current, solved, solve])
+  }, [typed, current, solved, solve, gameOver])
 
+  /** Same reason as the missing-letters game: read the position from state. */
   function pick(letter: string, index: number) {
-    if (!current || game.solved || used.includes(index)) return
-    const position = typed.length
-    if (current.word[position] !== letter) { game.miss(); return }
-    playSound('tap')
-    setTyped((prev) => [...prev, letter])
-    setUsed((prev) => [...prev, index])
+    if (!current || game.solved) return
+
+    setTyped((prev) => {
+      if (used.includes(index)) return prev
+      if (current.word[prev.length] !== letter) { game.miss(); return prev }
+      playSound('tap')
+      setUsed((usedNow) => (usedNow.includes(index) ? usedNow : [...usedNow, index]))
+      return [...prev, letter]
+    })
   }
 
   return (
