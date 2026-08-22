@@ -166,8 +166,11 @@ export const GLYPHS = [
     })),
   toExercise('es-enye', 'letters_es', 'Ñ', N_TILDE, { uk: 'Ñ · eñe', en: 'Ñ · eñe' }),
 
+  // 0–9 and 10–100 are the same thing to a child learning to write them, so
+  // they live in one list, in counting order. The ids stay as they were, or
+  // progress already earned would be orphaned.
   ...Object.entries(DIGITS).map(([glyph, steps]) =>
-    toExercise(`digit-${glyph}`, 'digits', glyph, steps)),
+    toExercise(`digit-${glyph}`, 'numbers', glyph, steps)),
 
   ...NUMBERS.map((value) =>
     toExercise(`number-${value}`, 'numbers', String(value), numberSteps(value))),

@@ -204,7 +204,7 @@ graph LR
 ```mermaid
 graph LR
     idx["index.json<br/>categories[].kind"] --> draw["Режим «Малюю»<br/>148 малюнків"]
-    idx --> write["Режим «Літери й цифри»<br/>96 літер · 10 цифр · 91 число"]
+    idx --> write["Режим «Літери й цифри»<br/>96 літер · числа 0–100"]
     idx --> play["Режим «Ігри»<br/>вибір мови замість жанрів"]
     words["words.json"] --> play
 ```

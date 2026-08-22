@@ -20,8 +20,7 @@ export const CATEGORIES = [
   { id: 'letters_uk', color: '#7C5CFF', order: 8, kind: 'write' },
   { id: 'letters_en', color: '#4E86E8', order: 9, kind: 'write' },
   { id: 'letters_es', color: '#F5893B', order: 10, kind: 'write' },
-  { id: 'digits', color: '#34C77B', order: 11, kind: 'write' },
-  { id: 'numbers', color: '#5FC7C0', order: 12, kind: 'write' },
+  { id: 'numbers', color: '#34C77B', order: 11, kind: 'write' },
 ]
 
 export const EXERCISES = [

@@ -122,8 +122,7 @@
     "letters_uk": "Ukrainian alphabet",
     "letters_en": "English alphabet",
     "letters_es": "Spanish alphabet",
-    "digits": "Numbers",
-    "numbers": "Numbers to 100"
+    "numbers": "Numbers 0–100"
   },
   "exercise": {
     "lines": "Lines",
