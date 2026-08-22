@@ -44,9 +44,10 @@
   "complete": {
     "title": "Great job, {{name}}!",
     "subtitle": "You finished your drawing",
-    "stars": "+{{count}} stars",
     "another": "Choose another drawing",
-    "again": "Draw again"
+    "again": "Draw again",
+    "stars_one": "+{{count}} star",
+    "stars_other": "+{{count}} stars"
   },
   "gallery": {
     "title": "My Drawings",
@@ -82,10 +83,13 @@
     "resetDo": "Reset",
     "cancel": "Cancel",
     "importConfirm": "Replace all data from this file?",
-    "importSummary": "{{drawings}} drawings · {{stars}} stars",
     "importDo": "Restore",
     "importBadFile": "This file does not fit",
-    "privacy": "No sign-up, no ads. Data stays on this tablet."
+    "privacy": "No sign-up, no ads. Data stays on this tablet.",
+    "importDrawings_one": "{{count}} drawing",
+    "importDrawings_other": "{{count}} drawings",
+    "importStars_one": "{{count}} star",
+    "importStars_other": "{{count}} stars"
   },
   "category": {
     "motor": "Motor skills",

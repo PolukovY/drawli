@@ -44,9 +44,11 @@
   "complete": {
     "title": "Чудово, {{name}}!",
     "subtitle": "Малюнок готовий!",
-    "stars": "+{{count}} зірочок",
     "another": "Обрати інший малюнок",
-    "again": "Намалювати ще раз"
+    "again": "Намалювати ще раз",
+    "stars_one": "+{{count}} зірочка",
+    "stars_few": "+{{count}} зірочки",
+    "stars_many": "+{{count}} зірочок"
   },
   "gallery": {
     "title": "Мої малюнки",
@@ -82,10 +84,15 @@
     "resetDo": "Скинути",
     "cancel": "Скасувати",
     "importConfirm": "Замінити всі дані з файлу?",
-    "importSummary": "{{drawings}} малюнків · {{stars}} зірочок",
     "importDo": "Відновити",
     "importBadFile": "Файл не підходить",
-    "privacy": "Без реєстрації, без реклами. Дані лишаються на планшеті."
+    "privacy": "Без реєстрації, без реклами. Дані лишаються на планшеті.",
+    "importDrawings_one": "{{count}} малюнок",
+    "importDrawings_few": "{{count}} малюнки",
+    "importDrawings_many": "{{count}} малюнків",
+    "importStars_one": "{{count}} зірочка",
+    "importStars_few": "{{count}} зірочки",
+    "importStars_many": "{{count}} зірочок"
   },
   "category": {
     "motor": "Моторика",

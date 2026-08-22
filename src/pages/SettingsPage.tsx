@@ -160,10 +160,9 @@ export function SettingsPage() {
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <div className="title">{t('settings.importConfirm')}</div>
             <div className="subtitle">
-              {t('settings.importSummary', {
-                drawings: pendingImport.drawings.length,
-                stars: pendingImport.settings?.stars ?? 0,
-              })}
+              {t('settings.importDrawings', { count: pendingImport.drawings.length })}
+              {' · '}
+              {t('settings.importStars', { count: pendingImport.settings?.stars ?? 0 })}
             </div>
             <div className="row" style={{ justifyContent: 'center', gap: 12 }}>
               <button className="btn" onClick={() => setPendingImport(null)}>{t('settings.cancel')}</button>
