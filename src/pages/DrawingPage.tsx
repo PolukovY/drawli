@@ -58,6 +58,8 @@ export function DrawingPage() {
   const drawingIdRef = useRef<string>('')
   /** Thumbnails are the expensive part of a save, so they lag behind. */
   const lastThumbnailAt = useRef(0)
+  /** Kept so a save that lands after unmount still has a picture to store. */
+  const lastThumbnail = useRef<Blob | undefined>(undefined)
   /**
    * Actions present when each step opened — Next unlocks above the current
    * step's mark. Kept per step (and saved) so returning to a drawing does not
@@ -100,6 +102,8 @@ export function DrawingPage() {
         stepBaselinesRef.current = existing.stepBaselines ?? [0]
       } else {
         drawingIdRef.current = crypto.randomUUID()
+        lastThumbnail.current = undefined
+        lastThumbnailAt.current = 0
         setActions([])
         setLoadedActions([])
         stepBaselinesRef.current = [0]
@@ -122,26 +126,13 @@ export function DrawingPage() {
     // empty card in the gallery and hijack the "continue" prompt on the home screen.
     if (nextActions.length === 0 && step === 0) return
 
-    // Refresh the picture now and then, so an unfinished drawing shows what the
-    // child actually made rather than a grey outline of the exercise.
-    let thumbnail: Blob | undefined
-    const now = Date.now()
-    if (nextActions.length > 0 && now - lastThumbnailAt.current > THUMBNAIL_INTERVAL) {
-      const canvasEl = cardRef.current?.querySelector('canvas') ?? null
-      const overlaySvg = cardRef.current?.querySelector<SVGSVGElement>('.coloring-layer svg') ?? null
-      if (canvasEl) {
-        thumbnail = await composeThumbnail(canvasEl, overlaySvg)
-        lastThumbnailAt.current = now
-      }
-    }
-
     await upsertDrawing({
       id: drawingIdRef.current,
       exerciseId,
       currentStep: step,
       stepBaselines: [...stepBaselinesRef.current],
       document: { ...createDocument(exerciseId, 1, 1), actions: nextActions },
-      thumbnail,
+      thumbnail: lastThumbnail.current,
     })
     await markStarted(exerciseId, step)
     setSavedAt(Date.now())
@@ -152,11 +143,27 @@ export function DrawingPage() {
     AUTOSAVE_DELAY,
   )
 
+  /**
+   * Redraw the gallery picture while the canvas is still on screen. Doing it
+   * inside the save would be too late: an autosave that fires as the child
+   * leaves has no canvas left to photograph.
+   */
+  const refreshThumbnail = useCallback(async () => {
+    const now = Date.now()
+    if (lastThumbnail.current && now - lastThumbnailAt.current < THUMBNAIL_INTERVAL) return
+    const canvasEl = cardRef.current?.querySelector('canvas') ?? null
+    if (!canvasEl) return
+    const overlaySvg = cardRef.current?.querySelector<SVGSVGElement>('.coloring-layer svg') ?? null
+    lastThumbnail.current = await composeThumbnail(canvasEl, overlaySvg)
+    lastThumbnailAt.current = now
+  }, [])
+
   const handleActions = useCallback((next: DrawingAction[]) => {
     const copy = [...next]
     setActions(copy)
+    void refreshThumbnail()
     autosave.schedule({ actions: copy, step: stepIndexRef.current })
-  }, [autosave])
+  }, [autosave, refreshThumbnail])
 
   // --- colouring --------------------------------------------------------
 

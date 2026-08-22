@@ -40,6 +40,7 @@ export function FreeDrawPage() {
   const cardRef = useRef<HTMLDivElement>(null)
   const drawingIdRef = useRef<string>(crypto.randomUUID())
   const lastThumbnailAt = useRef(0)
+  const lastThumbnail = useRef<Blob | undefined>(undefined)
 
   // Pick up the sheet the child was on: leaving the screen should not mean
   // starting over, and a half-finished drawing is easy to walk away from.
@@ -60,33 +61,34 @@ export function FreeDrawPage() {
   const persist = useCallback(async (next: DrawingAction[], thumbnail?: Blob) => {
     if (next.length === 0) return
 
-    let picture = thumbnail
-    const now = Date.now()
-    if (!picture && now - lastThumbnailAt.current > THUMBNAIL_INTERVAL) {
-      const canvasEl = cardRef.current?.querySelector('canvas') ?? null
-      if (canvasEl) {
-        picture = await composeThumbnail(canvasEl, null)
-        lastThumbnailAt.current = now
-      }
-    }
-
     await upsertDrawing({
       id: drawingIdRef.current,
       exerciseId: 'free',
       currentStep: 0,
       document: { ...createDocument('free', 1, 1), actions: next },
-      thumbnail: picture,
+      thumbnail: thumbnail ?? lastThumbnail.current,
     })
     setSavedAt(Date.now())
   }, [])
 
   const autosave = useAutosave<DrawingAction[]>((pending) => persist(pending), AUTOSAVE_DELAY)
 
+  /** Same reason as the exercise screen: photograph the canvas while it exists. */
+  const refreshThumbnail = useCallback(async () => {
+    const now = Date.now()
+    if (lastThumbnail.current && now - lastThumbnailAt.current < THUMBNAIL_INTERVAL) return
+    const canvasEl = cardRef.current?.querySelector('canvas') ?? null
+    if (!canvasEl) return
+    lastThumbnail.current = await composeThumbnail(canvasEl, null)
+    lastThumbnailAt.current = now
+  }, [])
+
   const handleActions = useCallback((next: DrawingAction[]) => {
     const copy = [...next]
     setActions(copy)
+    void refreshThumbnail()
     autosave.schedule(copy)
-  }, [autosave])
+  }, [autosave, refreshThumbnail])
 
   async function handleSave() {
     autosave.flush()
@@ -101,6 +103,7 @@ export function FreeDrawPage() {
   function startNewSheet() {
     autosave.flush()
     drawingIdRef.current = crypto.randomUUID()
+    lastThumbnail.current = undefined
     lastThumbnailAt.current = 0
     engineRef.current?.clear()
     setActions([])
