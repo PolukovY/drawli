@@ -7,6 +7,23 @@
   overflow: hidden;
 }
 
+/*
+ * A scrolling list inside a flex column defaults to min-height: auto, so it
+ * refuses to shrink below its content and squeezes the rows above it out of
+ * view — on a 1024-wide tablet that ate the mode tabs. The list absorbs the
+ * leftover height; every other row keeps its own.
+ */
+.screen > * { flex-shrink: 0; }
+
+.screen > .home__grid,
+.screen > .gallery-grid,
+.screen > .category-list,
+.screen > .settings-list,
+.screen > .spell__board {
+  flex-shrink: 1;
+  min-height: 0;
+}
+
 .center-screen {
   height: 100%;
   display: flex;

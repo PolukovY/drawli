@@ -76,7 +76,13 @@
   .home__categories { max-width: 100%; }
 }
 
-.mode-tabs { display: flex; gap: 10px; }
+.mode-tabs { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* Narrow tablets: shorter labels, so the three modes always fit on one line. */
+@media (max-width: 900px) {
+  .mode-tab { padding: 0 16px; font-size: 16px; }
+  .home__nav .btn { padding: 0 18px; font-size: 16px; }
+}
 
 .mode-tab {
   height: var(--tap-min);
