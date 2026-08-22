@@ -75,3 +75,35 @@
   .home__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .home__categories { max-width: 100%; }
 }
+
+.mode-tabs { display: flex; gap: 10px; }
+
+.mode-tab {
+  height: var(--tap-min);
+  padding: 0 24px;
+  border-radius: var(--r-lg);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 800;
+  background: var(--c-surface);
+  color: var(--c-text-soft);
+  box-shadow: var(--sh-card);
+  transition: transform 0.08s ease;
+}
+.mode-tab:active { transform: scale(0.96); }
+.mode-tab--on { background: var(--c-accent); color: #fff; box-shadow: 0 8px 20px rgba(124, 92, 255, 0.32); }
+
+.mode-tab__glyph { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+
+.exercise-card__glyph {
+  font-size: 68px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--c-accent);
+}
+.exercise-card--glyph span:last-child { font-size: 15px; color: var(--c-text-muted); }
+
+.game-card { gap: 6px; }
+.game-card__art { font-size: 56px; line-height: 1; }

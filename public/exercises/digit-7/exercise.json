@@ -1,0 +1,20 @@
+{
+  "id": "digit-7",
+  "titleKey": "exercise.digit-7",
+  "glyph": "7",
+  "category": "digits",
+  "difficulty": "VERY_EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "stroke-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "stroke-2",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

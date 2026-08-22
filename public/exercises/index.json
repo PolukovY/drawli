@@ -5,43 +5,78 @@
       "id": "motor",
       "titleKey": "category.motor",
       "color": "#8FA9F0",
-      "order": 1
+      "order": 1,
+      "kind": "draw"
     },
     {
       "id": "shapes",
       "titleKey": "category.shapes",
       "color": "#9B5CE0",
-      "order": 2
+      "order": 2,
+      "kind": "draw"
     },
     {
       "id": "nature",
       "titleKey": "category.nature",
       "color": "#4EA55F",
-      "order": 3
+      "order": 3,
+      "kind": "draw"
     },
     {
       "id": "animals",
       "titleKey": "category.animals",
       "color": "#5FC7C0",
-      "order": 4
+      "order": 4,
+      "kind": "draw"
     },
     {
       "id": "food",
       "titleKey": "category.food",
       "color": "#E4685B",
-      "order": 5
+      "order": 5,
+      "kind": "draw"
     },
     {
       "id": "home",
       "titleKey": "category.home",
       "color": "#F5893B",
-      "order": 6
+      "order": 6,
+      "kind": "draw"
     },
     {
       "id": "transport",
       "titleKey": "category.transport",
       "color": "#4E86E8",
-      "order": 7
+      "order": 7,
+      "kind": "draw"
+    },
+    {
+      "id": "letters_uk",
+      "titleKey": "category.letters_uk",
+      "color": "#7C5CFF",
+      "order": 8,
+      "kind": "write"
+    },
+    {
+      "id": "letters_en",
+      "titleKey": "category.letters_en",
+      "color": "#4E86E8",
+      "order": 9,
+      "kind": "write"
+    },
+    {
+      "id": "letters_es",
+      "titleKey": "category.letters_es",
+      "color": "#F5893B",
+      "order": 10,
+      "kind": "write"
+    },
+    {
+      "id": "digits",
+      "titleKey": "category.digits",
+      "color": "#34C77B",
+      "order": 11,
+      "kind": "write"
     }
   ],
   "exercises": [
@@ -1228,6 +1263,870 @@
       "difficulty": "EASY",
       "thumbnail": "sled/thumbnail.svg",
       "steps": 5
+    },
+    {
+      "id": "uk-а",
+      "titleKey": "exercise.uk-а",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-а/thumbnail.svg",
+      "steps": 2,
+      "glyph": "А"
+    },
+    {
+      "id": "uk-б",
+      "titleKey": "exercise.uk-б",
+      "category": "letters_uk",
+      "difficulty": "EASY",
+      "thumbnail": "uk-б/thumbnail.svg",
+      "steps": 3,
+      "glyph": "Б"
+    },
+    {
+      "id": "uk-в",
+      "titleKey": "exercise.uk-в",
+      "category": "letters_uk",
+      "difficulty": "EASY",
+      "thumbnail": "uk-в/thumbnail.svg",
+      "steps": 3,
+      "glyph": "В"
+    },
+    {
+      "id": "uk-г",
+      "titleKey": "exercise.uk-г",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-г/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Г"
+    },
+    {
+      "id": "uk-ґ",
+      "titleKey": "exercise.uk-ґ",
+      "category": "letters_uk",
+      "difficulty": "EASY",
+      "thumbnail": "uk-ґ/thumbnail.svg",
+      "steps": 3,
+      "glyph": "Ґ"
+    },
+    {
+      "id": "uk-д",
+      "titleKey": "exercise.uk-д",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-д/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Д"
+    },
+    {
+      "id": "uk-е",
+      "titleKey": "exercise.uk-е",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-е/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Е"
+    },
+    {
+      "id": "uk-є",
+      "titleKey": "exercise.uk-є",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-є/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Є"
+    },
+    {
+      "id": "uk-ж",
+      "titleKey": "exercise.uk-ж",
+      "category": "letters_uk",
+      "difficulty": "EASY",
+      "thumbnail": "uk-ж/thumbnail.svg",
+      "steps": 3,
+      "glyph": "Ж"
+    },
+    {
+      "id": "uk-з",
+      "titleKey": "exercise.uk-з",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-з/thumbnail.svg",
+      "steps": 1,
+      "glyph": "З"
+    },
+    {
+      "id": "uk-и",
+      "titleKey": "exercise.uk-и",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-и/thumbnail.svg",
+      "steps": 2,
+      "glyph": "И"
+    },
+    {
+      "id": "uk-і",
+      "titleKey": "exercise.uk-і",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-і/thumbnail.svg",
+      "steps": 1,
+      "glyph": "І"
+    },
+    {
+      "id": "uk-ї",
+      "titleKey": "exercise.uk-ї",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-ї/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Ї"
+    },
+    {
+      "id": "uk-й",
+      "titleKey": "exercise.uk-й",
+      "category": "letters_uk",
+      "difficulty": "EASY",
+      "thumbnail": "uk-й/thumbnail.svg",
+      "steps": 3,
+      "glyph": "Й"
+    },
+    {
+      "id": "uk-к",
+      "titleKey": "exercise.uk-к",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-к/thumbnail.svg",
+      "steps": 2,
+      "glyph": "К"
+    },
+    {
+      "id": "uk-л",
+      "titleKey": "exercise.uk-л",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-л/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Л"
+    },
+    {
+      "id": "uk-м",
+      "titleKey": "exercise.uk-м",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-м/thumbnail.svg",
+      "steps": 2,
+      "glyph": "М"
+    },
+    {
+      "id": "uk-н",
+      "titleKey": "exercise.uk-н",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-н/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Н"
+    },
+    {
+      "id": "uk-о",
+      "titleKey": "exercise.uk-о",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-о/thumbnail.svg",
+      "steps": 1,
+      "glyph": "О"
+    },
+    {
+      "id": "uk-п",
+      "titleKey": "exercise.uk-п",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-п/thumbnail.svg",
+      "steps": 2,
+      "glyph": "П"
+    },
+    {
+      "id": "uk-р",
+      "titleKey": "exercise.uk-р",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-р/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Р"
+    },
+    {
+      "id": "uk-с",
+      "titleKey": "exercise.uk-с",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-с/thumbnail.svg",
+      "steps": 1,
+      "glyph": "С"
+    },
+    {
+      "id": "uk-т",
+      "titleKey": "exercise.uk-т",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-т/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Т"
+    },
+    {
+      "id": "uk-у",
+      "titleKey": "exercise.uk-у",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-у/thumbnail.svg",
+      "steps": 2,
+      "glyph": "У"
+    },
+    {
+      "id": "uk-ф",
+      "titleKey": "exercise.uk-ф",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-ф/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Ф"
+    },
+    {
+      "id": "uk-х",
+      "titleKey": "exercise.uk-х",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-х/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Х"
+    },
+    {
+      "id": "uk-ц",
+      "titleKey": "exercise.uk-ц",
+      "category": "letters_uk",
+      "difficulty": "EASY",
+      "thumbnail": "uk-ц/thumbnail.svg",
+      "steps": 3,
+      "glyph": "Ц"
+    },
+    {
+      "id": "uk-ч",
+      "titleKey": "exercise.uk-ч",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-ч/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Ч"
+    },
+    {
+      "id": "uk-ш",
+      "titleKey": "exercise.uk-ш",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-ш/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Ш"
+    },
+    {
+      "id": "uk-щ",
+      "titleKey": "exercise.uk-щ",
+      "category": "letters_uk",
+      "difficulty": "EASY",
+      "thumbnail": "uk-щ/thumbnail.svg",
+      "steps": 3,
+      "glyph": "Щ"
+    },
+    {
+      "id": "uk-ь",
+      "titleKey": "exercise.uk-ь",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-ь/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Ь"
+    },
+    {
+      "id": "uk-ю",
+      "titleKey": "exercise.uk-ю",
+      "category": "letters_uk",
+      "difficulty": "EASY",
+      "thumbnail": "uk-ю/thumbnail.svg",
+      "steps": 3,
+      "glyph": "Ю"
+    },
+    {
+      "id": "uk-я",
+      "titleKey": "exercise.uk-я",
+      "category": "letters_uk",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "uk-я/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Я"
+    },
+    {
+      "id": "en-a",
+      "titleKey": "exercise.en-a",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-a/thumbnail.svg",
+      "steps": 2,
+      "glyph": "A"
+    },
+    {
+      "id": "en-b",
+      "titleKey": "exercise.en-b",
+      "category": "letters_en",
+      "difficulty": "EASY",
+      "thumbnail": "en-b/thumbnail.svg",
+      "steps": 3,
+      "glyph": "B"
+    },
+    {
+      "id": "en-c",
+      "titleKey": "exercise.en-c",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-c/thumbnail.svg",
+      "steps": 1,
+      "glyph": "C"
+    },
+    {
+      "id": "en-d",
+      "titleKey": "exercise.en-d",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-d/thumbnail.svg",
+      "steps": 2,
+      "glyph": "D"
+    },
+    {
+      "id": "en-e",
+      "titleKey": "exercise.en-e",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-e/thumbnail.svg",
+      "steps": 2,
+      "glyph": "E"
+    },
+    {
+      "id": "en-f",
+      "titleKey": "exercise.en-f",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-f/thumbnail.svg",
+      "steps": 2,
+      "glyph": "F"
+    },
+    {
+      "id": "en-g",
+      "titleKey": "exercise.en-g",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-g/thumbnail.svg",
+      "steps": 2,
+      "glyph": "G"
+    },
+    {
+      "id": "en-h",
+      "titleKey": "exercise.en-h",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-h/thumbnail.svg",
+      "steps": 2,
+      "glyph": "H"
+    },
+    {
+      "id": "en-i",
+      "titleKey": "exercise.en-i",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-i/thumbnail.svg",
+      "steps": 2,
+      "glyph": "I"
+    },
+    {
+      "id": "en-j",
+      "titleKey": "exercise.en-j",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-j/thumbnail.svg",
+      "steps": 2,
+      "glyph": "J"
+    },
+    {
+      "id": "en-k",
+      "titleKey": "exercise.en-k",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-k/thumbnail.svg",
+      "steps": 2,
+      "glyph": "K"
+    },
+    {
+      "id": "en-l",
+      "titleKey": "exercise.en-l",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-l/thumbnail.svg",
+      "steps": 2,
+      "glyph": "L"
+    },
+    {
+      "id": "en-m",
+      "titleKey": "exercise.en-m",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-m/thumbnail.svg",
+      "steps": 2,
+      "glyph": "M"
+    },
+    {
+      "id": "en-n",
+      "titleKey": "exercise.en-n",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-n/thumbnail.svg",
+      "steps": 2,
+      "glyph": "N"
+    },
+    {
+      "id": "en-o",
+      "titleKey": "exercise.en-o",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-o/thumbnail.svg",
+      "steps": 1,
+      "glyph": "O"
+    },
+    {
+      "id": "en-p",
+      "titleKey": "exercise.en-p",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-p/thumbnail.svg",
+      "steps": 2,
+      "glyph": "P"
+    },
+    {
+      "id": "en-q",
+      "titleKey": "exercise.en-q",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-q/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Q"
+    },
+    {
+      "id": "en-r",
+      "titleKey": "exercise.en-r",
+      "category": "letters_en",
+      "difficulty": "EASY",
+      "thumbnail": "en-r/thumbnail.svg",
+      "steps": 3,
+      "glyph": "R"
+    },
+    {
+      "id": "en-s",
+      "titleKey": "exercise.en-s",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-s/thumbnail.svg",
+      "steps": 1,
+      "glyph": "S"
+    },
+    {
+      "id": "en-t",
+      "titleKey": "exercise.en-t",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-t/thumbnail.svg",
+      "steps": 2,
+      "glyph": "T"
+    },
+    {
+      "id": "en-u",
+      "titleKey": "exercise.en-u",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-u/thumbnail.svg",
+      "steps": 1,
+      "glyph": "U"
+    },
+    {
+      "id": "en-v",
+      "titleKey": "exercise.en-v",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-v/thumbnail.svg",
+      "steps": 1,
+      "glyph": "V"
+    },
+    {
+      "id": "en-w",
+      "titleKey": "exercise.en-w",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-w/thumbnail.svg",
+      "steps": 2,
+      "glyph": "W"
+    },
+    {
+      "id": "en-x",
+      "titleKey": "exercise.en-x",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-x/thumbnail.svg",
+      "steps": 2,
+      "glyph": "X"
+    },
+    {
+      "id": "en-y",
+      "titleKey": "exercise.en-y",
+      "category": "letters_en",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "en-y/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Y"
+    },
+    {
+      "id": "en-z",
+      "titleKey": "exercise.en-z",
+      "category": "letters_en",
+      "difficulty": "EASY",
+      "thumbnail": "en-z/thumbnail.svg",
+      "steps": 3,
+      "glyph": "Z"
+    },
+    {
+      "id": "es-a",
+      "titleKey": "exercise.es-a",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-a/thumbnail.svg",
+      "steps": 2,
+      "glyph": "A"
+    },
+    {
+      "id": "es-b",
+      "titleKey": "exercise.es-b",
+      "category": "letters_es",
+      "difficulty": "EASY",
+      "thumbnail": "es-b/thumbnail.svg",
+      "steps": 3,
+      "glyph": "B"
+    },
+    {
+      "id": "es-c",
+      "titleKey": "exercise.es-c",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-c/thumbnail.svg",
+      "steps": 1,
+      "glyph": "C"
+    },
+    {
+      "id": "es-d",
+      "titleKey": "exercise.es-d",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-d/thumbnail.svg",
+      "steps": 2,
+      "glyph": "D"
+    },
+    {
+      "id": "es-e",
+      "titleKey": "exercise.es-e",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-e/thumbnail.svg",
+      "steps": 2,
+      "glyph": "E"
+    },
+    {
+      "id": "es-f",
+      "titleKey": "exercise.es-f",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-f/thumbnail.svg",
+      "steps": 2,
+      "glyph": "F"
+    },
+    {
+      "id": "es-g",
+      "titleKey": "exercise.es-g",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-g/thumbnail.svg",
+      "steps": 2,
+      "glyph": "G"
+    },
+    {
+      "id": "es-h",
+      "titleKey": "exercise.es-h",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-h/thumbnail.svg",
+      "steps": 2,
+      "glyph": "H"
+    },
+    {
+      "id": "es-i",
+      "titleKey": "exercise.es-i",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-i/thumbnail.svg",
+      "steps": 2,
+      "glyph": "I"
+    },
+    {
+      "id": "es-j",
+      "titleKey": "exercise.es-j",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-j/thumbnail.svg",
+      "steps": 2,
+      "glyph": "J"
+    },
+    {
+      "id": "es-k",
+      "titleKey": "exercise.es-k",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-k/thumbnail.svg",
+      "steps": 2,
+      "glyph": "K"
+    },
+    {
+      "id": "es-l",
+      "titleKey": "exercise.es-l",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-l/thumbnail.svg",
+      "steps": 2,
+      "glyph": "L"
+    },
+    {
+      "id": "es-m",
+      "titleKey": "exercise.es-m",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-m/thumbnail.svg",
+      "steps": 2,
+      "glyph": "M"
+    },
+    {
+      "id": "es-n",
+      "titleKey": "exercise.es-n",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-n/thumbnail.svg",
+      "steps": 2,
+      "glyph": "N"
+    },
+    {
+      "id": "es-o",
+      "titleKey": "exercise.es-o",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-o/thumbnail.svg",
+      "steps": 1,
+      "glyph": "O"
+    },
+    {
+      "id": "es-p",
+      "titleKey": "exercise.es-p",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-p/thumbnail.svg",
+      "steps": 2,
+      "glyph": "P"
+    },
+    {
+      "id": "es-q",
+      "titleKey": "exercise.es-q",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-q/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Q"
+    },
+    {
+      "id": "es-r",
+      "titleKey": "exercise.es-r",
+      "category": "letters_es",
+      "difficulty": "EASY",
+      "thumbnail": "es-r/thumbnail.svg",
+      "steps": 3,
+      "glyph": "R"
+    },
+    {
+      "id": "es-s",
+      "titleKey": "exercise.es-s",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-s/thumbnail.svg",
+      "steps": 1,
+      "glyph": "S"
+    },
+    {
+      "id": "es-t",
+      "titleKey": "exercise.es-t",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-t/thumbnail.svg",
+      "steps": 2,
+      "glyph": "T"
+    },
+    {
+      "id": "es-u",
+      "titleKey": "exercise.es-u",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-u/thumbnail.svg",
+      "steps": 1,
+      "glyph": "U"
+    },
+    {
+      "id": "es-v",
+      "titleKey": "exercise.es-v",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-v/thumbnail.svg",
+      "steps": 1,
+      "glyph": "V"
+    },
+    {
+      "id": "es-w",
+      "titleKey": "exercise.es-w",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-w/thumbnail.svg",
+      "steps": 2,
+      "glyph": "W"
+    },
+    {
+      "id": "es-x",
+      "titleKey": "exercise.es-x",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-x/thumbnail.svg",
+      "steps": 2,
+      "glyph": "X"
+    },
+    {
+      "id": "es-y",
+      "titleKey": "exercise.es-y",
+      "category": "letters_es",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "es-y/thumbnail.svg",
+      "steps": 2,
+      "glyph": "Y"
+    },
+    {
+      "id": "es-z",
+      "titleKey": "exercise.es-z",
+      "category": "letters_es",
+      "difficulty": "EASY",
+      "thumbnail": "es-z/thumbnail.svg",
+      "steps": 3,
+      "glyph": "Z"
+    },
+    {
+      "id": "es-enye",
+      "titleKey": "exercise.es-enye",
+      "category": "letters_es",
+      "difficulty": "EASY",
+      "thumbnail": "es-enye/thumbnail.svg",
+      "steps": 3,
+      "glyph": "Ñ"
+    },
+    {
+      "id": "digit-0",
+      "titleKey": "exercise.digit-0",
+      "category": "digits",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "digit-0/thumbnail.svg",
+      "steps": 1,
+      "glyph": "0"
+    },
+    {
+      "id": "digit-1",
+      "titleKey": "exercise.digit-1",
+      "category": "digits",
+      "difficulty": "EASY",
+      "thumbnail": "digit-1/thumbnail.svg",
+      "steps": 3,
+      "glyph": "1"
+    },
+    {
+      "id": "digit-2",
+      "titleKey": "exercise.digit-2",
+      "category": "digits",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "digit-2/thumbnail.svg",
+      "steps": 2,
+      "glyph": "2"
+    },
+    {
+      "id": "digit-3",
+      "titleKey": "exercise.digit-3",
+      "category": "digits",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "digit-3/thumbnail.svg",
+      "steps": 2,
+      "glyph": "3"
+    },
+    {
+      "id": "digit-4",
+      "titleKey": "exercise.digit-4",
+      "category": "digits",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "digit-4/thumbnail.svg",
+      "steps": 2,
+      "glyph": "4"
+    },
+    {
+      "id": "digit-5",
+      "titleKey": "exercise.digit-5",
+      "category": "digits",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "digit-5/thumbnail.svg",
+      "steps": 2,
+      "glyph": "5"
+    },
+    {
+      "id": "digit-6",
+      "titleKey": "exercise.digit-6",
+      "category": "digits",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "digit-6/thumbnail.svg",
+      "steps": 2,
+      "glyph": "6"
+    },
+    {
+      "id": "digit-7",
+      "titleKey": "exercise.digit-7",
+      "category": "digits",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "digit-7/thumbnail.svg",
+      "steps": 2,
+      "glyph": "7"
+    },
+    {
+      "id": "digit-8",
+      "titleKey": "exercise.digit-8",
+      "category": "digits",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "digit-8/thumbnail.svg",
+      "steps": 2,
+      "glyph": "8"
+    },
+    {
+      "id": "digit-9",
+      "titleKey": "exercise.digit-9",
+      "category": "digits",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "digit-9/thumbnail.svg",
+      "steps": 2,
+      "glyph": "9"
     }
   ]
 }

@@ -1,0 +1,15 @@
+{
+  "id": "digit-0",
+  "titleKey": "exercise.digit-0",
+  "glyph": "0",
+  "category": "digits",
+  "difficulty": "VERY_EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "stroke-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

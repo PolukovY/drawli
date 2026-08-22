@@ -56,6 +56,7 @@ const index = {
     titleKey: `category.${c.id}`,
     color: c.color,
     order: c.order,
+    kind: c.kind ?? 'draw',
   })),
   exercises: [],
 }
@@ -84,6 +85,7 @@ for (const exercise of EXERCISES) {
   const json = {
     id: exercise.id,
     titleKey,
+    ...(exercise.glyph ? { glyph: exercise.glyph } : {}),
     category: exercise.category,
     difficulty: exercise.difficulty,
     thumbnail: 'thumbnail.svg',
@@ -98,6 +100,7 @@ for (const exercise of EXERCISES) {
     difficulty: exercise.difficulty,
     thumbnail: `${exercise.id}/thumbnail.svg`,
     steps: steps.length,
+    ...(exercise.glyph ? { glyph: exercise.glyph } : {}),
   })
 
   titles.uk[exercise.id] = exercise.title.uk

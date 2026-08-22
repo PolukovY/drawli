@@ -1,0 +1,15 @@
+{
+  "id": "es-s",
+  "titleKey": "exercise.es-s",
+  "glyph": "S",
+  "category": "letters_es",
+  "difficulty": "VERY_EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "stroke-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

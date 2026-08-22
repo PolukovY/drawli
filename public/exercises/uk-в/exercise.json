@@ -1,0 +1,25 @@
+{
+  "id": "uk-в",
+  "titleKey": "exercise.uk-в",
+  "glyph": "В",
+  "category": "letters_uk",
+  "difficulty": "EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "stroke-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "stroke-2",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "stroke-3",
+      "guide": "step-03.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

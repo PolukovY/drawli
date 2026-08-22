@@ -10,17 +10,21 @@ export interface ExerciseStep {
 export interface Exercise {
   id: string
   titleKey: string
+  glyph?: string
   category: string
   difficulty: Difficulty
   thumbnail: string
   steps: ExerciseStep[]
 }
 
+export type CategoryKind = 'draw' | 'write'
+
 export interface CategorySummary {
   id: string
   titleKey: string
   color: string
   order: number
+  kind: CategoryKind
 }
 
 export interface ExerciseSummary {
@@ -30,6 +34,8 @@ export interface ExerciseSummary {
   difficulty: Difficulty
   thumbnail: string
   steps: number
+  /** Present on letters and digits: the character being written. */
+  glyph?: string
 }
 
 export interface ExerciseIndex {

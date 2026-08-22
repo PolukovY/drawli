@@ -1,0 +1,15 @@
+{
+  "id": "en-u",
+  "titleKey": "exercise.en-u",
+  "glyph": "U",
+  "category": "letters_en",
+  "difficulty": "VERY_EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "stroke-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

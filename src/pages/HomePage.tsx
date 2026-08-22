@@ -5,7 +5,7 @@ import { useAppStore } from '../app/store'
 import { Icon } from '../components/Icon'
 import { CoachMarks, type CoachStep } from '../components/CoachMarks'
 import { assetUrl, loadIndex } from '../exercise/ExerciseLoader'
-import type { ExerciseIndex } from '../exercise/Exercise'
+import type { CategoryKind, ExerciseIndex } from '../exercise/Exercise'
 import { latestInProgress } from '../storage/DrawingRepository'
 import type { SavedDrawing } from '../storage/types'
 import '../styles/ui.css'
@@ -18,6 +18,7 @@ export function HomePage() {
   const markTutorialDone = useAppStore((s) => s.markTutorialDone)
 
   const [index, setIndex] = useState<ExerciseIndex | null>(null)
+  const [mode, setMode] = useState<CategoryKind | 'play'>('draw')
   const [category, setCategory] = useState<string>('all')
   const [resume, setResume] = useState<SavedDrawing | null>(null)
 
@@ -26,15 +27,25 @@ export function HomePage() {
     void latestInProgress().then((d) => setResume(d ?? null))
   }, [])
 
+  // Modes split the library: pictures to draw, glyphs to write, games to play.
   const categories = useMemo(
-    () => (index?.categories ?? []).slice().sort((a, b) => a.order - b.order),
-    [index],
+    () => (index?.categories ?? [])
+      .filter((c) => c.kind === (mode === 'play' ? 'draw' : mode))
+      .slice()
+      .sort((a, b) => a.order - b.order),
+    [index, mode],
   )
 
   const exercises = useMemo(() => {
-    const all = index?.exercises ?? []
+    const ids = new Set(categories.map((c) => c.id))
+    const all = (index?.exercises ?? []).filter((e) => ids.has(e.category))
     return category === 'all' ? all : all.filter((e) => e.category === category)
-  }, [index, category])
+  }, [index, categories, category])
+
+  function switchMode(next: CategoryKind | 'play') {
+    setMode(next)
+    setCategory('all')
+  }
 
   const resumeExercise = index?.exercises.find((e) => e.id === resume?.exerciseId)
 
@@ -104,9 +115,26 @@ export function HomePage() {
         </button>
       ) : null}
 
+      <div className="mode-tabs">
+        <button className={`mode-tab ${mode === 'draw' ? 'mode-tab--on' : ''}`} onClick={() => switchMode('draw')}>
+          <Icon name="pencil" size={24} color={mode === 'draw' ? '#fff' : 'var(--c-text-muted)'} />
+          {t('mode.draw')}
+        </button>
+        <button className={`mode-tab ${mode === 'write' ? 'mode-tab--on' : ''}`} onClick={() => switchMode('write')}>
+          <span className="mode-tab__glyph">Aa1</span>
+          {t('mode.write')}
+        </button>
+        <button className={`mode-tab ${mode === 'play' ? 'mode-tab--on' : ''}`} onClick={() => switchMode('play')}>
+          <Icon name="star" size={24} color={mode === 'play' ? '#fff' : 'var(--c-text-muted)'} filled={mode === 'play'} />
+          {t('mode.play')}
+        </button>
+      </div>
+
       <div className="row" style={{ gap: 12 }}>
-        <div className="title grow">{t('home.question')}</div>
-        <div className="home__categories">
+        <div className="title grow">
+          {mode === 'play' ? t('play.title') : mode === 'write' ? t('home.writeQuestion') : t('home.question')}
+        </div>
+        <div className="home__categories" hidden={mode === 'play'}>
           <button className={`chip ${category === 'all' ? 'chip--on' : ''}`} onClick={() => setCategory('all')}>
             {t('home.all')}
           </button>
@@ -122,18 +150,34 @@ export function HomePage() {
         </div>
       </div>
 
-      <div className="home__grid">
-        {exercises.map((exercise) => (
-          <button
-            key={exercise.id}
-            className="exercise-card"
-            onClick={() => navigate(`/draw/${exercise.id}`)}
-          >
-            <img src={assetUrl(exercise.thumbnail)} alt="" />
-            <span>{t(exercise.titleKey)}</span>
+      {mode === 'play' ? (
+        <div className="home__grid">
+          <button className="exercise-card game-card" onClick={() => navigate('/spell')}>
+            <span className="game-card__art">🔤</span>
+            <span>{t('play.spell')}</span>
+            <span className="muted" style={{ fontSize: 15, fontWeight: 600 }}>{t('play.spellHint')}</span>
           </button>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className="home__grid">
+          {exercises.map((exercise) => (
+            <button
+              key={exercise.id}
+              className={`exercise-card ${exercise.glyph ? 'exercise-card--glyph' : ''}`}
+              onClick={() => navigate(`/draw/${exercise.id}`)}
+            >
+              {exercise.glyph ? (
+                <span className="exercise-card__glyph">{exercise.glyph}</span>
+              ) : (
+                <img src={assetUrl(exercise.thumbnail)} alt="" />
+              )}
+              {/* The glyph is its own label; only show text when it adds something
+                  (Spanish letters carry their spoken name). */}
+              {t(exercise.titleKey) === exercise.glyph ? null : <span>{t(exercise.titleKey)}</span>}
+            </button>
+          ))}
+        </div>
+      )}
 
       <nav className="home__nav">
         <button className="btn btn--primary" onClick={() => navigate('/')}>

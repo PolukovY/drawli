@@ -1,0 +1,15 @@
+{
+  "id": "uk-і",
+  "titleKey": "exercise.uk-і",
+  "glyph": "І",
+  "category": "letters_uk",
+  "difficulty": "VERY_EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "stroke-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

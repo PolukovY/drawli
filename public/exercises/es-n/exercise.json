@@ -1,0 +1,20 @@
+{
+  "id": "es-n",
+  "titleKey": "exercise.es-n",
+  "glyph": "N",
+  "category": "letters_es",
+  "difficulty": "VERY_EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "stroke-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "stroke-2",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}
