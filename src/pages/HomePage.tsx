@@ -7,6 +7,7 @@ import { CoachMarks, type CoachStep } from '../components/CoachMarks'
 import { assetUrl, loadIndex } from '../exercise/ExerciseLoader'
 import type { CategoryKind, ExerciseIndex } from '../exercise/Exercise'
 import type { WordLanguage } from '../exercise/ExerciseLoader'
+import { gamesFor } from '../games/catalogue'
 import { latestInProgress, subscribeDrawings } from '../storage/DrawingRepository'
 import type { SavedDrawing } from '../storage/types'
 import '../styles/ui.css'
@@ -155,8 +156,9 @@ export function HomePage() {
         <div className="title grow home__question">
           {mode === 'play' ? t('play.title') : mode === 'write' ? t('home.writeQuestion') : t('home.question')}
         </div>
-        {/* Games do not have categories — the choice that matters there is
-            which language the child wants to spell in. */}
+
+        {/* Games have no categories — the choice that matters there is the
+            language the child wants to play in. */}
         {mode === 'play' ? (
           <div className="home__categories scroll-row">
             {PLAY_LANGUAGES.map((lang) => (
@@ -189,33 +191,16 @@ export function HomePage() {
 
       {mode === 'play' ? (
         <div className="home__grid">
-          <button className="exercise-card game-card" onClick={() => navigate(`/spell?lang=${playLanguage}`)}>
-            <span className="game-card__art">🔡</span>
-            <span>{t('play.spell')}</span>
-            <span className="muted" style={{ fontSize: 15, fontWeight: 600 }}>
-              {PLAY_LANGUAGES.find((l) => l.id === playLanguage)?.label}
-            </span>
-          </button>
-
-          {/* Ukrainian has no articles, so the game only appears for the two
-              languages where it teaches something. */}
-          {playLanguage === 'uk' ? null : (
-            <button className="exercise-card game-card" onClick={() => navigate(`/articles?lang=${playLanguage}`)}>
-              <span className="game-card__art">🔤</span>
-              <span>{t('play.article')}</span>
-              <span className="muted" style={{ fontSize: 15, fontWeight: 600 }}>
-                {playLanguage === 'es' ? 'el · la' : 'a · an'}
-              </span>
+          {gamesFor(playLanguage).map((game) => (
+            <button
+              key={game.id}
+              className="exercise-card game-card"
+              onClick={() => navigate(`${game.path}?lang=${playLanguage}`)}
+            >
+              <span className="game-card__art">{game.art}</span>
+              <span>{t(game.titleKey)}</span>
             </button>
-          )}
-
-          <button className="exercise-card game-card" onClick={() => navigate(`/guess?lang=${playLanguage}`)}>
-            <span className="game-card__art">🔍</span>
-            <span>{t('play.guess')}</span>
-            <span className="muted" style={{ fontSize: 15, fontWeight: 600 }}>
-              {PLAY_LANGUAGES.find((l) => l.id === playLanguage)?.label}
-            </span>
-          </button>
+          ))}
         </div>
       ) : (
         <div className="home__grid">
@@ -239,7 +224,7 @@ export function HomePage() {
               ) : (
                 <img src={assetUrl(exercise.thumbnail)} alt="" />
               )}
-              {/* The glyph is its own label; only show text when it adds something
+              {/* The glyph is its own label; text only when it adds something
                   (Spanish letters carry their spoken name). */}
               {t(exercise.titleKey) === exercise.glyph ? null : (
                 <span className="exercise-card__label">{t(exercise.titleKey)}</span>
@@ -249,6 +234,8 @@ export function HomePage() {
         </div>
       )}
 
+      {/* The blank sheet and the gallery belong to drawing, not to games. */}
+      {mode === 'play' ? null : (
       <nav className="home__nav">
         <button className="btn btn--primary" onClick={() => navigate('/free')}>
           <Icon name="pencil" size={26} color="#fff" />
@@ -263,6 +250,7 @@ export function HomePage() {
           {t('nav.progress')}
         </button>
       </nav>
+      )}
 
       {showCoach ? (
         <CoachMarks steps={coachSteps} onDone={() => void markTutorialDone('home')} />

@@ -1,0 +1,99 @@
+.game-screen { gap: 14px; }
+.game-round { font-size: 17px; white-space: nowrap; }
+
+.game-done__title { font-size: 36px; font-weight: 800; }
+.game-done__actions { gap: 12px; }
+
+/* The shared board: a prompt on top, choices under it, both centred. */
+.game-board {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 0;
+}
+
+.game-prompt { font-size: 40px; font-weight: 800; color: var(--c-accent); text-align: center; }
+.game-hint { font-size: 17px; }
+
+.game-choices {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  width: 100%;
+  max-width: 900px;
+}
+
+.game-card {
+  background: var(--c-surface);
+  border: 3px solid transparent;
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-raised);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--c-text);
+  transition: transform 0.1s ease, border-color 0.2s ease, opacity 0.25s ease, background 0.2s ease;
+}
+.game-card:active { transform: scale(0.96); }
+.game-card img { max-width: 100%; max-height: 100%; }
+
+.game-card--ok {
+  border-color: var(--c-success);
+  background: var(--c-success-bg);
+  animation: game-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* A wrong pick steps aside rather than being marked as a mistake. */
+.game-card--off { opacity: 0.28; box-shadow: none; }
+
+@keyframes game-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+/* The Next button doubles as the countdown to the next round. */
+.game-next { position: relative; overflow: hidden; }
+.game-next__label { position: relative; display: inline-flex; align-items: center; gap: 10px; }
+.game-next__fill {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+  transform-origin: left center;
+  animation: game-countdown 3s linear forwards;
+}
+
+@keyframes game-countdown {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-card--ok, .game-next__fill { animation: none; }
+}
+
+@media (max-width: 700px) {
+  .game-screen > header .title { font-size: 16px; white-space: nowrap; }
+  .game-screen > header .chip { font-size: 13px; padding: 0 10px; }
+  .game-round { font-size: 14px; }
+  .game-done__title { font-size: 26px; }
+  .game-done__actions { flex-direction: column; width: 100%; max-width: 320px; }
+  .game-done__actions .btn { width: 100%; }
+  .game-board { gap: 12px; }
+  .game-prompt { font-size: 28px; }
+  .game-hint { font-size: 14px; text-align: center; }
+  .game-choices { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .game-card { padding: 8px; border-radius: var(--r-lg); font-size: 30px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .game-prompt { font-size: 24px; }
+  .game-hint { display: none; }
+  .game-choices { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+}

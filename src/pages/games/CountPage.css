@@ -1,0 +1,40 @@
+.count__stage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  max-width: 620px;
+  min-height: 200px;
+}
+.count__stage img { width: 66px; height: 66px; }
+
+.count__choices { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+.count__number {
+  width: 92px;
+  height: 92px;
+  border-radius: var(--r-xl);
+  background: var(--c-accent);
+  color: #fff;
+  font-size: 40px;
+  font-weight: 800;
+  box-shadow: 0 10px 22px rgba(124, 92, 255, 0.3);
+  transition: transform 0.1s ease, opacity 0.25s ease, background 0.2s ease;
+}
+.count__number:active { transform: scale(0.94); }
+.count__number--ok { background: var(--c-success); box-shadow: 0 10px 22px rgba(52, 199, 123, 0.34); }
+.count__number--off { opacity: 0.25; box-shadow: none; }
+
+@media (max-width: 700px) {
+  .count__stage { padding: 12px; gap: 8px; min-height: 130px; }
+  .count__stage img { width: 44px; height: 44px; }
+  .count__number { width: 66px; height: 66px; font-size: 28px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .count__stage { min-height: 96px; padding: 8px; }
+  .count__stage img { width: 38px; height: 38px; }
+  .count__number { width: 56px; height: 56px; font-size: 24px; }
+}

@@ -1,0 +1,43 @@
+.missing__picture {
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+}
+.missing__picture img { max-width: 100%; max-height: 100%; }
+
+.missing__word { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; }
+
+.missing__letter { font-size: 42px; font-weight: 800; color: var(--c-text); }
+
+.missing__gap {
+  min-width: 58px;
+  height: 68px;
+  border-radius: var(--r-md);
+  border: 3px dashed #CFC7E6;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--c-accent);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.missing__gap--filled { border-style: solid; border-color: var(--c-success); background: var(--c-success-bg); color: var(--c-success); }
+
+.missing__choices { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+@media (max-width: 700px) {
+  .missing__picture { width: 130px; height: 130px; padding: 10px; }
+  .missing__letter { font-size: 30px; }
+  .missing__gap { min-width: 44px; height: 52px; font-size: 26px; }
+  .missing__word { gap: 6px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .missing__picture { width: 110px; height: 110px; }
+  .missing__letter { font-size: 26px; }
+  .missing__gap { min-width: 40px; height: 46px; font-size: 24px; }
+}

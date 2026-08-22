@@ -1,0 +1,40 @@
+.memory__board {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+  align-content: center;
+  justify-content: center;
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  min-height: 0;
+}
+
+.memory__card {
+  aspect-ratio: 1;
+  border-radius: var(--r-xl);
+  background: var(--c-accent);
+  color: #fff;
+  font-size: 34px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  box-shadow: 0 8px 18px rgba(124, 92, 255, 0.28);
+  transition: transform 0.16s ease, background 0.2s ease, opacity 0.3s ease;
+}
+.memory__card:active { transform: scale(0.95); }
+.memory__card--open { background: var(--c-surface); box-shadow: var(--sh-raised); }
+.memory__card--done { opacity: 0.45; }
+.memory__card img { max-width: 100%; max-height: 100%; }
+
+@media (max-width: 700px) {
+  .memory__board { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .memory__card { border-radius: var(--r-lg); font-size: 26px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .memory__board { grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; max-width: 620px; }
+}

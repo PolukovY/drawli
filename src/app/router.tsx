@@ -8,6 +8,13 @@ import { SpellGamePage } from '../pages/SpellGamePage'
 import { FreeDrawPage } from '../pages/FreeDrawPage'
 import { GuessGamePage } from '../pages/GuessGamePage'
 import { ArticleGamePage } from '../pages/ArticleGamePage'
+import { MissingLettersPage } from '../pages/games/MissingLettersPage'
+import { CountPage } from '../pages/games/CountPage'
+import { BiggerNumberPage } from '../pages/games/BiggerNumberPage'
+import { OddOneOutPage } from '../pages/games/OddOneOutPage'
+import { FindLetterPage } from '../pages/games/FindLetterPage'
+import { FirstLetterPage } from '../pages/games/FirstLetterPage'
+import { MemoryPage } from '../pages/games/MemoryPage'
 
 // HashRouter, not BrowserRouter: GitHub Pages serves no SPA fallback,
 // so a deep link like /drawli/draw/ladybug would 404 on reload.
@@ -21,4 +28,11 @@ export const router = createHashRouter([
   { path: '/free', element: <FreeDrawPage /> },
   { path: '/guess', element: <GuessGamePage /> },
   { path: '/articles', element: <ArticleGamePage /> },
+  { path: '/missing', element: <MissingLettersPage /> },
+  { path: '/count', element: <CountPage /> },
+  { path: '/bigger', element: <BiggerNumberPage /> },
+  { path: '/odd-one-out', element: <OddOneOutPage /> },
+  { path: '/find-letter', element: <FindLetterPage /> },
+  { path: '/first-letter', element: <FirstLetterPage /> },
+  { path: '/memory', element: <MemoryPage /> },
 ])
