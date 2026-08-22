@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="petals" data-region="petals" data-default-color="#F08BB4" fill="#FFFFFF" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><g><circle cx="200" cy="72" r="42"/><circle cx="278" cy="150" r="42"/><circle cx="200" cy="228" r="42"/><circle cx="122" cy="150" r="42"/></g></g>
+  <g id="center" data-region="center" data-default-color="#FFC53D" fill="#FFFFFF" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><circle cx="200" cy="150" r="42"/></g>
+  <g id="leaves" data-region="leaves" data-default-color="#4EA55F" fill="#FFFFFF" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><g><path d="M200 305 q-55 -35 -75 15 q50 26 75 -15"/><path d="M200 330 q55 -30 72 18 q-48 24 -72 -18"/></g></g>
+</svg>

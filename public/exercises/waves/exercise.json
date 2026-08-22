@@ -1,0 +1,24 @@
+{
+  "id": "waves",
+  "titleKey": "exercise.waves",
+  "category": "motor",
+  "difficulty": "VERY_EASY",
+  "thumbnail": "thumbnail.svg",
+  "steps": [
+    {
+      "id": "wave-1",
+      "guide": "step-01.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "wave-2",
+      "guide": "step-02.svg",
+      "defaultTool": "PENCIL"
+    },
+    {
+      "id": "wave-3",
+      "guide": "step-03.svg",
+      "defaultTool": "PENCIL"
+    }
+  ]
+}

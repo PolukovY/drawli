@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <g id="body" data-region="body" data-default-color="#4E86E8" fill="#FFFFFF" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><rect x="40" y="200" width="320" height="90" rx="34"/></g>
+  <g id="cabin" data-region="cabin" data-default-color="#8FC0FA" fill="#FFFFFF" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><path d="M110 200 L150 130 L260 130 L300 200 Z"/></g>
+  <g id="wheels" data-region="wheels" data-default-color="#2A2340" fill="#FFFFFF" stroke="#2A2340" stroke-width="4" stroke-linejoin="round"><g><circle cx="120" cy="295" r="42"/><circle cx="285" cy="295" r="42"/></g></g>
+</svg>

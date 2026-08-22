@@ -1,0 +1,177 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": "motor",
+      "titleKey": "category.motor",
+      "color": "#8FA9F0",
+      "order": 1
+    },
+    {
+      "id": "shapes",
+      "titleKey": "category.shapes",
+      "color": "#9B5CE0",
+      "order": 2
+    },
+    {
+      "id": "nature",
+      "titleKey": "category.nature",
+      "color": "#4EA55F",
+      "order": 3
+    },
+    {
+      "id": "animals",
+      "titleKey": "category.animals",
+      "color": "#5FC7C0",
+      "order": 4
+    },
+    {
+      "id": "food",
+      "titleKey": "category.food",
+      "color": "#E4685B",
+      "order": 5
+    },
+    {
+      "id": "home",
+      "titleKey": "category.home",
+      "color": "#F5893B",
+      "order": 6
+    },
+    {
+      "id": "transport",
+      "titleKey": "category.transport",
+      "color": "#4E86E8",
+      "order": 7
+    }
+  ],
+  "exercises": [
+    {
+      "id": "lines",
+      "titleKey": "exercise.lines",
+      "category": "motor",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "lines/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "waves",
+      "titleKey": "exercise.waves",
+      "category": "motor",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "waves/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "zigzag",
+      "titleKey": "exercise.zigzag",
+      "category": "motor",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "zigzag/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "loops",
+      "titleKey": "exercise.loops",
+      "category": "motor",
+      "difficulty": "EASY",
+      "thumbnail": "loops/thumbnail.svg",
+      "steps": 2
+    },
+    {
+      "id": "circle",
+      "titleKey": "exercise.circle",
+      "category": "shapes",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "circle/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "square",
+      "titleKey": "exercise.square",
+      "category": "shapes",
+      "difficulty": "VERY_EASY",
+      "thumbnail": "square/thumbnail.svg",
+      "steps": 3
+    },
+    {
+      "id": "triangle",
+      "titleKey": "exercise.triangle",
+      "category": "shapes",
+      "difficulty": "EASY",
+      "thumbnail": "triangle/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "star",
+      "titleKey": "exercise.star",
+      "category": "shapes",
+      "difficulty": "EASY",
+      "thumbnail": "star/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "sun",
+      "titleKey": "exercise.sun",
+      "category": "nature",
+      "difficulty": "EASY",
+      "thumbnail": "sun/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "flower",
+      "titleKey": "exercise.flower",
+      "category": "nature",
+      "difficulty": "EASY",
+      "thumbnail": "flower/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "apple",
+      "titleKey": "exercise.apple",
+      "category": "food",
+      "difficulty": "EASY",
+      "thumbnail": "apple/thumbnail.svg",
+      "steps": 4
+    },
+    {
+      "id": "ladybug",
+      "titleKey": "exercise.ladybug",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "ladybug/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "fish",
+      "titleKey": "exercise.fish",
+      "category": "animals",
+      "difficulty": "EASY",
+      "thumbnail": "fish/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "butterfly",
+      "titleKey": "exercise.butterfly",
+      "category": "animals",
+      "difficulty": "MEDIUM",
+      "thumbnail": "butterfly/thumbnail.svg",
+      "steps": 6
+    },
+    {
+      "id": "house",
+      "titleKey": "exercise.house",
+      "category": "home",
+      "difficulty": "EASY",
+      "thumbnail": "house/thumbnail.svg",
+      "steps": 5
+    },
+    {
+      "id": "car",
+      "titleKey": "exercise.car",
+      "category": "transport",
+      "difficulty": "EASY",
+      "thumbnail": "car/thumbnail.svg",
+      "steps": 5
+    }
+  ]
+}
