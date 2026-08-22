@@ -212,7 +212,9 @@ export function HomePage() {
               )}
               {/* The glyph is its own label; only show text when it adds something
                   (Spanish letters carry their spoken name). */}
-              {t(exercise.titleKey) === exercise.glyph ? null : <span>{t(exercise.titleKey)}</span>}
+              {t(exercise.titleKey) === exercise.glyph ? null : (
+                <span className="exercise-card__label">{t(exercise.titleKey)}</span>
+              )}
             </button>
           ))}
         </div>

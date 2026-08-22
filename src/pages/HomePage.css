@@ -103,7 +103,7 @@
   line-height: 1;
   color: var(--c-accent);
 }
-.exercise-card--glyph span:last-child { font-size: 15px; color: var(--c-text-muted); }
+.exercise-card__label { font-size: 15px; color: var(--c-text-muted); }
 
 .game-card { gap: 6px; }
 .game-card__art { font-size: 56px; line-height: 1; }
