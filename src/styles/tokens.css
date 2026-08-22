@@ -1,0 +1,61 @@
+:root {
+  /* accent */
+  --c-accent: #7C5CFF;
+  --c-accent-dark: #5C3CE0;
+  --c-accent-soft: #EFEBFF;
+  --c-accent-border: #DCD3FF;
+
+  /* surfaces */
+  --c-bg: #F4F1FA;
+  --c-surface: #FFFFFF;
+  --c-surface-muted: #FBFAFF;
+  --c-inset: #F4F1FA;
+  --c-divider: #EFEBF6;
+
+  /* text */
+  --c-text: #2A2340;
+  --c-text-soft: #6C6390;
+  --c-text-muted: #8B84A3;
+  --c-disabled: #C8C2DA;
+
+  /* status */
+  --c-star: #FFC53D;
+  --c-star-bg: #FFF6DC;
+  --c-star-border: #FFE3A0;
+  --c-success: #34C77B;
+  --c-success-bg: #E6F8EE;
+  --c-danger: #E4443B;
+  --c-danger-bg: #FDECEA;
+
+  /* crayon palette — drawing colors */
+  --paint-red: #E4443B;
+  --paint-orange: #F5893B;
+  --paint-yellow: #FFC53D;
+  --paint-green: #4EA55F;
+  --paint-blue: #4E86E8;
+  --paint-purple: #9B5CE0;
+  --paint-pink: #F08BB4;
+  --paint-brown: #8B5E3C;
+  --paint-black: #2A2340;
+  --paint-white: #FFFFFF;
+
+  /* radii */
+  --r-sm: 14px;
+  --r-md: 18px;
+  --r-lg: 22px;
+  --r-xl: 26px;
+  --r-2xl: 30px;
+  --r-pill: 999px;
+
+  /* shadows */
+  --sh-card: 0 4px 14px rgba(60, 40, 120, 0.08);
+  --sh-raised: 0 6px 18px rgba(60, 40, 120, 0.08);
+  --sh-float: 0 12px 26px rgba(124, 92, 255, 0.38);
+
+  /* touch targets — never go below --tap-min */
+  --tap-min: 56px;
+  --tap-primary: 64px;
+  --tap-hero: 72px;
+
+  --font: Nunito, "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+}
