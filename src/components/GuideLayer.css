@@ -29,13 +29,13 @@
 .guide--trace { color: var(--c-accent); opacity: 0.85; }
 .guide--trace svg { stroke-width: 7; }
 .guide--trace svg :is(path, circle, ellipse, rect, line, polyline, polygon) {
-  stroke-dasharray: 0.16 1;
-  stroke-dashoffset: 1;
+  /* The dash values are measured per shape in JS; these are the fallback. */
+  stroke-dasharray: 0 1000;
   animation: guide-trace 2.6s linear infinite;
 }
 
 @keyframes guide-trace {
-  from { stroke-dashoffset: 1; }
+  from { stroke-dashoffset: var(--dash-length, 1000); }
   to { stroke-dashoffset: 0; }
 }
 

@@ -27,7 +27,12 @@
   background: var(--c-inset);
   border-radius: var(--r-md);
   overflow: hidden;
+  padding: 0;
+  border: none;
+  min-height: 0;
+  transition: transform 0.1s ease;
 }
+.preview__art:active { transform: scale(0.96); }
 
 .preview__art > div { position: absolute; inset: 8px; }
 .preview__art svg { width: 100%; height: 100%; }
@@ -67,6 +72,61 @@
 .preview__pip--done { background: var(--c-success-bg); color: var(--c-success); }
 .preview__pip--now { background: var(--c-accent); color: #fff; transform: scale(1.15); }
 
+/* Narrow tablets: the panel becomes a strip above the canvas instead of
+   disappearing — the child still needs to see what the drawing becomes. */
 @media (max-width: 900px) {
-  .preview { display: none; }
+  .preview {
+    order: -1;
+    flex-direction: row;
+    align-items: center;
+    align-self: stretch;
+    width: auto;
+    gap: 14px;
+    padding: 10px 14px;
+  }
+  .preview__label {
+    order: 2;
+    text-align: left;
+    flex-grow: 1;
+  }
+  .preview__art { width: 68px; height: 68px; flex-shrink: 0; }
+  .preview__art > div { inset: 4px; }
+  .preview__steps { order: 3; flex-wrap: nowrap; }
+  .preview__pip { width: 24px; height: 24px; font-size: 12px; }
 }
+
+.preview__ghost { color: var(--c-text); }
+.preview__ghost svg { stroke-width: 6; }
+
+/* Tap the panel to see the finished picture large — a 68px strip on a small
+   tablet is a reminder, not a reference. */
+.preview__zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  background: rgba(42, 35, 64, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: coach-in 0.2s ease both;
+}
+
+.preview__zoom-card {
+  background: var(--c-surface);
+  border-radius: var(--r-2xl);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 24px 60px rgba(42, 35, 64, 0.3);
+}
+
+.preview__zoom-art {
+  position: relative;
+  width: min(58vw, 58vh);
+  height: min(58vw, 58vh);
+  background: var(--c-inset);
+  border-radius: var(--r-lg);
+}
+.preview__zoom-art svg { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); }

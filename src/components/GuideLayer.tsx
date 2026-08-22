@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { loadSvg } from '../exercise/ExerciseLoader'
 import type { ExerciseStep } from '../exercise/Exercise'
 import './GuideLayer.css'
@@ -34,15 +34,32 @@ export function GuideLayer({ exerciseId, steps, currentIndex, showTrace = true }
   const currentFile = steps[currentIndex]?.mode === 'COLORING' ? undefined : steps[currentIndex]?.guide
   const currentMarkup = currentFile ? markup[currentFile] : undefined
 
-  // pathLength=1 lets one dash length animate every shape, whatever its size.
-  useEffect(() => {
+  /**
+   * Measure each shape and drive the dash from its real length. The tidier
+   * pathLength="1" trick silently no-ops when the attribute lands after the
+   * browser has already resolved the dash, and the comet degrades into a line.
+   */
+  useLayoutEffect(() => {
     const container = traceRef.current
     if (!container || !currentMarkup) return
-    const shapes = container.querySelectorAll<SVGGeometryElement>('path, circle, ellipse, rect, line, polyline, polygon')
-    shapes.forEach((shape, i) => {
-      shape.setAttribute('pathLength', '1')
-      shape.style.animationDelay = `${i * 0.18}s`
-    })
+
+    const apply = () => {
+      const shapes = container.querySelectorAll<SVGGeometryElement>(
+        'path, circle, ellipse, rect, line, polyline, polygon',
+      )
+      shapes.forEach((shape, i) => {
+        const length = typeof shape.getTotalLength === 'function' ? shape.getTotalLength() : 0
+        if (!length) return
+        shape.style.strokeDasharray = `${(length * 0.16).toFixed(1)} ${length.toFixed(1)}`
+        shape.style.setProperty('--dash-length', `${length.toFixed(1)}`)
+        shape.style.animationDelay = `${i * 0.18}s`
+      })
+    }
+
+    apply()
+    // Layout can still be settling on first paint; one more pass is cheap.
+    const frame = requestAnimationFrame(apply)
+    return () => cancelAnimationFrame(frame)
   }, [currentMarkup])
 
   return (

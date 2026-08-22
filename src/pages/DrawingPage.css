@@ -77,3 +77,31 @@
   .draw-next { width: auto; }
   .next-btn { height: var(--tap-hero); flex-direction: row; }
 }
+
+.save-now { height: var(--tap-min); padding: 0 20px; font-size: 16px; }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: var(--r-pill);
+  background: var(--c-success);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 800;
+  box-shadow: 0 12px 30px rgba(52, 199, 123, 0.4);
+  animation: toast-in 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+  z-index: 80;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(14px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) { .toast { animation: none; } }

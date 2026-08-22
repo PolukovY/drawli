@@ -13,6 +13,8 @@ interface Props {
   onColorTap: () => void
   onUndo: () => void
   onRedo: () => void
+  onClear: () => void
+  canClear: boolean
 }
 
 const ICONS: Record<ToolId, 'pencil' | 'brush' | 'fill' | 'eraser'> = {
@@ -51,7 +53,7 @@ function Tip({ title, hint, children }: { title: string; hint: string; children:
 
 export function DrawingToolbar({
   tool, color, canUndo, canRedo, tools = ['PENCIL', 'BRUSH', 'FILL', 'ERASER'],
-  onToolChange, onColorTap, onUndo, onRedo,
+  onToolChange, onColorTap, onUndo, onRedo, onClear, canClear,
 }: Props) {
   const { t } = useTranslation()
 
@@ -89,6 +91,12 @@ export function DrawingToolbar({
       <Tip title={t('drawing.tool.redo')} hint={t('drawing.tool.redoHint')}>
         <button className="tool" onClick={onRedo} disabled={!canRedo} aria-label={t('drawing.tool.redo')}>
           <Icon name="redo" size={30} color={canRedo ? 'var(--c-text-soft)' : 'var(--c-disabled)'} width={2.4} />
+        </button>
+      </Tip>
+
+      <Tip title={t('drawing.tool.clear')} hint={t('drawing.tool.clearHint')}>
+        <button className="tool" onClick={onClear} disabled={!canClear} aria-label={t('drawing.tool.clear')}>
+          <Icon name="trash" size={30} color={canClear ? 'var(--c-danger)' : 'var(--c-disabled)'} width={2.2} />
         </button>
       </Tip>
     </div>

@@ -44,6 +44,8 @@ export function DrawingPage() {
   const [loadedActions, setLoadedActions] = useState<DrawingAction[] | undefined>()
   const [history, setHistory] = useState({ canUndo: false, canRedo: false, isEmpty: true })
   const [paletteOpen, setPaletteOpen] = useState(false)
+  const [confirmClear, setConfirmClear] = useState(false)
+  const [savedToast, setSavedToast] = useState(false)
   const [finished, setFinished] = useState<{ stars: number; thumbnail?: string } | null>(null)
 
   const engineRef = useRef<DrawingEngine | null>(null)
@@ -173,6 +175,27 @@ export function DrawingPage() {
     { selector: '.next-btn', titleKey: 'coach.draw.nextTitle', textKey: 'coach.draw.nextText', placement: 'above' },
   ]
 
+  /** Explicit save: autosave already keeps the strokes, this adds the picture
+   *  so the drawing shows up in the gallery as it looks right now. */
+  async function handleSaveNow() {
+    if (!exercise) return
+    const canvasEl = cardRef.current?.querySelector('canvas') ?? null
+    const overlaySvg = cardRef.current?.querySelector<SVGSVGElement>('.coloring-layer svg') ?? null
+    const thumbnailBlob = canvasEl ? await composeThumbnail(canvasEl, overlaySvg) : undefined
+
+    await upsertDrawing({
+      id: drawingIdRef.current,
+      exerciseId: exercise.id,
+      currentStep: stepIndex,
+      stepBaselines: [...stepBaselinesRef.current],
+      document: { ...createDocument(exercise.id, 1, 1), actions },
+      thumbnail: thumbnailBlob,
+    })
+
+    setSavedToast(true)
+    window.setTimeout(() => setSavedToast(false), 1800)
+  }
+
   async function handleNext() {
     if (!exercise) return
 
@@ -245,6 +268,15 @@ export function DrawingPage() {
           </div>
         </div>
 
+        <button
+          className="btn save-now"
+          onClick={() => void handleSaveNow()}
+          disabled={actions.length === 0}
+        >
+          <Icon name="download" size={22} color="var(--c-text-soft)" width={2.2} />
+          {t('drawing.save')}
+        </button>
+
         <div className="star-badge">
           <Icon name="star" size={22} color="var(--c-star)" filled />
           {settings?.stars ?? 0}
@@ -266,6 +298,8 @@ export function DrawingPage() {
           onColorTap={() => setPaletteOpen((open) => !open)}
           onUndo={() => engineRef.current?.undo()}
           onRedo={() => engineRef.current?.redo()}
+          onClear={() => setConfirmClear(true)}
+          canClear={!history.isEmpty}
         />
 
         <div className="draw-main">
@@ -296,7 +330,11 @@ export function DrawingPage() {
 
             <div className="canvas-hint">
               <Icon name="star" size={20} color="var(--c-accent)" filled />
-              {isColoring ? t('drawing.hintColor') : t('drawing.hintDraw')}
+              {isColoring
+                ? t('drawing.hintColor')
+                : exercise?.glyph
+                  ? t('drawing.hintWrite')
+                  : t('drawing.hintDraw')}
             </div>
           </div>
 
@@ -311,6 +349,7 @@ export function DrawingPage() {
             steps={steps}
             currentIndex={stepIndex}
             finalFile={steps.find((s) => s.mode === 'COLORING')?.guide}
+            labelKey={exercise.glyph ? 'drawing.previewWrite' : 'drawing.previewTitle'}
           />
         ) : null}
 
@@ -325,6 +364,34 @@ export function DrawingPage() {
           </button>
         </div>
       </div>
+
+      {savedToast ? (
+        <div className="toast" role="status">
+          <Icon name="check" size={22} color="#fff" width={3} />
+          {t('drawing.saved')}
+        </div>
+      ) : null}
+
+      {confirmClear ? (
+        <div className="modal-backdrop" onClick={() => setConfirmClear(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="title">{t('drawing.clearConfirm')}</div>
+            <div className="subtitle">{t('drawing.clearHint')}</div>
+            <div className="row" style={{ justifyContent: 'center', gap: 12 }}>
+              <button className="btn" onClick={() => setConfirmClear(false)}>{t('settings.cancel')}</button>
+              <button
+                className="btn btn--danger"
+                onClick={() => {
+                  engineRef.current?.clear()
+                  setConfirmClear(false)
+                }}
+              >
+                {t('drawing.tool.clear')}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {showCoach ? (
         <CoachMarks steps={coachSteps} onDone={() => void markTutorialDone('draw')} />

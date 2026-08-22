@@ -9,16 +9,19 @@ interface Props {
   steps: ExerciseStep[]
   currentIndex: number
   finalFile?: string
+  /** Letters and digits have no colouring sheet, so the label differs. */
+  labelKey?: string
 }
 
 /**
  * The child needs to see where all this is going, so the finished picture sits
  * beside the canvas with the steps drawn in one by one up to the current one.
  */
-export function StepPreview({ exerciseId, steps, currentIndex, finalFile }: Props) {
+export function StepPreview({ exerciseId, steps, currentIndex, finalFile, labelKey = 'drawing.previewTitle' }: Props) {
   const { t } = useTranslation()
   const [final, setFinal] = useState('')
   const [guides, setGuides] = useState<Record<string, string>>({})
+  const [zoomed, setZoomed] = useState(false)
 
   useEffect(() => {
     let cancelled = false
@@ -40,12 +43,28 @@ export function StepPreview({ exerciseId, steps, currentIndex, finalFile }: Prop
 
   return (
     <aside className="preview">
-      <div className="preview__label">{t('drawing.previewTitle')}</div>
+      <div className="preview__label">{t(labelKey)}</div>
 
-      <div className="preview__art">
+      <button
+        className="preview__art"
+        onClick={() => setZoomed(true)}
+        aria-label={t(labelKey)}
+      >
         {final ? (
           <div className="preview__final" dangerouslySetInnerHTML={{ __html: final }} />
-        ) : null}
+        ) : (
+          // No colouring sheet (letters, digits, motor drills): the faint target
+          // is every step at once, so the child still sees where this is going.
+          steps.map((step) =>
+            step.guide && guides[step.guide] ? (
+              <div
+                key={`ghost-${step.id}`}
+                className="preview__final preview__ghost"
+                dangerouslySetInnerHTML={{ __html: guides[step.guide] }}
+              />
+            ) : null,
+          )
+        )}
         {steps.map((step, index) => {
           if (!step.guide || step.mode === 'COLORING') return null
           const svg = guides[step.guide]
@@ -58,7 +77,7 @@ export function StepPreview({ exerciseId, steps, currentIndex, finalFile }: Prop
             />
           )
         })}
-      </div>
+      </button>
 
       <div className="preview__steps">
         {steps.map((step, index) => (
@@ -72,6 +91,23 @@ export function StepPreview({ exerciseId, steps, currentIndex, finalFile }: Prop
           </span>
         ))}
       </div>
+
+      {zoomed ? (
+        <div className="preview__zoom" onClick={() => setZoomed(false)}>
+          <div className="preview__zoom-card" onClick={(e) => e.stopPropagation()}>
+            <div className="preview__label">{t(labelKey)}</div>
+            <div
+              className="preview__zoom-art"
+              dangerouslySetInnerHTML={{
+                __html: final || steps.map((s) => (s.guide ? guides[s.guide] ?? '' : '')).join(''),
+              }}
+            />
+            <button className="btn btn--primary" onClick={() => setZoomed(false)}>
+              {t('coach.done')}
+            </button>
+          </div>
+        </div>
+      ) : null}
     </aside>
   )
 }

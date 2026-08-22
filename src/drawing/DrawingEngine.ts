@@ -112,8 +112,12 @@ export class DrawingEngine {
     this.emitHistory()
   }
 
+  /**
+   * Wipe the drawing without losing it: every action moves to the redo stack,
+   * so a child who clears by accident gets it back one press at a time.
+   */
   clear() {
-    this.history.load([])
+    while (this.history.undo()) { /* drain into redo */ }
     this.redrawCommitted()
     this.present()
     this.emitHistory()
