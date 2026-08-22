@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+  <style>
+    body { margin: 0; font-family: Nunito, "Trebuchet MS", "Segoe UI", sans-serif; }
+    a { color: #7C5CFF; } a:hover { color: #5C3CE0; }
+  </style>
+</helmet>
+
+<div style="width: 1024px; height: 768px; box-sizing: border-box; background: #F4F1FA; display: flex; flex-direction: column; color: #2A2340; padding: 20px 28px;">
+
+  <div style="display: flex; align-items: center; gap: 16px; padding-bottom: 18px;">
+    <div style="width: 56px; height: 56px; border-radius: 18px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(60,40,120,.08);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2A2340" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </div>
+    <div style="flex-grow: 1; font-size: 26px; font-weight: 800;">Налаштування</div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 14px;">
+
+    <div style="background: #fff; border-radius: 24px; padding: 18px 24px; box-shadow: 0 6px 18px rgba(60,40,120,.08); display: flex; align-items: center; gap: 18px;">
+      <div style="width: 56px; height: 56px; border-radius: 18px; background: #EFEBFF; display: flex; align-items: center; justify-content: center;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C5CFF" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 20c1-4 4-6 7.5-6s6.5 2 7.5 6"/></svg>
+      </div>
+      <div style="flex-grow: 1;">
+        <div style="font-size: 19px; font-weight: 800;">Ім'я</div>
+        <div style="font-size: 16px; font-weight: 600; color: #8B84A3;">Так тебе вітає Drawli</div>
+      </div>
+      <div style="height: 56px; display: flex; align-items: center; padding: 0 24px; border-radius: 18px; background: #F4F1FA; font-size: 19px; font-weight: 800;">Марійка</div>
+    </div>
+
+    <div style="background: #fff; border-radius: 24px; padding: 18px 24px; box-shadow: 0 6px 18px rgba(60,40,120,.08); display: flex; align-items: center; gap: 18px;">
+      <div style="width: 56px; height: 56px; border-radius: 18px; background: #EFEBFF; display: flex; align-items: center; justify-content: center;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C5CFF" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></svg>
+      </div>
+      <div style="flex-grow: 1; font-size: 19px; font-weight: 800;">Мова</div>
+      <div style="display: flex; gap: 10px;">
+        <div style="height: 56px; display: flex; align-items: center; padding: 0 26px; border-radius: 18px; background: #7C5CFF; color: #fff; font-size: 18px; font-weight: 800;">Українська</div>
+        <div style="height: 56px; display: flex; align-items: center; padding: 0 26px; border-radius: 18px; background: #F4F1FA; color: #6C6390; font-size: 18px; font-weight: 800;">English</div>
+      </div>
+    </div>
+
+    <div style="background: #fff; border-radius: 24px; padding: 18px 24px; box-shadow: 0 6px 18px rgba(60,40,120,.08); display: flex; align-items: center; gap: 18px;">
+      <div style="width: 56px; height: 56px; border-radius: 18px; background: #EFEBFF; display: flex; align-items: center; justify-content: center;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C5CFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9h3l5-4v14l-5-4H5z"/><path d="M17 9.5a4 4 0 010 5"/></svg>
+      </div>
+      <div style="flex-grow: 1; font-size: 19px; font-weight: 800;">Звук</div>
+      <div style="width: 96px; height: 52px; border-radius: 999px; background: #34C77B; display: flex; align-items: center; justify-content: flex-end; padding: 0 6px; box-sizing: border-box;">
+        <div style="width: 40px; height: 40px; border-radius: 999px; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,.15);"></div>
+      </div>
+    </div>
+
+    <div style="background: #fff; border-radius: 24px; padding: 18px 24px; box-shadow: 0 6px 18px rgba(60,40,120,.08); display: flex; align-items: center; gap: 18px;">
+      <div style="width: 56px; height: 56px; border-radius: 18px; background: #EFEBFF; display: flex; align-items: center; justify-content: center;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#7C5CFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15v3.5A1.5 1.5 0 005.5 20h13a1.5 1.5 0 001.5-1.5V15"/><path d="M12 4v11"/><path d="M7.5 10.5L12 15l4.5-4.5"/></svg>
+      </div>
+      <div style="flex-grow: 1;">
+        <div style="font-size: 19px; font-weight: 800;">Резервна копія</div>
+        <div style="font-size: 16px; font-weight: 600; color: #8B84A3;">Малюнки, прогрес і зірочки одним файлом</div>
+      </div>
+      <div style="display: flex; gap: 10px;">
+        <div style="height: 56px; display: flex; align-items: center; padding: 0 26px; border-radius: 18px; background: #7C5CFF; color: #fff; font-size: 18px; font-weight: 800;">Зберегти</div>
+        <div style="height: 56px; display: flex; align-items: center; padding: 0 26px; border-radius: 18px; background: #F4F1FA; color: #5C5478; font-size: 18px; font-weight: 800;">Відновити</div>
+      </div>
+    </div>
+
+    <div style="background: #fff; border-radius: 24px; padding: 18px 24px; box-shadow: 0 6px 18px rgba(60,40,120,.08); display: flex; align-items: center; gap: 18px;">
+      <div style="width: 56px; height: 56px; border-radius: 18px; background: #FDECEA; display: flex; align-items: center; justify-content: center;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#E4443B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M9 7V4.5h6V7"/><path d="M6.5 7l1 12.5h9L18 7"/></svg>
+      </div>
+      <div style="flex-grow: 1;">
+        <div style="font-size: 19px; font-weight: 800;">Скинути прогрес</div>
+        <div style="font-size: 16px; font-weight: 600; color: #8B84A3;">Потрібне підтвердження</div>
+      </div>
+      <div style="height: 56px; display: flex; align-items: center; padding: 0 26px; border-radius: 18px; background: #FDECEA; color: #E4443B; font-size: 18px; font-weight: 800;">Скинути</div>
+    </div>
+
+  </div>
+
+  <div style="flex-grow: 1;"></div>
+
+  <div style="display: flex; align-items: center; gap: 12px; justify-content: center; padding-bottom: 4px;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8B84A3" stroke-width="2.2" stroke-linecap="round"><path d="M12 3l7 3.5v5c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5v-5z"/></svg>
+    <span style="font-size: 16px; font-weight: 700; color: #8B84A3;">Без реєстрації, без реклами. Дані лишаються на планшеті.</span>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

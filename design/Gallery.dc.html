@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+  <style>
+    body { margin: 0; font-family: Nunito, "Trebuchet MS", "Segoe UI", sans-serif; }
+    a { color: #7C5CFF; } a:hover { color: #5C3CE0; }
+  </style>
+</helmet>
+
+<div style="width: 1024px; height: 768px; box-sizing: border-box; background: #F4F1FA; display: flex; flex-direction: column; color: #2A2340; padding: 20px 28px;">
+
+  <div style="display: flex; align-items: center; gap: 16px; padding-bottom: 18px;">
+    <div style="width: 56px; height: 56px; border-radius: 18px; background: #fff; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(60,40,120,.08);">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2A2340" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </div>
+    <div style="flex-grow: 1; font-size: 26px; font-weight: 800;">Мої малюнки</div>
+    <div style="display: flex; align-items: center; gap: 8px; background: #fff; border-radius: 999px; padding: 10px 18px 10px 12px; box-shadow: 0 4px 14px rgba(60,40,120,.08);">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="#FFC53D"><path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.45L12 17.45 6.2 20.5l1.1-6.45-4.7-4.6 6.5-.95z"/></svg>
+      <span style="font-size: 19px; font-weight: 800;">120</span>
+    </div>
+  </div>
+
+  <div style="flex-grow: 1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 18px;">
+
+    <div style="background: #fff; border-radius: 26px; box-shadow: 0 6px 18px rgba(60,40,120,.08); display: flex; flex-direction: column; overflow: hidden; position: relative;">
+      <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+        <svg width="120" height="112" viewBox="0 0 400 380"><ellipse cx="200" cy="205" rx="128" ry="122" fill="#E4443B"/><circle cx="200" cy="92" r="52" fill="#2A2340"/><path d="M200 84 L200 327" stroke="#2A2340" stroke-width="6"/><g fill="#2A2340"><circle cx="145" cy="155" r="20"/><circle cx="255" cy="155" r="20"/><circle cx="160" cy="252" r="18"/><circle cx="240" cy="252" r="18"/></g></svg>
+      </div>
+      <div style="padding: 12px 16px 14px; background: #FBFAFF;">
+        <div style="font-size: 17px; font-weight: 800;">Сонечко</div>
+        <div style="font-size: 14px; font-weight: 600; color: #8B84A3;">Сьогодні</div>
+      </div>
+      <div style="position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; border-radius: 999px; background: #34C77B; display: flex; align-items: center; justify-content: center;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+      </div>
+    </div>
+
+    <div style="background: #fff; border-radius: 26px; box-shadow: 0 6px 18px rgba(60,40,120,.08); display: flex; flex-direction: column; overflow: hidden; position: relative;">
+      <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+        <svg width="110" height="110" viewBox="0 0 40 40"><circle cx="20" cy="10" r="6.5" fill="#F08BB4"/><circle cx="30" cy="20" r="6.5" fill="#F08BB4"/><circle cx="20" cy="30" r="6.5" fill="#F08BB4"/><circle cx="10" cy="20" r="6.5" fill="#F08BB4"/><circle cx="20" cy="20" r="6" fill="#FFC53D"/></svg>
+      </div>
+      <div style="padding: 12px 16px 14px; background: #FBFAFF;">
+        <div style="font-size: 17px; font-weight: 800;">Квітка</div>
+        <div style="font-size: 14px; font-weight: 600; color: #8B84A3;">Вчора</div>
+      </div>
+      <div style="position: absolute; top: 12px; right: 12px; width: 28px; height: 28px; border-radius: 999px; background: #34C77B; display: flex; align-items: center; justify-content: center;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>
+      </div>
+    </div>
+
+    <div style="background: #fff; border-radius: 26px; box-shadow: 0 6px 18px rgba(60,40,120,.08); display: flex; flex-direction: column; overflow: hidden; position: relative; border: 3px solid #FFC53D;">
+      <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+        <svg width="120" height="110" viewBox="0 0 40 40"><rect x="3" y="18" width="34" height="10" rx="4" fill="#6FA8F5"/><path d="M9 18l4-6h14l4 6z" fill="#C9DEFB"/><circle cx="12" cy="29" r="4.5" fill="#2A2340"/><circle cx="28" cy="29" r="4.5" fill="#2A2340"/></svg>
+      </div>
+      <div style="padding: 12px 16px 14px; background: #FFF9EA;">
+        <div style="font-size: 17px; font-weight: 800;">Машина</div>
+        <div style="font-size: 14px; font-weight: 600; color: #B3852A;">Крок 3 із 5</div>
+      </div>
+      <div style="position: absolute; top: 12px; right: 12px; height: 28px; padding: 0 12px; border-radius: 999px; background: #FFC53D; color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center;">Триває</div>
+    </div>
+
+    <div style="background: #fff; border-radius: 26px; box-shadow: 0 6px 18px rgba(60,40,120,.08); display: flex; flex-direction: column; overflow: hidden;">
+      <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+        <svg width="110" height="110" viewBox="0 0 40 40"><path d="M20 4l4.6 9.4 10.4 1.5-7.5 7.3 1.8 10.3L20 27.6l-9.3 4.9 1.8-10.3-7.5-7.3 10.4-1.5z" fill="#9B5CE0"/></svg>
+      </div>
+      <div style="padding: 12px 16px 14px; background: #FBFAFF;">
+        <div style="font-size: 17px; font-weight: 800;">Зірка</div>
+        <div style="font-size: 14px; font-weight: 600; color: #8B84A3;">18 серпня</div>
+      </div>
+    </div>
+
+    <div style="background: #fff; border-radius: 26px; box-shadow: 0 6px 18px rgba(60,40,120,.08); display: flex; flex-direction: column; overflow: hidden;">
+      <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+        <svg width="118" height="110" viewBox="0 0 40 40"><ellipse cx="18" cy="20" rx="13" ry="9" fill="#5FC7C0"/><path d="M31 20l7-6v12z" fill="#5FC7C0"/><circle cx="12" cy="18" r="2" fill="#2A2340"/></svg>
+      </div>
+      <div style="padding: 12px 16px 14px; background: #FBFAFF;">
+        <div style="font-size: 17px; font-weight: 800;">Рибка</div>
+        <div style="font-size: 14px; font-weight: 600; color: #8B84A3;">15 серпня</div>
+      </div>
+    </div>
+
+    <div style="background: #fff; border-radius: 26px; box-shadow: 0 6px 18px rgba(60,40,120,.08); display: flex; flex-direction: column; overflow: hidden;">
+      <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+        <svg width="112" height="110" viewBox="0 0 40 40"><path d="M20 6l15 12H5z" fill="#E4685B"/><rect x="9" y="18" width="22" height="15" rx="3" fill="#F6C15B"/><rect x="17" y="24" width="7" height="9" rx="2" fill="#8B5E3C"/></svg>
+      </div>
+      <div style="padding: 12px 16px 14px; background: #FBFAFF;">
+        <div style="font-size: 17px; font-weight: 800;">Будинок</div>
+        <div style="font-size: 14px; font-weight: 600; color: #8B84A3;">12 серпня</div>
+      </div>
+    </div>
+
+    <div style="background: #fff; border-radius: 26px; box-shadow: 0 6px 18px rgba(60,40,120,.08); display: flex; flex-direction: column; overflow: hidden;">
+      <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+        <svg width="110" height="110" viewBox="0 0 40 40"><circle cx="20" cy="20" r="9" fill="#FFC53D"/><g stroke="#FFC53D" stroke-width="3.2" stroke-linecap="round"><path d="M20 3v5M20 32v5M3 20h5M32 20h5M8 8l3.5 3.5M28.5 28.5L32 32M32 8l-3.5 3.5M11.5 28.5L8 32"/></g></svg>
+      </div>
+      <div style="padding: 12px 16px 14px; background: #FBFAFF;">
+        <div style="font-size: 17px; font-weight: 800;">Сонце</div>
+        <div style="font-size: 14px; font-weight: 600; color: #8B84A3;">10 серпня</div>
+      </div>
+    </div>
+
+    <div style="border-radius: 26px; border: 3px dashed #CFC7E6; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;">
+      <div style="width: 64px; height: 64px; border-radius: 22px; background: #7C5CFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(124,92,255,.32);">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      </div>
+      <div style="font-size: 17px; font-weight: 800; color: #6C6390;">Новий малюнок</div>
+    </div>
+
+  </div>
+</div>
+</x-dc>
+</body>
+</html>
