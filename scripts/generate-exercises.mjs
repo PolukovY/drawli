@@ -64,6 +64,12 @@ const index = {
 
 const titles = { uk: {}, en: {} }
 const wordList = { uk: {}, en: {}, es: {} }
+/**
+ * Articles ride in their own file: the word games read plain words, the article
+ * game reads these. English follows the vowel rule; Spanish gender is data.
+ */
+const articleList = { en: {}, es: {} }
+const englishArticle = (word) => ('AEIOU'.includes(word.trim()[0]?.toUpperCase()) ? 'an' : 'a')
 
 for (const exercise of EXERCISES) {
   const dir = resolve(outDir, exercise.id)
@@ -113,12 +119,19 @@ for (const exercise of EXERCISES) {
   if (!exercise.glyph) {
     wordList.uk[exercise.id] = exercise.title.uk
     wordList.en[exercise.id] = exercise.title.en
-    if (ES_WORDS[exercise.id]) wordList.es[exercise.id] = ES_WORDS[exercise.id]
+    articleList.en[exercise.id] = englishArticle(exercise.title.en)
+
+    const spanish = ES_WORDS[exercise.id]
+    if (spanish) {
+      wordList.es[exercise.id] = spanish.word
+      articleList.es[exercise.id] = spanish.article
+    }
   }
 }
 
 await writeFile(resolve(outDir, 'index.json'), `${JSON.stringify(index, null, 2)}\n`)
 await writeFile(resolve(outDir, 'words.json'), `${JSON.stringify(wordList, null, 2)}\n`)
+await writeFile(resolve(outDir, 'articles.json'), `${JSON.stringify(articleList, null, 2)}\n`)
 
 const missingEs = index.exercises.filter(
   (e) => !e.glyph && !wordList.es[e.id] && ['animals', 'nature', 'food', 'home', 'transport', 'shapes'].includes(e.category),

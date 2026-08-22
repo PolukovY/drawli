@@ -74,6 +74,21 @@
 .tile-letter:active { transform: scale(0.92); }
 .tile-letter--used { opacity: 0.25; box-shadow: none; }
 
+/* The button doubles as the countdown to the next word. */
+.spell__next { position: relative; overflow: hidden; }
+.spell__next-label { position: relative; display: inline-flex; align-items: center; gap: 10px; }
+.spell__next-fill {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+  transform-origin: left center;
+  animation: next-countdown 3s linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spell__next-fill { animation: none; }
+}
+
 .spell__win { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
 .spell__word {
   font-size: 32px;

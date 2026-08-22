@@ -1,4 +1,5 @@
 import { PAINT_COLORS } from '../app/store'
+import { playSound } from '../audio/sounds'
 import './ColorPalette.css'
 
 export function ColorPalette({ color, onPick }: { color: string; onPick: (color: string) => void }) {
@@ -9,7 +10,7 @@ export function ColorPalette({ color, onPick }: { color: string; onPick: (color:
           key={paint}
           className={`paint ${color === paint ? 'paint--on' : ''}`}
           style={{ background: paint, color: paint }}
-          onClick={() => onPick(paint)}
+          onClick={() => { playSound('tap'); onPick(paint) }}
           aria-label={paint}
           aria-pressed={color === paint}
         />

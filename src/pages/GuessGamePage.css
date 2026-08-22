@@ -10,12 +10,34 @@
   min-height: 0;
 }
 
+/* The button doubles as the countdown: it fills up, then the round turns. */
+.guess__next { position: relative; overflow: hidden; }
+.guess__next-label { position: relative; display: inline-flex; align-items: center; gap: 10px; }
+.guess__next-fill {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+  transform-origin: left center;
+  animation: next-countdown 3s linear forwards;
+}
+
+@keyframes next-countdown {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guess__next-fill { animation: none; }
+}
+
 .guess__word {
   font-size: 46px;
   font-weight: 800;
   letter-spacing: 1px;
   color: var(--c-accent);
 }
+
+.guess__article { color: var(--c-text-muted); font-weight: 700; }
 
 .guess__hint { font-size: 17px; }
 

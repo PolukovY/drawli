@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '../components/Icon'
+import { Fireworks } from '../components/Fireworks'
+import { playSound } from '../audio/sounds'
 import { useAppStore } from '../app/store'
 import { assetUrl, loadIndex, loadWords, type WordLanguage } from '../exercise/ExerciseLoader'
 import type { ExerciseSummary } from '../exercise/Exercise'
@@ -23,6 +25,8 @@ const LANGUAGE_LABELS: Record<WordLanguage, string> = {
 const ROUNDS = 5
 const MAX_WORD_LENGTH = 6
 const STARS_PER_WORD = 2
+/** A right word moves the game on by itself after this pause. */
+const NEXT_DELAY = 3000
 /** Lines, waves and polygons make no sense as a "name this picture" prompt. */
 const ABSTRACT_CATEGORIES = new Set(['motor', 'shapes'])
 
@@ -135,6 +139,7 @@ export function SpellGamePage() {
    */
   function placeTile(tileIndex: number) {
     if (state === 'correct') return
+    playSound('tap')
     setBoard((prev) => {
       if (prev.used.has(tileIndex)) return prev
       const target = prev.slots.findIndex((s) => !s.letter)
@@ -172,6 +177,7 @@ export function SpellGamePage() {
 
   async function check(filled: Slot[]) {
     if (filled.map((s) => s.letter).join('') === word) {
+      playSound('correct')
       setState('correct')
       setEarned((e) => e + STARS_PER_WORD)
       await awardStars(STARS_PER_WORD)
@@ -179,6 +185,7 @@ export function SpellGamePage() {
     }
 
     // Never say "wrong": keep the letters that already match, hand the rest back.
+    playSound('soft')
     setState('retry')
     const kept = filled.map((slot, i) => (slot.letter === word[i] ? slot : { letter: '', from: null }))
     const keptTiles = new Set(kept.filter((s) => s.from !== null).map((s) => s.from as number))
@@ -189,10 +196,23 @@ export function SpellGamePage() {
     }, 700)
   }
 
-  function nextRound() {
-    if (round + 1 < words.length) setRound(round + 1)
-    else setState('done')
-  }
+  const nextRound = useCallback(() => {
+    setRound((prev) => {
+      if (prev + 1 < words.length) return prev + 1
+      setState('done')
+      return prev
+    })
+  }, [words.length])
+
+  useEffect(() => {
+    if (state === 'done') playSound('fanfare')
+  }, [state])
+
+  useEffect(() => {
+    if (state !== 'correct') return
+    const timer = window.setTimeout(nextRound, NEXT_DELAY)
+    return () => window.clearTimeout(timer)
+  }, [state, nextRound])
 
   function playAgain() {
     setSeed((s) => s + 101)
@@ -204,6 +224,7 @@ export function SpellGamePage() {
   if (state === 'done') {
     return (
       <div className="center-screen">
+        <Fireworks variant="finale" />
         <div style={{ fontSize: 40, fontWeight: 800 }}>{t('play.finished')}</div>
         <div className="completion__stars">
           <Icon name="star" size={34} color="var(--c-star)" filled />
@@ -224,6 +245,7 @@ export function SpellGamePage() {
 
   return (
     <div className="screen spell">
+      {state === 'correct' ? <Fireworks /> : null}
       <header className="row">
         <button className="icon-btn" onClick={() => navigate('/')} aria-label={t('nav.draw')}>
           <Icon name="back" size={26} color="var(--c-text)" width={2.6} />
@@ -262,9 +284,12 @@ export function SpellGamePage() {
             {state === 'correct' ? (
               <div className="spell__win">
                 <div className="spell__word">{word}</div>
-                <button className="btn btn--primary btn--hero" onClick={nextRound}>
-                  {t('play.next')}
-                  <Icon name="arrow" size={26} color="#fff" width={2.6} />
+                <button className="btn btn--primary btn--hero spell__next" onClick={nextRound}>
+                  <span className="spell__next-fill" />
+                  <span className="spell__next-label">
+                    {t('play.next')}
+                    <Icon name="arrow" size={26} color="#fff" width={2.6} />
+                  </span>
                 </button>
               </div>
             ) : (

@@ -1,0 +1,106 @@
+.article-game { gap: 14px; }
+
+.article-board {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 0;
+}
+
+.article-picture {
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.article-picture img { max-width: 100%; max-height: 100%; }
+
+.article-phrase {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 40px;
+  font-weight: 800;
+}
+
+.article-slot {
+  min-width: 110px;
+  padding: 6px 18px;
+  border-radius: var(--r-lg);
+  border: 3px dashed #CFC7E6;
+  color: var(--c-text-muted);
+  text-align: center;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.article-slot--ok {
+  border-style: solid;
+  border-color: var(--c-success);
+  background: var(--c-success-bg);
+  color: var(--c-success);
+}
+
+.article-word { color: var(--c-text); }
+
+.article-options { display: flex; gap: 16px; }
+
+.article-option {
+  min-width: 150px;
+  height: 80px;
+  border-radius: var(--r-xl);
+  background: var(--c-accent);
+  color: #fff;
+  font-size: 34px;
+  font-weight: 800;
+  box-shadow: 0 10px 22px rgba(124, 92, 255, 0.32);
+  transition: transform 0.1s ease, opacity 0.25s ease, background 0.2s ease;
+}
+.article-option:active { transform: scale(0.95); }
+.article-option--ok { background: var(--c-success); box-shadow: 0 10px 22px rgba(52, 199, 123, 0.34); }
+/* A wrong article steps aside instead of being marked as a mistake. */
+.article-option--off { opacity: 0.25; box-shadow: none; }
+
+.article-hint { font-size: 17px; }
+
+.article-next { position: relative; overflow: hidden; }
+.article-next__label { position: relative; display: inline-flex; align-items: center; gap: 10px; }
+.article-next__fill {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+  transform-origin: left center;
+  animation: next-countdown 3s linear forwards;
+}
+
+@keyframes next-countdown {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .article-next__fill { animation: none; }
+}
+
+@media (max-width: 700px) {
+  .article-game > header .title { font-size: 16px; white-space: nowrap; }
+  .article-game > header .muted { white-space: nowrap; font-size: 14px; }
+  .article-game > header .chip { font-size: 13px; padding: 0 10px; }
+  .article-board { gap: 14px; }
+  .article-picture { width: 150px; height: 150px; padding: 10px; }
+  .article-phrase { font-size: 28px; gap: 10px; }
+  .article-slot { min-width: 76px; padding: 4px 12px; }
+  .article-option { min-width: 116px; height: 64px; font-size: 26px; }
+  .article-hint { font-size: 14px; text-align: center; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .article-board { gap: 10px; }
+  .article-picture { width: 110px; height: 110px; }
+  .article-phrase { font-size: 24px; }
+  .article-option { height: 52px; font-size: 22px; min-width: 100px; }
+  .article-hint { display: none; }
+}

@@ -498,7 +498,10 @@
     "again": "Play again",
     "loading": "Getting words ready…",
     "guess": "Find the picture",
-    "guessHint": "Tap the picture with this name"
+    "guessHint": "Tap the picture with this name",
+    "article": "Pick the article",
+    "articleHint": "Which article goes with this word?",
+    "articleOnly": "English and Spanish only"
   },
   "free": {
     "title": "Blank sheet",

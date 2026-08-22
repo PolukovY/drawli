@@ -9,6 +9,7 @@ import { Icon } from '../components/Icon'
 import type { DrawingEngine } from '../drawing/DrawingEngine'
 import { createDocument } from '../drawing/DrawingDocument'
 import { composeThumbnail } from '../drawing/thumbnail'
+import { playSound } from '../audio/sounds'
 import type { DrawingAction } from '../storage/types'
 import { upsertDrawing } from '../storage/DrawingRepository'
 import '../styles/ui.css'
@@ -36,11 +37,6 @@ export function FreeDrawPage() {
   const drawingIdRef = useRef<string>(crypto.randomUUID())
   const saveTimer = useRef<number | null>(null)
 
-  useEffect(() => {
-    // The fill tool needs regions to fill; a blank sheet has none.
-    if (tool === 'FILL') setTool('PENCIL')
-  }, [tool, setTool])
-
   const persist = useCallback(async (next: DrawingAction[], thumbnail?: Blob) => {
     if (next.length === 0) return
     await upsertDrawing({
@@ -67,6 +63,7 @@ export function FreeDrawPage() {
     const canvasEl = cardRef.current?.querySelector('canvas') ?? null
     const thumbnail = canvasEl ? await composeThumbnail(canvasEl, null) : undefined
     await persist(actions, thumbnail)
+    playSound('star')
     setSavedToast(true)
     window.setTimeout(() => setSavedToast(false), 1800)
   }
@@ -110,7 +107,7 @@ export function FreeDrawPage() {
           color={color}
           canUndo={history.canUndo}
           canRedo={history.canRedo}
-          tools={['PENCIL', 'BRUSH', 'ERASER']}
+          tools={['PENCIL', 'BRUSH', 'FILL', 'ERASER']}
           onToolChange={setTool}
           onColorTap={() => undefined}
           onUndo={() => engineRef.current?.undo()}

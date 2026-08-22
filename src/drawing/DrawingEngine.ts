@@ -1,4 +1,4 @@
-import type { DrawingAction, Point, StrokeAction, ToolId } from '../storage/types'
+import type { BucketAction, DrawingAction, Point, StrokeAction, ToolId } from '../storage/types'
 import { HistoryManager } from './history/HistoryManager'
 
 /** Stroke widths as a fraction of canvas width, so they scale across tablets. */
@@ -10,6 +10,20 @@ const TOOL_WIDTH: Record<'PENCIL' | 'BRUSH' | 'ERASER', number> = {
 
 /** Points closer than this (in CSS px) add jitter, not detail. */
 const MIN_POINT_DISTANCE = 2
+
+/**
+ * How far a pixel may differ from the seed and still be flooded. Strokes are
+ * antialiased, so an exact match would leave a halo around every fill.
+ */
+const FILL_TOLERANCE = 48
+
+function hexToRgb(hex: string): [number, number, number] | null {
+  const value = hex.replace('#', '')
+  if (value.length !== 6) return null
+  const int = Number.parseInt(value, 16)
+  if (Number.isNaN(int)) return null
+  return [(int >> 16) & 255, (int >> 8) & 255, int & 255]
+}
 
 export interface DrawingEngineOptions {
   onActionCommitted?: (actions: DrawingAction[]) => void
@@ -140,6 +154,22 @@ export class DrawingEngine {
     this.options.onActionCommitted?.(this.history.current)
   }
 
+  /**
+   * Flood fill from a tap. The area is whatever the child has enclosed with
+   * their own strokes; an open shape floods the sheet, which undo takes back.
+   */
+  bucketFill(x: number, y: number) {
+    const action: BucketAction = { type: 'BUCKET', x, y, color: this.color }
+    if (!this.paintBucket(this.committedCtx, action)) return
+
+    const wasEmpty = this.history.size === 0
+    this.history.push(action)
+    this.present()
+    this.emitHistory()
+    if (wasEmpty) this.options.onFirstAction?.()
+    this.options.onActionCommitted?.(this.history.current)
+  }
+
   /** Fills are chosen on the SVG guide layer, but they belong to the same history. */
   pushFill(regionId: string, color: string) {
     const wasEmpty = this.history.size === 0
@@ -152,8 +182,17 @@ export class DrawingEngine {
   // --- pointer handling -------------------------------------------------
 
   private onPointerDown = (event: PointerEvent) => {
-    if (this.tool === 'FILL') return
     if (this.shouldIgnore(event)) return
+
+    if (this.tool === 'FILL') {
+      // A tap with the bucket fills; there is no stroke to track.
+      if (event.pointerType === 'mouse' && event.buttons !== 1) return
+      const point = this.pointFrom(event)
+      this.bucketFill(point.x / this.cssWidth, point.y / this.cssHeight)
+      event.preventDefault()
+      return
+    }
+
     if (this.activePointerId !== null) return
     if (event.pointerType === 'mouse' && event.buttons !== 1) return
 
@@ -301,6 +340,7 @@ export class DrawingEngine {
 
     for (const action of this.history.current) {
       if (action.type === 'STROKE') this.paintStroke(this.committedCtx, action)
+      else if (action.type === 'BUCKET') this.paintBucket(this.committedCtx, action)
     }
   }
 
@@ -361,6 +401,98 @@ export class DrawingEngine {
     ctx.lineTo(last.x, last.y)
     ctx.stroke()
     ctx.restore()
+  }
+
+  /**
+   * Scanline flood fill over the backing store. Returns false when the tap
+   * lands on a pixel already the target colour, so nothing enters history.
+   */
+  private paintBucket(ctx: CanvasRenderingContext2D, action: BucketAction): boolean {
+    const width = this.committed.width
+    const height = this.committed.height
+    if (width === 0 || height === 0) return false
+
+    const startX = Math.round(action.x * width)
+    const startY = Math.round(action.y * height)
+    if (startX < 0 || startY < 0 || startX >= width || startY >= height) return false
+
+    const image = ctx.getImageData(0, 0, width, height)
+    const data = image.data
+    const seed = (startY * width + startX) * 4
+
+    const target = [data[seed], data[seed + 1], data[seed + 2], data[seed + 3]]
+    const fill = hexToRgb(action.color)
+    if (!fill) return false
+
+    const same =
+      Math.abs(target[0] - fill[0]) < 4 &&
+      Math.abs(target[1] - fill[1]) < 4 &&
+      Math.abs(target[2] - fill[2]) < 4 &&
+      Math.abs(target[3] - 255) < 4
+    if (same) return false
+
+    const matches = (index: number) => {
+      // Transparent pixels only match other transparent ones, otherwise a fill
+      // would bleed straight through the antialiased edge of a stroke.
+      if (target[3] < 16) return data[index + 3] < 16
+      if (data[index + 3] < 16) return false
+      return (
+        Math.abs(data[index] - target[0]) <= FILL_TOLERANCE &&
+        Math.abs(data[index + 1] - target[1]) <= FILL_TOLERANCE &&
+        Math.abs(data[index + 2] - target[2]) <= FILL_TOLERANCE
+      )
+    }
+
+    const stack: number[] = [startX, startY]
+    while (stack.length > 0) {
+      const y = stack.pop() as number
+      const x = stack.pop() as number
+
+      let left = x
+      let index = (y * width + left) * 4
+      while (left >= 0 && matches(index)) {
+        left -= 1
+        index -= 4
+      }
+      left += 1
+
+      let right = x
+      index = (y * width + right) * 4
+      while (right < width && matches(index)) {
+        right += 1
+        index += 4
+      }
+      right -= 1
+
+      let spanAbove = false
+      let spanBelow = false
+      for (let px = left; px <= right; px += 1) {
+        const at = (y * width + px) * 4
+        data[at] = fill[0]
+        data[at + 1] = fill[1]
+        data[at + 2] = fill[2]
+        data[at + 3] = 255
+
+        if (y > 0) {
+          const above = ((y - 1) * width + px) * 4
+          const hit = matches(above)
+          if (hit && !spanAbove) { stack.push(px, y - 1); spanAbove = true }
+          else if (!hit) spanAbove = false
+        }
+        if (y < height - 1) {
+          const below = ((y + 1) * width + px) * 4
+          const hit = matches(below)
+          if (hit && !spanBelow) { stack.push(px, y + 1); spanBelow = true }
+          else if (!hit) spanBelow = false
+        }
+      }
+    }
+
+    ctx.save()
+    ctx.setTransform(1, 0, 0, 1, 0, 0)
+    ctx.putImageData(image, 0, 0)
+    ctx.restore()
+    return true
   }
 
   private emitHistory() {

@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { Icon } from './Icon'
 import type { ToolId } from '../storage/types'
+import { playSound } from '../audio/sounds'
 import './DrawingToolbar.css'
 
 interface Props {
@@ -63,7 +64,7 @@ export function DrawingToolbar({
         <Tip key={id} title={t(LABELS[id])} hint={t(HINTS[id])}>
           <button
             className={`tool ${tool === id ? 'tool--on' : ''}`}
-            onClick={() => onToolChange(id)}
+            onClick={() => { playSound('tap'); onToolChange(id) }}
             aria-label={t(LABELS[id])}
             aria-pressed={tool === id}
           >
@@ -75,7 +76,7 @@ export function DrawingToolbar({
       <div className="tool-divider" />
 
       <Tip title={t('drawing.tool.color')} hint={t('drawing.tool.colorHint')}>
-        <button className="tool" onClick={onColorTap} aria-label={t('drawing.tool.color')}>
+        <button className="tool" onClick={() => { playSound('tap'); onColorTap() }} aria-label={t('drawing.tool.color')}>
           <span className="swatch" style={{ background: color }} />
         </button>
       </Tip>
@@ -83,19 +84,19 @@ export function DrawingToolbar({
       <div className="tool-divider" />
 
       <Tip title={t('drawing.tool.undo')} hint={t('drawing.tool.undoHint')}>
-        <button className="tool" onClick={onUndo} disabled={!canUndo} aria-label={t('drawing.tool.undo')}>
+        <button className="tool" onClick={() => { playSound('tap'); onUndo() }} disabled={!canUndo} aria-label={t('drawing.tool.undo')}>
           <Icon name="undo" size={30} color={canUndo ? 'var(--c-text-soft)' : 'var(--c-disabled)'} width={2.4} />
         </button>
       </Tip>
 
       <Tip title={t('drawing.tool.redo')} hint={t('drawing.tool.redoHint')}>
-        <button className="tool" onClick={onRedo} disabled={!canRedo} aria-label={t('drawing.tool.redo')}>
+        <button className="tool" onClick={() => { playSound('tap'); onRedo() }} disabled={!canRedo} aria-label={t('drawing.tool.redo')}>
           <Icon name="redo" size={30} color={canRedo ? 'var(--c-text-soft)' : 'var(--c-disabled)'} width={2.4} />
         </button>
       </Tip>
 
       <Tip title={t('drawing.tool.clear')} hint={t('drawing.tool.clearHint')}>
-        <button className="tool" onClick={onClear} disabled={!canClear} aria-label={t('drawing.tool.clear')}>
+        <button className="tool" onClick={() => { playSound('tap'); onClear() }} disabled={!canClear} aria-label={t('drawing.tool.clear')}>
           <Icon name="trash" size={30} color={canClear ? 'var(--c-danger)' : 'var(--c-disabled)'} width={2.2} />
         </button>
       </Tip>

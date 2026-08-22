@@ -7,6 +7,7 @@ import { SettingsPage } from '../pages/SettingsPage'
 import { SpellGamePage } from '../pages/SpellGamePage'
 import { FreeDrawPage } from '../pages/FreeDrawPage'
 import { GuessGamePage } from '../pages/GuessGamePage'
+import { ArticleGamePage } from '../pages/ArticleGamePage'
 
 // HashRouter, not BrowserRouter: GitHub Pages serves no SPA fallback,
 // so a deep link like /drawli/draw/ladybug would 404 on reload.
@@ -19,4 +20,5 @@ export const router = createHashRouter([
   { path: '/spell', element: <SpellGamePage /> },
   { path: '/free', element: <FreeDrawPage /> },
   { path: '/guess', element: <GuessGamePage /> },
+  { path: '/articles', element: <ArticleGamePage /> },
 ])

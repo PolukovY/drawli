@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import type { AppSettings, Language, ToolId } from '../storage/types'
 import { addStars, createSettings, detectLanguage, loadSettings, updateSettings } from '../storage/SettingsRepository'
 import { initI18n } from '../i18n'
+import { setSoundEnabled } from '../audio/sounds'
 
 export const PAINT_COLORS = [
   '#E4443B', '#F5893B', '#FFC53D', '#4EA55F', '#4E86E8',
@@ -39,6 +40,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
     const settings = await loadSettings()
     if (settings) {
       initI18n(settings.language)
+      setSoundEnabled(settings.soundEnabled)
       set({ settings, boot: 'ready' })
     } else {
       initI18n(detectLanguage())
@@ -48,6 +50,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
   async completeOnboarding(name, language) {
     const settings = await createSettings(name, language)
+    setSoundEnabled(settings.soundEnabled)
     initI18n(language)
     set({ settings, boot: 'ready' })
   },
@@ -66,6 +69,7 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
   async setSoundEnabled(soundEnabled) {
     await updateSettings({ soundEnabled })
+    setSoundEnabled(soundEnabled)
     set((s) => ({ settings: s.settings ? { ...s.settings, soundEnabled } : null }))
   },
 

@@ -16,6 +16,7 @@ import { loadExercise } from '../exercise/ExerciseLoader'
 import type { Exercise } from '../exercise/Exercise'
 import { createDocument } from '../drawing/DrawingDocument'
 import { composeThumbnail } from '../drawing/thumbnail'
+import { playSound } from '../audio/sounds'
 import type { DrawingAction, ToolId } from '../storage/types'
 import { findInProgress, upsertDrawing } from '../storage/DrawingRepository'
 import { markCompleted, markStarted } from '../storage/ProgressRepository'
@@ -192,6 +193,7 @@ export function DrawingPage() {
       thumbnail: thumbnailBlob,
     })
 
+    playSound('star')
     setSavedToast(true)
     window.setTimeout(() => setSavedToast(false), 1800)
   }
@@ -200,6 +202,7 @@ export function DrawingPage() {
     if (!exercise) return
 
     if (!isLastStep) {
+      playSound('next')
       const next = stepIndex + 1
       stepBaselinesRef.current[next] = actions.length
       setStepIndex(next)
@@ -217,6 +220,7 @@ export function DrawingPage() {
       : await engineRef.current?.toThumbnail()
     const stars = await markCompleted(exercise.id, exercise.steps.length)
     await awardStars(stars)
+    playSound('fanfare')
 
     await upsertDrawing({
       id: drawingIdRef.current,
@@ -293,7 +297,7 @@ export function DrawingPage() {
           color={color}
           canUndo={history.canUndo}
           canRedo={history.canRedo}
-          tools={isColoring ? ['FILL', 'BRUSH', 'ERASER'] : ['PENCIL', 'BRUSH', 'ERASER']}
+          tools={isColoring ? ['FILL', 'BRUSH', 'ERASER'] : ['PENCIL', 'BRUSH', 'FILL', 'ERASER']}
           onToolChange={setTool}
           onColorTap={() => setPaletteOpen((open) => !open)}
           onUndo={() => engineRef.current?.undo()}

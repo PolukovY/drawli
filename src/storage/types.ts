@@ -23,7 +23,15 @@ export interface FillAction {
   color: string
 }
 
-export type DrawingAction = StrokeAction | FillAction
+/** Bucket fill on the canvas itself; coordinates are normalized like strokes. */
+export interface BucketAction {
+  type: 'BUCKET'
+  x: number
+  y: number
+  color: string
+}
+
+export type DrawingAction = StrokeAction | FillAction | BucketAction
 
 export interface DrawingDocument {
   version: 1

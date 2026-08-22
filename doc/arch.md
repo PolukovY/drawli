@@ -86,6 +86,7 @@ React дізнається лише про **завершені дії** — п�
 | Стилус | `pointerType === 'pen'`, ширина пензлика від `event.pressure` |
 | Палмреджект | після дотику пером `touch`-події ігноруються 800 мс |
 | Ластик | `globalCompositeOperation = 'destination-out'` — стирає лише шар дитини |
+| Заливка | scanline flood fill по backing store; допуск 48, бо штрихи згладжені, а прозорі пікселі зливаються лише з прозорими |
 | Продуктивність | «закомічені» дії лежать на офскрин-полотні; живий штрих коштує одну `drawImage` |
 
 ### Історія
@@ -154,6 +155,7 @@ graph LR
     subgraph out["public/exercises/"]
         idx["index.json<br/>каталог"]
         words["words.json<br/>слова uk · en · es"]
+        arts["articles.json<br/>a · an · el · la"]
         ex["id/exercise.json<br/>кроки вправи"]
         steps["id/step-NN.svg<br/>контур кроку"]
         final["id/final.svg<br/>розмальовка"]
@@ -167,6 +169,7 @@ graph LR
     es --> gen
     gen --> idx
     gen --> words
+    gen --> arts
     gen --> ex
     gen --> steps
     gen --> final
@@ -178,7 +181,7 @@ graph LR
     classDef o fill:#E6F8EE,stroke:#34C77B
     class cat,gly,es s
     class gen g
-    class idx,words,ex,steps,final,thumb,i18nout o
+    class idx,words,arts,ex,steps,final,thumb,i18nout o
 ```
 
 Генератор **валідує**: унікальні id, відома категорія, наявні назви обома
@@ -321,6 +324,7 @@ graph LR
     home --> free["/free<br/>чистий аркуш"]
     home --> spell["/spell?lang=uk · en · es<br/>склади слово"]
     home --> guess["/guess?lang=uk · en · es<br/>знайди малюнок"]
+    home --> articles["/articles?lang=en · es<br/>обери артикль"]
     home --> gallery["/drawings<br/>мої малюнки"]
     home --> progress["/progress<br/>прогрес і зірочки"]
     home --> settings["/settings<br/>налаштування, бекап"]
@@ -386,10 +390,11 @@ graph LR
 src/
   app/        App.tsx (гейт старту), router.tsx, store.ts
   pages/      HomePage, DrawingPage, FreeDrawPage, SpellGamePage,
-              GuessGamePage, MyDrawingsPage, ProgressPage, SettingsPage,
-              OnboardingPage
+              GuessGamePage, ArticleGamePage, MyDrawingsPage, ProgressPage,
+              SettingsPage, OnboardingPage
   components/ DrawingCanvas, DrawingToolbar, ColorPalette, GuideLayer,
               ColoringLayer, StepPreview, CoachMarks, CompletionScreen, Icon
+  audio/      sounds.ts — Web Audio effects, no asset files
   drawing/    DrawingEngine.ts, DrawingDocument.ts, thumbnail.ts,
               history/HistoryManager.ts
   exercise/   Exercise.ts (типи), ExerciseLoader.ts (fetch + кеш у пам'яті)

@@ -186,12 +186,24 @@ export function HomePage() {
       {mode === 'play' ? (
         <div className="home__grid">
           <button className="exercise-card game-card" onClick={() => navigate(`/spell?lang=${playLanguage}`)}>
-            <span className="game-card__art">🔤</span>
+            <span className="game-card__art">🔡</span>
             <span>{t('play.spell')}</span>
             <span className="muted" style={{ fontSize: 15, fontWeight: 600 }}>
               {PLAY_LANGUAGES.find((l) => l.id === playLanguage)?.label}
             </span>
           </button>
+
+          {/* Ukrainian has no articles, so the game only appears for the two
+              languages where it teaches something. */}
+          {playLanguage === 'uk' ? null : (
+            <button className="exercise-card game-card" onClick={() => navigate(`/articles?lang=${playLanguage}`)}>
+              <span className="game-card__art">🔤</span>
+              <span>{t('play.article')}</span>
+              <span className="muted" style={{ fontSize: 15, fontWeight: 600 }}>
+                {playLanguage === 'es' ? 'el · la' : 'a · an'}
+              </span>
+            </button>
+          )}
 
           <button className="exercise-card game-card" onClick={() => navigate(`/guess?lang=${playLanguage}`)}>
             <span className="game-card__art">🔍</span>

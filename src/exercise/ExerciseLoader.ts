@@ -60,3 +60,16 @@ export function loadWords(): Promise<Record<WordLanguage, Record<string, string>
   }
   return wordsPromise
 }
+
+let articlesPromise: Promise<Record<'en' | 'es', Record<string, string>>> | null = null
+
+/** Articles per picture: 'a' / 'an' for English, 'el' / 'la' for Spanish. */
+export function loadArticles(): Promise<Record<'en' | 'es', Record<string, string>>> {
+  if (!articlesPromise) {
+    articlesPromise = fetch(assetUrl('articles.json')).then((r) => {
+      if (!r.ok) throw new Error(`articles ${r.status}`)
+      return r.json() as Promise<Record<'en' | 'es', Record<string, string>>>
+    })
+  }
+  return articlesPromise
+}

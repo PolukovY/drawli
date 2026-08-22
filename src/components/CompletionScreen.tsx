@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Icon } from './Icon'
+import { Fireworks } from './Fireworks'
 import './CompletionScreen.css'
 
 interface Props {
@@ -22,6 +23,7 @@ export function CompletionScreen({ name, stars, thumbnail, onAnother, onAgain }:
 
   return (
     <div className="completion">
+      <Fireworks variant="finale" />
       <div className="confetti" aria-hidden="true">
         {CONFETTI.map((piece, i) => (
           <span

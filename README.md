@@ -29,7 +29,7 @@ Drawli — це не графічний редактор, а інтеракти�
 |---|---|
 | **335 вправ** | 148 малюнків у 7 жанрах · 96 літер (укр / англ / ісп) · 91 число до 100 |
 | **Дві мови інтерфейсу** | Українська та English, визначається автоматично |
-| **Дві гри** | «Склади слово» і «Знайди малюнок» — українською, English або Español |
+| **Три гри** | «Склади слово», «Знайди малюнок» і «Обери артикль» — українською, English або Español |
 | **Без реєстрації** | Дитина вводить лише ім'я |
 | **Офлайн** | Встановлюється на домашній екран і працює без інтернету |
 | **Від телефона до планшета** | Розкладка адаптується: iPhone, Android, iPad |
@@ -75,6 +75,11 @@ Drawli — це не графічний редактор, а інтеракти�
 
 **«Знайди малюнок»** — те саме навпаки: показано слово, треба впізнати
 картинку серед чотирьох. Хибний варіант просто блідне й відходить убік.
+
+**«Обери артикль»** — для англійської та іспанської: до слова треба дібрати
+`a / an` або `el / la`.
+
+Правильна відповідь — салют на весь екран, звук і автоперехід через 3 секунди.
 
 <p>
   <img src="doc/screenshots/07-spell-game.jpg" width="49%" alt="Гра Склади слово" />
@@ -139,7 +144,7 @@ Drawli не питає ні email, ні дату народження, ні до
 
 Drawli is a tablet-first PWA that teaches children aged 4–10 to draw, step by
 step: 335 exercises (pictures, the Ukrainian / English / Spanish alphabets,
-numbers to 100), two word games, and a blank sheet for free drawing. It runs
+numbers to 100), three word games, and a blank sheet for free drawing. It runs
 fully in the browser — no account, no backend, no ads — stores everything in
 IndexedDB, and works offline once installed. See
 [doc/feature.md](doc/feature.md) and [doc/arch.md](doc/arch.md).
