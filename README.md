@@ -86,6 +86,8 @@ Drawli — це не графічний редактор, а інтеракти�
   <img src="doc/screenshots/12-guess-game.jpg" width="49%" alt="Гра Знайди малюнок" />
 </p>
 
+<img src="doc/screenshots/13-article-game.jpg" width="100%" alt="Гра Обери артикль" />
+
 ### Чистий аркуш
 
 <img src="doc/screenshots/10-blank-sheet.jpg" width="100%" alt="Вільне малювання" />
