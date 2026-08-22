@@ -1,0 +1,46 @@
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  padding: 14px;
+  box-shadow: var(--sh-raised);
+  align-self: flex-start;
+}
+
+.tool {
+  width: var(--tap-primary);
+  height: var(--tap-primary);
+  border-radius: 20px;
+  background: var(--c-inset);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.08s ease;
+}
+.tool:active { transform: scale(0.93); }
+.tool--on { background: var(--c-accent); box-shadow: 0 6px 16px rgba(124, 92, 255, 0.35); }
+.tool:disabled { opacity: 0.5; }
+
+.tool-divider {
+  height: 2px;
+  background: var(--c-divider);
+  border-radius: var(--r-pill);
+  margin: 2px 6px;
+}
+
+.swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-pill);
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px currentColor;
+  display: block;
+}
+
+/* Narrow tablets: the toolbar moves under the canvas. */
+@media (max-width: 900px) {
+  .toolbar { flex-direction: row; align-self: stretch; justify-content: center; }
+  .tool-divider { height: auto; width: 2px; margin: 6px 2px; }
+}
