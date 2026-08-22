@@ -35,19 +35,31 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // Shell, translations and the exercise manifest ship with the install.
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
-        globIgnores: ['**/exercises/*/step-*.svg', '**/exercises/*/final.svg'],
+        // Only the shell ships with the install: the library is hundreds of
+        // small SVGs and precaching them would make the first launch crawl.
+        globPatterns: ['**/*.{js,css,html,ico,png}'],
+        globIgnores: ['**/exercises/**'],
         navigateFallback: `${base}index.html`,
         runtimeCaching: [
           {
-            // Step guides are pulled the first time a child opens an exercise,
-            // then stay offline — precaching all 16 would bloat first launch.
+            // The catalogue must be allowed to grow: served from the network
+            // when it can be, from cache when the tablet is offline.
+            urlPattern: /\/exercises\/index\.json$/,
+            handler: 'NetworkFirst',
+            options: {
+              cacheName: 'drawli-catalogue',
+              networkTimeoutSeconds: 4,
+              expiration: { maxEntries: 4, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            },
+          },
+          {
+            // Exercise definitions and artwork: instant from cache, refreshed
+            // in the background so a redraw of an exercise reaches the child.
             urlPattern: /\/exercises\/.*\.(?:svg|json)$/,
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'drawli-exercises',
-              expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 180 },
+              expiration: { maxEntries: 2000, maxAgeSeconds: 60 * 60 * 24 * 180 },
             },
           },
           {
