@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAppStore } from '../app/store'
 import { Icon } from '../components/Icon'
+import { CoachMarks, type CoachStep } from '../components/CoachMarks'
 import { assetUrl, loadIndex } from '../exercise/ExerciseLoader'
 import type { ExerciseIndex } from '../exercise/Exercise'
 import { latestInProgress } from '../storage/DrawingRepository'
@@ -14,6 +15,7 @@ export function HomePage() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const settings = useAppStore((s) => s.settings)
+  const markTutorialDone = useAppStore((s) => s.markTutorialDone)
 
   const [index, setIndex] = useState<ExerciseIndex | null>(null)
   const [category, setCategory] = useState<string>('all')
@@ -35,6 +37,23 @@ export function HomePage() {
   }, [index, category])
 
   const resumeExercise = index?.exercises.find((e) => e.id === resume?.exerciseId)
+
+  // First visit only, and only once the cards are actually on screen.
+  const showCoach = settings ? !settings.tutorialHomeDone && exercises.length > 0 : false
+  const coachSteps: CoachStep[] = [
+    {
+      selector: '.home__grid .exercise-card',
+      titleKey: 'coach.home.pickTitle',
+      textKey: 'coach.home.pickText',
+      placement: 'below',
+    },
+    {
+      selector: '.home__nav',
+      titleKey: 'coach.home.navTitle',
+      textKey: 'coach.home.navText',
+      placement: 'above',
+    },
+  ]
 
   return (
     <div className="screen home">
@@ -130,6 +149,10 @@ export function HomePage() {
           {t('nav.progress')}
         </button>
       </nav>
+
+      {showCoach ? (
+        <CoachMarks steps={coachSteps} onDone={() => void markTutorialDone('home')} />
+      ) : null}
     </div>
   )
 }

@@ -23,3 +23,22 @@
 
 .guide--current { color: #B8B2CC; opacity: 0.9; }
 .guide--current svg { stroke-dasharray: 9 9; }
+
+/* A short dash travelling along the outline: it shows the direction to draw
+   without ever covering the guide the child is tracing. */
+.guide--trace { color: var(--c-accent); opacity: 0.85; }
+.guide--trace svg { stroke-width: 7; }
+.guide--trace svg :is(path, circle, ellipse, rect, line, polyline, polygon) {
+  stroke-dasharray: 0.16 1;
+  stroke-dashoffset: 1;
+  animation: guide-trace 2.6s linear infinite;
+}
+
+@keyframes guide-trace {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guide--trace { display: none; }
+}

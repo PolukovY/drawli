@@ -22,6 +22,7 @@ interface AppStore {
   setName: (name: string) => Promise<void>
   setSoundEnabled: (enabled: boolean) => Promise<void>
   awardStars: (amount: number) => Promise<void>
+  markTutorialDone: (screen: 'home' | 'draw') => Promise<void>
   setTool: (tool: ToolId) => void
   setColor: (color: string) => void
   reloadSettings: () => Promise<void>
@@ -71,6 +72,12 @@ export const useAppStore = create<AppStore>((set, get) => ({
   async awardStars(amount) {
     const stars = await addStars(amount)
     set((s) => ({ settings: s.settings ? { ...s.settings, stars } : null }))
+  },
+
+  async markTutorialDone(screen) {
+    const patch = screen === 'home' ? { tutorialHomeDone: true } : { tutorialDrawDone: true }
+    await updateSettings(patch)
+    set((s) => ({ settings: s.settings ? { ...s.settings, ...patch } : null }))
   },
 
   setTool: (tool) => set({ tool }),

@@ -1,0 +1,72 @@
+.preview {
+  width: 190px;
+  flex-shrink: 0;
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-raised);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-self: flex-start;
+}
+
+.preview__label {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--c-text-muted);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.preview__art {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: var(--c-inset);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+.preview__art > div { position: absolute; inset: 8px; }
+.preview__art svg { width: 100%; height: 100%; }
+
+/* The full picture stays a faint target; traced steps light up over it. */
+.preview__final { opacity: 0.22; }
+
+.preview__step {
+  color: var(--c-text);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.preview__step--on { opacity: 1; transform: scale(1); }
+.preview__step svg { stroke-width: 6; }
+
+.preview__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.preview__pip {
+  width: 26px;
+  height: 26px;
+  border-radius: var(--r-pill);
+  background: var(--c-inset);
+  color: var(--c-text-muted);
+  font-size: 13px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+.preview__pip--done { background: var(--c-success-bg); color: var(--c-success); }
+.preview__pip--now { background: var(--c-accent); color: #fff; transform: scale(1.15); }
+
+@media (max-width: 900px) {
+  .preview { display: none; }
+}

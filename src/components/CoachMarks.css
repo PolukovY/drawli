@@ -1,0 +1,69 @@
+.coach {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(42, 35, 64, 0.55);
+  animation: coach-in 0.25s ease both;
+}
+
+@keyframes coach-in { from { opacity: 0; } to { opacity: 1; } }
+
+.coach__spot {
+  position: fixed;
+  border-radius: var(--r-xl);
+  /* The cut-out is a huge shadow rather than a mask: it animates cheaply. */
+  box-shadow: 0 0 0 9999px rgba(42, 35, 64, 0.55), 0 0 0 4px var(--c-accent);
+  background: transparent;
+  transition: top 0.35s cubic-bezier(0.22, 1, 0.36, 1), left 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.35s ease, height 0.35s ease;
+  pointer-events: none;
+}
+
+.coach__hand {
+  position: fixed;
+  pointer-events: none;
+  animation: coach-tap 1.6s ease-in-out infinite;
+  transition: top 0.35s cubic-bezier(0.22, 1, 0.36, 1), left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes coach-tap {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(0.82); opacity: 1; }
+}
+
+.coach__card {
+  position: fixed;
+  width: 380px;
+  background: var(--c-surface);
+  border-radius: var(--r-2xl);
+  padding: 22px 24px;
+  box-shadow: 0 24px 60px rgba(42, 35, 64, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: coach-card-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transition: top 0.35s cubic-bezier(0.22, 1, 0.36, 1), left 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes coach-card-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+.coach__title { font-size: 22px; font-weight: 800; }
+.coach__text { font-size: 17px; font-weight: 600; color: var(--c-text-soft); line-height: 1.35; }
+
+.coach__foot { display: flex; align-items: center; gap: 12px; }
+.coach__pips { display: flex; gap: 6px; flex-grow: 1; }
+.coach__pips span {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--r-pill);
+  background: var(--c-divider);
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.coach__pips span.on { background: var(--c-accent); transform: scale(1.25); }
+
+@media (prefers-reduced-motion: reduce) {
+  .coach, .coach__card, .coach__hand { animation: none; }
+}

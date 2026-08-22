@@ -67,6 +67,9 @@ export interface AppSettings {
   soundEnabled: boolean
   stars: number
   onboardedAt: string
+  /** Coach marks are shown once per screen, then never again. */
+  tutorialHomeDone?: boolean
+  tutorialDrawDone?: boolean
 }
 
 export interface Achievement {

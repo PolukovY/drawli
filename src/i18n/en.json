@@ -1,5 +1,8 @@
 {
-  "app": { "name": "Drawli", "tagline": "Learn to Draw" },
+  "app": {
+    "name": "Drawli",
+    "tagline": "Learn to Draw"
+  },
   "onboarding": {
     "hello": "Hi! I am Drawli",
     "askName": "What is your name?",
@@ -15,7 +18,12 @@
     "continue": "Continue",
     "all": "All"
   },
-  "nav": { "draw": "Draw", "drawings": "My Drawings", "progress": "Progress", "settings": "Settings" },
+  "nav": {
+    "draw": "Draw",
+    "drawings": "My Drawings",
+    "progress": "Progress",
+    "settings": "Settings"
+  },
   "drawing": {
     "step": "Step {{step}} of {{total}}",
     "next": "Next",
@@ -30,7 +38,8 @@
       "eraser": "Eraser",
       "undo": "Undo",
       "redo": "Redo"
-    }
+    },
+    "previewTitle": "The plan"
   },
   "complete": {
     "title": "Great job, {{name}}!",
@@ -111,5 +120,25 @@
     "car": "Car",
     "boat": "Boat",
     "rocket": "Rocket"
+  },
+  "coach": {
+    "next": "Next",
+    "done": "Got it!",
+    "home": {
+      "pickTitle": "Pick what to draw",
+      "pickText": "Tap a picture and we draw it together, step by step.",
+      "navTitle": "Your drawings live here",
+      "navText": "Finished drawings and stars are waiting in here."
+    },
+    "draw": {
+      "canvasTitle": "Trace the dotted line",
+      "canvasText": "Follow the grey line with a finger or a stylus. The purple spark shows where to start.",
+      "previewTitle": "This is the plan",
+      "previewText": "The whole picture and the steps left are shown here.",
+      "toolsTitle": "Pencil, brush, eraser",
+      "toolsText": "Pick a tool and a color. Made a mistake? Tap the back arrow.",
+      "nextTitle": "Drawn it? Tap Next",
+      "nextText": "The button lights up as soon as you draw something."
+    }
   }
 }

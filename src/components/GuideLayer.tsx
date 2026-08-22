@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { loadSvg } from '../exercise/ExerciseLoader'
 import type { ExerciseStep } from '../exercise/Exercise'
 import './GuideLayer.css'
@@ -7,14 +7,13 @@ interface Props {
   exerciseId: string
   steps: ExerciseStep[]
   currentIndex: number
+  /** Runs a light along the current outline to show where the stroke starts. */
+  showTrace?: boolean
 }
 
-/**
- * Steps already traced stay as a faint outline; the current one is the dashed
- * guide the child follows. Both sit under the drawing canvas.
- */
-export function GuideLayer({ exerciseId, steps, currentIndex }: Props) {
+export function GuideLayer({ exerciseId, steps, currentIndex, showTrace = true }: Props) {
   const [markup, setMarkup] = useState<Record<string, string>>({})
+  const traceRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -32,6 +31,20 @@ export function GuideLayer({ exerciseId, steps, currentIndex }: Props) {
     return () => { cancelled = true }
   }, [exerciseId, steps, currentIndex])
 
+  const currentFile = steps[currentIndex]?.mode === 'COLORING' ? undefined : steps[currentIndex]?.guide
+  const currentMarkup = currentFile ? markup[currentFile] : undefined
+
+  // pathLength=1 lets one dash length animate every shape, whatever its size.
+  useEffect(() => {
+    const container = traceRef.current
+    if (!container || !currentMarkup) return
+    const shapes = container.querySelectorAll<SVGGeometryElement>('path, circle, ellipse, rect, line, polyline, polygon')
+    shapes.forEach((shape, i) => {
+      shape.setAttribute('pathLength', '1')
+      shape.style.animationDelay = `${i * 0.18}s`
+    })
+  }, [currentMarkup])
+
   return (
     <div className="guide-stack" aria-hidden="true">
       {steps.slice(0, currentIndex + 1).map((step, index) => {
@@ -46,6 +59,15 @@ export function GuideLayer({ exerciseId, steps, currentIndex }: Props) {
           />
         )
       })}
+
+      {showTrace && currentMarkup ? (
+        <div
+          key={`trace-${currentIndex}`}
+          ref={traceRef}
+          className="guide guide--trace"
+          dangerouslySetInnerHTML={{ __html: currentMarkup }}
+        />
+      ) : null}
     </div>
   )
 }

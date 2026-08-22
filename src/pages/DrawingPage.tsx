@@ -9,10 +9,13 @@ import { GuideLayer } from '../components/GuideLayer'
 import { ColoringLayer } from '../components/ColoringLayer'
 import { CompletionScreen } from '../components/CompletionScreen'
 import { Icon } from '../components/Icon'
+import { StepPreview } from '../components/StepPreview'
+import { CoachMarks, type CoachStep } from '../components/CoachMarks'
 import type { DrawingEngine } from '../drawing/DrawingEngine'
 import { loadExercise } from '../exercise/ExerciseLoader'
 import type { Exercise } from '../exercise/Exercise'
 import { createDocument } from '../drawing/DrawingDocument'
+import { composeThumbnail } from '../drawing/thumbnail'
 import type { DrawingAction, ToolId } from '../storage/types'
 import { findInProgress, upsertDrawing } from '../storage/DrawingRepository'
 import { markCompleted, markStarted } from '../storage/ProgressRepository'
@@ -33,6 +36,7 @@ export function DrawingPage() {
   const setTool = useAppStore((s) => s.setTool)
   const setColor = useAppStore((s) => s.setColor)
   const awardStars = useAppStore((s) => s.awardStars)
+  const markTutorialDone = useAppStore((s) => s.markTutorialDone)
 
   const [exercise, setExercise] = useState<Exercise | null>(null)
   const [stepIndex, setStepIndex] = useState(0)
@@ -43,6 +47,7 @@ export function DrawingPage() {
   const [finished, setFinished] = useState<{ stars: number; thumbnail?: string } | null>(null)
 
   const engineRef = useRef<DrawingEngine | null>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
   const drawingIdRef = useRef<string>('')
   const saveTimer = useRef<number | null>(null)
   /** Actions present when the current step opened — Next unlocks above this. */
@@ -70,28 +75,38 @@ export function DrawingPage() {
       const existing = startFresh ? undefined : await findInProgress(exerciseId)
       if (cancelled) return
 
+      const startStep = existing
+        ? Math.min(existing.currentStep, loaded.steps.length - 1)
+        : 0
+
       if (existing) {
         drawingIdRef.current = existing.id
-        setStepIndex(Math.min(existing.currentStep, loaded.steps.length - 1))
         setActions(existing.document.actions)
         setLoadedActions(existing.document.actions)
         stepBaselineRef.current = existing.document.actions.length
       } else {
         drawingIdRef.current = crypto.randomUUID()
-        setStepIndex(0)
         setActions([])
         setLoadedActions([])
         stepBaselineRef.current = 0
       }
+
+      setStepIndex(startStep)
+      // Without this the fill tool carried over from a colouring step stays
+      // selected, and the pencil silently refuses to draw on the next exercise.
+      setTool((loaded.steps[startStep]?.defaultTool as ToolId | undefined) ?? 'PENCIL')
     })()
 
     return () => { cancelled = true }
-  }, [exerciseId, search])
+  }, [exerciseId, search, setTool])
 
   // --- autosave ---------------------------------------------------------
 
   const persist = useCallback(async (nextActions: DrawingAction[], step: number) => {
     if (!exerciseId || !drawingIdRef.current) return
+    // An opened-but-untouched exercise is not a drawing: saving it would put an
+    // empty card in the gallery and hijack the "continue" prompt on the home screen.
+    if (nextActions.length === 0 && step === 0) return
     await upsertDrawing({
       id: drawingIdRef.current,
       exerciseId,
@@ -143,6 +158,14 @@ export function DrawingPage() {
 
   const canProceed = actions.length > stepBaselineRef.current
 
+  const showCoach = Boolean(settings && !settings.tutorialDrawDone && exercise)
+  const coachSteps: CoachStep[] = [
+    { selector: '.canvas-card', titleKey: 'coach.draw.canvasTitle', textKey: 'coach.draw.canvasText', placement: 'below' },
+    { selector: '.preview', titleKey: 'coach.draw.previewTitle', textKey: 'coach.draw.previewText', placement: 'below' },
+    { selector: '.toolbar', titleKey: 'coach.draw.toolsTitle', textKey: 'coach.draw.toolsText', placement: 'below' },
+    { selector: '.next-btn', titleKey: 'coach.draw.nextTitle', textKey: 'coach.draw.nextText', placement: 'above' },
+  ]
+
   async function handleNext() {
     if (!exercise) return
 
@@ -156,7 +179,12 @@ export function DrawingPage() {
       return
     }
 
-    const thumbnailBlob = await engineRef.current?.toThumbnail()
+    // Capture what the child actually sees: coloured regions under their strokes.
+    const canvasEl = cardRef.current?.querySelector('canvas') ?? null
+    const overlaySvg = cardRef.current?.querySelector<SVGSVGElement>('.coloring-layer svg') ?? null
+    const thumbnailBlob = canvasEl
+      ? await composeThumbnail(canvasEl, overlaySvg)
+      : await engineRef.current?.toThumbnail()
     const stars = await markCompleted(exercise.id, exercise.steps.length)
     await awardStars(stars)
 
@@ -233,7 +261,7 @@ export function DrawingPage() {
         />
 
         <div className="draw-main">
-          <div className="canvas-card card">
+          <div className="canvas-card card" ref={cardRef}>
             {exercise ? (
               isColoring && currentStep?.guide ? (
                 <ColoringLayer
@@ -269,6 +297,15 @@ export function DrawingPage() {
           ) : null}
         </div>
 
+        {exercise ? (
+          <StepPreview
+            exerciseId={exercise.id}
+            steps={steps}
+            currentIndex={stepIndex}
+            finalFile={steps.find((s) => s.mode === 'COLORING')?.guide}
+          />
+        ) : null}
+
         <div className="draw-next">
           <button
             className={`next-btn ${isLastStep ? 'next-btn--done' : ''}`}
@@ -280,6 +317,10 @@ export function DrawingPage() {
           </button>
         </div>
       </div>
+
+      {showCoach ? (
+        <CoachMarks steps={coachSteps} onDone={() => void markTutorialDone('draw')} />
+      ) : null}
     </div>
   )
 }

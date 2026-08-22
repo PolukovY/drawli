@@ -20,6 +20,8 @@ export async function createSettings(childName: string, language: Language): Pro
     soundEnabled: true,
     stars: 0,
     onboardedAt: new Date().toISOString(),
+    tutorialHomeDone: false,
+    tutorialDrawDone: false,
   }
   await db.settings.put(settings)
   return settings
