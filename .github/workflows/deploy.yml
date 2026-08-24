@@ -32,6 +32,9 @@ jobs:
         env:
           # Pages serves the app from /<repo>/, so Vite must build with that base.
           VITE_BASE: /${{ github.event.repository.name }}/
+          # Names the runtime caches, so a deploy retires the previous build's
+          # copies of the catalogue and the artwork instead of serving them on.
+          VITE_BUILD_ID: ${{ github.sha }}
 
       - uses: actions/upload-pages-artifact@v3
         with:

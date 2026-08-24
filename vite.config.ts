@@ -6,8 +6,22 @@ import { VitePWA } from 'vite-plugin-pwa'
 // relative to BASE_URL. Override with VITE_BASE for a custom domain.
 const base = process.env.VITE_BASE ?? '/drawli/'
 
+/**
+ * Every build gets an id, and the runtime caches are named after it. Without
+ * that, a redeploy left the old artwork and the old catalogue sitting in the
+ * exercise cache: the shell updated, the content did not, and the only way out
+ * was to uninstall the app. A new id means a new, empty cache; the stale ones
+ * are swept up on the next launch.
+ */
+const buildId = (
+  process.env.VITE_BUILD_ID
+  ?? process.env.GITHUB_SHA
+  ?? new Date().toISOString().replace(/[^0-9]/g, '')
+).slice(0, 12)
+
 export default defineConfig({
   base,
+  define: { __BUILD_ID__: JSON.stringify(buildId) },
   plugins: [
     react(),
     VitePWA({
@@ -35,6 +49,7 @@ export default defineConfig({
         ],
       },
       workbox: {
+        cleanupOutdatedCaches: true,
         // Only the shell ships with the install: the library is hundreds of
         // small SVGs and precaching them would make the first launch crawl.
         globPatterns: ['**/*.{js,css,html,ico,png}'],
@@ -47,7 +62,7 @@ export default defineConfig({
             urlPattern: /\/exercises\/index\.json$/,
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'drawli-catalogue',
+              cacheName: `drawli-catalogue-${buildId}`,
               networkTimeoutSeconds: 4,
               expiration: { maxEntries: 4, maxAgeSeconds: 60 * 60 * 24 * 365 },
             },
@@ -58,7 +73,7 @@ export default defineConfig({
             urlPattern: /\/exercises\/.*\.(?:svg|json)$/,
             handler: 'StaleWhileRevalidate',
             options: {
-              cacheName: 'drawli-exercises',
+              cacheName: `drawli-exercises-${buildId}`,
               expiration: { maxEntries: 2000, maxAgeSeconds: 60 * 60 * 24 * 180 },
             },
           },

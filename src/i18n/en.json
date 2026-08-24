@@ -111,7 +111,12 @@
     "importDrawings_one": "{{count}} drawing",
     "importDrawings_other": "{{count}} drawings",
     "importStars_one": "{{count}} star",
-    "importStars_other": "{{count}} stars"
+    "importStars_other": "{{count}} stars",
+    "refresh": "Refresh the app",
+    "refreshHint": "Fetch the newest version and artwork. Drawings, stars and settings are kept.",
+    "refreshDo": "Refresh",
+    "refreshing": "Refreshing…",
+    "build": "Version {{id}}"
   },
   "category": {
     "motor": "Motor skills",

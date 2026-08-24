@@ -114,7 +114,12 @@
     "importDrawings_many": "{{count}} малюнків",
     "importStars_one": "{{count}} зірочка",
     "importStars_few": "{{count}} зірочки",
-    "importStars_many": "{{count}} зірочок"
+    "importStars_many": "{{count}} зірочок",
+    "refresh": "Оновити застосунок",
+    "refreshHint": "Завантажити найновішу версію і малюнки. Роботи, зірки й налаштування залишаються.",
+    "refreshDo": "Оновити",
+    "refreshing": "Оновлюємо…",
+    "build": "Версія {{id}}"
   },
   "category": {
     "motor": "Моторика",

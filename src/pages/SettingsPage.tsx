@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '../components/Icon'
 import { useAppStore } from '../app/store'
+import { BUILD_ID, refreshApp } from '../app/serviceWorker'
 import {
   downloadBackup, exportBackup, parseBackup, resetEverything, restoreBackup,
   type BackupFile,
@@ -24,6 +25,7 @@ export function SettingsPage() {
   const [pendingImport, setPendingImport] = useState<BackupFile | null>(null)
   const [importError, setImportError] = useState(false)
   const [confirmReset, setConfirmReset] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
 
   async function handleFile(file: File) {
     const parsed = parseBackup(await file.text())
@@ -134,6 +136,22 @@ export function SettingsPage() {
               }}
             />
           </div>
+        </section>
+
+        <section className="card setting">
+          <span className="setting__icon"><Icon name="again" size={28} color="var(--c-accent)" /></span>
+          <div className="grow">
+            <div className="setting__title">{t('settings.refresh')}</div>
+            <div className="muted" style={{ fontSize: 16 }}>{t('settings.refreshHint')}</div>
+            <div className="muted" style={{ fontSize: 14 }}>{t('settings.build', { id: BUILD_ID })}</div>
+          </div>
+          <button
+            className="btn btn--primary"
+            disabled={refreshing}
+            onClick={() => { setRefreshing(true); void refreshApp() }}
+          >
+            {refreshing ? t('settings.refreshing') : t('settings.refreshDo')}
+          </button>
         </section>
 
         <section className="card setting">
