@@ -21,6 +21,8 @@ import { SymmetryPage } from '../pages/games/SymmetryPage'
 import { MemoryTracePage } from '../pages/games/MemoryTracePage'
 import { PuzzlePage } from '../pages/games/PuzzlePage'
 import { ListenPage } from '../pages/games/ListenPage'
+import { TicTacToePage } from '../pages/games/TicTacToePage'
+import { SnakePage } from '../pages/games/SnakePage'
 
 // HashRouter, not BrowserRouter: GitHub Pages serves no SPA fallback,
 // so a deep link like /drawli/draw/ladybug would 404 on reload.
@@ -47,4 +49,6 @@ export const router = createHashRouter([
   { path: '/memory-trace', element: <MemoryTracePage /> },
   { path: '/puzzle', element: <PuzzlePage /> },
   { path: '/listen', element: <ListenPage /> },
+  { path: '/tic-tac-toe', element: <TicTacToePage /> },
+  { path: '/snake', element: <SnakePage /> },
 ])

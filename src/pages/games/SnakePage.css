@@ -1,0 +1,57 @@
+.snake__board {
+  display: grid;
+  grid-template-columns: repeat(var(--snake-size), 34px);
+  grid-auto-rows: 34px;
+  gap: 3px;
+  padding: 10px;
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-raised);
+  touch-action: none;
+}
+
+.snake__cell {
+  border-radius: 8px;
+  background: var(--c-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 1;
+}
+.snake__cell--body { background: var(--c-accent); opacity: 0.55; }
+.snake__cell--head { background: var(--c-accent); }
+.snake__cell--crash { background: var(--c-star); }
+
+/* A cross pad: the four arrows sit where a child expects them. */
+.snake__pad {
+  display: grid;
+  grid-template-columns: repeat(3, 64px);
+  grid-template-rows: repeat(2, 64px);
+  gap: 8px;
+}
+.snake__key {
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-raised);
+  font-size: 24px;
+  color: var(--c-accent);
+  transition: transform 0.1s ease;
+}
+.snake__key:active { transform: scale(0.94); }
+.snake__key--up { grid-column: 2; grid-row: 1; }
+.snake__key--left { grid-column: 1; grid-row: 2; }
+.snake__key--down { grid-column: 2; grid-row: 2; }
+.snake__key--right { grid-column: 3; grid-row: 2; }
+
+@media (max-width: 700px) {
+  .snake__board { grid-template-columns: repeat(var(--snake-size), 26px); grid-auto-rows: 26px; gap: 2px; padding: 6px; }
+  .snake__cell { border-radius: 6px; font-size: 17px; }
+  .snake__pad { grid-template-columns: repeat(3, 56px); grid-template-rows: repeat(2, 56px); }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .snake__board { grid-template-columns: repeat(var(--snake-size), 20px); grid-auto-rows: 20px; }
+  .snake__cell { font-size: 14px; }
+  .snake__pad { grid-template-columns: repeat(3, 44px); grid-template-rows: repeat(2, 44px); }
+}
