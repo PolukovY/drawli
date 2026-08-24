@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { assetUrl, loadIndex } from '../../exercise/ExerciseLoader'
 import type { ExerciseSummary } from '../../exercise/Exercise'
-import { shuffle } from '../../games/shuffle'
+import { randomSeed, shuffle } from '../../games/shuffle'
 import { STARS_PER_ROUND } from '../../games/useGameSession'
 import { useAppStore } from '../../app/store'
 import { playSound } from '../../audio/sounds'
@@ -26,7 +26,7 @@ export function PuzzlePage() {
   const awardStars = useAppStore((s) => s.awardStars)
   const stars = useAppStore((s) => s.settings?.stars ?? 0)
 
-  const [seed, setSeed] = useState(1)
+  const [seed, setSeed] = useState(randomSeed)
   const [pictures, setPictures] = useState<ExerciseSummary[]>([])
   const [round, setRound] = useState(0)
   const roundRef = useRef(0)

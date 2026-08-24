@@ -9,3 +9,11 @@ export function shuffle<T>(items: T[], seed: number): T[] {
   }
   return out
 }
+
+/**
+ * A starting seed for a game. Fixed seeds dealt the same round every time the
+ * app was opened; kept small so the shuffle arithmetic stays exact.
+ */
+export function randomSeed(): number {
+  return 1 + Math.floor(Math.random() * 100000)
+}

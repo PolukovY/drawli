@@ -520,11 +520,9 @@
     "memory": "Пари",
     "memoryHint": "Знайди дві однакові картинки",
     "colorNumbers": "Розфарбуй за номерами",
-    "colorNumbersHint": "Залий кожну область своїм кольором",
+    "colorNumbersHint": "У кожної області є номер — залий її кольором із тим самим номером",
     "puzzle": "Плутанина",
     "puzzleHint": "Постав шматочки на місця",
-    "countDraw": "Порахуй і намалюй",
-    "countDrawHint": "Намалюй стільки ліній, скільки просять",
     "symmetry": "Домалюй половинку",
     "symmetryHint": "Домалюй другу половинку",
     "memoryTrace": "Обведи по пам’яті",
@@ -552,7 +550,11 @@
     "snakeUp": "Вгору",
     "snakeDown": "Вниз",
     "snakeLeft": "Ліворуч",
-    "snakeRight": "Праворуч"
+    "snakeRight": "Праворуч",
+    "colorNumbersPick": "Обери колір знизу",
+    "colorNumbersTap": "Тепер торкнись областей з номером {{number}}",
+    "countThings": "Порахуй фігурки",
+    "countThingsHint": "Скільки тут таких?"
   },
   "free": {
     "title": "Чистий аркуш",

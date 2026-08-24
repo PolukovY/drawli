@@ -5,7 +5,7 @@ import type { ExerciseSummary } from '../../exercise/Exercise'
 import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
-import { shuffle } from '../../games/shuffle'
+import { randomSeed, shuffle } from '../../games/shuffle'
 import { Icon } from '../../components/Icon'
 
 const ROUNDS = 5
@@ -20,7 +20,7 @@ interface Round {
 export function OddOneOutPage() {
   const { t } = useTranslation()
   const content = useGameContent('uk')
-  const [seed, setSeed] = useState(1)
+  const [seed, setSeed] = useState(randomSeed)
   const [wrong, setWrong] = useState<string[]>([])
 
   const rounds = useMemo<Round[]>(() => {

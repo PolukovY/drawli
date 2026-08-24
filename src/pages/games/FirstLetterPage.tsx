@@ -5,7 +5,7 @@ import { assetUrl, type WordLanguage } from '../../exercise/ExerciseLoader'
 import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
-import { shuffle } from '../../games/shuffle'
+import { randomSeed, shuffle } from '../../games/shuffle'
 import { Icon } from '../../components/Icon'
 import './FirstLetterPage.css'
 
@@ -30,7 +30,7 @@ export function FirstLetterPage() {
   const language: WordLanguage = requested === 'en' || requested === 'es' ? requested : 'uk'
 
   const content = useGameContent(language)
-  const [seed, setSeed] = useState(1)
+  const [seed, setSeed] = useState(randomSeed)
   const [wrong, setWrong] = useState<string[]>([])
 
   const rounds = useMemo<Round[]>(() => {

@@ -5,6 +5,7 @@ import { Icon } from '../components/Icon'
 import { Fireworks } from '../components/Fireworks'
 import { playSound } from '../audio/sounds'
 import { useAppStore } from '../app/store'
+import { randomSeed } from '../games/shuffle'
 import { assetUrl, loadArticles, loadIndex, loadWords, type WordLanguage } from '../exercise/ExerciseLoader'
 import type { ExerciseSummary } from '../exercise/Exercise'
 import '../styles/ui.css'
@@ -59,7 +60,7 @@ export function GuessGamePage() {
   const [round, setRound] = useState(0)
   const roundRef = useRef(0)
   roundRef.current = round
-  const [seed, setSeed] = useState(1)
+  const [seed, setSeed] = useState(randomSeed)
   const [picked, setPicked] = useState<string[]>([])
   const [solved, setSolved] = useState(false)
   const [earned, setEarned] = useState(0)

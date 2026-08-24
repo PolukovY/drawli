@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { loadIndex, loadRegions, loadSvg, type PaintRegion } from '../../exercise/ExerciseLoader'
-import { shuffle } from '../../games/shuffle'
+import { randomSeed, shuffle } from '../../games/shuffle'
 import { STARS_PER_ROUND } from '../../games/useGameSession'
 import { useAppStore } from '../../app/store'
 import { playSound } from '../../audio/sounds'
@@ -48,7 +48,7 @@ export function ColorByNumbersPage() {
   const [round, setRound] = useState(0)
   const roundRef = useRef(0)
   roundRef.current = round
-  const [seed, setSeed] = useState(1)
+  const [seed, setSeed] = useState(randomSeed)
   const [markup, setMarkup] = useState('')
   const [filled, setFilled] = useState<Record<string, string>>({})
   const [picked, setPicked] = useState<PaintRegion | null>(null)
@@ -93,6 +93,67 @@ export function ColorByNumbersPage() {
       region.setAttribute('fill', filled[id] ?? UNPAINTED)
     }
   }, [filled, markup])
+
+  /**
+   * The number has to be *on* the picture, not only on the palette — otherwise
+   * there is nothing telling the child which area wants which colour. The
+   * regions carry no coordinates, so each label is measured from the shape and
+   * then nudged off its neighbours: a mushroom cap and its spots share a
+   * middle, and two numbers printed on the same spot read as one smudge.
+   */
+  useEffect(() => {
+    const container = containerRef.current
+    const svg = container?.querySelector('svg')
+    if (!container || !svg || !current) return
+
+    for (const old of Array.from(svg.querySelectorAll('.paint-number'))) old.remove()
+
+    const placed: Array<{ x: number; y: number }> = []
+
+    // Biggest shapes first: they have the most room to give way in.
+    const boxes = current.regions
+      .map((region) => {
+        const group = container.querySelector<SVGGElement>(`[data-region="${region.id}"]`)
+        if (!group) return null
+        try {
+          const box = group.getBBox()
+          return box.width > 0 && box.height > 0 ? { region, box } : null
+        } catch { return null }
+      })
+      .filter((entry): entry is { region: PaintRegion; box: DOMRect } => entry !== null)
+      .sort((a, b) => b.box.width * b.box.height - a.box.width * a.box.height)
+
+    for (const { region, box } of boxes) {
+      const size = Math.max(14, Math.min(30, Math.min(box.width, box.height) * 0.45))
+      const candidates = [
+        { x: box.x + box.width / 2, y: box.y + box.height / 2 },
+        { x: box.x + box.width / 2, y: box.y + box.height * 0.24 },
+        { x: box.x + box.width / 2, y: box.y + box.height * 0.76 },
+        { x: box.x + box.width * 0.24, y: box.y + box.height / 2 },
+        { x: box.x + box.width * 0.76, y: box.y + box.height / 2 },
+      ]
+      const spot = candidates.reduce((best, point) => {
+        const clear = Math.min(
+          ...placed.map((other) => Math.hypot(other.x - point.x, other.y - point.y)),
+          Number.POSITIVE_INFINITY,
+        )
+        return clear > best.clear ? { point, clear } : best
+      }, { point: candidates[0], clear: -1 }).point
+      placed.push(spot)
+
+      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text')
+      label.textContent = String(region.number)
+      label.setAttribute('class', 'paint-number')
+      label.setAttribute('x', String(spot.x))
+      label.setAttribute('y', String(spot.y))
+      label.setAttribute('text-anchor', 'middle')
+      label.setAttribute('dominant-baseline', 'central')
+      label.setAttribute('font-size', String(size))
+      // Painted areas keep their number, quietly, so the child can check.
+      label.setAttribute('opacity', filled[region.id] ? '0.35' : '1')
+      svg.appendChild(label)
+    }
+  }, [markup, current, filled])
 
   const done = useMemo(
     () => Boolean(current) && current.regions.every((r) => filled[r.id] === r.color),
@@ -209,7 +270,9 @@ export function ColorByNumbersPage() {
             ))}
           </div>
 
-          <div className="muted game-hint">{t('play.colorNumbersHint')}</div>
+          <div className="muted game-hint">
+            {picked ? t('play.colorNumbersTap', { number: picked.number }) : t('play.colorNumbersPick')}
+          </div>
         </div>
       ) : (
         <div className="subtitle">{t('play.loading')}</div>

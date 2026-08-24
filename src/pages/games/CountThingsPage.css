@@ -1,0 +1,57 @@
+.count-things__ask {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--c-text);
+}
+.count-things__wanted { font-size: 40px; line-height: 1; }
+
+.count-things__stage {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+  max-width: 620px;
+  min-height: 220px;
+}
+
+.count-things__item { font-size: 44px; line-height: 1; transition: opacity 0.2s ease; }
+/* Once the answer is in, the counted kind stands out and the rest steps back. */
+.count-things__stage--solved .count-things__item { opacity: 0.25; }
+.count-things__stage--solved .count-things__item--ok { opacity: 1; }
+
+.count-things__choices { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+
+.count-things__number {
+  width: 84px;
+  height: 84px;
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-raised);
+  border: 3px solid transparent;
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--c-accent);
+  transition: transform 0.1s ease, border-color 0.2s ease, opacity 0.25s ease;
+}
+.count-things__number:active { transform: scale(0.95); }
+.count-things__number--ok { border-color: var(--c-success); background: var(--c-success-bg); }
+.count-things__number--off { opacity: 0.3; box-shadow: none; }
+
+@media (max-width: 700px) {
+  .count-things__ask { font-size: 17px; }
+  .count-things__wanted { font-size: 30px; }
+  .count-things__stage { gap: 10px 14px; padding: 14px; min-height: 150px; }
+  .count-things__item { font-size: 32px; }
+  .count-things__number { width: 62px; height: 62px; font-size: 28px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .count-things__stage { min-height: 110px; padding: 10px; }
+  .count-things__item { font-size: 26px; }
+  .count-things__number { width: 54px; height: 54px; font-size: 24px; }
+}

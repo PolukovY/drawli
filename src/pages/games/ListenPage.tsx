@@ -5,7 +5,7 @@ import { assetUrl, type WordLanguage } from '../../exercise/ExerciseLoader'
 import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
-import { shuffle } from '../../games/shuffle'
+import { randomSeed, shuffle } from '../../games/shuffle'
 import { playSound } from '../../audio/sounds'
 import { Icon } from '../../components/Icon'
 import './ListenPage.css'
@@ -35,7 +35,7 @@ export function ListenPage() {
   const language: WordLanguage = requested === 'en' || requested === 'es' ? requested : 'uk'
 
   const content = useGameContent(language)
-  const [seed, setSeed] = useState(1)
+  const [seed, setSeed] = useState(randomSeed)
   const [typed, setTyped] = useState<string[]>([])
   const [used, setUsed] = useState<number[]>([])
   const [revealed, setRevealed] = useState(false)

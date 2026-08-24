@@ -5,6 +5,7 @@ import { Icon } from '../components/Icon'
 import { Fireworks } from '../components/Fireworks'
 import { playSound } from '../audio/sounds'
 import { useAppStore } from '../app/store'
+import { randomSeed } from '../games/shuffle'
 import { assetUrl, loadIndex, loadWords, type WordLanguage } from '../exercise/ExerciseLoader'
 import type { ExerciseSummary } from '../exercise/Exercise'
 import '../styles/ui.css'
@@ -61,7 +62,7 @@ export function SpellGamePage() {
   const [pool, setPool] = useState<ExerciseSummary[]>([])
   const [dictionary, setDictionary] = useState<Record<string, string>>({})
   const [round, setRound] = useState(0)
-  const [seed, setSeed] = useState(1)
+  const [seed, setSeed] = useState(randomSeed)
   // Slots and the used-tile set move together: keeping them in two states meant
   // one updater had to call the other, and React re-invokes updaters (StrictMode),
   // which placed the same tile twice.

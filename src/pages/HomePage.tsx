@@ -13,6 +13,17 @@ import type { SavedDrawing } from '../storage/types'
 import '../styles/ui.css'
 import './HomePage.css'
 
+/** Which tab the child was on, so coming back from a game lands there. */
+const MODE_KEY = 'drawli.home.mode'
+
+function rememberedMode(): CategoryKind | 'play' {
+  try {
+    const saved = sessionStorage.getItem(MODE_KEY)
+    if (saved === 'draw' || saved === 'write' || saved === 'play') return saved
+  } catch { /* private mode has no storage; the default tab is fine */ }
+  return 'draw'
+}
+
 const PLAY_LANGUAGES: Array<{ id: WordLanguage; label: string }> = [
   { id: 'uk', label: 'Українська' },
   { id: 'en', label: 'English' },
@@ -30,7 +41,7 @@ export function HomePage() {
   }, [settings?.language])
 
   const [index, setIndex] = useState<ExerciseIndex | null>(null)
-  const [mode, setMode] = useState<CategoryKind | 'play'>('draw')
+  const [mode, setMode] = useState<CategoryKind | 'play'>(rememberedMode)
   const [category, setCategory] = useState<string>('all')
   const [playLanguage, setPlayLanguage] = useState<WordLanguage>('uk')
   const [resume, setResume] = useState<SavedDrawing | null>(null)
@@ -62,6 +73,7 @@ export function HomePage() {
   function switchMode(next: CategoryKind | 'play') {
     setMode(next)
     setCategory('all')
+    try { sessionStorage.setItem(MODE_KEY, next) } catch { /* nothing to remember with */ }
   }
 
   const resumeExercise = index?.exercises.find((e) => e.id === resume?.exerciseId)

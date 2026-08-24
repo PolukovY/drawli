@@ -16,7 +16,7 @@ import { FindLetterPage } from '../pages/games/FindLetterPage'
 import { FirstLetterPage } from '../pages/games/FirstLetterPage'
 import { MemoryPage } from '../pages/games/MemoryPage'
 import { ColorByNumbersPage } from '../pages/games/ColorByNumbersPage'
-import { CountDrawPage } from '../pages/games/CountDrawPage'
+import { CountThingsPage } from '../pages/games/CountThingsPage'
 import { SymmetryPage } from '../pages/games/SymmetryPage'
 import { MemoryTracePage } from '../pages/games/MemoryTracePage'
 import { PuzzlePage } from '../pages/games/PuzzlePage'
@@ -44,7 +44,7 @@ export const router = createHashRouter([
   { path: '/first-letter', element: <FirstLetterPage /> },
   { path: '/memory', element: <MemoryPage /> },
   { path: '/color-by-numbers', element: <ColorByNumbersPage /> },
-  { path: '/count-draw', element: <CountDrawPage /> },
+  { path: '/count-things', element: <CountThingsPage /> },
   { path: '/symmetry', element: <SymmetryPage /> },
   { path: '/memory-trace', element: <MemoryTracePage /> },
   { path: '/puzzle', element: <PuzzlePage /> },

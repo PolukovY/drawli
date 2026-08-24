@@ -7,7 +7,7 @@ import { Icon } from '../../components/Icon'
 import type { DrawingEngine } from '../../drawing/DrawingEngine'
 import type { DrawingAction } from '../../storage/types'
 import { loadIndex, loadSvg } from '../../exercise/ExerciseLoader'
-import { shuffle } from '../../games/shuffle'
+import { randomSeed, shuffle } from '../../games/shuffle'
 import { STARS_PER_ROUND } from '../../games/useGameSession'
 import { useAppStore } from '../../app/store'
 import { playSound } from '../../audio/sounds'
@@ -33,7 +33,7 @@ export function SymmetryPage() {
   const stars = useAppStore((s) => s.settings?.stars ?? 0)
   const color = useAppStore((s) => s.color)
 
-  const [seed, setSeed] = useState(1)
+  const [seed, setSeed] = useState(randomSeed)
   const [rounds, setRounds] = useState<Round[]>([])
   const [round, setRound] = useState(0)
   const roundRef = useRef(0)

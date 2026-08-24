@@ -4,7 +4,7 @@ import { assetUrl } from '../../exercise/ExerciseLoader'
 import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
-import { shuffle } from '../../games/shuffle'
+import { randomSeed, shuffle } from '../../games/shuffle'
 import { Icon } from '../../components/Icon'
 import './CountPage.css'
 
@@ -21,7 +21,7 @@ interface Round {
 export function CountPage() {
   const { t } = useTranslation()
   const content = useGameContent('uk')
-  const [seed, setSeed] = useState(1)
+  const [seed, setSeed] = useState(randomSeed)
   const [wrong, setWrong] = useState<number[]>([])
 
   const rounds = useMemo<Round[]>(() => {

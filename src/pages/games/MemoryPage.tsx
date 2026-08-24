@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { assetUrl } from '../../exercise/ExerciseLoader'
 import { useGameContent } from '../../games/useGameContent'
-import { shuffle } from '../../games/shuffle'
+import { randomSeed, shuffle } from '../../games/shuffle'
 import { STARS_PER_ROUND } from '../../games/useGameSession'
 import { useAppStore } from '../../app/store'
 import { playSound } from '../../audio/sounds'
@@ -33,7 +33,9 @@ export function MemoryPage() {
   const stars = useAppStore((s) => s.settings?.stars ?? 0)
   const content = useGameContent('uk')
 
-  const [seed, setSeed] = useState(1)
+  // Random on every visit: a fixed seed dealt the same six pictures in the
+  // same squares each time the game was opened, so it stopped being memory.
+  const [seed, setSeed] = useState(randomSeed)
   const [flipped, setFlipped] = useState<string[]>([])
   const [matched, setMatched] = useState<string[]>([])
   const [busy, setBusy] = useState(false)

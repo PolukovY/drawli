@@ -517,11 +517,9 @@
     "memory": "Pairs",
     "memoryHint": "Find two matching pictures",
     "colorNumbers": "Colour by numbers",
-    "colorNumbersHint": "Fill every area with its colour",
+    "colorNumbersHint": "Every area has a number — give it the colour with the same number",
     "puzzle": "Jigsaw",
     "puzzleHint": "Put the pieces back",
-    "countDraw": "Count and draw",
-    "countDrawHint": "Draw as many lines as asked",
     "symmetry": "Draw the other half",
     "symmetryHint": "Finish the second half",
     "memoryTrace": "Trace from memory",
@@ -549,7 +547,11 @@
     "snakeUp": "Up",
     "snakeDown": "Down",
     "snakeLeft": "Left",
-    "snakeRight": "Right"
+    "snakeRight": "Right",
+    "colorNumbersPick": "Pick a colour below",
+    "colorNumbersTap": "Now tap every area with the number {{number}}",
+    "countThings": "Count the things",
+    "countThingsHint": "How many of these are there?"
   },
   "free": {
     "title": "Blank sheet",

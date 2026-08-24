@@ -25,7 +25,7 @@ export const GAMES: GameEntry[] = [
   { id: 'memory', path: '/memory', titleKey: 'play.memory', art: '🃏', languages: 'all', order: 10 },
   { id: 'colornumbers', path: '/color-by-numbers', titleKey: 'play.colorNumbers', art: '🎨', languages: 'all', order: 11 },
   { id: 'puzzle', path: '/puzzle', titleKey: 'play.puzzle', art: '🧷', languages: 'all', order: 12 },
-  { id: 'countdraw', path: '/count-draw', titleKey: 'play.countDraw', art: '✏️', languages: 'all', order: 13 },
+  { id: 'countthings', path: '/count-things', titleKey: 'play.countThings', art: '🍎', languages: 'all', order: 13 },
   { id: 'symmetry', path: '/symmetry', titleKey: 'play.symmetry', art: '🦋', languages: 'all', order: 14 },
   { id: 'memorytrace', path: '/memory-trace', titleKey: 'play.memoryTrace', art: '💭', languages: 'all', order: 15 },
   { id: 'listen', path: '/listen', titleKey: 'play.listen', art: '🔊', languages: 'all', order: 16 },

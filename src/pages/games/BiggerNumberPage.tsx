@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GameShell } from '../../games/GameShell'
 import { useGameSession } from '../../games/useGameSession'
-import { shuffle } from '../../games/shuffle'
+import { randomSeed, shuffle } from '../../games/shuffle'
 import { Icon } from '../../components/Icon'
 import './BiggerNumberPage.css'
 
@@ -15,7 +15,7 @@ interface Round {
 /** Which number is bigger — comparison, with nothing to read. */
 export function BiggerNumberPage() {
   const { t } = useTranslation()
-  const [seed, setSeed] = useState(1)
+  const [seed, setSeed] = useState(randomSeed)
   const [wrong, setWrong] = useState<number[]>([])
 
   const rounds = useMemo<Round[]>(() => {
