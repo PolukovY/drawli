@@ -24,6 +24,18 @@ import { ListenPage } from '../pages/games/ListenPage'
 import { TicTacToePage } from '../pages/games/TicTacToePage'
 import { SnakePage } from '../pages/games/SnakePage'
 import { SeaBattlePage } from '../pages/games/SeaBattlePage'
+import { PatternsPage } from '../pages/games/PatternsPage'
+import { DotsPage } from '../pages/games/DotsPage'
+import { ShadowPage } from '../pages/games/ShadowPage'
+import { WhatsGonePage } from '../pages/games/WhatsGonePage'
+import { SizeOrderPage } from '../pages/games/SizeOrderPage'
+import { SortingPage } from '../pages/games/SortingPage'
+import { MazePage } from '../pages/games/MazePage'
+import { PlusMinusPage } from '../pages/games/PlusMinusPage'
+import { PictureSudokuPage } from '../pages/games/PictureSudokuPage'
+import { DifferencesPage } from '../pages/games/DifferencesPage'
+import { SyllablesPage } from '../pages/games/SyllablesPage'
+import { OddWordPage } from '../pages/games/OddWordPage'
 
 // HashRouter, not BrowserRouter: GitHub Pages serves no SPA fallback,
 // so a deep link like /drawli/draw/ladybug would 404 on reload.
@@ -53,4 +65,16 @@ export const router = createHashRouter([
   { path: '/tic-tac-toe', element: <TicTacToePage /> },
   { path: '/snake', element: <SnakePage /> },
   { path: '/sea-battle', element: <SeaBattlePage /> },
+  { path: '/patterns', element: <PatternsPage /> },
+  { path: '/connect-dots', element: <DotsPage /> },
+  { path: '/shadow', element: <ShadowPage /> },
+  { path: '/whats-gone', element: <WhatsGonePage /> },
+  { path: '/size-order', element: <SizeOrderPage /> },
+  { path: '/sorting', element: <SortingPage /> },
+  { path: '/maze', element: <MazePage /> },
+  { path: '/plus-minus', element: <PlusMinusPage /> },
+  { path: '/picture-sudoku', element: <PictureSudokuPage /> },
+  { path: '/differences', element: <DifferencesPage /> },
+  { path: '/syllables', element: <SyllablesPage /> },
+  { path: '/odd-word', element: <OddWordPage /> },
 ])

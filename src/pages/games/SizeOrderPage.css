@@ -1,0 +1,40 @@
+.size__row { display: flex; gap: 16px; align-items: flex-end; flex-wrap: wrap; justify-content: center; }
+
+.size__card {
+  position: relative;
+  width: 140px;
+  height: 150px;
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-raised);
+  border: 3px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease, border-color 0.2s ease, opacity 0.25s ease;
+}
+.size__card:active { transform: scale(0.96); }
+.size__card--done { border-color: var(--c-success); background: var(--c-success-bg); }
+
+/* The order the child has built so far, written on the cards. */
+.size__badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: var(--c-success);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .size__row { gap: 8px; }
+  .size__card { width: 84px; height: 100px; }
+  .size__badge { width: 24px; height: 24px; font-size: 13px; }
+}

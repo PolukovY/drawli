@@ -1,0 +1,58 @@
+.sum__row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 720px;
+}
+
+.sum__group { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; max-width: 260px; }
+.sum__thing { font-size: 38px; line-height: 1; }
+/* Taken away, but still on the table to be counted past. */
+.sum__thing--gone { opacity: 0.28; text-decoration: line-through; }
+
+.sum__sign { font-size: 34px; font-weight: 800; color: var(--c-text-soft); }
+
+.sum__answer {
+  min-width: 62px;
+  height: 62px;
+  padding: 0 12px;
+  border-radius: var(--r-lg, 16px);
+  border: 3px dashed var(--c-accent);
+  color: var(--c-accent);
+  font-size: 32px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sum__answer--ok { border-style: solid; border-color: var(--c-success); color: var(--c-success); }
+
+.sum__choices { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+
+.sum__choice {
+  width: 84px;
+  height: 84px;
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-raised);
+  border: 3px solid transparent;
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--c-accent);
+  transition: transform 0.1s ease, border-color 0.2s ease, opacity 0.25s ease;
+}
+.sum__choice:active { transform: scale(0.95); }
+.sum__choice--ok { border-color: var(--c-success); background: var(--c-success-bg); }
+.sum__choice--off { opacity: 0.3; box-shadow: none; }
+
+@media (max-width: 700px) {
+  .sum__row { gap: 8px; padding: 14px; }
+  .sum__thing { font-size: 26px; }
+  .sum__group { max-width: 150px; gap: 4px; }
+  .sum__sign { font-size: 24px; }
+  .sum__answer { min-width: 46px; height: 46px; font-size: 24px; }
+  .sum__choice { width: 62px; height: 62px; font-size: 26px; }
+}

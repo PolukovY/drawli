@@ -32,6 +32,18 @@ export const GAMES: GameEntry[] = [
   { id: 'tictactoe', path: '/tic-tac-toe', titleKey: 'play.ticTacToe', art: '⭕', languages: 'all', order: 17 },
   { id: 'snake', path: '/snake', titleKey: 'play.snake', art: '🐍', languages: 'all', order: 18 },
   { id: 'seabattle', path: '/sea-battle', titleKey: 'play.seaBattle', art: '🚢', languages: 'all', order: 19 },
+  { id: 'patterns', path: '/patterns', titleKey: 'play.patterns', art: '🔁', languages: 'all', order: 20 },
+  { id: 'dots', path: '/connect-dots', titleKey: 'play.dots', art: '🔢', languages: 'all', order: 21 },
+  { id: 'shadow', path: '/shadow', titleKey: 'play.shadow', art: '🌑', languages: 'all', order: 22 },
+  { id: 'whatsgone', path: '/whats-gone', titleKey: 'play.whatsGone', art: '🫥', languages: 'all', order: 23 },
+  { id: 'sizeorder', path: '/size-order', titleKey: 'play.sizeOrder', art: '📏', languages: 'all', order: 24 },
+  { id: 'sorting', path: '/sorting', titleKey: 'play.sorting', art: '🧺', languages: 'all', order: 25 },
+  { id: 'maze', path: '/maze', titleKey: 'play.maze', art: '🧭', languages: 'all', order: 26 },
+  { id: 'plusminus', path: '/plus-minus', titleKey: 'play.plusMinus', art: '➕', languages: 'all', order: 27 },
+  { id: 'sudoku', path: '/picture-sudoku', titleKey: 'play.sudoku', art: '🧠', languages: 'all', order: 28 },
+  { id: 'differences', path: '/differences', titleKey: 'play.differences', art: '🔍', languages: 'all', order: 29 },
+  { id: 'syllables', path: '/syllables', titleKey: 'play.syllables', art: '👏', languages: 'all', order: 30 },
+  { id: 'oddword', path: '/odd-word', titleKey: 'play.oddWord', art: '🎧', languages: 'all', order: 31 },
 ]
 
 export function gamesFor(language: WordLanguage): GameEntry[] {

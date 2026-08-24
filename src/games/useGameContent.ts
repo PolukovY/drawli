@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import {
   loadArticles, loadIndex, loadWords, type WordLanguage,
 } from '../exercise/ExerciseLoader'
-import type { ExerciseSummary } from '../exercise/Exercise'
+import type { CategorySummary, ExerciseSummary } from '../exercise/Exercise'
 
 /** Lines, waves and polygons are not things a word game can name. */
 const ABSTRACT_CATEGORIES = new Set(['motor', 'shapes'])
@@ -12,6 +12,8 @@ export interface GameContent {
   pictures: ExerciseSummary[]
   /** Every picture, including shapes — useful for counting and memory. */
   allPictures: ExerciseSummary[]
+  /** Drawing categories, for games that sort pictures into groups. */
+  categories: CategorySummary[]
   words: Record<string, string>
   articles: Record<string, string>
   letters: string[]
@@ -22,6 +24,7 @@ export interface GameContent {
 export function useGameContent(language: WordLanguage): GameContent {
   const [pictures, setPictures] = useState<ExerciseSummary[]>([])
   const [allPictures, setAllPictures] = useState<ExerciseSummary[]>([])
+  const [categories, setCategories] = useState<CategorySummary[]>([])
   const [letters, setLetters] = useState<string[]>([])
   const [words, setWords] = useState<Record<string, string>>({})
   const [articles, setArticles] = useState<Record<string, string>>({})
@@ -29,7 +32,9 @@ export function useGameContent(language: WordLanguage): GameContent {
   useEffect(() => {
     void loadIndex()
       .then((index) => {
-        const drawing = index.categories.filter((c) => c.kind === 'draw').map((c) => c.id)
+        const drawingCategories = index.categories.filter((c) => c.kind === 'draw')
+        const drawing = drawingCategories.map((c) => c.id)
+        setCategories(drawingCategories)
         const namable = new Set(drawing.filter((id) => !ABSTRACT_CATEGORIES.has(id)))
         setAllPictures(index.exercises.filter((e) => drawing.includes(e.category)))
         setPictures(index.exercises.filter((e) => namable.has(e.category)))
@@ -54,11 +59,12 @@ export function useGameContent(language: WordLanguage): GameContent {
     () => ({
       pictures,
       allPictures,
+      categories,
       words,
       articles,
       letters,
       ready: pictures.length > 0 && Object.keys(words).length > 0,
     }),
-    [pictures, allPictures, words, articles, letters],
+    [pictures, allPictures, categories, words, articles, letters],
   )
 }

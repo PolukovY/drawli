@@ -1,0 +1,24 @@
+.oddword__list { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; max-width: 720px; }
+
+.oddword__card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px;
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-raised);
+  border: 3px solid transparent;
+  transition: transform 0.1s ease, border-color 0.2s ease, opacity 0.25s ease;
+}
+.oddword__card:active { transform: scale(0.97); }
+.oddword__card--ok { border-color: var(--c-success); background: var(--c-success-bg); }
+.oddword__card--off { opacity: 0.3; box-shadow: none; }
+
+.oddword__text { font-size: 26px; font-weight: 800; }
+.oddword__say { display: flex; align-items: center; }
+
+@media (max-width: 700px) {
+  .oddword__card { padding: 12px 14px; }
+  .oddword__text { font-size: 19px; }
+}

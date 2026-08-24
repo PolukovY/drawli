@@ -1,0 +1,36 @@
+.dots__board {
+  width: min(58vh, 460px);
+  height: min(58vh, 460px);
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dots__svg { width: 100%; height: 100%; touch-action: manipulation; }
+
+.dots__line {
+  stroke: var(--c-accent);
+  stroke-width: 2.4;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.dots__dot circle {
+  fill: var(--c-surface);
+  stroke: var(--c-divider);
+  stroke-width: 1.4;
+  cursor: pointer;
+}
+.dots__dot text {
+  font-size: 5px;
+  font-weight: 800;
+  fill: var(--c-text-soft);
+  pointer-events: none;
+}
+.dots__dot--done circle { fill: var(--c-accent); stroke: var(--c-accent); }
+.dots__dot--done text { fill: #fff; }
+
+@media (max-width: 700px) {
+  .dots__board { width: min(46vh, 320px); height: min(46vh, 320px); padding: 8px; }
+}

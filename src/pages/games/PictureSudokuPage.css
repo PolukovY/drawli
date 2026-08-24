@@ -1,0 +1,47 @@
+.sudoku__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 74px);
+  grid-auto-rows: 74px;
+  gap: 4px;
+  padding: 10px;
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-raised);
+}
+
+.sudoku__cell {
+  border-radius: 10px;
+  background: var(--c-inset);
+  font-size: 36px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sudoku__cell:disabled { opacity: 1; }
+.sudoku__cell--blank { background: var(--c-bg); border: 3px dashed var(--c-divider); }
+.sudoku__cell--done { border-style: solid; border-color: var(--c-success); background: var(--c-success-bg); }
+
+/* Every other 2x2 block is tinted, so the corner rule is visible. */
+.sudoku__cell--alt { background: var(--c-divider); }
+.sudoku__cell--alt.sudoku__cell--blank { background: var(--c-surface); }
+
+.sudoku__tray { display: flex; gap: 14px; }
+
+.sudoku__tile {
+  width: 74px;
+  height: 74px;
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-raised);
+  border: 3px solid transparent;
+  font-size: 36px;
+  transition: transform 0.1s ease, border-color 0.2s ease;
+}
+.sudoku__tile--held { border-color: var(--c-accent); transform: scale(1.06); }
+
+@media (max-width: 700px) {
+  .sudoku__grid { grid-template-columns: repeat(4, 56px); grid-auto-rows: 56px; }
+  .sudoku__cell { font-size: 26px; }
+  .sudoku__tile { width: 56px; height: 56px; font-size: 26px; }
+}
