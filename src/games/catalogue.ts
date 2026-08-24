@@ -31,6 +31,7 @@ export const GAMES: GameEntry[] = [
   { id: 'listen', path: '/listen', titleKey: 'play.listen', art: '🔊', languages: 'all', order: 16 },
   { id: 'tictactoe', path: '/tic-tac-toe', titleKey: 'play.ticTacToe', art: '⭕', languages: 'all', order: 17 },
   { id: 'snake', path: '/snake', titleKey: 'play.snake', art: '🐍', languages: 'all', order: 18 },
+  { id: 'seabattle', path: '/sea-battle', titleKey: 'play.seaBattle', art: '🚢', languages: 'all', order: 19 },
 ]
 
 export function gamesFor(language: WordLanguage): GameEntry[] {

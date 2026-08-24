@@ -2,6 +2,7 @@ type IconName =
   | 'pencil' | 'brush' | 'fill' | 'eraser' | 'undo' | 'redo'
   | 'back' | 'home' | 'star' | 'check' | 'arrow' | 'gallery'
   | 'gear' | 'play' | 'plus' | 'globe' | 'sound' | 'download' | 'trash' | 'user' | 'shield' | 'again'
+  | 'eye' | 'eyeOff'
 
 const paths: Record<IconName, React.ReactNode> = {
   pencil: <><path d="M15.5 4.5l4 4L8 20H4v-4z" /><path d="M13.5 6.5l4 4" /></>,
@@ -25,6 +26,8 @@ const paths: Record<IconName, React.ReactNode> = {
   trash: <><path d="M4 7h16" /><path d="M9 7V4.5h6V7" /><path d="M6.5 7l1 12.5h9L18 7" /></>,
   user: <><circle cx="12" cy="8" r="4" /><path d="M4.5 20c1-4 4-6 7.5-6s6.5 2 7.5 6" /></>,
   shield: <path d="M12 3l7 3.5v5c0 4.5-3 8-7 9.5-4-1.5-7-5-7-9.5v-5z" />,
+  eye: <><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" /><circle cx="12" cy="12" r="3.2" /></>,
+  eyeOff: <><path d="M4 4l16 16" /><path d="M9.9 5.9A9.7 9.7 0 0112 5.5c6 0 9.5 6.5 9.5 6.5a17 17 0 01-3.3 4" /><path d="M6.6 7.6A16.7 16.7 0 002.5 12S6 18.5 12 18.5c1.4 0 2.6-.3 3.7-.8" /><path d="M9.9 9.9a3.2 3.2 0 004.3 4.3" /></>,
   again: <><path d="M20 11a8 8 0 10-2.3 6" /><path d="M20 4v7h-7" /></>,
 }
 

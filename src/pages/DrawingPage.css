@@ -223,3 +223,14 @@
   .tool { width: 42px; height: 42px; min-height: 42px; }
   .tool svg { width: 21px; height: 21px; }
 }
+
+/* Hiding the outline is a deliberate choice, so the button says so when it is
+   the state the child is in. */
+.guides-toggle--off {
+  border: 2px solid var(--c-accent);
+  color: var(--c-accent);
+}
+
+@media (max-width: 700px) {
+  .guides-toggle { padding: 0 10px; font-size: 14px; }
+}

@@ -1,0 +1,52 @@
+.sea__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 64px);
+  grid-auto-rows: 64px;
+  gap: 6px;
+  padding: 10px;
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-raised);
+}
+
+.sea__cell {
+  border-radius: 12px;
+  background: #DCEBFA;
+  font-size: 30px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease, background 0.2s ease;
+}
+.sea__cell:active { transform: scale(0.94); }
+.sea__cell:disabled { opacity: 1; }
+.sea__cell--miss { background: var(--c-inset); }
+.sea__cell--hit { background: var(--c-success-bg); }
+.sea__cell--sunk { background: var(--c-success); }
+
+/* The fleet strip says what is still out there without spoiling where. */
+.sea__fleet { display: flex; gap: 14px; align-items: center; }
+.sea__ship { display: flex; gap: 3px; }
+.sea__ship i {
+  width: 16px;
+  height: 16px;
+  border-radius: 5px;
+  background: var(--c-accent);
+  opacity: 0.55;
+  transition: opacity 0.2s ease, background 0.2s ease;
+}
+.sea__ship--sunk i { background: var(--c-success); opacity: 1; }
+
+.sea__score { font-size: 16px; }
+
+@media (max-width: 700px) {
+  .sea__grid { grid-template-columns: repeat(6, 46px); grid-auto-rows: 46px; gap: 4px; padding: 6px; }
+  .sea__cell { font-size: 22px; border-radius: 9px; }
+  .sea__ship i { width: 12px; height: 12px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .sea__grid { grid-template-columns: repeat(6, 38px); grid-auto-rows: 38px; }
+  .sea__cell { font-size: 18px; }
+}

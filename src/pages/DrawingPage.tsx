@@ -25,6 +25,12 @@ import '../styles/ui.css'
 import './DrawingPage.css'
 
 const AUTOSAVE_DELAY = 400
+/** Whether the grey outline is shown, remembered while the app stays open. */
+const GUIDES_KEY = 'drawli.draw.guides'
+
+function guidesWanted(): boolean {
+  try { return sessionStorage.getItem(GUIDES_KEY) !== 'off' } catch { return true }
+}
 /** A gallery picture is worth redrawing at most this often while drawing. */
 const THUMBNAIL_INTERVAL = 4000
 
@@ -52,6 +58,8 @@ export function DrawingPage() {
   const [savedToast, setSavedToast] = useState(false)
   const [savedAt, setSavedAt] = useState(0)
   const [finished, setFinished] = useState<{ stars: number; thumbnail?: string } | null>(null)
+  // Some children want to try the shape themselves; the outline can step aside.
+  const [guides, setGuides] = useState(guidesWanted)
 
   const engineRef = useRef<DrawingEngine | null>(null)
   const cardRef = useRef<HTMLDivElement>(null)
@@ -294,6 +302,26 @@ export function DrawingPage() {
           </span>
         ) : null}
 
+        {/* Colouring has no outline to hide — the picture is the exercise. */}
+        {isColoring ? null : (
+          <button
+            className={`btn guides-toggle ${guides ? '' : 'guides-toggle--off'}`}
+            onClick={() => {
+              const next = !guides
+              setGuides(next)
+              try { sessionStorage.setItem(GUIDES_KEY, next ? 'on' : 'off') } catch { /* no storage, no memory */ }
+            }}
+          >
+            <Icon
+              name={guides ? 'eye' : 'eyeOff'}
+              size={22}
+              color={guides ? 'var(--c-text-soft)' : 'var(--c-accent)'}
+              width={2.2}
+            />
+            {guides ? t('drawing.guidesHide') : t('drawing.guidesShow')}
+          </button>
+        )}
+
         <button
           className="btn save-now"
           onClick={() => void handleSaveNow()}
@@ -338,9 +366,9 @@ export function DrawingPage() {
                   fills={fills}
                   onFill={handleFill}
                 />
-              ) : (
+              ) : guides ? (
                 <GuideLayer exerciseId={exercise.id} steps={steps} currentIndex={stepIndex} />
-              )
+              ) : null
             ) : null}
 
             <div className={`canvas-holder ${isColoring && tool === 'FILL' ? 'canvas-holder--passive' : ''}`}>
@@ -358,7 +386,9 @@ export function DrawingPage() {
               <Icon name="star" size={20} color="var(--c-accent)" filled />
               {isColoring
                 ? t('drawing.hintColor')
-                : exercise?.glyph
+                : !guides
+                  ? t('drawing.hintFree')
+                  : exercise?.glyph
                   ? t(/^\d+$/.test(exercise.glyph) ? 'drawing.hintNumber' : 'drawing.hintWrite')
                   : t('drawing.hintDraw')}
             </div>

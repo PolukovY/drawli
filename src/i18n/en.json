@@ -58,7 +58,10 @@
     "save": "Save",
     "saved": "Saved to My Drawings",
     "hintNumber": "Trace the number along the grey line",
-    "autosaved": "Saved"
+    "autosaved": "Saved",
+    "guidesHide": "Hide the outline",
+    "guidesShow": "Show the outline",
+    "hintFree": "No outline — draw it your own way"
   },
   "complete": {
     "title": "Great job, {{name}}!",
@@ -551,7 +554,14 @@
     "colorNumbersPick": "Pick a colour below",
     "colorNumbersTap": "Now tap every area with the number {{number}}",
     "countThings": "Count the things",
-    "countThingsHint": "How many of these are there?"
+    "countThingsHint": "How many of these are there?",
+    "seaBattle": "Sea battle",
+    "seaBattleHint": "Four ships are hiding — tap the water to find them",
+    "seaBattleWin": "Every ship found!",
+    "seaBattleFound": "Found {{hits}} of {{total}}",
+    "seaBattleHit": "Ship",
+    "seaBattleMiss": "Water",
+    "seaBattleWater": "Not tried yet"
   },
   "free": {
     "title": "Blank sheet",

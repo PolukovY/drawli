@@ -58,7 +58,10 @@
     "save": "Зберегти",
     "saved": "Збережено в «Мої малюнки»",
     "hintNumber": "Обведи цифри по сірій лінії",
-    "autosaved": "Збережено"
+    "autosaved": "Збережено",
+    "guidesHide": "Сховати підказку",
+    "guidesShow": "Показати підказку",
+    "hintFree": "Без підказки — малюй сама"
   },
   "complete": {
     "title": "Чудово, {{name}}!",
@@ -554,7 +557,14 @@
     "colorNumbersPick": "Обери колір знизу",
     "colorNumbersTap": "Тепер торкнись областей з номером {{number}}",
     "countThings": "Порахуй фігурки",
-    "countThingsHint": "Скільки тут таких?"
+    "countThingsHint": "Скільки тут таких?",
+    "seaBattle": "Морський бій",
+    "seaBattleHint": "Тут сховані чотири кораблики — торкайся води, щоб їх знайти",
+    "seaBattleWin": "Усі кораблики знайдено!",
+    "seaBattleFound": "Знайдено {{hits}} з {{total}}",
+    "seaBattleHit": "Корабель",
+    "seaBattleMiss": "Вода",
+    "seaBattleWater": "Ще не пробували"
   },
   "free": {
     "title": "Чистий аркуш",
