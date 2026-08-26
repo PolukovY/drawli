@@ -6,6 +6,7 @@ import { DrawingCanvas } from '../components/DrawingCanvas'
 import { DrawingToolbar } from '../components/DrawingToolbar'
 import { ColorPalette } from '../components/ColorPalette'
 import { GuideLayer } from '../components/GuideLayer'
+import { TutorLayer } from '../components/TutorLayer'
 import { ColoringLayer } from '../components/ColoringLayer'
 import { CompletionScreen } from '../components/CompletionScreen'
 import { Icon } from '../components/Icon'
@@ -18,7 +19,9 @@ import { createDocument } from '../drawing/DrawingDocument'
 import { composeThumbnail } from '../drawing/thumbnail'
 import { useAutosave } from '../drawing/useAutosave'
 import { playSound } from '../audio/sounds'
-import type { DrawingAction, ToolId } from '../storage/types'
+import { speak, stopSpeaking } from '../audio/speech'
+import { cheerLine, praiseLine, stepLine } from '../audio/phrases'
+import type { DrawingAction, ToolId, VoiceLanguage } from '../storage/types'
 import { findInProgress, upsertDrawing } from '../storage/DrawingRepository'
 import { markCompleted, markStarted } from '../storage/ProgressRepository'
 import '../styles/ui.css'
@@ -55,11 +58,15 @@ export function DrawingPage() {
   const [history, setHistory] = useState({ canUndo: false, canRedo: false, isEmpty: true })
   const [paletteOpen, setPaletteOpen] = useState(false)
   const [confirmClear, setConfirmClear] = useState(false)
+  /** Redoing a step that has later work on top asks first. */
+  const [confirmRedoStep, setConfirmRedoStep] = useState(false)
   const [savedToast, setSavedToast] = useState(false)
   const [savedAt, setSavedAt] = useState(0)
   const [finished, setFinished] = useState<{ stars: number; thumbnail?: string } | null>(null)
   // Some children want to try the shape themselves; the outline can step aside.
   const [guides, setGuides] = useState(guidesWanted)
+  /** The hand demonstration: plays once per step opened, or on request. */
+  const [demo, setDemo] = useState(false)
 
   const engineRef = useRef<DrawingEngine | null>(null)
   const cardRef = useRef<HTMLDivElement>(null)
@@ -77,11 +84,57 @@ export function DrawingPage() {
   const stepIndexRef = useRef(0)
   stepIndexRef.current = stepIndex
 
+  const voiceLang: VoiceLanguage = settings?.voiceLanguage ?? settings?.language ?? 'uk'
+  const voiceOn = settings?.voiceEnabled ?? true
+
   const steps = exercise?.steps ?? []
   const currentStep = steps[stepIndex]
   const isColoring = currentStep?.mode === 'COLORING'
   const isLastStep = stepIndex === steps.length - 1
   const title = exercise ? t(exercise.titleKey) : ''
+
+  /**
+   * The tutor explains the step out loud. Autoplay is blocked until the child
+   * has touched something, which is why the header also carries a repeat
+   * button — the first tap on it is the gesture that unlocks the voice.
+   */
+  const sayStep = useCallback(() => {
+    const step = exercise?.steps[stepIndexRef.current]
+    if (!step || !exercise) return
+    speak(
+      stepLine({
+        stepId: step.id,
+        lang: voiceLang,
+        title: t(exercise.titleKey),
+        first: stepIndexRef.current === 0,
+        coloring: step.mode === 'COLORING',
+      }),
+      { rate: 0.9 },
+    )
+  }, [exercise, voiceLang, t])
+
+  useEffect(() => {
+    if (!exercise || !voiceOn) return
+    // A moment after the step lands, so the drawing is on screen before the
+    // voice starts describing it — and long enough after a Next that the
+    // praise for the finished step is not cut off by the next instruction.
+    const timer = window.setTimeout(sayStep, stepIndex === 0 ? 500 : 2100)
+    return () => window.clearTimeout(timer)
+  }, [exercise, stepIndex, voiceOn, sayStep])
+
+  /** Leaving the screen mid-sentence should not follow the child home. */
+  useEffect(() => stopSpeaking, [])
+
+  /**
+   * Show the stroke being drawn as the step opens — the child watches first
+   * and copies after, which is the whole point of a tutor.
+   */
+  useEffect(() => {
+    if (!exercise || isColoring) return
+    setDemo(false)
+    const timer = window.setTimeout(() => setDemo(true), 700)
+    return () => window.clearTimeout(timer)
+  }, [exercise, stepIndex, isColoring])
 
   // --- load exercise and any unfinished drawing for it ------------------
 
@@ -167,6 +220,9 @@ export function DrawingPage() {
   }, [])
 
   const handleActions = useCallback((next: DrawingAction[]) => {
+    // The hand steps aside the moment the child starts: nobody wants a
+    // demonstration drawn over their own line.
+    setDemo(false)
     const copy = [...next]
     setActions(copy)
     void refreshThumbnail()
@@ -188,6 +244,11 @@ export function DrawingPage() {
   // --- step flow --------------------------------------------------------
 
   const canProceed = actions.length > (stepBaselinesRef.current[stepIndex] ?? 0)
+  const stepBaseline = stepBaselinesRef.current[stepIndex] ?? 0
+  /** Something was drawn on this step, so there is something to take back. */
+  const canRedoStep = actions.length > stepBaseline
+  /** Later steps were drawn on top; redoing this one takes those with it. */
+  const hasLaterWork = actions.length > (stepBaselinesRef.current[stepIndex + 1] ?? Number.POSITIVE_INFINITY)
 
   const showCoach = Boolean(settings && !settings.tutorialDrawDone && exercise)
   const coachSteps: CoachStep[] = [
@@ -219,11 +280,35 @@ export function DrawingPage() {
     window.setTimeout(() => setSavedToast(false), 1800)
   }
 
+  /** Step back to look at — or redraw — an earlier step. Nothing is erased. */
+  function handleBack() {
+    if (stepIndex === 0) return
+    playSound('tap')
+    stopSpeaking()
+    const previous = stepIndex - 1
+    setStepIndex(previous)
+    const previousTool = exercise?.steps[previous]?.defaultTool
+    if (previousTool) setTool(previousTool as ToolId)
+    autosave.flush()
+    void persist(actions, previous)
+  }
+
+  /**
+   * Take back everything drawn on this step. The strokes go to the redo stack
+   * rather than the bin, so the arrow brings them back one at a time.
+   */
+  function redoStep() {
+    setConfirmRedoStep(false)
+    engineRef.current?.undoTo(stepBaseline)
+    playSound('soft')
+  }
+
   async function handleNext() {
     if (!exercise) return
 
     if (!isLastStep) {
       playSound('next')
+      speak(praiseLine(voiceLang, settings?.childName))
       const next = stepIndex + 1
       stepBaselinesRef.current[next] = actions.length
       setStepIndex(next)
@@ -244,6 +329,7 @@ export function DrawingPage() {
     const stars = await markCompleted(exercise.id, exercise.steps.length)
     await awardStars(stars)
     playSound('fanfare')
+    speak(cheerLine(voiceLang))
 
     await upsertDrawing({
       id: drawingIdRef.current,
@@ -302,6 +388,20 @@ export function DrawingPage() {
           </span>
         ) : null}
 
+        {isColoring ? null : (
+          <button className="btn watch-btn" onClick={() => { setDemo(false); window.setTimeout(() => setDemo(true), 60) }}>
+            <Icon name="play" size={22} color="var(--c-accent)" width={2.2} />
+            {t('drawing.watch')}
+          </button>
+        )}
+
+        {voiceOn ? (
+          <button className="btn say-again" onClick={sayStep} aria-label={t('drawing.sayAgain')}>
+            <Icon name="sound" size={22} color="var(--c-text-soft)" width={2.2} />
+            {t('drawing.sayAgain')}
+          </button>
+        ) : null}
+
         {/* Colouring has no outline to hide — the picture is the exercise. */}
         {isColoring ? null : (
           <button
@@ -349,6 +449,8 @@ export function DrawingPage() {
           canRedo={history.canRedo}
           tools={isColoring ? ['FILL', 'BRUSH', 'ERASER'] : ['PENCIL', 'BRUSH', 'FILL', 'ERASER']}
           onToolChange={setTool}
+          want={currentStep?.defaultTool as ToolId | undefined}
+          wantColor={currentStep?.wantColor}
           onColorTap={() => setPaletteOpen((open) => !open)}
           onUndo={() => engineRef.current?.undo()}
           onRedo={() => engineRef.current?.redo()}
@@ -367,7 +469,22 @@ export function DrawingPage() {
                   onFill={handleFill}
                 />
               ) : guides ? (
-                <GuideLayer exerciseId={exercise.id} steps={steps} currentIndex={stepIndex} />
+                <>
+                  {/* The tutor layer owns direction and pace now — two comets
+                      chasing each other along the same line only confused it. */}
+                  <GuideLayer
+                    exerciseId={exercise.id}
+                    steps={steps}
+                    currentIndex={stepIndex}
+                    showTrace={false}
+                  />
+                  <TutorLayer
+                    exerciseId={exercise.id}
+                    step={currentStep}
+                    demo={demo}
+                    onDemoEnd={() => setDemo(false)}
+                  />
+                </>
               ) : null
             ) : null}
 
@@ -395,7 +512,11 @@ export function DrawingPage() {
           </div>
 
           {paletteOpen || isColoring ? (
-            <ColorPalette color={color} onPick={(next) => { setColor(next); setPaletteOpen(false) }} />
+            <ColorPalette
+              color={color}
+              want={currentStep?.wantColor}
+              onPick={(next) => { setColor(next); setPaletteOpen(false) }}
+            />
           ) : null}
         </div>
 
@@ -404,12 +525,30 @@ export function DrawingPage() {
             exerciseId={exercise.id}
             steps={steps}
             currentIndex={stepIndex}
-            finalFile={steps.find((s) => s.mode === 'COLORING')?.guide}
+            finalFile={exercise.art ?? steps.find((s) => s.mode === 'COLORING')?.guide}
+            finalIsArt={Boolean(exercise.art)}
             labelKey={exercise.glyph ? 'drawing.previewWrite' : 'drawing.previewTitle'}
           />
         ) : null}
 
         <div className="draw-next">
+          {canRedoStep ? (
+            <button
+              className="btn step-btn"
+              onClick={() => (hasLaterWork ? setConfirmRedoStep(true) : redoStep())}
+            >
+              <Icon name="again" size={22} color="var(--c-text-soft)" width={2.4} />
+              {t('drawing.redoStep')}
+            </button>
+          ) : null}
+
+          {stepIndex > 0 ? (
+            <button className="btn step-btn" onClick={handleBack}>
+              <Icon name="back" size={22} color="var(--c-text-soft)" width={2.6} />
+              {t('drawing.back')}
+            </button>
+          ) : null}
+
           <button
             className={`next-btn ${isLastStep ? 'next-btn--done' : ''}`}
             disabled={!canProceed}
@@ -425,6 +564,19 @@ export function DrawingPage() {
         <div className="toast" role="status">
           <Icon name="check" size={22} color="#fff" width={3} />
           {t('drawing.saved')}
+        </div>
+      ) : null}
+
+      {confirmRedoStep ? (
+        <div className="modal-backdrop" onClick={() => setConfirmRedoStep(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <div className="title">{t('drawing.redoStepConfirm', { step: stepIndex + 1 })}</div>
+            <div className="subtitle">{t('drawing.redoStepLater')}</div>
+            <div className="row" style={{ justifyContent: 'center', gap: 12 }}>
+              <button className="btn" onClick={() => setConfirmRedoStep(false)}>{t('settings.cancel')}</button>
+              <button className="btn btn--primary" onClick={redoStep}>{t('drawing.redoStepDo')}</button>
+            </div>
+          </div>
         </div>
       ) : null}
 

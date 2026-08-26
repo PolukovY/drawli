@@ -234,3 +234,41 @@
 @media (max-width: 700px) {
   .guides-toggle { padding: 0 10px; font-size: 14px; }
 }
+
+/* The tutor can be asked to repeat itself — the same weight as the outline
+   toggle beside it, because both are things the child controls. */
+.say-again {
+  flex-shrink: 0;
+}
+
+@media (max-width: 700px) {
+  .say-again { font-size: 0; gap: 0; padding-left: 12px; padding-right: 12px; }
+}
+
+.watch-btn { flex-shrink: 0; }
+
+@media (max-width: 700px) {
+  .watch-btn { font-size: 0; gap: 0; padding-left: 12px; padding-right: 12px; }
+}
+
+/* Back and redo sit under the big Next button: reachable, clearly secondary,
+   and never in the way of the one button the child presses every step. */
+.draw-next { gap: 10px; }
+
+.draw-next .step-btn {
+  height: var(--tap-min);
+  padding: 0 18px;
+  font-size: 16px;
+  align-self: stretch;
+  justify-content: center;
+}
+
+@media (max-width: 900px) {
+  .draw-next { display: flex; gap: 10px; align-items: center; }
+  .draw-next .next-btn { flex-grow: 1; }
+  .draw-next .step-btn { align-self: auto; }
+}
+
+@media (max-width: 700px) {
+  .draw-next .step-btn { font-size: 0; gap: 0; padding: 0 14px; }
+}

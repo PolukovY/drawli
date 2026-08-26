@@ -61,7 +61,14 @@
     "autosaved": "Saved",
     "guidesHide": "Hide the outline",
     "guidesShow": "Show the outline",
-    "hintFree": "No outline — draw it your own way"
+    "hintFree": "No outline — draw it your own way",
+    "sayAgain": "Say again",
+    "watch": "Watch",
+    "back": "Back",
+    "redoStep": "Redo this step",
+    "redoStepConfirm": "Redo step {{step}}?",
+    "redoStepLater": "Lines from the later steps go too. The forward arrow brings them back.",
+    "redoStepDo": "Redo it"
   },
   "complete": {
     "title": "Great job, {{name}}!",
@@ -116,7 +123,12 @@
     "refreshHint": "Fetch the newest version and artwork. Drawings, stars and settings are kept.",
     "refreshDo": "Refresh",
     "refreshing": "Refreshing…",
-    "build": "Version {{id}}"
+    "build": "Version {{id}}",
+    "voice": "Tutor voice",
+    "voiceHint": "Explains every step and cheers when it works out",
+    "voiceLanguage": "Voice language",
+    "voiceTryHint": "Tap a language to hear how it sounds",
+    "voiceMissing": "This device has no voice for that language — the words stay on screen"
   },
   "category": {
     "motor": "Motor skills",

@@ -138,6 +138,21 @@ export class DrawingEngine {
     this.options.onActionCommitted?.(this.history.current)
   }
 
+  /**
+   * Take the drawing back to a known number of actions — how a step is redone:
+   * everything the child drew since that point returns to the redo stack, so a
+   * back button is never the same as losing work.
+   */
+  undoTo(count: number) {
+    let changed = false
+    while (this.history.size > Math.max(0, count) && this.history.undo()) changed = true
+    if (!changed) return
+    this.redrawCommitted()
+    this.present()
+    this.emitHistory()
+    this.options.onActionCommitted?.(this.history.current)
+  }
+
   undo() {
     if (!this.history.undo()) return
     this.redrawCommitted()
