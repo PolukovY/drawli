@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '../components/Icon'
 import { useAppStore } from '../app/store'
-import { hasVoiceFor, speak } from '../audio/speech'
+import { hasVoiceFor, speak, voiceQuality } from '../audio/speech'
 import { praiseLine } from '../audio/phrases'
 import type { VoiceLanguage } from '../storage/types'
 import { BUILD_ID, refreshApp } from '../app/serviceWorker'
@@ -147,7 +147,11 @@ export function SettingsPage() {
             <div className="grow">
               <div className="setting__title">{t('settings.voiceLanguage')}</div>
               <div className="muted" style={{ fontSize: 16 }}>
-                {hasVoiceFor(voiceLang) ? t('settings.voiceTryHint') : t('settings.voiceMissing')}
+                {!hasVoiceFor(voiceLang)
+                  ? t('settings.voiceMissing')
+                  : voiceQuality(voiceLang) === 'basic'
+                    ? t('settings.voiceBasic')
+                    : t('settings.voiceTryHint')}
               </div>
             </div>
             <div className="row" style={{ gap: 10, flexWrap: 'wrap', justifyContent: 'flex-end' }}>

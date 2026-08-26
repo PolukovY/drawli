@@ -128,7 +128,8 @@
     "voiceHint": "Explains every step and cheers when it works out",
     "voiceLanguage": "Voice language",
     "voiceTryHint": "Tap a language to hear how it sounds",
-    "voiceMissing": "This device has no voice for that language — the words stay on screen"
+    "voiceMissing": "This device has no voice for that language — the words stay on screen",
+    "voiceBasic": "Sounds robotic? Your device settings can download a better voice for this language."
   },
   "category": {
     "motor": "Motor skills",

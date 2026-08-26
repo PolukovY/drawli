@@ -20,7 +20,7 @@ const PRAISE: Bank = {
     'Дуже добре!',
     'Ось так, чудово!',
     'У тебе виходить!',
-    'Клас! Далі буде ще краще.',
+    'Так тримати!',
     'Яка рівна лінія!',
   ],
   en: [
@@ -53,8 +53,8 @@ const PRAISE_NAMED: Bank = {
 /** The finished picture. Bigger than a step, still one breath long. */
 const CHEER: Bank = {
   uk: [
-    'Малюнок готовий! Ти справжній художник.',
-    'Вау! Подивись, який гарний малюнок.',
+    'Малюнок готовий! Гарна робота.',
+    'Ого! Подивись, який гарний малюнок.',
     'Готово! Це чудова робота.',
   ],
   en: [
@@ -71,13 +71,13 @@ const CHEER: Bank = {
 
 /** A right answer in a game: quicker and lighter than drawing praise. */
 const GAME_CORRECT: Bank = {
-  uk: ['Правильно!', 'Так, саме так!', 'Точно!', 'Влучила!'],
+  uk: ['Правильно!', 'Так, саме так!', 'Точно!', 'У точку!'],
   en: ['Correct!', "That's it!", 'Exactly right!', 'Spot on!'],
   es: ['¡Correcto!', '¡Eso es!', '¡Exacto!', '¡Muy bien!'],
 }
 
 const GAME_DONE: Bank = {
-  uk: ['Гра пройдена! Молодець.', 'Усі завдання зроблені. Чудово!'],
+  uk: ['Гру пройдено! Молодець.', 'Усі завдання зроблено. Чудово!'],
   en: ['Game finished! Well done.', 'All done. That was great!'],
   es: ['¡Juego terminado! Muy bien.', '¡Todo hecho! ¡Genial!'],
 }
@@ -97,19 +97,19 @@ const STEPS: Record<string, Record<VoiceLang, string>> = {
   tail: { uk: 'І хвостик.', en: 'And the tail.', es: 'Y la cola.' },
   legs: { uk: 'Тепер ніжки.', en: 'Now the legs.', es: 'Ahora las patas.' },
   feet: { uk: 'Малюємо лапки.', en: "Let's draw the feet.", es: 'Dibujamos los pies.' },
-  wings: { uk: 'Розправляємо крила.', en: 'Now the wings.', es: 'Ahora las alas.' },
+  wings: { uk: 'Тепер крила.', en: 'Now the wings.', es: 'Ahora las alas.' },
   wing: { uk: 'Малюємо крило.', en: "Let's draw the wing.", es: 'Dibujamos el ala.' },
   beak: { uk: 'Гострий дзьобик.', en: 'A pointy beak.', es: 'Un pico puntiagudo.' },
-  fins: { uk: 'Плавнички з боків.', en: 'Fins on the sides.', es: 'Las aletas a los lados.' },
+  fins: { uk: 'Плавці з боків.', en: 'Fins on the sides.', es: 'Las aletas a los lados.' },
   shell: { uk: 'Малюємо панцир.', en: "Let's draw the shell.", es: 'Dibujamos el caparazón.' },
-  spots: { uk: 'Ставимо цяточки.', en: 'Now the spots.', es: 'Ahora las manchas.' },
+  spots: { uk: 'Тепер цяточки.', en: 'Now the spots.', es: 'Ahora las manchas.' },
   stripes: { uk: 'Малюємо смужки.', en: 'Now the stripes.', es: 'Ahora las rayas.' },
-  antennae: { uk: 'Тонкі вусики-антенки.', en: 'Thin little antennae.', es: 'Unas antenas finas.' },
+  antennae: { uk: 'Тонкі антенки.', en: 'Thin little antennae.', es: 'Unas antenas finas.' },
   wheels: { uk: 'Круглі колеса.', en: 'Round wheels.', es: 'Las ruedas redondas.' },
   windows: { uk: 'Малюємо віконця.', en: "Let's draw the windows.", es: 'Dibujamos las ventanas.' },
   window: { uk: 'Малюємо віконце.', en: "Let's draw the window.", es: 'Dibujamos la ventana.' },
   cabin: { uk: 'Кабіна зверху.', en: 'The cabin on top.', es: 'La cabina arriba.' },
-  roof: { uk: 'Дах — як трикутник.', en: 'The roof, like a triangle.', es: 'El tejado, como un triángulo.' },
+  roof: { uk: 'Дах — трикутником.', en: 'The roof, like a triangle.', es: 'El tejado, como un triángulo.' },
   door: { uk: 'Двері.', en: 'The door.', es: 'La puerta.' },
   stem: { uk: 'Стебельце вниз.', en: 'A stem going down.', es: 'Un tallo hacia abajo.' },
   stalk: { uk: 'Стебельце.', en: 'The stalk.', es: 'El tallo.' },
@@ -144,7 +144,7 @@ const COLOR_STEP: Record<VoiceLang, string> = {
 }
 
 const FIRST_STEP: Record<VoiceLang, string> = {
-  uk: 'Малюємо {title}. Починаємо!',
+  uk: 'Наш малюнок — {title}. Починаємо!',
   en: "Let's draw {title}. Here we go!",
   es: 'Vamos a dibujar: {title}. ¡Empezamos!',
 }

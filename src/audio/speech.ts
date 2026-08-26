@@ -54,13 +54,54 @@ export function hasVoiceFor(value: VoiceLang): boolean {
   return voices.some((voice) => TAGS[value].some((tag) => voice.lang.toLowerCase().startsWith(tag.toLowerCase())))
 }
 
+/**
+ * macOS ships a shelf of joke voices — Eddy, Grandma, Bad News, Zarvox — and
+ * they sit in the list beside the real ones. Picking the first match by
+ * language handed Spanish to "Eddy", which is a cartoon, not a tutor.
+ */
+const NOVELTY = /^(albert|bad news|bahh|bells|boing|bubbles|cellos|deranged|eddy|flo|good news|grandma|grandpa|hysterical|jester|junior|kathy|organ|pipe organ|princess|ralph|reed|rocko|sandy|shelley|superstar|trinoids|whisper|wobble|zarvox)\b/i
+
+/** Higher is better: network voices first, then anything marked premium. */
+function score(voice: SpeechSynthesisVoice, tag: string): number {
+  let value = 0
+  // Network voices (Google, Microsoft) are the natural-sounding ones.
+  if (!voice.localService) value += 6
+  if (/premium|enhanced|neural|natural/i.test(voice.name)) value += 4
+  if (voice.lang.toLowerCase() === tag.toLowerCase()) value += 2
+  if (voice.default) value += 1
+  return value
+}
+
 function pickVoice(value: VoiceLang): SpeechSynthesisVoice | undefined {
   if (voices.length === 0) refreshVoices()
+
   for (const tag of TAGS[value]) {
-    const match = voices.find((voice) => voice.lang.toLowerCase().startsWith(tag.toLowerCase()))
-    if (match) return match
+    const candidates = voices.filter(
+      (voice) => voice.lang.toLowerCase().startsWith(tag.toLowerCase()) && !NOVELTY.test(voice.name),
+    )
+    if (candidates.length === 0) continue
+    return candidates.reduce((best, voice) => (score(voice, tag) > score(best, tag) ? voice : best))
+  }
+
+  // Every voice for this language is a joke voice: better a cartoon than
+  // silence, since the words themselves are still the lesson.
+  for (const tag of TAGS[value]) {
+    const fallback = voices.find((voice) => voice.lang.toLowerCase().startsWith(tag.toLowerCase()))
+    if (fallback) return fallback
   }
   return undefined
+}
+
+/**
+ * How good the best available voice is. Ukrainian on most devices has only a
+ * compact system voice, which sounds flat next to the network ones English and
+ * Spanish get — worth telling a parent, since the device can download better.
+ */
+export function voiceQuality(value: VoiceLang): 'none' | 'basic' | 'good' {
+  const voice = pickVoice(value)
+  if (!voice) return 'none'
+  if (!voice.localService || /premium|enhanced|neural|natural/i.test(voice.name)) return 'good'
+  return 'basic'
 }
 
 export function stopSpeaking() {
@@ -91,8 +132,9 @@ export function speak(text: string, options: SpeakOptions = {}) {
     utterance.lang = voice?.lang ?? TAGS[value][0]
     if (voice) utterance.voice = voice
     utterance.rate = options.rate ?? 0.95
-    // A shade above neutral reads as friendly rather than official.
-    utterance.pitch = 1.08
+    // Left at neutral on purpose: raising the pitch made the compact system
+    // voices — the only ones Ukrainian has on most devices — sound tinny.
+    utterance.pitch = 1
     utterance.volume = 1
     speech.speak(utterance)
   } catch { /* a device that will not speak is not an error */ }
