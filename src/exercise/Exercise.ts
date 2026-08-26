@@ -5,6 +5,8 @@ export interface ExerciseStep {
   guide?: string
   mode?: 'COLORING'
   defaultTool?: 'PENCIL' | 'BRUSH' | 'FILL' | 'ERASER'
+  /** The colour the tutor asks for on this step, so the palette can point at it. */
+  wantColor?: string
 }
 
 export interface Exercise {
@@ -14,6 +16,8 @@ export interface Exercise {
   category: string
   difficulty: Difficulty
   thumbnail: string
+  /** The shaded picture: what the drawing is meant to become. */
+  art?: string
   steps: ExerciseStep[]
 }
 

@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Icon } from './Icon'
+import { ToolIcon } from './ToolIcon'
 import type { ToolId } from '../storage/types'
 import { playSound } from '../audio/sounds'
 import './DrawingToolbar.css'
@@ -10,19 +11,16 @@ interface Props {
   canUndo: boolean
   canRedo: boolean
   tools?: ToolId[]
+  /** The tool this step needs — it pulses until the child picks it up. */
+  want?: ToolId
+  /** The colour this step needs; the swatch button pulses instead. */
+  wantColor?: string
   onToolChange: (tool: ToolId) => void
   onColorTap: () => void
   onUndo: () => void
   onRedo: () => void
   onClear: () => void
   canClear: boolean
-}
-
-const ICONS: Record<ToolId, 'pencil' | 'brush' | 'fill' | 'eraser'> = {
-  PENCIL: 'pencil',
-  BRUSH: 'brush',
-  FILL: 'fill',
-  ERASER: 'eraser',
 }
 
 const LABELS: Record<ToolId, string> = {
@@ -54,7 +52,7 @@ function Tip({ title, hint, children }: { title: string; hint: string; children:
 
 export function DrawingToolbar({
   tool, color, canUndo, canRedo, tools = ['PENCIL', 'BRUSH', 'FILL', 'ERASER'],
-  onToolChange, onColorTap, onUndo, onRedo, onClear, canClear,
+  want, wantColor, onToolChange, onColorTap, onUndo, onRedo, onClear, canClear,
 }: Props) {
   const { t } = useTranslation()
 
@@ -63,12 +61,12 @@ export function DrawingToolbar({
       {tools.map((id) => (
         <Tip key={id} title={t(LABELS[id])} hint={t(HINTS[id])}>
           <button
-            className={`tool ${tool === id ? 'tool--on' : ''}`}
+            className={`tool ${tool === id ? 'tool--on' : ''} ${want === id && tool !== id ? 'tool--want' : ''}`}
             onClick={() => { playSound('tap'); onToolChange(id) }}
             aria-label={t(LABELS[id])}
             aria-pressed={tool === id}
           >
-            <Icon name={ICONS[id]} size={30} color={tool === id ? '#fff' : 'var(--c-text-soft)'} />
+            <ToolIcon tool={id} size={34} />
           </button>
         </Tip>
       ))}
@@ -76,7 +74,11 @@ export function DrawingToolbar({
       <div className="tool-divider" />
 
       <Tip title={t('drawing.tool.color')} hint={t('drawing.tool.colorHint')}>
-        <button className="tool" onClick={() => { playSound('tap'); onColorTap() }} aria-label={t('drawing.tool.color')}>
+        <button
+          className={`tool ${wantColor && wantColor !== color ? 'tool--want' : ''}`}
+          onClick={() => { playSound('tap'); onColorTap() }}
+          aria-label={t('drawing.tool.color')}
+        >
           <span className="swatch" style={{ background: color }} />
         </button>
       </Tip>

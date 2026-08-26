@@ -9,6 +9,8 @@ interface Props {
   steps: ExerciseStep[]
   currentIndex: number
   finalFile?: string
+  /** The shaded picture is the goal, not a faint target: it shows at full strength. */
+  finalIsArt?: boolean
   /** Letters and digits have no colouring sheet, so the label differs. */
   labelKey?: string
 }
@@ -17,7 +19,9 @@ interface Props {
  * The child needs to see where all this is going, so the finished picture sits
  * beside the canvas with the steps drawn in one by one up to the current one.
  */
-export function StepPreview({ exerciseId, steps, currentIndex, finalFile, labelKey = 'drawing.previewTitle' }: Props) {
+export function StepPreview({
+  exerciseId, steps, currentIndex, finalFile, finalIsArt, labelKey = 'drawing.previewTitle',
+}: Props) {
   const { t } = useTranslation()
   const [final, setFinal] = useState('')
   const [guides, setGuides] = useState<Record<string, string>>({})
@@ -51,7 +55,10 @@ export function StepPreview({ exerciseId, steps, currentIndex, finalFile, labelK
         aria-label={t(labelKey)}
       >
         {final ? (
-          <div className="preview__final" dangerouslySetInnerHTML={{ __html: final }} />
+          <div
+            className={`preview__final ${finalIsArt ? 'preview__final--art' : ''}`}
+            dangerouslySetInnerHTML={{ __html: final }}
+          />
         ) : (
           // No colouring sheet (letters, digits, motor drills): the faint target
           // is every step at once, so the child still sees where this is going.

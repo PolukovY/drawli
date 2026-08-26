@@ -23,3 +23,19 @@
   .palette { gap: 8px; padding: 8px; }
   .paint { width: 40px; height: 40px; min-height: 40px; }
 }
+
+/* The colour the tutor asked for. */
+.paint--want {
+  outline: 3px solid var(--c-accent);
+  outline-offset: 3px;
+  animation: paint-want 1.6s ease-in-out infinite;
+}
+
+@keyframes paint-want {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 92, 255, 0.45); }
+  50% { box-shadow: 0 0 0 10px rgba(124, 92, 255, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paint--want { animation: none; }
+}

@@ -144,3 +144,10 @@
 @media (max-height: 500px) and (orientation: landscape) {
   .preview { display: none; }
 }
+
+/* The shaded picture is the goal itself — showing it at a fifth of its colour
+   was right when it was only an outline, and wrong now that it is the point. */
+.preview__final--art { opacity: 1; }
+
+/* Traced steps stay readable on top of a coloured picture. */
+.preview__final--art ~ .preview__step svg { stroke: #FFFFFF; opacity: 0.9; }
