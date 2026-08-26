@@ -4,6 +4,7 @@
   "category": "food",
   "difficulty": "EASY",
   "thumbnail": "thumbnail.svg",
+  "art": "art.svg",
   "steps": [
     {
       "id": "cup",
@@ -29,7 +30,8 @@
       "id": "color",
       "mode": "COLORING",
       "guide": "final.svg",
-      "defaultTool": "FILL"
+      "defaultTool": "FILL",
+      "wantColor": "#F5893B"
     }
   ]
 }

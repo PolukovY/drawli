@@ -4,6 +4,7 @@
   "category": "food",
   "difficulty": "MEDIUM",
   "thumbnail": "thumbnail.svg",
+  "art": "art.svg",
   "steps": [
     {
       "id": "stem",
@@ -29,7 +30,8 @@
       "id": "color",
       "mode": "COLORING",
       "guide": "final.svg",
-      "defaultTool": "FILL"
+      "defaultTool": "FILL",
+      "wantColor": "#9B5CE0"
     }
   ]
 }

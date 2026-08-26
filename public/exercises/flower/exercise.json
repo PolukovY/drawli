@@ -4,6 +4,7 @@
   "category": "nature",
   "difficulty": "EASY",
   "thumbnail": "thumbnail.svg",
+  "art": "art.svg",
   "steps": [
     {
       "id": "center",
@@ -29,7 +30,8 @@
       "id": "color",
       "mode": "COLORING",
       "guide": "final.svg",
-      "defaultTool": "FILL"
+      "defaultTool": "FILL",
+      "wantColor": "#F08BB4"
     }
   ]
 }

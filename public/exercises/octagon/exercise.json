@@ -4,6 +4,7 @@
   "category": "shapes",
   "difficulty": "MEDIUM",
   "thumbnail": "thumbnail.svg",
+  "art": "art.svg",
   "steps": [
     {
       "id": "top",
@@ -19,7 +20,8 @@
       "id": "color",
       "mode": "COLORING",
       "guide": "final.svg",
-      "defaultTool": "FILL"
+      "defaultTool": "FILL",
+      "wantColor": "#E4443B"
     }
   ]
 }

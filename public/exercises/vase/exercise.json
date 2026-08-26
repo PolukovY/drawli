@@ -4,6 +4,7 @@
   "category": "home",
   "difficulty": "EASY",
   "thumbnail": "thumbnail.svg",
+  "art": "art.svg",
   "steps": [
     {
       "id": "body",
@@ -24,7 +25,8 @@
       "id": "color",
       "mode": "COLORING",
       "guide": "final.svg",
-      "defaultTool": "FILL"
+      "defaultTool": "FILL",
+      "wantColor": "#5FC7C0"
     }
   ]
 }

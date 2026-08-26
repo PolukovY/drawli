@@ -4,6 +4,7 @@
   "category": "nature",
   "difficulty": "VERY_EASY",
   "thumbnail": "thumbnail.svg",
+  "art": "art.svg",
   "steps": [
     {
       "id": "stone",
@@ -19,7 +20,8 @@
       "id": "color",
       "mode": "COLORING",
       "guide": "final.svg",
-      "defaultTool": "FILL"
+      "defaultTool": "FILL",
+      "wantColor": "#A9AFC0"
     }
   ]
 }
