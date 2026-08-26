@@ -87,6 +87,8 @@ export interface AppSettings {
   /** The spoken tutor: explains each step, praises a finished one. */
   voiceEnabled?: boolean
   voiceLanguage?: VoiceLanguage
+  /** Which voice and character the child picked, as "voice name#character". */
+  voiceChoice?: string
   stars: number
   onboardedAt: string
   /** Coach marks are shown once per screen, then never again. */

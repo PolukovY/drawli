@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '../components/Icon'
 import { useAppStore } from '../app/store'
-import { hasVoiceFor, speak, voiceQuality } from '../audio/speech'
+import { currentVoiceOption, hasVoiceFor, listVoiceOptions, speak, voiceQuality } from '../audio/speech'
 import { praiseLine } from '../audio/phrases'
 import type { VoiceLanguage } from '../storage/types'
 import { BUILD_ID, refreshApp } from '../app/serviceWorker'
@@ -31,6 +31,7 @@ export function SettingsPage() {
   const setSoundEnabled = useAppStore((s) => s.setSoundEnabled)
   const setVoiceEnabled = useAppStore((s) => s.setVoiceEnabled)
   const setVoiceLanguage = useAppStore((s) => s.setVoiceLanguage)
+  const setVoiceChoice = useAppStore((s) => s.setVoiceChoice)
   const reloadSettings = useAppStore((s) => s.reloadSettings)
 
   const fileRef = useRef<HTMLInputElement>(null)
@@ -41,6 +42,10 @@ export function SettingsPage() {
 
   const voiceOn = settings?.voiceEnabled ?? true
   const voiceLang: VoiceLanguage = settings?.voiceLanguage ?? settings?.language ?? 'uk'
+  // Read straight from the browser: the list changes with the device, not with
+  // anything this app stores.
+  const voiceOptions = voiceOn ? listVoiceOptions(voiceLang) : []
+  const chosenVoiceId = settings?.voiceChoice ?? currentVoiceOption(voiceLang)?.id
 
   async function handleFile(file: File) {
     const parsed = parseBackup(await file.text())
@@ -166,6 +171,39 @@ export function SettingsPage() {
                   }}
                 >
                   {label}
+                </button>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {voiceOn && voiceOptions.length > 0 ? (
+          <section className="card setting setting--stack">
+            <div className="setting__row">
+              <span className="setting__icon"><Icon name="user" size={28} color="var(--c-accent)" /></span>
+              <div className="grow">
+                <div className="setting__title">{t('settings.voicePick')}</div>
+                <div className="muted" style={{ fontSize: 16 }}>{t('settings.voicePickHint')}</div>
+              </div>
+            </div>
+
+            <div className="voice-grid">
+              {voiceOptions.map((option) => (
+                <button
+                  key={option.id}
+                  className={`voice-card ${option.id === chosenVoiceId ? 'voice-card--on' : ''}`}
+                  onClick={() => {
+                    void setVoiceChoice(option.id)
+                    speak(praiseLine(voiceLang, settings?.childName), { lang: voiceLang, option })
+                  }}
+                  aria-pressed={option.id === chosenVoiceId}
+                >
+                  <span className="voice-card__name">{t(`settings.character.${option.characterId}`)}</span>
+                  <span className="voice-card__voice">{option.voiceName}</span>
+                  <span className="voice-card__play">
+                    <Icon name="play" size={18} color="var(--c-accent)" width={2.4} />
+                    {t('settings.voiceTry')}
+                  </span>
                 </button>
               ))}
             </div>

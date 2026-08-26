@@ -129,7 +129,19 @@
     "voiceLanguage": "Voice language",
     "voiceTryHint": "Tap a language to hear how it sounds",
     "voiceMissing": "This device has no voice for that language — the words stay on screen",
-    "voiceBasic": "Sounds robotic? Your device settings can download a better voice for this language."
+    "voiceBasic": "Sounds robotic? Your device settings can download a better voice for this language.",
+    "voicePick": "Who does the talking",
+    "voicePickHint": "Tap a card to hear that voice",
+    "voiceTry": "Listen",
+    "character": {
+      "natural": "The tutor",
+      "merry": "Cheerful",
+      "bear": "Bear",
+      "mouse": "Little mouse",
+      "storyteller": "Storyteller",
+      "calm": "Calm",
+      "robot": "Robot"
+    }
   },
   "category": {
     "motor": "Motor skills",

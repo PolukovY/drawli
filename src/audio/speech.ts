@@ -15,8 +15,40 @@ const TAGS: Record<VoiceLang, string[]> = {
   es: ['es-ES', 'es-MX', 'es'],
 }
 
+/**
+ * Most devices carry exactly one Ukrainian voice, so a list of system voices
+ * alone is not a choice. Characters are the second half of it: the same voice
+ * slowed down and dropped an octave is a bear, sped up and raised is a mouse.
+ * Together they give a child something to pick.
+ */
+export interface VoiceCharacter {
+  id: string
+  pitch: number
+  rate: number
+}
+
+export const CHARACTERS: VoiceCharacter[] = [
+  { id: 'natural', pitch: 1, rate: 0.95 },
+  { id: 'merry', pitch: 1.3, rate: 1.05 },
+  { id: 'bear', pitch: 0.7, rate: 0.82 },
+  { id: 'mouse', pitch: 1.6, rate: 1.12 },
+  { id: 'storyteller', pitch: 1.05, rate: 0.78 },
+  { id: 'calm', pitch: 0.9, rate: 0.88 },
+  { id: 'robot', pitch: 0.6, rate: 1 },
+]
+
+export interface VoiceOption {
+  /** Stored in settings: the system voice and the character it is shaped by. */
+  id: string
+  voiceName: string
+  characterId: string
+  pitch: number
+  rate: number
+}
+
 let enabled = false
 let lang: VoiceLang = 'uk'
+let choiceId: string | undefined
 let voices: SpeechSynthesisVoice[] = []
 
 const synth = (): SpeechSynthesis | null =>
@@ -47,6 +79,51 @@ export function setVoiceLang(value: VoiceLang) {
   lang = value
 }
 
+/** Which of the options below the child picked; unknown ids fall back. */
+export function setVoiceChoice(value: string | undefined) {
+  choiceId = value
+}
+
+const optionId = (voiceName: string, characterId: string) => `${voiceName}#${characterId}`
+
+/**
+ * Up to ten voices to choose from: every system voice for the language on its
+ * own, then the best one wearing the other characters.
+ */
+export function listVoiceOptions(value: VoiceLang, limit = 10): VoiceOption[] {
+  const ranked = rankedVoices(value)
+  if (ranked.length === 0) return []
+
+  const natural = CHARACTERS[0]
+  const options: VoiceOption[] = ranked.slice(0, 4).map((voice) => ({
+    id: optionId(voice.name, natural.id),
+    voiceName: voice.name,
+    characterId: natural.id,
+    pitch: natural.pitch,
+    rate: natural.rate,
+  }))
+
+  const best = ranked[0]
+  for (const character of CHARACTERS.slice(1)) {
+    if (options.length >= limit) break
+    options.push({
+      id: optionId(best.name, character.id),
+      voiceName: best.name,
+      characterId: character.id,
+      pitch: character.pitch,
+      rate: character.rate,
+    })
+  }
+
+  return options.slice(0, limit)
+}
+
+/** The option in force: the stored choice, or the best voice as it comes. */
+export function currentVoiceOption(value: VoiceLang = lang): VoiceOption | undefined {
+  const options = listVoiceOptions(value)
+  return options.find((option) => option.id === choiceId) ?? options[0]
+}
+
 /** Whether this device can actually say something in the chosen language. */
 export function hasVoiceFor(value: VoiceLang): boolean {
   if (!synth()) return false
@@ -72,24 +149,32 @@ function score(voice: SpeechSynthesisVoice, tag: string): number {
   return value
 }
 
-function pickVoice(value: VoiceLang): SpeechSynthesisVoice | undefined {
+/** Every voice that speaks this language, best first, joke voices last. */
+function rankedVoices(value: VoiceLang): SpeechSynthesisVoice[] {
   if (voices.length === 0) refreshVoices()
 
-  for (const tag of TAGS[value]) {
-    const candidates = voices.filter(
-      (voice) => voice.lang.toLowerCase().startsWith(tag.toLowerCase()) && !NOVELTY.test(voice.name),
-    )
-    if (candidates.length === 0) continue
-    return candidates.reduce((best, voice) => (score(voice, tag) > score(best, tag) ? voice : best))
-  }
+  const seen = new Set<string>()
+  const serious: { voice: SpeechSynthesisVoice; rank: number }[] = []
+  const novelty: SpeechSynthesisVoice[] = []
 
-  // Every voice for this language is a joke voice: better a cartoon than
-  // silence, since the words themselves are still the lesson.
-  for (const tag of TAGS[value]) {
-    const fallback = voices.find((voice) => voice.lang.toLowerCase().startsWith(tag.toLowerCase()))
-    if (fallback) return fallback
-  }
-  return undefined
+  TAGS[value].forEach((tag, tagIndex) => {
+    for (const voice of voices) {
+      if (!voice.lang.toLowerCase().startsWith(tag.toLowerCase())) continue
+      if (seen.has(voice.name)) continue
+      seen.add(voice.name)
+      // Earlier tags are the preferred regions, so they win ties.
+      if (NOVELTY.test(voice.name)) novelty.push(voice)
+      else serious.push({ voice, rank: score(voice, tag) - tagIndex })
+    }
+  })
+
+  return [...serious.sort((a, b) => b.rank - a.rank).map((entry) => entry.voice), ...novelty]
+}
+
+function pickVoice(value: VoiceLang): SpeechSynthesisVoice | undefined {
+  const chosen = currentVoiceOption(value)
+  const ranked = rankedVoices(value)
+  return ranked.find((voice) => voice.name === chosen?.voiceName) ?? ranked[0]
 }
 
 /**
@@ -113,6 +198,8 @@ interface SpeakOptions {
   lang?: VoiceLang
   /** Slower for instructions, normal for praise. */
   rate?: number
+  /** Try one option out without selecting it first. */
+  option?: VoiceOption
 }
 
 /**
@@ -124,17 +211,21 @@ export function speak(text: string, options: SpeakOptions = {}) {
   if (!enabled || !speech || !text) return
 
   const value = options.lang ?? lang
-  const voice = pickVoice(value)
+  const shape = options.option ?? currentVoiceOption(value)
+  const voice = options.option
+    ? rankedVoices(value).find((candidate) => candidate.name === options.option?.voiceName)
+    : pickVoice(value)
 
   try {
     speech.cancel()
     const utterance = new SpeechSynthesisUtterance(text)
     utterance.lang = voice?.lang ?? TAGS[value][0]
     if (voice) utterance.voice = voice
-    utterance.rate = options.rate ?? 0.95
-    // Left at neutral on purpose: raising the pitch made the compact system
-    // voices — the only ones Ukrainian has on most devices — sound tinny.
-    utterance.pitch = 1
+    // The character sets the shape; an explicit rate (a slower instruction)
+    // scales it rather than replacing it, so a bear stays a slow bear.
+    const baseRate = shape?.rate ?? 0.95
+    utterance.rate = options.rate ? baseRate * (options.rate / 0.95) : baseRate
+    utterance.pitch = shape?.pitch ?? 1
     utterance.volume = 1
     speech.speak(utterance)
   } catch { /* a device that will not speak is not an error */ }

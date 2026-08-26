@@ -83,3 +83,46 @@
   .switch span { width: 34px; height: 34px; }
   .switch--on span { transform: translateX(32px); }
 }
+
+/* The voice picker needs a row of cards, not a row of buttons on one line. */
+.setting--stack { flex-direction: column; align-items: stretch; gap: 14px; }
+.setting__row { display: flex; align-items: center; gap: 16px; }
+
+.voice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.voice-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: var(--r-md);
+  background: var(--c-inset);
+  border: 2px solid transparent;
+  text-align: left;
+  min-height: var(--tap-min);
+  transition: transform 0.08s ease;
+}
+.voice-card:active { transform: scale(0.97); }
+.voice-card--on { background: var(--c-accent-soft); border-color: var(--c-accent); }
+
+.voice-card__name { font-size: 17px; font-weight: 800; color: var(--c-text); }
+.voice-card__voice {
+  font-size: 13px;
+  color: var(--c-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.voice-card__play {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--c-accent);
+}

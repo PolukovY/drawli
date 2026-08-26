@@ -3,7 +3,7 @@ import type { AppSettings, Language, ToolId, VoiceLanguage } from '../storage/ty
 import { addStars, createSettings, defaultVoiceLanguage, detectLanguage, loadSettings, updateSettings } from '../storage/SettingsRepository'
 import { initI18n } from '../i18n'
 import { setSoundEnabled } from '../audio/sounds'
-import { setVoiceEnabled, setVoiceLang } from '../audio/speech'
+import { setVoiceChoice, setVoiceEnabled, setVoiceLang } from '../audio/speech'
 
 export const PAINT_COLORS = [
   '#E4443B', '#F5893B', '#FFC53D', '#4EA55F', '#4E86E8',
@@ -19,6 +19,7 @@ type BootState = 'loading' | 'onboarding' | 'ready'
 function applyVoice(settings: AppSettings) {
   setVoiceEnabled(settings.voiceEnabled ?? true)
   setVoiceLang(settings.voiceLanguage ?? defaultVoiceLanguage(settings.language))
+  setVoiceChoice(settings.voiceChoice)
 }
 
 interface AppStore {
@@ -34,6 +35,7 @@ interface AppStore {
   setSoundEnabled: (enabled: boolean) => Promise<void>
   setVoiceEnabled: (enabled: boolean) => Promise<void>
   setVoiceLanguage: (language: VoiceLanguage) => Promise<void>
+  setVoiceChoice: (choice: string) => Promise<void>
   awardStars: (amount: number) => Promise<void>
   markTutorialDone: (screen: 'home' | 'draw') => Promise<void>
   setTool: (tool: ToolId) => void
@@ -101,9 +103,17 @@ export const useAppStore = create<AppStore>((set, get) => ({
   },
 
   async setVoiceLanguage(voiceLanguage) {
-    await updateSettings({ voiceLanguage })
+    // Each language has its own voices, so the old pick means nothing here.
+    await updateSettings({ voiceLanguage, voiceChoice: undefined })
     setVoiceLang(voiceLanguage)
-    set((s) => ({ settings: s.settings ? { ...s.settings, voiceLanguage } : null }))
+    setVoiceChoice(undefined)
+    set((s) => ({ settings: s.settings ? { ...s.settings, voiceLanguage, voiceChoice: undefined } : null }))
+  },
+
+  async setVoiceChoice(voiceChoice) {
+    await updateSettings({ voiceChoice })
+    setVoiceChoice(voiceChoice)
+    set((s) => ({ settings: s.settings ? { ...s.settings, voiceChoice } : null }))
   },
 
   async awardStars(amount) {
