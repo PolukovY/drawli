@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useAppStore } from '../app/store'
 import { playSound } from '../audio/sounds'
+import { speak } from '../audio/speech'
+import { gameCorrectLine, gameDoneLine } from '../audio/phrases'
 
 /** Long enough to enjoy being right, short enough not to lose the thread. */
 export const NEXT_DELAY = 3000
@@ -12,6 +14,9 @@ export const STARS_PER_ROUND = 2
  */
 export function useGameSession<T>(rounds: T[], starsPerRound = STARS_PER_ROUND) {
   const awardStars = useAppStore((s) => s.awardStars)
+  const settings = useAppStore((s) => s.settings)
+  const voiceOn = settings?.voiceEnabled ?? true
+  const voiceLang = settings?.voiceLanguage ?? settings?.language ?? 'uk'
 
   const [round, setRound] = useState(0)
   const [solved, setSolved] = useState(false)
@@ -61,10 +66,11 @@ export function useGameSession<T>(rounds: T[], starsPerRound = STARS_PER_ROUND) 
     if (solvedRef.current || finishedRef.current) return
     solvedRef.current = true
     playSound('correct')
+    if (voiceOn) speak(gameCorrectLine(voiceLang))
     setSolved(true)
     setEarned((value) => value + starsPerRound)
     await awardStars(starsPerRound)
-  }, [awardStars, starsPerRound])
+  }, [awardStars, starsPerRound, voiceOn, voiceLang])
 
   /** Never a buzzer: a wrong try is a quiet nudge, nothing is taken away. */
   const miss = useCallback(() => {
@@ -78,8 +84,13 @@ export function useGameSession<T>(rounds: T[], starsPerRound = STARS_PER_ROUND) 
   }, [solved, next])
 
   useEffect(() => {
-    if (finished) playSound('fanfare')
-  }, [finished])
+    if (!finished) return
+    playSound('fanfare')
+    // After the last correct answer, not on top of it.
+    if (!voiceOn) return
+    const timer = window.setTimeout(() => speak(gameDoneLine(voiceLang)), 1400)
+    return () => window.clearTimeout(timer)
+  }, [finished, voiceOn, voiceLang])
 
   const restart = useCallback(() => {
     roundRef.current = 0

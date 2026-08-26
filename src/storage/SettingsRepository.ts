@@ -1,11 +1,16 @@
 import { db } from './DrawliDatabase'
-import type { AppSettings, Language } from './types'
+import type { AppSettings, Language, VoiceLanguage } from './types'
 
 const SETTINGS_ID = 'app' as const
 
 /** uk-* browsers get Ukrainian; everyone else English. */
 export function detectLanguage(): Language {
   return navigator.language?.toLowerCase().startsWith('uk') ? 'uk' : 'en'
+}
+
+/** The voice starts in the language the app is in; Settings can split them. */
+export function defaultVoiceLanguage(language: Language): VoiceLanguage {
+  return language
 }
 
 export async function loadSettings(): Promise<AppSettings | undefined> {
@@ -18,6 +23,8 @@ export async function createSettings(childName: string, language: Language): Pro
     childName: childName.trim().slice(0, 20),
     language,
     soundEnabled: true,
+    voiceEnabled: true,
+    voiceLanguage: defaultVoiceLanguage(language),
     stars: 0,
     onboardedAt: new Date().toISOString(),
     tutorialHomeDone: false,

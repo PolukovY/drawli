@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '../components/Icon'
 import { useAppStore } from '../app/store'
+import { hasVoiceFor, speak } from '../audio/speech'
+import { praiseLine } from '../audio/phrases'
+import type { VoiceLanguage } from '../storage/types'
 import { BUILD_ID, refreshApp } from '../app/serviceWorker'
 import {
   downloadBackup, exportBackup, parseBackup, resetEverything, restoreBackup,
@@ -10,6 +13,13 @@ import {
 } from '../backup/BackupService'
 import '../styles/ui.css'
 import './SettingsPage.css'
+
+/** Each label is written in its own language: a child picks by sound, not by translation. */
+const VOICE_LANGUAGES: { id: VoiceLanguage; label: string }[] = [
+  { id: 'uk', label: 'Українська' },
+  { id: 'en', label: 'English' },
+  { id: 'es', label: 'Español' },
+]
 
 export function SettingsPage() {
   const navigate = useNavigate()
@@ -19,6 +29,8 @@ export function SettingsPage() {
   const setLanguage = useAppStore((s) => s.setLanguage)
   const setName = useAppStore((s) => s.setName)
   const setSoundEnabled = useAppStore((s) => s.setSoundEnabled)
+  const setVoiceEnabled = useAppStore((s) => s.setVoiceEnabled)
+  const setVoiceLanguage = useAppStore((s) => s.setVoiceLanguage)
   const reloadSettings = useAppStore((s) => s.reloadSettings)
 
   const fileRef = useRef<HTMLInputElement>(null)
@@ -26,6 +38,9 @@ export function SettingsPage() {
   const [importError, setImportError] = useState(false)
   const [confirmReset, setConfirmReset] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
+
+  const voiceOn = settings?.voiceEnabled ?? true
+  const voiceLang: VoiceLanguage = settings?.voiceLanguage ?? settings?.language ?? 'uk'
 
   async function handleFile(file: File) {
     const parsed = parseBackup(await file.text())
@@ -108,6 +123,50 @@ export function SettingsPage() {
             <span />
           </button>
         </section>
+
+        <section className="card setting">
+          <span className="setting__icon"><Icon name="sound" size={28} color="var(--c-accent)" /></span>
+          <div className="grow">
+            <div className="setting__title">{t('settings.voice')}</div>
+            <div className="muted" style={{ fontSize: 16 }}>{t('settings.voiceHint')}</div>
+          </div>
+          <button
+            className={`switch ${voiceOn ? 'switch--on' : ''}`}
+            onClick={() => void setVoiceEnabled(!voiceOn)}
+            role="switch"
+            aria-checked={voiceOn}
+            aria-label={t('settings.voice')}
+          >
+            <span />
+          </button>
+        </section>
+
+        {voiceOn ? (
+          <section className="card setting">
+            <span className="setting__icon"><Icon name="globe" size={28} color="var(--c-accent)" /></span>
+            <div className="grow">
+              <div className="setting__title">{t('settings.voiceLanguage')}</div>
+              <div className="muted" style={{ fontSize: 16 }}>
+                {hasVoiceFor(voiceLang) ? t('settings.voiceTryHint') : t('settings.voiceMissing')}
+              </div>
+            </div>
+            <div className="row" style={{ gap: 10, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+              {VOICE_LANGUAGES.map(({ id, label }) => (
+                <button
+                  key={id}
+                  className={`btn ${voiceLang === id ? 'btn--primary' : ''}`}
+                  onClick={() => {
+                    void setVoiceLanguage(id)
+                    // Hearing it is the only way to judge it.
+                    speak(praiseLine(id, settings?.childName), { lang: id })
+                  }}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="card setting">
           <span className="setting__icon"><Icon name="download" size={28} color="var(--c-accent)" /></span>

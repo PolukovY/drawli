@@ -73,11 +73,20 @@ export interface ExerciseProgress {
 
 export type Language = 'uk' | 'en'
 
+/**
+ * The tutor's voice has its own language: a Ukrainian-speaking child can be
+ * praised in Spanish, which is half the point of having three.
+ */
+export type VoiceLanguage = 'uk' | 'en' | 'es'
+
 export interface AppSettings {
   id: 'app'
   childName: string
   language: Language
   soundEnabled: boolean
+  /** The spoken tutor: explains each step, praises a finished one. */
+  voiceEnabled?: boolean
+  voiceLanguage?: VoiceLanguage
   stars: number
   onboardedAt: string
   /** Coach marks are shown once per screen, then never again. */
