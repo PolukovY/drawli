@@ -97,9 +97,9 @@ export function MyDrawingsPage() {
             >
               <span className="drawing-card__art">
                 {thumbnails[drawing.id] ? (
-                  <img src={thumbnails[drawing.id]} alt="" />
+                  <img src={thumbnails[drawing.id]} alt="" loading="lazy" decoding="async" />
                 ) : summary ? (
-                  <img src={assetUrl(summary.thumbnail)} alt="" className="drawing-card__ghost" />
+                  <img src={assetUrl(summary.thumbnail)} alt="" className="drawing-card__ghost" loading="lazy" decoding="async" />
                 ) : null}
               </span>
               <span className="drawing-card__meta">

@@ -87,7 +87,7 @@ export function ProgressPage() {
                     onClick={() => navigate(`/draw/${exercise.id}`)}
                     title={t(exercise.titleKey)}
                   >
-                    <img src={assetUrl(exercise.thumbnail)} alt={t(exercise.titleKey)} />
+                    <img src={assetUrl(exercise.thumbnail)} alt={t(exercise.titleKey)} loading="lazy" decoding="async" />
                   </button>
                 ))}
               </div>
