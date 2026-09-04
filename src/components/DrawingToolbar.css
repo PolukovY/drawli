@@ -108,11 +108,15 @@
 }
 
 /* What this step asks for. The pulse stops the moment it is picked up, so it
-   reads as an instruction rather than an alarm. */
+   reads as an instruction rather than an alarm — and it stops by itself after
+   a few beats either way. Pulsing a box-shadow repaints the toolbar on every
+   frame, and left running for a whole afternoon that is a tablet's battery and
+   half its responsiveness for a hint the child saw in the first two seconds.
+   The ring below stays, so the instruction is still on screen. */
 .tool--want {
   background: var(--c-accent-soft);
   box-shadow: inset 0 0 0 2px var(--c-accent);
-  animation: tool-want 1.6s ease-in-out infinite;
+  animation: tool-want 1.6s ease-in-out 6;
 }
 
 @keyframes tool-want {

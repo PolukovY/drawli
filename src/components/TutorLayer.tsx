@@ -14,8 +14,19 @@ interface Props {
 /** How long the hand takes per shape, and how long the pace dot loops. */
 const DEMO_MS = 2600
 const PACE_MS = 4200
+/**
+ * The dot shows the pace a few times and then parks itself. It used to loop
+ * for as long as the step was open, which meant the drawing screen animated at
+ * 60fps for the whole session — on a tablet that is a core kept busy, and the
+ * app grows sluggish long before the child is finished.
+ */
+const PACE_LOOPS = 3
+/** Points sampled off each shape, once, so no frame has to ask for geometry. */
+const SAMPLES = 160
+/** The markup can be a frame from being laid out; it is never many. */
+const MEASURE_ATTEMPTS = 5
 
-type Shape = { el: SVGGeometryElement; length: number }
+type Shape = { points: { x: number; y: number }[]; length: number; d: string }
 
 /**
  * The part of the lesson that shows *how*, not *what*: a green dot where the
@@ -31,6 +42,8 @@ export function TutorLayer({ exerciseId, step, demo, onDemoEnd }: Props) {
   const [settled, setSettled] = useState(0)
   const hostRef = useRef<HTMLDivElement>(null)
   const frameRef = useRef(0)
+  /** Guards the re-measure retry: a guide it cannot measure must not spin. */
+  const attemptsRef = useRef(0)
   const endRef = useRef(onDemoEnd)
   endRef.current = onDemoEnd
 
@@ -38,6 +51,7 @@ export function TutorLayer({ exerciseId, step, demo, onDemoEnd }: Props) {
 
   useEffect(() => {
     let cancelled = false
+    attemptsRef.current = 0
     if (!file) {
       setMarkup('')
       return
@@ -49,8 +63,9 @@ export function TutorLayer({ exerciseId, step, demo, onDemoEnd }: Props) {
   }, [exerciseId, file])
 
   /**
-   * One animation loop drives both modes. The pace dot runs for as long as the
-   * step is open; the hand runs once through every shape and then hands over.
+   * One animation loop drives both modes, and both of them end: the pace dot
+   * after a few passes, the hand once it has been through every shape. Nothing
+   * on this screen is left animating behind the child's back.
    */
   useEffect(() => {
     const host = hostRef.current
@@ -67,6 +82,7 @@ export function TutorLayer({ exerciseId, step, demo, onDemoEnd }: Props) {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     let startedAt = 0
     let shapeIndex = 0
+    let drawnShape = -1
 
     const place = (node: SVGGraphicsElement, x: number, y: number, extra = '') => {
       node.setAttribute('transform', `translate(${x.toFixed(1)} ${y.toFixed(1)})${extra}`)
@@ -75,9 +91,15 @@ export function TutorLayer({ exerciseId, step, demo, onDemoEnd }: Props) {
     // Measured here rather than kept in a ref: a step change swaps the markup,
     // and elements from the previous step are detached — asking one of those
     // for a point throws "the element is in an inactive document".
+    //
+    // Sampled once, too. getPointAtLength forces layout, so asking for a point
+    // every frame made the drawing screen recalculate style and lay out sixty
+    // times a second for nothing.
     const shapes = measure(host)
     // The injected markup can still be one frame away from being laid out.
     if (shapes.length === 0) {
+      if (attemptsRef.current >= MEASURE_ATTEMPTS) return
+      attemptsRef.current += 1
       frameRef.current = requestAnimationFrame(() => setSettled((n) => n + 1))
       return () => cancelAnimationFrame(frameRef.current)
     }
@@ -85,8 +107,8 @@ export function TutorLayer({ exerciseId, step, demo, onDemoEnd }: Props) {
     // The step's first stroke carries the markers: where to put the pencil
     // down and which way to go.
     const first = shapes[0]
-    const from = first.el.getPointAtLength(0)
-    const towards = first.el.getPointAtLength(Math.min(first.length * 0.08, 40))
+    const from = first.points[0]
+    const towards = pointOn(first, Math.min(first.length * 0.08, 40) / first.length)
     place(start, from.x, from.y)
     place(
       arrow,
@@ -101,17 +123,24 @@ export function TutorLayer({ exerciseId, step, demo, onDemoEnd }: Props) {
       return
     }
 
+    // Back on for this step, in case the last one left it parked.
+    runner.style.opacity = ''
+
     const tick = (now: number) => {
       if (!startedAt) startedAt = now
 
       if (demo) {
         const shape = shapes[shapeIndex]
         const progress = Math.min((now - startedAt) / DEMO_MS, 1)
-        const point = shape.el.getPointAtLength(shape.length * progress)
+        const point = pointOn(shape, progress)
 
         // The trail is the step's own outline, revealed as the hand passes.
-        trail.setAttribute('d', pathOf(shape.el))
-        trail.style.strokeDasharray = `${shape.length}`
+        // Its shape only changes when the hand moves on to the next stroke.
+        if (drawnShape !== shapeIndex) {
+          trail.setAttribute('d', shape.d)
+          trail.style.strokeDasharray = `${shape.length}`
+          drawnShape = shapeIndex
+        }
         trail.style.strokeDashoffset = `${shape.length * (1 - progress)}`
         place(hand, point.x, point.y, ' scale(0.34)')
 
@@ -124,9 +153,13 @@ export function TutorLayer({ exerciseId, step, demo, onDemoEnd }: Props) {
           }
         }
       } else {
-        const shape = shapes[0]
-        const progress = ((now - startedAt) % PACE_MS) / PACE_MS
-        const point = shape.el.getPointAtLength(shape.length * progress)
+        const elapsed = now - startedAt
+        // Shown, then over: the child is left with a still screen to draw on.
+        if (elapsed >= PACE_MS * PACE_LOOPS) {
+          runner.style.opacity = '0'
+          return
+        }
+        const point = pointOn(shapes[0], (elapsed % PACE_MS) / PACE_MS)
         runner.setAttribute('cx', point.x.toFixed(1))
         runner.setAttribute('cy', point.y.toFixed(1))
       }
@@ -174,17 +207,46 @@ export function TutorLayer({ exerciseId, step, demo, onDemoEnd }: Props) {
   )
 }
 
-/** The step's own shapes, in the order the exercise draws them. */
+/**
+ * The step's own shapes, in the order the exercise draws them, each sampled
+ * into a list of points. Every geometry question the animation would ask is
+ * answered here, once per step, instead of once per frame.
+ */
 function measure(host: HTMLElement): Shape[] {
   const found = Array.from(
     host.querySelectorAll<SVGGeometryElement>(
       '.tutor__source svg > :is(path, circle, ellipse, rect, line, polyline, polygon)',
     ),
   )
-  return found
-    .filter((el) => el.isConnected && typeof el.getTotalLength === 'function')
-    .map((el) => ({ el, length: el.getTotalLength() }))
-    .filter((shape) => shape.length > 0)
+  const shapes: Shape[] = []
+
+  for (const el of found) {
+    if (!el.isConnected || typeof el.getTotalLength !== 'function') continue
+    const length = el.getTotalLength()
+    if (!length) continue
+
+    const points: { x: number; y: number }[] = []
+    for (let i = 0; i <= SAMPLES; i += 1) {
+      const point = el.getPointAtLength((length * i) / SAMPLES)
+      points.push({ x: point.x, y: point.y })
+    }
+    shapes.push({ points, length, d: pathOf(el) })
+  }
+
+  return shapes
+}
+
+/** Where the hand or the dot is at `progress` (0..1) along a sampled shape. */
+function pointOn(shape: Shape, progress: number): { x: number; y: number } {
+  const at = Math.min(Math.max(progress, 0), 1) * SAMPLES
+  const index = Math.floor(at)
+  const from = shape.points[index]
+  const to = shape.points[index + 1] ?? from
+  const fraction = at - index
+  return {
+    x: from.x + (to.x - from.x) * fraction,
+    y: from.y + (to.y - from.y) * fraction,
+  }
 }
 
 /**

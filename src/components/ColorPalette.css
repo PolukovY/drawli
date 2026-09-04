@@ -24,11 +24,13 @@
   .paint { width: 40px; height: 40px; min-height: 40px; }
 }
 
-/* The colour the tutor asked for. */
+/* The colour the tutor asked for. The outline says which one for as long as
+   the step asks for it; the pulse only has to catch the eye, so it beats a few
+   times and stops rather than repainting the palette all session. */
 .paint--want {
   outline: 3px solid var(--c-accent);
   outline-offset: 3px;
-  animation: paint-want 1.6s ease-in-out infinite;
+  animation: paint-want 1.6s ease-in-out 6;
 }
 
 @keyframes paint-want {

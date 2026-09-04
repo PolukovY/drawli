@@ -47,9 +47,13 @@ const SOUNDS: Record<SoundName, Note[]> = {
 
 let enabled = true
 let context: AudioContext | null = null
+/** How long the context may sit unused before it is put to sleep. */
+const IDLE_MS = 4000
+let idleTimer: number | null = null
 
 export function setSoundEnabled(value: boolean) {
   enabled = value
+  if (!value) suspend()
 }
 
 /** Browsers only allow audio after a gesture, so the context is built lazily. */
@@ -68,12 +72,33 @@ function getContext(): AudioContext | null {
   return context
 }
 
+function suspend() {
+  if (idleTimer !== null) {
+    window.clearTimeout(idleTimer)
+    idleTimer = null
+  }
+  if (context && context.state === 'running') void context.suspend().catch(() => undefined)
+}
+
+/**
+ * A running context keeps the audio thread awake for as long as the app is
+ * open — hours, on a tablet the child never closes — for a handful of blips a
+ * minute. It is put back to sleep once the last note has finished.
+ */
+function sleepWhenQuiet(endsAt: number) {
+  const ctx = context
+  if (!ctx) return
+  if (idleTimer !== null) window.clearTimeout(idleTimer)
+  idleTimer = window.setTimeout(suspend, Math.max(0, (endsAt - ctx.currentTime) * 1000) + IDLE_MS)
+}
+
 export function playSound(name: SoundName) {
   const ctx = getContext()
   if (!ctx) return
-  if (ctx.state === 'suspended') void ctx.resume()
+  if (ctx.state === 'suspended') void ctx.resume().catch(() => undefined)
 
   const start = ctx.currentTime + 0.01
+  let endsAt = start
 
   for (const note of SOUNDS[name]) {
     const oscillator = ctx.createOscillator()
@@ -90,6 +115,28 @@ export function playSound(name: SoundName) {
 
     oscillator.connect(gain).connect(ctx.destination)
     oscillator.start(start + note.at)
-    oscillator.stop(start + note.at + note.duration + 0.05)
+    const stopAt = start + note.at + note.duration + 0.05
+    oscillator.stop(stopAt)
+    endsAt = Math.max(endsAt, stopAt)
+
+    // A finished oscillator still hangs off the destination until it is taken
+    // out. A tap a second for an afternoon leaves thousands of dead nodes in
+    // the graph, and the audio thread walks all of them on every render quantum.
+    oscillator.onended = () => {
+      oscillator.disconnect()
+      gain.disconnect()
+    }
   }
+
+  sleepWhenQuiet(endsAt)
+}
+
+/**
+ * Nothing should be playing, or waiting to play, once the app is out of sight:
+ * a tablet put down mid-game used to leave the audio thread running.
+ */
+if (typeof document !== 'undefined') {
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') suspend()
+  })
 }
