@@ -27,6 +27,10 @@
 .setting__icon--danger { background: var(--c-danger-bg); }
 
 .setting__title { font-size: 19px; font-weight: 800; }
+/* Hint lines are short on purpose now, but a name typed long or a language
+   this app was not translated into can still wrap — kept tight rather than
+   the browser's own airy default so a wrapped line costs little height. */
+.setting .muted { line-height: 1.25; }
 
 .setting__input {
   height: var(--tap-min);
@@ -79,6 +83,11 @@
   .setting__input { flex-basis: 100%; width: 100%; }
   .setting > .row { justify-content: stretch; }
   .setting > .row .btn { flex: 1 1 0; }
+  /* A flag stays the small round button it is everywhere else — stretching
+     it to share the row the way a full-width label needed to would just
+     leave a flag alone in the middle of a stretch of empty color. */
+  .setting > .row .btn.lang-flag { flex: 0 0 auto; }
+  .setting > .row:has(.lang-flag) { justify-content: center; }
   .switch { width: 76px; height: 44px; min-height: 44px; }
   .switch span { width: 34px; height: 34px; }
   .switch--on span { transform: translateX(32px); }

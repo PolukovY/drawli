@@ -6,6 +6,7 @@ import { useAppStore } from '../app/store'
 import { currentVoiceOption, hasVoiceFor, listVoiceOptions, speak, voiceQuality } from '../audio/speech'
 import { praiseLine } from '../audio/phrases'
 import type { VoiceLanguage } from '../storage/types'
+import { LANGUAGE_FLAG } from '../i18n/languageFlags'
 import { BUILD_ID, refreshApp } from '../app/serviceWorker'
 import {
   downloadBackup, exportBackup, parseBackup, resetEverything, restoreBackup,
@@ -14,7 +15,7 @@ import {
 import '../styles/ui.css'
 import './SettingsPage.css'
 
-/** Each label is written in its own language: a child picks by sound, not by translation. */
+/** Shown as a flag; the label lives on for the aria-label a flag can't carry. */
 const VOICE_LANGUAGES: { id: VoiceLanguage; label: string }[] = [
   { id: 'uk', label: 'Українська' },
   { id: 'en', label: 'English' },
@@ -103,16 +104,22 @@ export function SettingsPage() {
           <div className="setting__title grow">{t('settings.language')}</div>
           <div className="row" style={{ gap: 10 }}>
             <button
-              className={`btn ${settings?.language === 'uk' ? 'btn--primary' : ''}`}
+              className={`btn lang-flag ${settings?.language === 'uk' ? 'btn--primary' : ''}`}
               onClick={() => void setLanguage('uk')}
+              aria-label="Українська"
+              aria-pressed={settings?.language === 'uk'}
+              title="Українська"
             >
-              Українська
+              {LANGUAGE_FLAG.uk}
             </button>
             <button
-              className={`btn ${settings?.language === 'en' ? 'btn--primary' : ''}`}
+              className={`btn lang-flag ${settings?.language === 'en' ? 'btn--primary' : ''}`}
               onClick={() => void setLanguage('en')}
+              aria-label="English"
+              aria-pressed={settings?.language === 'en'}
+              title="English"
             >
-              English
+              {LANGUAGE_FLAG.en}
             </button>
           </div>
         </section>
@@ -182,14 +189,17 @@ export function SettingsPage() {
               {VOICE_LANGUAGES.map(({ id, label }) => (
                 <button
                   key={id}
-                  className={`btn ${voiceLang === id ? 'btn--primary' : ''}`}
+                  className={`btn lang-flag ${voiceLang === id ? 'btn--primary' : ''}`}
                   onClick={() => {
                     void setVoiceLanguage(id)
                     // Hearing it is the only way to judge it.
                     speak(praiseLine(id, settings?.childName), { lang: id })
                   }}
+                  aria-label={label}
+                  aria-pressed={voiceLang === id}
+                  title={label}
                 >
-                  {label}
+                  {LANGUAGE_FLAG[id]}
                 </button>
               ))}
             </div>

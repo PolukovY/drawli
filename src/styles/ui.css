@@ -59,6 +59,8 @@
   color: var(--c-text-muted);
 }
 .icon-btn:active { transform: scale(0.94); }
+/* The one thing on the row that starts something new, same as .btn--primary. */
+.icon-btn--primary { background: var(--c-accent); color: #fff; box-shadow: var(--sh-float); }
 
 .btn {
   height: var(--tap-primary);
@@ -96,6 +98,14 @@
   white-space: nowrap;
 }
 .chip--on { background: var(--c-accent); color: #fff; }
+
+/* A flag standing in for a language's name, on a .chip or a .btn alike — the
+   same touch target, a fraction of the width a word needed. */
+.lang-flag { padding: 0 14px; min-width: 52px; justify-content: center; font-size: 24px; line-height: 1; }
+
+@media (max-width: 700px) {
+  .lang-flag { padding: 0 10px; min-width: 46px; font-size: 21px; }
+}
 
 .star-badge {
   display: inline-flex;

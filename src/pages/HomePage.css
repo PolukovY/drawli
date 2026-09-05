@@ -68,8 +68,9 @@
 .exercise-card:active { transform: scale(0.96); }
 .exercise-card img { width: 74px; height: 74px; }
 
+/* Icon-only buttons already resize themselves with --tap-min at every
+   breakpoint (see .icon-btn in ui.css) — nothing page-specific to size here. */
 .home__nav { display: flex; justify-content: center; gap: 12px; }
-.home__nav .btn { height: var(--tap-primary); border-radius: var(--r-lg); }
 
 @media (max-width: 900px) {
   .home__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -82,7 +83,6 @@
 /* Narrow tablets: shorter labels, so the three modes always fit on one line. */
 @media (max-width: 900px) {
   .mode-tab { padding: 0 16px; font-size: 16px; }
-  .home__nav .btn { padding: 0 18px; font-size: 16px; }
 }
 
 .mode-tab {
@@ -165,18 +165,7 @@
   .resume__title { font-size: 15px; }
   .resume .btn { padding: 0 14px; font-size: 14px; }
 
-  /* Three equal buttons that always fit, labels included. */
   .home__nav { gap: 8px; }
-  .home__nav .btn {
-    flex: 1 1 0;
-    min-width: 0;
-    padding: 0 8px;
-    font-size: 13px;
-    gap: 6px;
-    height: var(--tap-primary);
-  }
-  .home__nav .btn svg { width: 20px; height: 20px; flex-shrink: 0; }
-  .home__nav .btn { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 }
 
 /* Phone held sideways: height is what runs out, so everything optional goes. */
@@ -192,5 +181,4 @@
   .home__brand { font-size: 18px; }
   .home__greeting { display: none; }
   .mode-tab { height: 42px; font-size: 13px; }
-  .home__nav .btn { height: 42px; font-size: 13px; }
 }
