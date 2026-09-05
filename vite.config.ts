@@ -25,7 +25,10 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: 'autoUpdate',
+      // 'prompt', not 'autoUpdate': a new build must never take the screen
+      // away from a child mid-stroke. The app is told a version is ready and
+      // shows a banner; see src/app/serviceWorker.ts for what happens next.
+      registerType: 'prompt',
       // The service worker scope must match the Pages sub-path, or the app
       // installs but never serves anything offline.
       base,
@@ -50,6 +53,15 @@ export default defineConfig({
       },
       workbox: {
         cleanupOutdatedCaches: true,
+        // The new worker waits its turn rather than seizing the page. It takes
+        // over when the child asks it to, or on the next launch — which is
+        // what the browser does by itself once no window is using the old one.
+        skipWaiting: false,
+        // Claiming is not seizing: it only means the page that registered a
+        // worker is controlled by it straight away instead of from the next
+        // load. Without it the first launch after an install runs uncontrolled,
+        // and a new build has no page to hand itself to.
+        clientsClaim: true,
         // Only the shell ships with the install: the library is hundreds of
         // small SVGs and precaching them would make the first launch crawl.
         globPatterns: ['**/*.{js,css,html,ico,png}'],

@@ -30,6 +30,7 @@ export function SettingsPage() {
   const setName = useAppStore((s) => s.setName)
   const setSoundEnabled = useAppStore((s) => s.setSoundEnabled)
   const setVoiceEnabled = useAppStore((s) => s.setVoiceEnabled)
+  const setDemoEnabled = useAppStore((s) => s.setDemoEnabled)
   const setVoiceLanguage = useAppStore((s) => s.setVoiceLanguage)
   const setVoiceChoice = useAppStore((s) => s.setVoiceChoice)
   const reloadSettings = useAppStore((s) => s.reloadSettings)
@@ -40,7 +41,8 @@ export function SettingsPage() {
   const [confirmReset, setConfirmReset] = useState(false)
   const [refreshing, setRefreshing] = useState(false)
 
-  const voiceOn = settings?.voiceEnabled ?? true
+  const voiceOn = settings?.voiceEnabled ?? false
+  const demoOn = settings?.demoEnabled ?? false
   const voiceLang: VoiceLanguage = settings?.voiceLanguage ?? settings?.language ?? 'uk'
   // Read straight from the browser: the list changes with the device, not with
   // anything this app stores.
@@ -124,6 +126,23 @@ export function SettingsPage() {
             role="switch"
             aria-checked={settings?.soundEnabled ?? false}
             aria-label={t('settings.sound')}
+          >
+            <span />
+          </button>
+        </section>
+
+        <section className="card setting">
+          <span className="setting__icon"><Icon name="play" size={28} color="var(--c-accent)" filled /></span>
+          <div className="grow">
+            <div className="setting__title">{t('settings.demo')}</div>
+            <div className="muted" style={{ fontSize: 16 }}>{t('settings.demoHint')}</div>
+          </div>
+          <button
+            className={`switch ${demoOn ? 'switch--on' : ''}`}
+            onClick={() => void setDemoEnabled(!demoOn)}
+            role="switch"
+            aria-checked={demoOn}
+            aria-label={t('settings.demo')}
           >
             <span />
           </button>

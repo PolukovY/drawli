@@ -102,6 +102,8 @@
     "nameHint": "How Drawli greets you",
     "language": "Language",
     "sound": "Sound",
+    "demo": "Show me how",
+    "demoHint": "A hand traces the step before the child draws it",
     "backup": "Backup",
     "backupHint": "Drawings, progress and stars in one file",
     "export": "Export",
@@ -142,6 +144,14 @@
       "calm": "Calm",
       "robot": "Robot"
     }
+  },
+  "update": {
+    "ready": "A new version of Drawli is ready",
+    "readyHint": "Drawings and stars stay. Or keep drawing — it updates next time you open the app.",
+    "now": "Update",
+    "later": "Later",
+    "applying": "Updating…",
+    "done": "Drawli updated"
   },
   "category": {
     "motor": "Motor skills",

@@ -13,11 +13,12 @@ export const PAINT_COLORS = [
 type BootState = 'loading' | 'onboarding' | 'ready'
 
 /**
- * Drawings saved before the tutor existed have neither field: the voice is on
- * and speaks the app's language, which is what a fresh install would do.
+ * Settings written before the tutors had switches carry neither field. They are
+ * off, which is what a fresh install now does; the language still falls back to
+ * the app's own.
  */
 function applyVoice(settings: AppSettings) {
-  setVoiceEnabled(settings.voiceEnabled ?? true)
+  setVoiceEnabled(settings.voiceEnabled ?? false)
   setVoiceLang(settings.voiceLanguage ?? defaultVoiceLanguage(settings.language))
   setVoiceChoice(settings.voiceChoice)
 }
@@ -34,6 +35,7 @@ interface AppStore {
   setName: (name: string) => Promise<void>
   setSoundEnabled: (enabled: boolean) => Promise<void>
   setVoiceEnabled: (enabled: boolean) => Promise<void>
+  setDemoEnabled: (enabled: boolean) => Promise<void>
   setVoiceLanguage: (language: VoiceLanguage) => Promise<void>
   setVoiceChoice: (choice: string) => Promise<void>
   awardStars: (amount: number) => Promise<void>
@@ -100,6 +102,11 @@ export const useAppStore = create<AppStore>((set, get) => ({
     await updateSettings({ voiceEnabled })
     setVoiceEnabled(voiceEnabled)
     set((s) => ({ settings: s.settings ? { ...s.settings, voiceEnabled } : null }))
+  },
+
+  async setDemoEnabled(demoEnabled) {
+    await updateSettings({ demoEnabled })
+    set((s) => ({ settings: s.settings ? { ...s.settings, demoEnabled } : null }))
   },
 
   async setVoiceLanguage(voiceLanguage) {

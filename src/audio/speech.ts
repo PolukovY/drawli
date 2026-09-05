@@ -189,8 +189,24 @@ export function voiceQuality(value: VoiceLang): 'none' | 'basic' | 'good' {
   return 'basic'
 }
 
+/**
+ * The utterance being spoken, held until it ends. A local variable is dropped
+ * the moment speak() returns, and a browser that collects it mid-sentence cuts
+ * the tutor off — or, on some Android builds, wedges the synthesizer for the
+ * rest of the session, which no amount of tapping recovers from.
+ */
+let speaking: SpeechSynthesisUtterance | null = null
+
 export function stopSpeaking() {
+  speaking = null
   try { synth()?.cancel() } catch { /* nothing to cancel */ }
+}
+
+/** A tablet put down mid-sentence should not leave the engine talking. */
+if (typeof document !== 'undefined') {
+  const quieten = () => { if (document.visibilityState === 'hidden') stopSpeaking() }
+  document.addEventListener('visibilitychange', quieten)
+  window.addEventListener('pagehide', stopSpeaking)
 }
 
 interface SpeakOptions {
@@ -219,6 +235,10 @@ export function speak(text: string, options: SpeakOptions = {}) {
   try {
     speech.cancel()
     const utterance = new SpeechSynthesisUtterance(text)
+    speaking = utterance
+    const release = () => { if (speaking === utterance) speaking = null }
+    utterance.onend = release
+    utterance.onerror = release
     utterance.lang = voice?.lang ?? TAGS[value][0]
     if (voice) utterance.voice = voice
     // The character sets the shape; an explicit rate (a slower instruction)

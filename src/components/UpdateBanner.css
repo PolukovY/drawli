@@ -1,0 +1,72 @@
+/* Bottom left: the drawing screen keeps its Next button in the middle and the
+   tools down the side, so this is the one corner nothing else wants. */
+.update {
+  position: fixed;
+  left: max(16px, var(--safe-left, 16px));
+  bottom: calc(16px + var(--safe-bottom, 0px));
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: min(680px, calc(100vw - 32px));
+  padding: 14px 18px;
+  border-radius: var(--r-2xl);
+  background: var(--c-surface);
+  box-shadow: 0 18px 44px rgba(42, 35, 64, 0.28);
+  animation: update-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.update__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--c-accent-soft);
+}
+
+.update__text { flex: 1; min-width: 0; }
+.update__title { font-size: 19px; font-weight: 800; }
+.update__hint { font-size: 15px; color: var(--c-text-soft); }
+
+.update .btn { flex: none; }
+
+/* The two states that are only telling the child something. */
+.update--done,
+.update--busy {
+  font-size: 18px;
+  font-weight: 800;
+  padding: 14px 24px;
+  border-radius: var(--r-pill);
+}
+
+.update--done { background: var(--c-success); color: #fff; }
+.update--busy { background: var(--c-accent); color: #fff; }
+
+.update__spinner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  animation: update-spin 0.9s linear infinite;
+}
+
+@keyframes update-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes update-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .update { animation: none; }
+  .update__spinner { animation-duration: 2.4s; }
+}
+
+@media (max-width: 700px) {
+  .update { gap: 10px; padding: 12px 14px; }
+  .update__hint { display: none; }
+}

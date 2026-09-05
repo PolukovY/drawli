@@ -225,6 +225,9 @@ export function HomePage() {
             </button>
           ) : null}
 
+          {/* The library is a hundred and fifty pictures. Decoding all of them
+              for a screen that shows a dozen is work a tablet pays for on
+              every visit home, so the ones below the fold wait their turn. */}
           {exercises.map((exercise) => (
             <button
               key={exercise.id}
@@ -234,7 +237,7 @@ export function HomePage() {
               {exercise.glyph ? (
                 <span className="exercise-card__glyph">{exercise.glyph}</span>
               ) : (
-                <img src={assetUrl(exercise.thumbnail)} alt="" />
+                <img src={assetUrl(exercise.thumbnail)} alt="" loading="lazy" decoding="async" />
               )}
               {/* The glyph is its own label; text only when it adds something
                   (Spanish letters carry their spoken name). */}

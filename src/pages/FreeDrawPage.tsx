@@ -16,8 +16,8 @@ import { findInProgress, upsertDrawing } from '../storage/DrawingRepository'
 import '../styles/ui.css'
 import './DrawingPage.css'
 
-const AUTOSAVE_DELAY = 400
-const THUMBNAIL_INTERVAL = 4000
+const AUTOSAVE_DELAY = 2000
+const THUMBNAIL_INTERVAL = 15000
 
 /** A blank sheet: no steps, no guide, no Next — just paper and tools. */
 export function FreeDrawPage() {

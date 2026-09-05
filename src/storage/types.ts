@@ -86,6 +86,8 @@ export interface AppSettings {
   soundEnabled: boolean
   /** The spoken tutor: explains each step, praises a finished one. */
   voiceEnabled?: boolean
+  /** The drawn tutor: a hand that traces the step, and a dot for the pace. */
+  demoEnabled?: boolean
   voiceLanguage?: VoiceLanguage
   /** Which voice and character the child picked, as "voice name#character". */
   voiceChoice?: string
@@ -94,6 +96,11 @@ export interface AppSettings {
   /** Coach marks are shown once per screen, then never again. */
   tutorialHomeDone?: boolean
   tutorialDrawDone?: boolean
+  /**
+   * Which set of defaults this install was created with. Only ever used to
+   * apply a changed default once to a device that already has settings.
+   */
+  settingsVersion?: number
 }
 
 export interface Achievement {
