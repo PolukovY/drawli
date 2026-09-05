@@ -157,7 +157,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 50;
+  /* Above every full-screen overlay in the app (camera, fullscreen photo
+     viewer) — a confirmation must never be reachable underneath one. */
+  z-index: 70;
 }
 .modal {
   background: var(--c-surface);

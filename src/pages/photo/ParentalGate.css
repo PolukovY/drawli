@@ -1,0 +1,35 @@
+.gate__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--r-lg);
+  background: var(--c-accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
+.gate__question { font-size: 24px; font-weight: 800; text-align: center; }
+
+.gate__input {
+  align-self: center;
+  width: 110px;
+  height: var(--tap-primary);
+  padding: 0;
+  border: 3px solid var(--c-accent);
+  border-radius: var(--r-lg);
+  background: var(--c-inset);
+  font: 800 26px var(--font);
+  color: var(--c-text);
+  text-align: center;
+  outline: none;
+}
+
+.gate__error { color: var(--c-danger); font-weight: 700; font-size: 14px; text-align: center; margin-top: -8px; }
+
+.gate__cancel {
+  color: var(--c-text-muted);
+  font-weight: 800;
+  font-size: 15px;
+  align-self: center;
+}

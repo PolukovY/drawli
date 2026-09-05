@@ -1,0 +1,264 @@
+/* ── Home step ─────────────────────────────────────────────────────────── */
+
+.ps-home {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 0;
+}
+
+.ps-mascot { font-size: 72px; line-height: 1; }
+
+.ps-bubble {
+  background: var(--c-surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-card);
+  padding: 12px 20px;
+  max-width: 320px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--c-text-soft);
+}
+
+.ps-shutter-cta {
+  width: 148px;
+  height: 148px;
+  border-radius: var(--r-pill);
+  background: var(--c-accent);
+  box-shadow: var(--sh-float);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ps-shutter-cta:active { transform: scale(0.96); }
+
+/* ── Camera step (full-bleed, no app chrome) ──────────────────────────── */
+
+.ps-camera {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ps-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ps-flash {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  animation: ps-flash-fade 0.18s ease-out forwards;
+  z-index: 3;
+}
+@keyframes ps-flash-fade { from { opacity: 0.9; } to { opacity: 0; } }
+
+.ps-camera__top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  padding: calc(14px + var(--safe-top)) calc(14px + var(--safe-right)) 0 calc(14px + var(--safe-left));
+}
+
+.ps-camera__btn {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-pill);
+  background: rgba(42, 35, 64, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ps-camera__hint {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  margin-top: 22px;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: var(--r-pill);
+  padding: 9px 20px;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--c-text);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.ps-camera__bottom {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  padding-bottom: calc(40px + var(--safe-bottom));
+}
+
+.ps-shutter {
+  width: 84px;
+  height: 84px;
+  border-radius: var(--r-pill);
+  border: 5px solid rgba(255, 255, 255, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ps-shutter span {
+  width: 66px;
+  height: 66px;
+  border-radius: var(--r-pill);
+  background: #fff;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+}
+.ps-shutter:active span { transform: scale(0.92); }
+.ps-shutter:disabled { opacity: 0.5; }
+
+.ps-camera__error {
+  position: relative;
+  z-index: 2;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  padding: 0 32px;
+}
+
+/* ── Photo frame, shared by preview / effects / decorations ───────────── */
+
+.ps-photo-frame {
+  position: relative;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  box-shadow: var(--sh-raised);
+  flex-grow: 1;
+  min-height: 0;
+  max-height: 100%;
+  margin: 0 auto;
+  max-width: 100%;
+}
+.ps-photo-frame__img { width: 100%; height: 100%; object-fit: fill; display: block; }
+.ps-photo-frame--small { flex-grow: 0; height: 130px; }
+
+.ps-effect-overlay { position: absolute; inset: 0; pointer-events: none; }
+
+.ps-stage { touch-action: none; }
+
+/* ── Effects picker ────────────────────────────────────────────────────── */
+
+.ps-effect-list { flex-grow: 1; overflow-y: auto; min-height: 0; display: flex; flex-direction: column; gap: 4px; }
+.ps-effect-heading { font-size: 15px; font-weight: 800; color: var(--c-text-soft); margin: 8px 0 2px; }
+
+/*
+ * The shared `.scroll-row` only turns into a horizontal flex row below
+ * 700px (ui.css scopes it to phones) — the effect picker needs one at every
+ * width, an iPad included, so it defines its own unconditionally instead of
+ * leaning on that phone-only rule.
+ */
+.ps-effect-row {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 2px 2px 6px;
+}
+.ps-effect-row::-webkit-scrollbar { display: none; }
+
+.ps-effect-card { display: inline-flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
+.ps-effect-card__swatch {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: var(--r-md);
+  overflow: hidden;
+  box-shadow: var(--sh-card);
+  border: 3px solid transparent;
+}
+.ps-effect-card__swatch img { width: 100%; height: 100%; object-fit: cover; }
+.ps-effect-card--on .ps-effect-card__swatch { border-color: var(--c-accent); }
+.ps-effect-card__check {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-pill);
+  background: var(--c-accent);
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ps-effect-card__label { font-size: 12px; font-weight: 700; color: var(--c-text-muted); }
+.ps-effect-card--on .ps-effect-card__label { color: var(--c-text); font-weight: 800; }
+
+/* ── Sticker tray ──────────────────────────────────────────────────────── */
+
+.ps-sticker-tray {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 2px;
+  flex-shrink: 0;
+}
+.ps-sticker-tray::-webkit-scrollbar { display: none; }
+.ps-sticker-btn {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--r-md);
+  background: var(--c-surface);
+  box-shadow: var(--sh-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.ps-sticker-btn:active { transform: scale(0.94); }
+.ps-sticker-btn:disabled { opacity: 0.4; }
+
+/* ── Done step ─────────────────────────────────────────────────────────── */
+
+.ps-done-thumb { position: relative; }
+.ps-done-thumb img {
+  width: 168px;
+  height: 168px;
+  object-fit: cover;
+  border-radius: var(--r-xl);
+  box-shadow: var(--sh-raised);
+}
+.ps-done-thumb__star {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--c-surface);
+  border-radius: var(--r-pill);
+  padding: 5px 10px 5px 7px;
+  box-shadow: var(--sh-card);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+@media (max-width: 700px) {
+  .ps-effect-card__swatch { width: 72px; height: 72px; }
+  .ps-done-thumb img { width: 140px; height: 140px; }
+}

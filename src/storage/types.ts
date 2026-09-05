@@ -112,3 +112,31 @@ export interface Achievement {
   type: string
   earnedAt: string
 }
+
+/** One sticker placed on a photo, normalized to 0..1 of the photo's size. */
+export interface PhotoDecoration {
+  id: string
+  /** The sticker's emoji glyph — see `pages/photo/stickers.ts`. */
+  sticker: string
+  x: number
+  y: number
+  /** Scale relative to the sticker's base size (1 = default). */
+  scale: number
+  rotation: number
+}
+
+export interface ChildPhoto {
+  id: string
+  createdAt: string
+  /** The untouched shot, kept so an effect can be changed without re-shooting. */
+  originalImage: Blob
+  /** original + effect + decorations, flattened — what the gallery shows full-size. */
+  processedImage: Blob
+  thumbnail: Blob
+  /** The original shot's pixel size — needed to reopen it for editing without reloading the image first. */
+  width: number
+  height: number
+  /** `null` is "Без ефекту". */
+  selectedEffect: string | null
+  decorations: PhotoDecoration[]
+}
