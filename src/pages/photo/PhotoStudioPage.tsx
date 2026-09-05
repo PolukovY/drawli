@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAppStore } from '../../app/store'
@@ -12,6 +12,7 @@ import { useCamera } from './useCamera'
 import { captureFrame, composePhoto } from './capture'
 import { EFFECT_COLLECTIONS, PHOTO_EFFECTS, effectById } from './effects'
 import { MAX_DECORATIONS, STICKERS } from './stickers'
+import { imageDisplayRect, type DisplayRect } from './photoUtils'
 import { Sticker } from './Sticker'
 import '../../styles/ui.css'
 import '../../games/GameShell.css'
@@ -50,6 +51,20 @@ export function PhotoStudioPage() {
   const camera = useCamera(step === 'camera')
   const stageRef = useRef<HTMLDivElement>(null)
   const shotUrlRef = useRef<string | null>(null)
+  const [stageRect, setStageRect] = useState<DisplayRect>({ offsetX: 0, offsetY: 0, width: 0, height: 0 })
+
+  // Recomputed on every resize (rotation, split-view) so a placed sticker
+  // stays under the same point on the photo, not the same point on screen.
+  useLayoutEffect(() => {
+    const el = stageRef.current
+    if (!el || !shot) return
+    const aspect = shot.width / shot.height
+    const update = () => setStageRect(imageDisplayRect(el.clientWidth, el.clientHeight, aspect))
+    update()
+    const observer = new ResizeObserver(update)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [shot])
 
   useEffect(() => {
     if (!editId) return
@@ -350,6 +365,7 @@ export function PhotoStudioPage() {
               onResize={resizeSticker}
               onRemove={removeSticker}
               containerRef={stageRef}
+              imageRect={stageRect}
             />
           ))}
         </div>

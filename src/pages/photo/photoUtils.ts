@@ -45,3 +45,32 @@ export function checkGateAnswer(question: GateQuestion, input: string): boolean 
   const value = Number.parseInt(input.trim(), 10)
   return Number.isFinite(value) && value === question.a + question.b
 }
+
+export interface DisplayRect {
+  offsetX: number
+  offsetY: number
+  width: number
+  height: number
+}
+
+/**
+ * Where a photo actually lands inside its (usually differently-shaped)
+ * container under `object-fit: contain` — the box the photo is scaled to,
+ * centered, with the rest left as letterbox/pillarbox. A sticker's position
+ * is normalized to 0..1 of the ORIGINAL PHOTO, not the container, so both
+ * placing one (screen px -> photo fraction) and drawing one back on screen
+ * (photo fraction -> screen px) go through this same box — skip it and
+ * every sticker not exactly centered lands in the wrong place the moment
+ * the container's shape isn't the photo's own.
+ */
+export function imageDisplayRect(containerWidth: number, containerHeight: number, imageAspect: number): DisplayRect {
+  const containerAspect = containerWidth / containerHeight
+  if (imageAspect > containerAspect) {
+    const width = containerWidth
+    const height = width / imageAspect
+    return { offsetX: 0, offsetY: (containerHeight - height) / 2, width, height }
+  }
+  const height = containerHeight
+  const width = height * imageAspect
+  return { offsetX: (containerWidth - width) / 2, offsetY: 0, width, height }
+}
