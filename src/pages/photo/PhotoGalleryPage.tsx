@@ -11,7 +11,10 @@ import './PhotoGalleryPage.css'
 
 const DAY_LABEL_KEY = { today: 'photo.galleryToday', yesterday: 'photo.galleryYesterday', earlier: 'photo.galleryEarlier' } as const
 
-type GateAction = { kind: 'delete' | 'download' | 'share' | 'clear'; photoId?: string }
+// Deleting a photo isn't gated — a child undoing their own mistake is not
+// the thing this needs to guard against. Only leaving the app with a copy
+// (download / share) goes through the parental question.
+type GateAction = { kind: 'download' | 'share' }
 
 export function PhotoGalleryPage() {
   const navigate = useNavigate()
@@ -70,18 +73,18 @@ export function PhotoGalleryPage() {
   }
 
   async function runGated(action: GateAction) {
-    if (action.kind === 'delete' && action.photoId) {
-      await deletePhoto(action.photoId)
-      if (viewingId === action.photoId) closeViewer()
-    } else if (action.kind === 'clear') {
-      await clearPhotos()
-      closeViewer()
-    } else if (action.kind === 'download' && viewing) {
-      await downloadOrShare(viewing, 'download')
-    } else if (action.kind === 'share' && viewing) {
-      await downloadOrShare(viewing, 'share')
-    }
+    if (viewing) await downloadOrShare(viewing, action.kind)
     setGate(null)
+  }
+
+  async function removePhoto(id: string) {
+    await deletePhoto(id)
+    if (viewingId === id) closeViewer()
+  }
+
+  async function removeAllPhotos() {
+    await clearPhotos()
+    closeViewer()
   }
 
   async function downloadOrShare(photo: ChildPhoto, mode: 'download' | 'share') {
@@ -112,7 +115,7 @@ export function PhotoGalleryPage() {
         </button>
         <div className="title grow">{t('photo.galleryTitle')}</div>
         {photos.length > 0 ? (
-          <button className="icon-btn" onClick={() => setGate({ kind: 'clear' })} aria-label={t('photo.clearAll')}>
+          <button className="icon-btn" onClick={() => void removeAllPhotos()} aria-label={t('photo.clearAll')}>
             <Icon name="trash" size={22} color="var(--c-text-muted)" />
           </button>
         ) : null}
@@ -177,7 +180,7 @@ export function PhotoGalleryPage() {
                   {t('photo.share')}
                 </button>
               ) : null}
-              <button className="ps-viewer__btn ps-viewer__btn--danger" onClick={() => setGate({ kind: 'delete', photoId: viewing.id })}>
+              <button className="ps-viewer__btn ps-viewer__btn--danger" onClick={() => void removePhoto(viewing.id)}>
                 <Icon name="trash" size={20} color="#fff" />
                 {t('photo.delete')}
               </button>

@@ -698,9 +698,8 @@
     "share": "Share",
     "delete": "Delete photo",
     "clearAll": "Clear gallery",
-    "clearAllConfirm": "Delete all photos? This can't be undone.",
     "gateTitle": "A question for grown-ups",
-    "gateHint": "This keeps little hands from deleting things by accident",
+    "gateHint": "For grown-ups — before a photo leaves the app",
     "gateQuestion": "What's {{a}} + {{b}}?",
     "gateWrong": "Try again",
     "gateCheck": "Check"
