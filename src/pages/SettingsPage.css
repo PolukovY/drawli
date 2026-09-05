@@ -79,6 +79,11 @@
   .setting__input { flex-basis: 100%; width: 100%; }
   .setting > .row { justify-content: stretch; }
   .setting > .row .btn { flex: 1 1 0; }
+  /* A flag stays the small round button it is everywhere else — stretching
+     it to share the row the way a full-width label needed to would just
+     leave a flag alone in the middle of a stretch of empty color. */
+  .setting > .row .btn.lang-flag { flex: 0 0 auto; }
+  .setting > .row:has(.lang-flag) { justify-content: center; }
   .switch { width: 76px; height: 44px; min-height: 44px; }
   .switch span { width: 34px; height: 34px; }
   .switch--on span { transform: translateX(32px); }

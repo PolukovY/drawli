@@ -8,6 +8,7 @@ import { assetUrl, loadIndex } from '../exercise/ExerciseLoader'
 import type { CategoryKind, ExerciseIndex } from '../exercise/Exercise'
 import type { WordLanguage } from '../exercise/ExerciseLoader'
 import { gamesFor } from '../games/catalogue'
+import { LANGUAGE_FLAG } from '../i18n/languageFlags'
 import { latestInProgress, subscribeDrawings } from '../storage/DrawingRepository'
 import type { SavedDrawing } from '../storage/types'
 import '../styles/ui.css'
@@ -180,10 +181,13 @@ export function HomePage() {
             {PLAY_LANGUAGES.map((lang) => (
               <button
                 key={lang.id}
-                className={`chip ${playLanguage === lang.id ? 'chip--on' : ''}`}
+                className={`chip lang-flag ${playLanguage === lang.id ? 'chip--on' : ''}`}
                 onClick={() => setPlayLanguage(lang.id)}
+                aria-label={lang.label}
+                aria-pressed={playLanguage === lang.id}
+                title={lang.label}
               >
-                {lang.label}
+                {LANGUAGE_FLAG[lang.id]}
               </button>
             ))}
           </div>
