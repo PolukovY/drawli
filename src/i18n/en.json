@@ -104,6 +104,8 @@
     "sound": "Sound",
     "demo": "Show me how",
     "demoHint": "A hand traces the step before the child draws it",
+    "progressHint": "How many pictures are finished, how many are left",
+    "progressOpen": "View",
     "backup": "Backup",
     "backupHint": "Drawings, progress and stars in one file",
     "export": "Export",
