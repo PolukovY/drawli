@@ -230,6 +230,17 @@ export function SettingsPage() {
         ) : null}
 
         <section className="card setting">
+          <span className="setting__icon"><Icon name="star" size={28} color="var(--c-star)" filled /></span>
+          <div className="grow">
+            <div className="setting__title">{t('nav.progress')}</div>
+            <div className="muted" style={{ fontSize: 16 }}>{t('settings.progressHint')}</div>
+          </div>
+          <button className="btn btn--primary" onClick={() => navigate('/progress')}>
+            {t('settings.progressOpen')}
+          </button>
+        </section>
+
+        <section className="card setting">
           <span className="setting__icon"><Icon name="download" size={28} color="var(--c-accent)" /></span>
           <div className="grow">
             <div className="setting__title">{t('settings.backup')}</div>

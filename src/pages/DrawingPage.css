@@ -10,6 +10,11 @@
 .draw-header { display: flex; align-items: center; gap: 16px; }
 .draw-header__center {
   flex-grow: 1;
+  /* Without this a flex item defaults to min-width: auto, which refuses to
+     shrink below the title's own text width — the one thing standing
+     between a long exercise name and the header overflowing regardless of
+     how tight every other button gets. */
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -139,8 +144,20 @@
     gap: 8px;
   }
 
-  .draw-header { gap: 8px; }
-  .draw-header .title { font-size: 17px; }
+  /* A phone-width header is scrollable, not clippable: everything below
+     already fights to fit on one row, but a title long enough to lose that
+     fight must never take the star count and the Home button down with it
+     the way it silently did before — those sat entirely past the edge of
+     the screen with no way to reach them. */
+  .draw-header { gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .draw-header::-webkit-scrollbar { display: none; }
+  .draw-header .title {
+    font-size: 17px;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .draw-header__center { gap: 3px; }
   .dot { width: 18px; height: 6px; }
 
@@ -231,8 +248,15 @@
   color: var(--c-accent);
 }
 
+.guides-toggle { flex-shrink: 0; }
+
 @media (max-width: 700px) {
-  .guides-toggle { padding: 0 10px; font-size: 14px; }
+  /* Every other header button drops its label at this width (see .say-again
+     and .watch-btn just below) — this one kept its full text, "Сховати
+     підказку"/"Показати підказку", which alone was wider than the four
+     buttons around it combined and is what pushed the star count and the
+     Home button off the edge of an iPhone 14 Pro with no way back. */
+  .guides-toggle { font-size: 0; gap: 0; padding-left: 12px; padding-right: 12px; }
 }
 
 /* The tutor can be asked to repeat itself — the same weight as the outline

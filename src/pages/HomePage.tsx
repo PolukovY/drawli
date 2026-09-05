@@ -249,8 +249,10 @@ export function HomePage() {
         </div>
       )}
 
-      {/* The blank sheet, the gallery and progress belong to drawing. Letters,
-          numbers and games get the screen to themselves. */}
+      {/* The blank sheet and the gallery belong to drawing. Letters, numbers
+          and games get the screen to themselves. Progress moved into
+          Settings — a screen a parent opens on purpose, not a third button
+          competing for space on every visit home. */}
       {mode === 'draw' ? (
       <nav className="home__nav">
         <button className="btn btn--primary" onClick={() => navigate('/free')}>
@@ -260,10 +262,6 @@ export function HomePage() {
         <button className="btn" onClick={() => navigate('/drawings')}>
           <Icon name="gallery" size={26} color="var(--c-text-muted)" />
           {t('nav.drawings')}
-        </button>
-        <button className="btn" onClick={() => navigate('/progress')}>
-          <Icon name="star" size={26} color="var(--c-text-muted)" />
-          {t('nav.progress')}
         </button>
       </nav>
       ) : null}
