@@ -27,6 +27,10 @@
 .setting__icon--danger { background: var(--c-danger-bg); }
 
 .setting__title { font-size: 19px; font-weight: 800; }
+/* Hint lines are short on purpose now, but a name typed long or a language
+   this app was not translated into can still wrap — kept tight rather than
+   the browser's own airy default so a wrapped line costs little height. */
+.setting .muted { line-height: 1.25; }
 
 .setting__input {
   height: var(--tap-min);
