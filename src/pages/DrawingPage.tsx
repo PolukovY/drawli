@@ -27,15 +27,20 @@ import { markCompleted, markStarted } from '../storage/ProgressRepository'
 import '../styles/ui.css'
 import './DrawingPage.css'
 
-const AUTOSAVE_DELAY = 400
+const AUTOSAVE_DELAY = 2000
 /** Whether the grey outline is shown, remembered while the app stays open. */
 const GUIDES_KEY = 'drawli.draw.guides'
 
 function guidesWanted(): boolean {
   try { return sessionStorage.getItem(GUIDES_KEY) !== 'off' } catch { return true }
 }
-/** A gallery picture is worth redrawing at most this often while drawing. */
-const THUMBNAIL_INTERVAL = 4000
+/**
+ * A gallery picture is worth redrawing at most this often while drawing.
+ * Composing one serialises the overlay SVG, decodes it as an image and encodes
+ * a WebP — the most expensive thing this screen does that the child did not
+ * ask for. Every four seconds it was competing with the pencil.
+ */
+const THUMBNAIL_INTERVAL = 15000
 
 export function DrawingPage() {
   const { exerciseId = '' } = useParams()
@@ -71,6 +76,8 @@ export function DrawingPage() {
   const engineRef = useRef<DrawingEngine | null>(null)
   const cardRef = useRef<HTMLDivElement>(null)
   const drawingIdRef = useRef<string>('')
+  /** The step already recorded in progress, so a save does not rewrite it. */
+  const startedStepRef = useRef(-1)
   /** Thumbnails are the expensive part of a save, so they lag behind. */
   const lastThumbnailAt = useRef(0)
   /** Kept so a save that lands after unmount still has a picture to store. */
@@ -85,7 +92,9 @@ export function DrawingPage() {
   stepIndexRef.current = stepIndex
 
   const voiceLang: VoiceLanguage = settings?.voiceLanguage ?? settings?.language ?? 'uk'
-  const voiceOn = settings?.voiceEnabled ?? true
+  const voiceOn = settings?.voiceEnabled ?? false
+  /** The hand only draws by itself when the child asked to be shown. */
+  const demoOn = settings?.demoEnabled ?? false
 
   const steps = exercise?.steps ?? []
   const currentStep = steps[stepIndex]
@@ -130,11 +139,11 @@ export function DrawingPage() {
    * and copies after, which is the whole point of a tutor.
    */
   useEffect(() => {
-    if (!exercise || isColoring) return
     setDemo(false)
+    if (!exercise || isColoring || !demoOn) return
     const timer = window.setTimeout(() => setDemo(true), 700)
     return () => window.clearTimeout(timer)
-  }, [exercise, stepIndex, isColoring])
+  }, [exercise, stepIndex, isColoring, demoOn])
 
   // --- load exercise and any unfinished drawing for it ------------------
 
@@ -165,6 +174,7 @@ export function DrawingPage() {
         drawingIdRef.current = crypto.randomUUID()
         lastThumbnail.current = undefined
         lastThumbnailAt.current = 0
+        startedStepRef.current = -1
         setActions([])
         setLoadedActions([])
         stepBaselinesRef.current = [0]
@@ -195,7 +205,12 @@ export function DrawingPage() {
       document: { ...createDocument(exerciseId, 1, 1), actions: nextActions },
       thumbnail: lastThumbnail.current,
     })
-    await markStarted(exerciseId, step)
+    // Progress only moves when the step does; writing the same row on every
+    // save doubled the storage traffic for a value that had not changed.
+    if (startedStepRef.current !== step) {
+      startedStepRef.current = step
+      await markStarted(exerciseId, step)
+    }
     setSavedAt(Date.now())
   }, [exerciseId])
 
@@ -478,12 +493,17 @@ export function DrawingPage() {
                     currentIndex={stepIndex}
                     showTrace={false}
                   />
-                  <TutorLayer
-                    exerciseId={exercise.id}
-                    step={currentStep}
-                    demo={demo}
-                    onDemoEnd={() => setDemo(false)}
-                  />
+                  {/* Nothing of the tutor is on the screen — no markup, no
+                      animation — unless it was asked for. "Показати" is the
+                      ask, and it puts the hand back for one pass. */}
+                  {demoOn || demo ? (
+                    <TutorLayer
+                      exerciseId={exercise.id}
+                      step={currentStep}
+                      demo={demo}
+                      onDemoEnd={() => setDemo(false)}
+                    />
+                  ) : null}
                 </>
               ) : null
             ) : null}

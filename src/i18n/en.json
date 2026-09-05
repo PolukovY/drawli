@@ -102,6 +102,8 @@
     "nameHint": "How Drawli greets you",
     "language": "Language",
     "sound": "Sound",
+    "demo": "Show me how",
+    "demoHint": "A hand traces the step before the child draws it",
     "backup": "Backup",
     "backupHint": "Drawings, progress and stars in one file",
     "export": "Export",

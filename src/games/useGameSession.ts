@@ -15,7 +15,7 @@ export const STARS_PER_ROUND = 2
 export function useGameSession<T>(rounds: T[], starsPerRound = STARS_PER_ROUND) {
   const awardStars = useAppStore((s) => s.awardStars)
   const settings = useAppStore((s) => s.settings)
-  const voiceOn = settings?.voiceEnabled ?? true
+  const voiceOn = settings?.voiceEnabled ?? false
   const voiceLang = settings?.voiceLanguage ?? settings?.language ?? 'uk'
 
   const [round, setRound] = useState(0)
