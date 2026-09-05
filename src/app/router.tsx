@@ -37,6 +37,8 @@ import { PictureSudokuPage } from '../pages/games/PictureSudokuPage'
 import { DifferencesPage } from '../pages/games/DifferencesPage'
 import { SyllablesPage } from '../pages/games/SyllablesPage'
 import { OddWordPage } from '../pages/games/OddWordPage'
+import { PhotoStudioPage } from '../pages/photo/PhotoStudioPage'
+import { PhotoGalleryPage } from '../pages/photo/PhotoGalleryPage'
 
 // Code-split and only ever registered in dev: import() here is never invoked
 // in a production build, so this never reaches a real child's bundle at all.
@@ -84,6 +86,9 @@ export const router = createHashRouter([
   { path: '/differences', element: <DifferencesPage /> },
   { path: '/syllables', element: <SyllablesPage /> },
   { path: '/odd-word', element: <OddWordPage /> },
+  { path: '/photo-studio', element: <PhotoStudioPage /> },
+  { path: '/photo-studio/edit/:id', element: <PhotoStudioPage /> },
+  { path: '/photo-studio/gallery', element: <PhotoGalleryPage /> },
   ...(import.meta.env.DEV
     ? [{ path: '/dev/speech', element: <Suspense fallback={null}><SpeechDiagnosticsPage /></Suspense> }]
     : []),

@@ -44,6 +44,7 @@ export const GAMES: GameEntry[] = [
   { id: 'differences', path: '/differences', titleKey: 'play.differences', art: '🔍', languages: 'all', order: 29 },
   { id: 'syllables', path: '/syllables', titleKey: 'play.syllables', art: '👏', languages: 'all', order: 30 },
   { id: 'oddword', path: '/odd-word', titleKey: 'play.oddWord', art: '🎧', languages: 'all', order: 31 },
+  { id: 'photostudio', path: '/photo-studio', titleKey: 'photo.title', art: '📸', languages: 'all', order: 32 },
 ]
 
 export function gamesFor(language: WordLanguage): GameEntry[] {

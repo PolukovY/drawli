@@ -1,0 +1,23 @@
+.sticker {
+  position: absolute;
+  line-height: 1;
+  touch-action: none;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25));
+  user-select: none;
+  cursor: grab;
+}
+
+.sticker--selected { outline: 2px dashed rgba(255, 255, 255, 0.85); outline-offset: 6px; border-radius: 12px; }
+
+.sticker__handle {
+  position: absolute;
+  right: -14px;
+  bottom: -14px;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: #fff;
+  border: 3px solid var(--c-accent);
+  touch-action: none;
+  cursor: nwse-resize;
+}
