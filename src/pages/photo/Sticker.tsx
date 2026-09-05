@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import type { PhotoDecoration } from '../../storage/types'
+import type { DisplayRect } from './photoUtils'
 import './Sticker.css'
 
 interface Props {
@@ -10,6 +11,8 @@ interface Props {
   onResize: (id: string, scale: number) => void
   onRemove: (id: string) => void
   containerRef: React.RefObject<HTMLDivElement | null>
+  /** Where the photo itself sits inside the (possibly letterboxed) container. */
+  imageRect: DisplayRect
 }
 
 const TAP_THRESHOLD = 6
@@ -20,8 +23,12 @@ const BASE_SIZE = 44
  * remove it, drag the handle (shown once selected) to resize. No real pinch
  * gesture — a single-finger handle is far more reliable on a 5-year-old's
  * hand than tracking two fingers at once.
+ *
+ * `decoration.x/y` are normalized to the PHOTO, not this component's
+ * container — the container can be letterboxed, so every screen-space
+ * conversion goes through `imageRect` (see photoUtils.imageDisplayRect).
  */
-export function Sticker({ decoration, selected, onSelect, onMove, onResize, onRemove, containerRef }: Props) {
+export function Sticker({ decoration, selected, onSelect, onMove, onResize, onRemove, containerRef, imageRect }: Props) {
   const moved = useRef(false)
 
   function onPointerDown(e: React.PointerEvent) {
@@ -35,12 +42,14 @@ export function Sticker({ decoration, selected, onSelect, onMove, onResize, onRe
     if (e.buttons === 0 && e.pointerType === 'mouse') return
     const rect = containerRef.current?.getBoundingClientRect()
     if (!rect) return
-    const dx = Math.abs(e.clientX - (rect.left + decoration.x * rect.width))
-    const dy = Math.abs(e.clientY - (rect.top + decoration.y * rect.height))
+    const startX = rect.left + imageRect.offsetX + decoration.x * imageRect.width
+    const startY = rect.top + imageRect.offsetY + decoration.y * imageRect.height
+    const dx = Math.abs(e.clientX - startX)
+    const dy = Math.abs(e.clientY - startY)
     if (dx > TAP_THRESHOLD || dy > TAP_THRESHOLD) moved.current = true
 
-    const x = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width))
-    const y = Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height))
+    const x = Math.min(1, Math.max(0, (e.clientX - rect.left - imageRect.offsetX) / imageRect.width))
+    const y = Math.min(1, Math.max(0, (e.clientY - rect.top - imageRect.offsetY) / imageRect.height))
     onMove(decoration.id, x, y)
   }
 
@@ -73,8 +82,8 @@ export function Sticker({ decoration, selected, onSelect, onMove, onResize, onRe
     <div
       className={`sticker ${selected ? 'sticker--selected' : ''}`}
       style={{
-        left: `${decoration.x * 100}%`,
-        top: `${decoration.y * 100}%`,
+        left: imageRect.offsetX + decoration.x * imageRect.width,
+        top: imageRect.offsetY + decoration.y * imageRect.height,
         fontSize: size,
         transform: `translate(-50%, -50%) rotate(${decoration.rotation}deg)`,
       }}

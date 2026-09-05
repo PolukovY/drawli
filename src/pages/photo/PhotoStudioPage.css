@@ -1,3 +1,13 @@
+/*
+ * ui.css forces every direct child of `.screen` to flex-shrink: 0 by
+ * default (an allowlist opts specific scrollable regions back in) — this
+ * list wasn't on it, so it rendered at full content height instead of
+ * shrinking to the space left for it, pushing "Далі" off the bottom of the
+ * screen the moment there were enough effects to make it taller than the
+ * viewport.
+ */
+.screen > .ps-effect-list { flex-shrink: 1; min-height: 0; }
+
 /* ── Home step ─────────────────────────────────────────────────────────── */
 
 .ps-home {
@@ -144,13 +154,23 @@
   border-radius: var(--r-xl);
   overflow: hidden;
   box-shadow: var(--sh-raised);
+  background: #14101f;
   flex-grow: 1;
   min-height: 0;
   max-height: 100%;
   margin: 0 auto;
   max-width: 100%;
 }
-.ps-photo-frame__img { width: 100%; height: 100%; object-fit: fill; display: block; }
+/*
+ * `contain`, never `fill`: a flex column can't reliably honor the frame's
+ * `aspect-ratio` (it competes with flex-grow for the cross size), so the
+ * frame's rendered box does NOT always match the photo's real proportions —
+ * `fill` stretched the child's face the moment it didn't. `contain` can
+ * never distort the photo; any mismatch just letterboxes instead, and
+ * Sticker.tsx's `imageDisplayRect` targets exactly that box so placed
+ * stickers still land where they were put.
+ */
+.ps-photo-frame__img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .ps-photo-frame--small { flex-grow: 0; height: 130px; }
 
 .ps-effect-overlay { position: absolute; inset: 0; pointer-events: none; }
