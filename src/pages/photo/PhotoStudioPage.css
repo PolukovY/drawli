@@ -1,3 +1,13 @@
+/*
+ * ui.css forces every direct child of `.screen` to flex-shrink: 0 by
+ * default (an allowlist opts specific scrollable regions back in) — this
+ * list wasn't on it, so it rendered at full content height instead of
+ * shrinking to the space left for it, pushing "Далі" off the bottom of the
+ * screen the moment there were enough effects to make it taller than the
+ * viewport.
+ */
+.screen > .ps-effect-list { flex-shrink: 1; min-height: 0; }
+
 /* ── Home step ─────────────────────────────────────────────────────────── */
 
 .ps-home {

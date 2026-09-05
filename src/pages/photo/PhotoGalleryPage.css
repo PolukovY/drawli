@@ -1,3 +1,9 @@
+/* Same fix as PhotoStudioPage.css's `.ps-effect-list`: ui.css forces every
+   direct child of `.screen` to flex-shrink: 0 unless it opts back in —
+   without this, a full gallery pushes the slideshow/camera row (and any
+   fullscreen viewer beneath it) off the bottom of the screen. */
+.screen > .ps-gallery-scroll { flex-shrink: 1; min-height: 0; }
+
 .ps-gallery-scroll { flex-grow: 1; overflow-y: auto; min-height: 0; }
 
 .ps-gallery-heading { font-size: 16px; font-weight: 800; color: var(--c-text-soft); margin: 4px 0 10px; }
