@@ -3,7 +3,7 @@ import type { AppSettings, Language, ToolId, VoiceLanguage } from '../storage/ty
 import { addStars, createSettings, defaultVoiceLanguage, detectLanguage, loadSettings, updateSettings } from '../storage/SettingsRepository'
 import { initI18n } from '../i18n'
 import { setSoundEnabled } from '../audio/sounds'
-import { setVoiceChoice, setVoiceEnabled, setVoiceLang } from '../audio/speech'
+import { setVoiceChoice, setVoiceChoices, setVoiceEnabled, setVoiceLang } from '../audio/speech'
 
 export const PAINT_COLORS = [
   '#E4443B', '#F5893B', '#FFC53D', '#4EA55F', '#4E86E8',
@@ -20,7 +20,7 @@ type BootState = 'loading' | 'onboarding' | 'ready'
 function applyVoice(settings: AppSettings) {
   setVoiceEnabled(settings.voiceEnabled ?? false)
   setVoiceLang(settings.voiceLanguage ?? defaultVoiceLanguage(settings.language))
-  setVoiceChoice(settings.voiceChoice)
+  setVoiceChoices(settings.voiceChoice ?? {})
 }
 
 interface AppStore {
@@ -37,7 +37,7 @@ interface AppStore {
   setVoiceEnabled: (enabled: boolean) => Promise<void>
   setDemoEnabled: (enabled: boolean) => Promise<void>
   setVoiceLanguage: (language: VoiceLanguage) => Promise<void>
-  setVoiceChoice: (choice: string) => Promise<void>
+  setVoiceChoice: (language: VoiceLanguage, choice: string) => Promise<void>
   awardStars: (amount: number) => Promise<void>
   markTutorialDone: (screen: 'home' | 'draw') => Promise<void>
   setTool: (tool: ToolId) => void
@@ -110,16 +110,17 @@ export const useAppStore = create<AppStore>((set, get) => ({
   },
 
   async setVoiceLanguage(voiceLanguage) {
-    // Each language has its own voices, so the old pick means nothing here.
-    await updateSettings({ voiceLanguage, voiceChoice: undefined })
+    // Each language remembers its own choice (see setVoiceChoice below), so
+    // switching here never has to touch or lose anyone else's.
+    await updateSettings({ voiceLanguage })
     setVoiceLang(voiceLanguage)
-    setVoiceChoice(undefined)
-    set((s) => ({ settings: s.settings ? { ...s.settings, voiceLanguage, voiceChoice: undefined } : null }))
+    set((s) => ({ settings: s.settings ? { ...s.settings, voiceLanguage } : null }))
   },
 
-  async setVoiceChoice(voiceChoice) {
+  async setVoiceChoice(language, choice) {
+    const voiceChoice = { ...get().settings?.voiceChoice, [language]: choice }
     await updateSettings({ voiceChoice })
-    setVoiceChoice(voiceChoice)
+    setVoiceChoice(language, choice)
     set((s) => ({ settings: s.settings ? { ...s.settings, voiceChoice } : null }))
   },
 

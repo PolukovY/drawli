@@ -6,6 +6,7 @@ import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
 import { randomSeed, shuffle } from '../../games/shuffle'
+import { speakSequence, speakWord, stopSpeaking } from '../../audio/speech'
 import { Icon } from '../../components/Icon'
 import './OddWordPage.css'
 
@@ -14,9 +15,6 @@ const GROUP = 3
 
 const LANGUAGE_LABELS: Record<WordLanguage, string> = {
   uk: 'Українська', en: 'English', es: 'Español',
-}
-const VOICE_LOCALE: Record<WordLanguage, string> = {
-  uk: 'uk-UA', en: 'en-US', es: 'es-ES',
 }
 
 interface Round {
@@ -38,6 +36,8 @@ export function OddWordPage() {
   const [seed, setSeed] = useState(randomSeed)
   const [wrong, setWrong] = useState<string[]>([])
 
+  // Only used for the "this device cannot speak" hint below — speakWord()
+  // and speakSequence() already guard every real call themselves.
   const speech = typeof window !== 'undefined' && 'speechSynthesis' in window
 
   const rounds = useMemo<Round[]>(() => {
@@ -64,34 +64,19 @@ export function OddWordPage() {
   const game = useGameSession(rounds)
   const current = game.current
 
-  const say = useCallback((word: string) => {
-    if (!speech || !word) return
-    const utterance = new SpeechSynthesisUtterance(word.toLowerCase())
-    utterance.lang = VOICE_LOCALE[language]
-    utterance.rate = 0.8
-    window.speechSynthesis.cancel()
-    window.speechSynthesis.speak(utterance)
-  }, [language, speech])
+  const say = useCallback((word: string) => speakWord(word.toLowerCase(), language, 0.8), [language])
 
   const sayAll = useCallback((words: string[]) => {
-    if (!speech) return
-    window.speechSynthesis.cancel()
-    // Queued one after another, with the pause the engine puts between
-    // utterances doing the work of "and now the next one".
-    for (const word of words) {
-      const utterance = new SpeechSynthesisUtterance(word.toLowerCase())
-      utterance.lang = VOICE_LOCALE[language]
-      utterance.rate = 0.8
-      window.speechSynthesis.speak(utterance)
-    }
-  }, [language, speech])
+    speakSequence(words.map((w) => w.toLowerCase()), language, 0.8)
+  }, [language])
 
   useEffect(() => {
     setWrong([])
     if (current) sayAll(current.words)
   }, [current, sayAll])
 
-  useEffect(() => () => { if (speech) window.speechSynthesis.cancel() }, [speech])
+  // Leaving the screen mid-word should not follow the child to the next one.
+  useEffect(() => stopSpeaking, [])
 
   function pick(word: string) {
     if (!current || game.solved || wrong.includes(word)) return

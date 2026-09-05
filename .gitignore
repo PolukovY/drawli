@@ -9,3 +9,6 @@ coverage/
 .env
 .env.*
 !.env.example
+
+# Generated TTS audio, cached to disk by the reference backend.
+server/.cache/

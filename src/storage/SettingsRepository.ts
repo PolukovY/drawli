@@ -10,8 +10,12 @@ const SETTINGS_ID = 'app' as const
  *    for a child meeting a shape for the first time; by the tenth picture they
  *    are something to sit through, and each one costs the tablet work on every
  *    step. Both are a switch away in Settings.
+ * 3: `voiceChoice` moved from one value shared by every language to one kept
+ *    per language, so a voice picked for Ukrainian survives a switch to
+ *    Spanish and back. An install from before this carries a bare string;
+ *    migrated into whichever voice language was active when it was chosen.
  */
-const SETTINGS_VERSION = 2
+const SETTINGS_VERSION = 3
 
 /** uk-* browsers get Ukrainian; everyone else English. */
 export function detectLanguage(): Language {
@@ -38,10 +42,20 @@ async function migrate(settings: AppSettings): Promise<AppSettings> {
   if ((settings.settingsVersion ?? 1) >= SETTINGS_VERSION) return settings
 
   const patch: Partial<AppSettings> = {
-    voiceEnabled: false,
-    demoEnabled: false,
+    voiceEnabled: settings.voiceEnabled ?? false,
+    demoEnabled: settings.demoEnabled ?? false,
     settingsVersion: SETTINGS_VERSION,
   }
+
+  // Pre-version-3 data carries a bare string here, not the per-language map
+  // the type now promises — read defensively, since this is the one place
+  // that shape can still turn up.
+  const legacyChoice = (settings as unknown as { voiceChoice?: unknown }).voiceChoice
+  if (typeof legacyChoice === 'string') {
+    const forLang = settings.voiceLanguage ?? settings.language
+    patch.voiceChoice = { [forLang]: legacyChoice }
+  }
+
   await db.settings.update(SETTINGS_ID, patch)
   return { ...settings, ...patch }
 }

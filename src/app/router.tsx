@@ -1,4 +1,5 @@
 import { createHashRouter } from 'react-router-dom'
+import { lazy, Suspense } from 'react'
 import { HomePage } from '../pages/HomePage'
 import { DrawingPage } from '../pages/DrawingPage'
 import { MyDrawingsPage } from '../pages/MyDrawingsPage'
@@ -36,6 +37,12 @@ import { PictureSudokuPage } from '../pages/games/PictureSudokuPage'
 import { DifferencesPage } from '../pages/games/DifferencesPage'
 import { SyllablesPage } from '../pages/games/SyllablesPage'
 import { OddWordPage } from '../pages/games/OddWordPage'
+
+// Code-split and only ever registered in dev: import() here is never invoked
+// in a production build, so this never reaches a real child's bundle at all.
+const SpeechDiagnosticsPage = lazy(() =>
+  import('../pages/dev/SpeechDiagnosticsPage').then((m) => ({ default: m.SpeechDiagnosticsPage })),
+)
 
 // HashRouter, not BrowserRouter: GitHub Pages serves no SPA fallback,
 // so a deep link like /drawli/draw/ladybug would 404 on reload.
@@ -77,4 +84,7 @@ export const router = createHashRouter([
   { path: '/differences', element: <DifferencesPage /> },
   { path: '/syllables', element: <SyllablesPage /> },
   { path: '/odd-word', element: <OddWordPage /> },
+  ...(import.meta.env.DEV
+    ? [{ path: '/dev/speech', element: <Suspense fallback={null}><SpeechDiagnosticsPage /></Suspense> }]
+    : []),
 ])

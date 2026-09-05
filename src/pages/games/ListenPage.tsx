@@ -7,6 +7,7 @@ import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
 import { randomSeed, shuffle } from '../../games/shuffle'
 import { playSound } from '../../audio/sounds'
+import { speakWord, stopSpeaking } from '../../audio/speech'
 import { Icon } from '../../components/Icon'
 import './ListenPage.css'
 
@@ -15,10 +16,6 @@ const MAX_WORD = 7
 
 const LANGUAGE_LABELS: Record<WordLanguage, string> = {
   uk: 'Українська', en: 'English', es: 'Español',
-}
-
-const VOICE_LOCALE: Record<WordLanguage, string> = {
-  uk: 'uk-UA', en: 'en-US', es: 'es-ES',
 }
 
 interface Round {
@@ -40,7 +37,10 @@ export function ListenPage() {
   const [used, setUsed] = useState<number[]>([])
   const [revealed, setRevealed] = useState(false)
 
+  // Only used for the "this device cannot speak" hint below — speakWord()
+  // already guards every real call itself.
   const speech = typeof window !== 'undefined' && 'speechSynthesis' in window
+  const say = useCallback((word: string) => speakWord(word.toLowerCase(), language, 0.8), [language])
 
   const rounds = useMemo<Round[]>(() => {
     if (!content.ready) return []
@@ -64,15 +64,6 @@ export function ListenPage() {
   const game = useGameSession(rounds)
   const current = game.current
 
-  const say = useCallback((word: string) => {
-    if (!speech || !word) return
-    const utterance = new SpeechSynthesisUtterance(word.toLowerCase())
-    utterance.lang = VOICE_LOCALE[language]
-    utterance.rate = 0.8
-    window.speechSynthesis.cancel()
-    window.speechSynthesis.speak(utterance)
-  }, [language, speech])
-
   useEffect(() => {
     setTyped([])
     setUsed([])
@@ -80,7 +71,8 @@ export function ListenPage() {
     if (current) say(current.word)
   }, [current, say])
 
-  useEffect(() => () => { if (speech) window.speechSynthesis.cancel() }, [speech])
+  // Leaving the screen mid-word should not follow the child to the next one.
+  useEffect(() => stopSpeaking, [])
 
   const solved = game.solved
   const solve = game.solve
