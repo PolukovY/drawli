@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "themes": [
+    {
+      "id": "animals",
+      "titleKey": "vocabulary.theme.animals",
+      "art": "🐘",
+      "count": 24
+    },
+    {
+      "id": "home",
+      "titleKey": "vocabulary.theme.home",
+      "art": "🏠",
+      "count": 20
+    },
+    {
+      "id": "nature",
+      "titleKey": "vocabulary.theme.nature",
+      "art": "🌳",
+      "count": 22
+    },
+    {
+      "id": "food",
+      "titleKey": "vocabulary.theme.food",
+      "art": "🍎",
+      "count": 22
+    },
+    {
+      "id": "transport",
+      "titleKey": "vocabulary.theme.transport",
+      "art": "🚗",
+      "count": 20
+    },
+    {
+      "id": "farm",
+      "titleKey": "vocabulary.theme.farm",
+      "art": "🐄",
+      "count": 30
+    },
+    {
+      "id": "beach",
+      "titleKey": "vocabulary.theme.beach",
+      "art": "🏖️",
+      "count": 30
+    },
+    {
+      "id": "school",
+      "titleKey": "vocabulary.theme.school",
+      "art": "🎒",
+      "count": 28
+    }
+  ]
+}

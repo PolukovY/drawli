@@ -65,7 +65,7 @@ export default defineConfig({
         // Only the shell ships with the install: the library is hundreds of
         // small SVGs and precaching them would make the first launch crawl.
         globPatterns: ['**/*.{js,css,html,ico,png}'],
-        globIgnores: ['**/exercises/**'],
+        globIgnores: ['**/exercises/**', '**/vocabulary/**'],
         navigateFallback: `${base}index.html`,
         runtimeCaching: [
           {
@@ -87,6 +87,17 @@ export default defineConfig({
             options: {
               cacheName: `drawli-exercises-${buildId}`,
               expiration: { maxEntries: 2000, maxAgeSeconds: 60 * 60 * 24 * 180 },
+            },
+          },
+          {
+            // The vocabulary game's word lists and pictures: same deal as the
+            // exercise library, and named separately so pruning one on a
+            // redeploy never touches the other's cache.
+            urlPattern: /\/vocabulary\/.*\.(?:svg|json)$/,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: `drawli-vocabulary-${buildId}`,
+              expiration: { maxEntries: 500, maxAgeSeconds: 60 * 60 * 24 * 180 },
             },
           },
           {

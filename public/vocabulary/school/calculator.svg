@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="vol-0" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#a9a4bb"/>
+      <stop offset="46%" stop-color="#8B84A3"/>
+      <stop offset="100%" stop-color="#565265"/>
+    </radialGradient>
+    <radialGradient id="vol-1" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#7cbc89"/>
+      <stop offset="46%" stop-color="#4EA55F"/>
+      <stop offset="100%" stop-color="#30663b"/>
+    </radialGradient>
+    <radialGradient id="vol-2" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#615c72"/>
+      <stop offset="46%" stop-color="#2A2340"/>
+      <stop offset="100%" stop-color="#1a1628"/>
+    </radialGradient>
+    <linearGradient id="depth" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="38%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0.3"/>
+    </linearGradient>
+    <radialGradient id="floor">
+      <stop offset="0%" stop-color="#2A2340" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="200" cy="368" rx="150" ry="22" fill="url(#floor)"/>
+  <g fill="url(#vol-0)" stroke="none"><rect x="120" y="90" width="160" height="220" rx="14"/></g>
+  <g fill="url(#vol-1)" stroke="none"><rect x="140" y="110" width="120" height="50" rx="6"/></g>
+  <g fill="url(#vol-2)" stroke="none"><rect x="140" y="180" width="120" height="120" rx="8"/></g>
+  <g fill="url(#depth)" stroke="none"><rect x="120" y="90" width="160" height="220" rx="14"/></g>
+  <g fill="url(#depth)" stroke="none"><rect x="140" y="110" width="120" height="50" rx="6"/></g>
+  <g fill="url(#depth)" stroke="none"><rect x="140" y="180" width="120" height="120" rx="8"/></g>
+  <g fill="none" stroke="#2A2340" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <path d="M130 220 L270 220"/>
+    <path d="M130 260 L270 260"/>
+    <path d="M175 190 L175 300"/>
+    <path d="M225 190 L225 300"/>
+  </g>
+</svg>

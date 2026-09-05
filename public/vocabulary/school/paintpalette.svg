@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="vol-0" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#a9886f"/>
+      <stop offset="46%" stop-color="#8B5E3C"/>
+      <stop offset="100%" stop-color="#563a25"/>
+    </radialGradient>
+    <radialGradient id="vol-1" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#eb756e"/>
+      <stop offset="46%" stop-color="#E4443B"/>
+      <stop offset="100%" stop-color="#8d2a25"/>
+    </radialGradient>
+    <radialGradient id="vol-2" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#ffd46f"/>
+      <stop offset="46%" stop-color="#FFC53D"/>
+      <stop offset="100%" stop-color="#9e7a26"/>
+    </radialGradient>
+    <radialGradient id="vol-3" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#7ca5ee"/>
+      <stop offset="46%" stop-color="#4E86E8"/>
+      <stop offset="100%" stop-color="#305390"/>
+    </radialGradient>
+    <radialGradient id="vol-4" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#7cbc89"/>
+      <stop offset="46%" stop-color="#4EA55F"/>
+      <stop offset="100%" stop-color="#30663b"/>
+    </radialGradient>
+    <linearGradient id="depth" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="38%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0.3"/>
+    </linearGradient>
+    <radialGradient id="floor">
+      <stop offset="0%" stop-color="#2A2340" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="200" cy="368" rx="150" ry="22" fill="url(#floor)"/>
+  <g fill="url(#vol-0)" stroke="none"><path d="M100 200 Q90 100 220 100 Q320 100 310 210 Q300 280 220 260 Q210 300 160 300 Q170 250 100 200"/></g>
+  <g fill="url(#vol-1)" stroke="none"><circle cx="150" cy="150" r="16"/></g>
+  <g fill="url(#vol-2)" stroke="none"><circle cx="230" cy="140" r="16"/></g>
+  <g fill="url(#vol-3)" stroke="none"><circle cx="270" cy="190" r="16"/></g>
+  <g fill="url(#vol-4)" stroke="none"><circle cx="150" cy="230" r="16"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M100 200 Q90 100 220 100 Q320 100 310 210 Q300 280 220 260 Q210 300 160 300 Q170 250 100 200"/></g>
+  <g fill="url(#depth)" stroke="none"><circle cx="150" cy="150" r="16"/></g>
+  <g fill="url(#depth)" stroke="none"><circle cx="230" cy="140" r="16"/></g>
+  <g fill="url(#depth)" stroke="none"><circle cx="270" cy="190" r="16"/></g>
+  <g fill="url(#depth)" stroke="none"><circle cx="150" cy="230" r="16"/></g>
+  <g fill="none" stroke="#2A2340" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <circle cx="200" cy="180" r="16"/>
+  </g>
+</svg>

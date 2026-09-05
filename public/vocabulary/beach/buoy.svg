@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="vol-0" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#a9a4bb"/>
+      <stop offset="46%" stop-color="#8B84A3"/>
+      <stop offset="100%" stop-color="#565265"/>
+    </radialGradient>
+    <radialGradient id="vol-1" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#eb756e"/>
+      <stop offset="46%" stop-color="#E4443B"/>
+      <stop offset="100%" stop-color="#8d2a25"/>
+    </radialGradient>
+    <radialGradient id="vol-2" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="46%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#9e9e9e"/>
+    </radialGradient>
+    <radialGradient id="vol-3" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#eb756e"/>
+      <stop offset="46%" stop-color="#E4443B"/>
+      <stop offset="100%" stop-color="#8d2a25"/>
+    </radialGradient>
+    <linearGradient id="depth" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="38%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0.3"/>
+    </linearGradient>
+    <radialGradient id="floor">
+      <stop offset="0%" stop-color="#2A2340" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="200" cy="368" rx="150" ry="22" fill="url(#floor)"/>
+  <g fill="url(#vol-0)" stroke="none"><path d="M180 100 a20 20 0 0 1 40 0 l0 20 l-40 0 z"/></g>
+  <g fill="url(#vol-1)" stroke="none"><ellipse cx="200" cy="180" rx="80" ry="70"/></g>
+  <g fill="url(#vol-2)" stroke="none"><path d="M120 180 a80 70 0 0 0 160 0 l0 46 a80 70 0 0 1 -160 0 z"/></g>
+  <g fill="url(#vol-3)" stroke="none"><path d="M124 250 a80 60 0 0 0 152 0 q4 40 -76 60 q-80 -20 -76 -60"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M180 100 a20 20 0 0 1 40 0 l0 20 l-40 0 z"/></g>
+  <g fill="url(#depth)" stroke="none"><ellipse cx="200" cy="180" rx="80" ry="70"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M120 180 a80 70 0 0 0 160 0 l0 46 a80 70 0 0 1 -160 0 z"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M124 250 a80 60 0 0 0 152 0 q4 40 -76 60 q-80 -20 -76 -60"/></g>
+  <g fill="none" stroke="#2A2340" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    
+  </g>
+</svg>

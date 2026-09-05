@@ -1,0 +1,202 @@
+[
+  {
+    "id": "house",
+    "difficulty": 1,
+    "image": "exercises/house/thumbnail.svg",
+    "text": {
+      "uk": "Будинок",
+      "en": "House",
+      "es": "Casa"
+    }
+  },
+  {
+    "id": "umbrella",
+    "difficulty": 1,
+    "image": "exercises/umbrella/thumbnail.svg",
+    "text": {
+      "uk": "Парасолька",
+      "en": "Umbrella",
+      "es": "Paraguas"
+    }
+  },
+  {
+    "id": "cup",
+    "difficulty": 1,
+    "image": "exercises/cup/thumbnail.svg",
+    "text": {
+      "uk": "Чашка",
+      "en": "Cup",
+      "es": "Taza"
+    }
+  },
+  {
+    "id": "clock",
+    "difficulty": 1,
+    "image": "exercises/clock/thumbnail.svg",
+    "text": {
+      "uk": "Годинник",
+      "en": "Clock",
+      "es": "Reloj"
+    }
+  },
+  {
+    "id": "key",
+    "difficulty": 1,
+    "image": "exercises/key/thumbnail.svg",
+    "text": {
+      "uk": "Ключик",
+      "en": "Key",
+      "es": "Llave"
+    }
+  },
+  {
+    "id": "lamp",
+    "difficulty": 1,
+    "image": "exercises/lamp/thumbnail.svg",
+    "text": {
+      "uk": "Ліхтарик",
+      "en": "Lamp",
+      "es": "Lampara"
+    }
+  },
+  {
+    "id": "bed",
+    "difficulty": 1,
+    "image": "exercises/bed/thumbnail.svg",
+    "text": {
+      "uk": "Ліжко",
+      "en": "Bed",
+      "es": "Cama"
+    }
+  },
+  {
+    "id": "chair",
+    "difficulty": 1,
+    "image": "exercises/chair/thumbnail.svg",
+    "text": {
+      "uk": "Стільчик",
+      "en": "Chair",
+      "es": "Silla"
+    }
+  },
+  {
+    "id": "door",
+    "difficulty": 1,
+    "image": "exercises/door/thumbnail.svg",
+    "text": {
+      "uk": "Двері",
+      "en": "Door",
+      "es": "Puerta"
+    }
+  },
+  {
+    "id": "window",
+    "difficulty": 1,
+    "image": "exercises/window/thumbnail.svg",
+    "text": {
+      "uk": "Віконце",
+      "en": "Window",
+      "es": "Ventana"
+    }
+  },
+  {
+    "id": "book",
+    "difficulty": 1,
+    "image": "exercises/book/thumbnail.svg",
+    "text": {
+      "uk": "Книжка",
+      "en": "Book",
+      "es": "Libro"
+    }
+  },
+  {
+    "id": "backpack",
+    "difficulty": 1,
+    "image": "exercises/backpack/thumbnail.svg",
+    "text": {
+      "uk": "Рюкзак",
+      "en": "Backpack",
+      "es": "Mochila"
+    }
+  },
+  {
+    "id": "ball",
+    "difficulty": 1,
+    "image": "exercises/ball/thumbnail.svg",
+    "text": {
+      "uk": "Мʼячик",
+      "en": "Ball",
+      "es": "Pelota"
+    }
+  },
+  {
+    "id": "kite",
+    "difficulty": 1,
+    "image": "exercises/kite/thumbnail.svg",
+    "text": {
+      "uk": "Повітряний змій",
+      "en": "Kite",
+      "es": "Cometa"
+    }
+  },
+  {
+    "id": "balloon",
+    "difficulty": 1,
+    "image": "exercises/balloon/thumbnail.svg",
+    "text": {
+      "uk": "Кулька",
+      "en": "Balloon",
+      "es": "Globo"
+    }
+  },
+  {
+    "id": "gift",
+    "difficulty": 1,
+    "image": "exercises/gift/thumbnail.svg",
+    "text": {
+      "uk": "Подарунок",
+      "en": "Gift",
+      "es": "Regalo"
+    }
+  },
+  {
+    "id": "candle",
+    "difficulty": 1,
+    "image": "exercises/candle/thumbnail.svg",
+    "text": {
+      "uk": "Свічка",
+      "en": "Candle",
+      "es": "Vela"
+    }
+  },
+  {
+    "id": "vase",
+    "difficulty": 1,
+    "image": "exercises/vase/thumbnail.svg",
+    "text": {
+      "uk": "Ваза",
+      "en": "Vase",
+      "es": "Jarron"
+    }
+  },
+  {
+    "id": "castle",
+    "difficulty": 2,
+    "image": "exercises/castle/thumbnail.svg",
+    "text": {
+      "uk": "Замок",
+      "en": "Castle",
+      "es": "Castillo"
+    }
+  },
+  {
+    "id": "teapot",
+    "difficulty": 2,
+    "image": "exercises/teapot/thumbnail.svg",
+    "text": {
+      "uk": "Чайник",
+      "en": "Teapot",
+      "es": "Tetera"
+    }
+  }
+]

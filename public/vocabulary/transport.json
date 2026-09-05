@@ -1,0 +1,202 @@
+[
+  {
+    "id": "car",
+    "difficulty": 1,
+    "image": "exercises/car/thumbnail.svg",
+    "text": {
+      "uk": "Машина",
+      "en": "Car",
+      "es": "Coche"
+    }
+  },
+  {
+    "id": "bus",
+    "difficulty": 1,
+    "image": "exercises/bus/thumbnail.svg",
+    "text": {
+      "uk": "Автобус",
+      "en": "Bus",
+      "es": "Autobus"
+    }
+  },
+  {
+    "id": "truck",
+    "difficulty": 1,
+    "image": "exercises/truck/thumbnail.svg",
+    "text": {
+      "uk": "Вантажівка",
+      "en": "Truck",
+      "es": "Camion"
+    }
+  },
+  {
+    "id": "boat",
+    "difficulty": 1,
+    "image": "exercises/boat/thumbnail.svg",
+    "text": {
+      "uk": "Кораблик",
+      "en": "Boat",
+      "es": "Barco"
+    }
+  },
+  {
+    "id": "ship",
+    "difficulty": 1,
+    "image": "exercises/ship/thumbnail.svg",
+    "text": {
+      "uk": "Пароплав",
+      "en": "Steamship",
+      "es": "Buque"
+    }
+  },
+  {
+    "id": "submarine",
+    "difficulty": 1,
+    "image": "exercises/submarine/thumbnail.svg",
+    "text": {
+      "uk": "Підводний човен",
+      "en": "Submarine",
+      "es": "Submarino"
+    }
+  },
+  {
+    "id": "rocket",
+    "difficulty": 1,
+    "image": "exercises/rocket/thumbnail.svg",
+    "text": {
+      "uk": "Ракета",
+      "en": "Rocket",
+      "es": "Cohete"
+    }
+  },
+  {
+    "id": "plane",
+    "difficulty": 1,
+    "image": "exercises/plane/thumbnail.svg",
+    "text": {
+      "uk": "Літак",
+      "en": "Plane",
+      "es": "Avion"
+    }
+  },
+  {
+    "id": "train",
+    "difficulty": 1,
+    "image": "exercises/train/thumbnail.svg",
+    "text": {
+      "uk": "Потяг",
+      "en": "Train",
+      "es": "Tren"
+    }
+  },
+  {
+    "id": "scooter",
+    "difficulty": 1,
+    "image": "exercises/scooter/thumbnail.svg",
+    "text": {
+      "uk": "Самокат",
+      "en": "Scooter",
+      "es": "Patinete"
+    }
+  },
+  {
+    "id": "ambulance",
+    "difficulty": 1,
+    "image": "exercises/ambulance/thumbnail.svg",
+    "text": {
+      "uk": "Швидка",
+      "en": "Ambulance",
+      "es": "Ambulancia"
+    }
+  },
+  {
+    "id": "hotairballoon",
+    "difficulty": 1,
+    "image": "exercises/hotairballoon/thumbnail.svg",
+    "text": {
+      "uk": "Повітряна куля",
+      "en": "Hot air balloon",
+      "es": "Globo aerostatico"
+    }
+  },
+  {
+    "id": "taxi",
+    "difficulty": 1,
+    "image": "exercises/taxi/thumbnail.svg",
+    "text": {
+      "uk": "Таксі",
+      "en": "Taxi",
+      "es": "Taxi"
+    }
+  },
+  {
+    "id": "sled",
+    "difficulty": 1,
+    "image": "exercises/sled/thumbnail.svg",
+    "text": {
+      "uk": "Санчата",
+      "en": "Sled",
+      "es": "Trineo"
+    }
+  },
+  {
+    "id": "tractor",
+    "difficulty": 2,
+    "image": "exercises/tractor/thumbnail.svg",
+    "text": {
+      "uk": "Трактор",
+      "en": "Tractor",
+      "es": "Tractor"
+    }
+  },
+  {
+    "id": "helicopter",
+    "difficulty": 2,
+    "image": "exercises/helicopter/thumbnail.svg",
+    "text": {
+      "uk": "Гелікоптер",
+      "en": "Helicopter",
+      "es": "Helicoptero"
+    }
+  },
+  {
+    "id": "bike",
+    "difficulty": 2,
+    "image": "exercises/bike/thumbnail.svg",
+    "text": {
+      "uk": "Велосипед",
+      "en": "Bicycle",
+      "es": "Bici"
+    }
+  },
+  {
+    "id": "motorbike",
+    "difficulty": 2,
+    "image": "exercises/motorbike/thumbnail.svg",
+    "text": {
+      "uk": "Мотоцикл",
+      "en": "Motorbike",
+      "es": "Moto"
+    }
+  },
+  {
+    "id": "firetruck",
+    "difficulty": 2,
+    "image": "exercises/firetruck/thumbnail.svg",
+    "text": {
+      "uk": "Пожежна машина",
+      "en": "Fire truck",
+      "es": "Bomberos"
+    }
+  },
+  {
+    "id": "digger",
+    "difficulty": 2,
+    "image": "exercises/digger/thumbnail.svg",
+    "text": {
+      "uk": "Екскаватор",
+      "en": "Digger",
+      "es": "Excavadora"
+    }
+  }
+]

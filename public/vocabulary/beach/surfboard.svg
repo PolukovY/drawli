@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="vol-0" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#7ca5ee"/>
+      <stop offset="46%" stop-color="#4E86E8"/>
+      <stop offset="100%" stop-color="#305390"/>
+    </radialGradient>
+    <radialGradient id="vol-1" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#ffd46f"/>
+      <stop offset="46%" stop-color="#FFC53D"/>
+      <stop offset="100%" stop-color="#9e7a26"/>
+    </radialGradient>
+    <linearGradient id="depth" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="38%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0.3"/>
+    </linearGradient>
+    <radialGradient id="floor">
+      <stop offset="0%" stop-color="#2A2340" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="200" cy="368" rx="150" ry="22" fill="url(#floor)"/>
+  <g fill="url(#vol-0)" stroke="none"><path d="M200 70 q90 40 60 200 q-14 60 -60 70 q-46 -10 -60 -70 q-30 -160 60 -200"/></g>
+  <g fill="url(#vol-1)" stroke="none"><path d="M188 100 L212 100 L206 310 L194 310 Z"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M200 70 q90 40 60 200 q-14 60 -60 70 q-46 -10 -60 -70 q-30 -160 60 -200"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M188 100 L212 100 L206 310 L194 310 Z"/></g>
+  <g fill="none" stroke="#2A2340" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <path d="M200 90 L200 330"/>
+  </g>
+</svg>

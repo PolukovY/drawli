@@ -3,6 +3,7 @@ type IconName =
   | 'back' | 'home' | 'star' | 'check' | 'arrow' | 'gallery'
   | 'gear' | 'play' | 'plus' | 'globe' | 'sound' | 'download' | 'trash' | 'user' | 'shield' | 'again'
   | 'eye' | 'eyeOff'
+  | 'rock' | 'paper' | 'scissorsHand' | 'mic'
 
 const paths: Record<IconName, React.ReactNode> = {
   pencil: <><path d="M15.5 4.5l4 4L8 20H4v-4z" /><path d="M13.5 6.5l4 4" /></>,
@@ -29,6 +30,14 @@ const paths: Record<IconName, React.ReactNode> = {
   eye: <><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" /><circle cx="12" cy="12" r="3.2" /></>,
   eyeOff: <><path d="M4 4l16 16" /><path d="M9.9 5.9A9.7 9.7 0 0112 5.5c6 0 9.5 6.5 9.5 6.5a17 17 0 01-3.3 4" /><path d="M6.6 7.6A16.7 16.7 0 002.5 12S6 18.5 12 18.5c1.4 0 2.6-.3 3.7-.8" /><path d="M9.9 9.9a3.2 3.2 0 004.3 4.3" /></>,
   again: <><path d="M20 11a8 8 0 10-2.3 6" /><path d="M20 4v7h-7" /></>,
+  // A closed fist: rock.
+  rock: <path d="M7 11V8.5a2 2 0 014 0V8a2 2 0 014 0v.3a2 2 0 014 .2V13a6 6 0 01-6 6h-1a6 6 0 01-5.2-3l-2-3.5a1.6 1.6 0 012.6-1.8L9 12.5V8a2 2 0 01-2 3z" />,
+  // A flat, open hand: paper.
+  paper: <path d="M8 11V5.5a1.7 1.7 0 013.4 0V10M11.4 10V4.7a1.7 1.7 0 013.4 0V10M14.8 10V5.7a1.7 1.7 0 013.4 0V13M8 11l-1.6-1.6a1.7 1.7 0 00-2.6 2.1L6 15a7 7 0 006 4h1.5a5.5 5.5 0 005.5-5.5V8.7" />,
+  // Two fingers up, the rest folded: scissors as a hand-shape (kept apart
+  // from the scissors tool icon, which reads as an object, not a gesture).
+  scissorsHand: <path d="M9 4v8.2M15 4v8.2M9 12.2a4 4 0 00-6 4.6L5 20a7 7 0 006 4h1.5A5.5 5.5 0 0018 12.5V9M15 12.2a4 4 0 016-1.6" />,
+  mic: <><path d="M12 3a3 3 0 00-3 3v6a3 3 0 006 0V6a3 3 0 00-3-3z" /><path d="M6.5 11.5a5.5 5.5 0 0011 0" /><path d="M12 17v3.5" /><path d="M9 20.5h6" /></>,
 }
 
 export function Icon({

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "sun",
+    "difficulty": 1,
+    "image": "exercises/sun/thumbnail.svg",
+    "text": {
+      "uk": "Сонце",
+      "en": "Sun",
+      "es": "Sol"
+    }
+  },
+  {
+    "id": "cloud",
+    "difficulty": 1,
+    "image": "exercises/cloud/thumbnail.svg",
+    "text": {
+      "uk": "Хмаринка",
+      "en": "Cloud",
+      "es": "Nube"
+    }
+  },
+  {
+    "id": "rainbow",
+    "difficulty": 1,
+    "image": "exercises/rainbow/thumbnail.svg",
+    "text": {
+      "uk": "Веселка",
+      "en": "Rainbow",
+      "es": "Arcoiris"
+    }
+  },
+  {
+    "id": "raindrop",
+    "difficulty": 1,
+    "image": "exercises/raindrop/thumbnail.svg",
+    "text": {
+      "uk": "Крапелька",
+      "en": "Raindrop",
+      "es": "Gota"
+    }
+  },
+  {
+    "id": "moon",
+    "difficulty": 1,
+    "image": "exercises/moon/thumbnail.svg",
+    "text": {
+      "uk": "Місяць",
+      "en": "Moon",
+      "es": "Luna"
+    }
+  },
+  {
+    "id": "tree",
+    "difficulty": 1,
+    "image": "exercises/tree/thumbnail.svg",
+    "text": {
+      "uk": "Дерево",
+      "en": "Tree",
+      "es": "Arbol"
+    }
+  },
+  {
+    "id": "firtree",
+    "difficulty": 1,
+    "image": "exercises/firtree/thumbnail.svg",
+    "text": {
+      "uk": "Ялинка",
+      "en": "Fir tree",
+      "es": "Abeto"
+    }
+  },
+  {
+    "id": "flower",
+    "difficulty": 1,
+    "image": "exercises/flower/thumbnail.svg",
+    "text": {
+      "uk": "Квітка",
+      "en": "Flower",
+      "es": "Flor"
+    }
+  },
+  {
+    "id": "tulip",
+    "difficulty": 1,
+    "image": "exercises/tulip/thumbnail.svg",
+    "text": {
+      "uk": "Тюльпан",
+      "en": "Tulip",
+      "es": "Tulipan"
+    }
+  },
+  {
+    "id": "mushroom",
+    "difficulty": 1,
+    "image": "exercises/mushroom/thumbnail.svg",
+    "text": {
+      "uk": "Грибочок",
+      "en": "Mushroom",
+      "es": "Seta"
+    }
+  },
+  {
+    "id": "leaf",
+    "difficulty": 1,
+    "image": "exercises/leaf/thumbnail.svg",
+    "text": {
+      "uk": "Листочок",
+      "en": "Leaf",
+      "es": "Hoja"
+    }
+  },
+  {
+    "id": "acorn",
+    "difficulty": 1,
+    "image": "exercises/acorn/thumbnail.svg",
+    "text": {
+      "uk": "Жолудь",
+      "en": "Acorn",
+      "es": "Bellota"
+    }
+  },
+  {
+    "id": "cactus",
+    "difficulty": 1,
+    "image": "exercises/cactus/thumbnail.svg",
+    "text": {
+      "uk": "Кактус",
+      "en": "Cactus",
+      "es": "Cactus"
+    }
+  },
+  {
+    "id": "mountain",
+    "difficulty": 1,
+    "image": "exercises/mountain/thumbnail.svg",
+    "text": {
+      "uk": "Гора",
+      "en": "Mountain",
+      "es": "Montana"
+    }
+  },
+  {
+    "id": "shell",
+    "difficulty": 1,
+    "image": "exercises/shell/thumbnail.svg",
+    "text": {
+      "uk": "Мушля",
+      "en": "Seashell",
+      "es": "Concha"
+    }
+  },
+  {
+    "id": "skystars",
+    "difficulty": 1,
+    "image": "exercises/skystars/thumbnail.svg",
+    "text": {
+      "uk": "Зоряне небо",
+      "en": "Starry sky",
+      "es": "Estrellas"
+    }
+  },
+  {
+    "id": "lightning",
+    "difficulty": 1,
+    "image": "exercises/lightning/thumbnail.svg",
+    "text": {
+      "uk": "Блискавка",
+      "en": "Lightning",
+      "es": "Rayo"
+    }
+  },
+  {
+    "id": "planet",
+    "difficulty": 1,
+    "image": "exercises/planet/thumbnail.svg",
+    "text": {
+      "uk": "Планета",
+      "en": "Planet",
+      "es": "Planeta"
+    }
+  },
+  {
+    "id": "anthill",
+    "difficulty": 1,
+    "image": "exercises/anthill/thumbnail.svg",
+    "text": {
+      "uk": "Камінець",
+      "en": "Pebble",
+      "es": "Piedra"
+    }
+  },
+  {
+    "id": "snowflake",
+    "difficulty": 2,
+    "image": "exercises/snowflake/thumbnail.svg",
+    "text": {
+      "uk": "Сніжинка",
+      "en": "Snowflake",
+      "es": "Copo"
+    }
+  },
+  {
+    "id": "palm",
+    "difficulty": 2,
+    "image": "exercises/palm/thumbnail.svg",
+    "text": {
+      "uk": "Пальма",
+      "en": "Palm",
+      "es": "Palmera"
+    }
+  },
+  {
+    "id": "sunflower",
+    "difficulty": 2,
+    "image": "exercises/sunflower/thumbnail.svg",
+    "text": {
+      "uk": "Соняшник",
+      "en": "Sunflower",
+      "es": "Girasol"
+    }
+  }
+]

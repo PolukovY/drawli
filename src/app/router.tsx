@@ -36,6 +36,8 @@ import { PictureSudokuPage } from '../pages/games/PictureSudokuPage'
 import { DifferencesPage } from '../pages/games/DifferencesPage'
 import { SyllablesPage } from '../pages/games/SyllablesPage'
 import { OddWordPage } from '../pages/games/OddWordPage'
+import { RockPaperScissorsPage } from '../pages/games/RockPaperScissorsPage'
+import { VocabularyGamePage } from '../pages/games/VocabularyGamePage'
 
 // HashRouter, not BrowserRouter: GitHub Pages serves no SPA fallback,
 // so a deep link like /drawli/draw/ladybug would 404 on reload.
@@ -77,4 +79,6 @@ export const router = createHashRouter([
   { path: '/differences', element: <DifferencesPage /> },
   { path: '/syllables', element: <SyllablesPage /> },
   { path: '/odd-word', element: <OddWordPage /> },
+  { path: '/rock-paper-scissors', element: <RockPaperScissorsPage /> },
+  { path: '/vocabulary', element: <VocabularyGamePage /> },
 ])

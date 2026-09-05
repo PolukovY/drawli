@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="vol-0" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#a9886f"/>
+      <stop offset="46%" stop-color="#8B5E3C"/>
+      <stop offset="100%" stop-color="#563a25"/>
+    </radialGradient>
+    <radialGradient id="vol-1" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#ffd46f"/>
+      <stop offset="46%" stop-color="#FFC53D"/>
+      <stop offset="100%" stop-color="#9e7a26"/>
+    </radialGradient>
+    <radialGradient id="vol-2" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#f8a86e"/>
+      <stop offset="46%" stop-color="#F5893B"/>
+      <stop offset="100%" stop-color="#985525"/>
+    </radialGradient>
+    <radialGradient id="vol-3" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#ffd46f"/>
+      <stop offset="46%" stop-color="#FFC53D"/>
+      <stop offset="100%" stop-color="#9e7a26"/>
+    </radialGradient>
+    <linearGradient id="depth" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="38%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0.3"/>
+    </linearGradient>
+    <radialGradient id="floor">
+      <stop offset="0%" stop-color="#2A2340" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="200" cy="368" rx="150" ry="22" fill="url(#floor)"/>
+  <g fill="url(#vol-0)" stroke="none"><path d="M150 150 q50 -30 100 0 q-8 20 -100 0"/></g>
+  <g fill="url(#vol-1)" stroke="none"><path d="M140 150 q60 24 120 0 l-6 46 q-54 22 -108 0 z"/></g>
+  <g fill="url(#vol-2)" stroke="none"><path d="M134 196 q66 22 132 0 l-8 52 q-58 22 -116 0 z"/></g>
+  <g fill="url(#vol-3)" stroke="none"><path d="M126 248 q74 22 148 0 l-10 60 q-64 24 -128 0 z"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M150 150 q50 -30 100 0 q-8 20 -100 0"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M140 150 q60 24 120 0 l-6 46 q-54 22 -108 0 z"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M134 196 q66 22 132 0 l-8 52 q-58 22 -116 0 z"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M126 248 q74 22 148 0 l-10 60 q-64 24 -128 0 z"/></g>
+  <g fill="none" stroke="#2A2340" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <circle cx="200" cy="300" r="12"/>
+  </g>
+</svg>

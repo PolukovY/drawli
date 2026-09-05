@@ -1,0 +1,128 @@
+.rps {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  min-height: 0;
+}
+
+.rps__table {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.rps__side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.rps__vs {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--c-text-muted);
+}
+
+.rps__hand {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--sh-raised);
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.rps__hand--computer { background: var(--c-text-muted); }
+.rps__hand--computer.rps__hand--set { background: var(--c-accent); }
+
+.rps__question { font-size: 48px; font-weight: 800; color: #fff; }
+
+/* The little back-and-forth before the reveal, same idea as a real countdown. */
+.rps__hand--shake { animation: rps-shake 0.5s ease-in-out infinite; }
+
+@keyframes rps-shake {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-8deg) translateX(-4px); }
+}
+
+.rps__hand--set { animation: rps-pop 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+
+@keyframes rps-pop {
+  0% { transform: scale(0.8); }
+  60% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.rps__result {
+  font-size: 30px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.rps__result--win { color: var(--c-success); }
+.rps__result--tie { color: var(--c-text-muted); }
+.rps__result--lose { color: var(--c-text-soft); }
+
+.rps__choices {
+  display: flex;
+  gap: 16px;
+}
+
+.rps__choice {
+  width: 110px;
+  height: 110px;
+  border-radius: var(--r-xl);
+  background: var(--c-surface);
+  box-shadow: var(--sh-raised);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--c-text-soft);
+  border: 3px solid transparent;
+  transition: transform 0.1s ease, border-color 0.2s ease, opacity 0.2s ease;
+}
+.rps__choice:active:not(:disabled) { transform: scale(0.95); }
+.rps__choice:disabled { opacity: 0.5; }
+.rps__choice--picked {
+  background: var(--c-accent);
+  color: #fff;
+  border-color: var(--c-accent-dark);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rps__hand--shake { animation: none; }
+  .rps__hand--set { animation: none; }
+}
+
+@media (max-width: 700px) {
+  .rps { gap: 14px; }
+  .rps__table { gap: 20px; }
+  .rps__hand { width: 84px; height: 84px; }
+  .rps__result { font-size: 22px; }
+  .rps__choices { gap: 10px; }
+  .rps__choice { width: 86px; height: 86px; font-size: 13px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .rps { gap: 10px; }
+  .rps__table { gap: 24px; }
+  .rps__hand { width: 64px; height: 64px; }
+  .rps__side { font-size: 13px; }
+  .rps__result { font-size: 18px; }
+  .rps__choice { width: 64px; height: 64px; font-size: 0; gap: 0; }
+}

@@ -1,0 +1,302 @@
+[
+  {
+    "id": "pig",
+    "difficulty": 1,
+    "image": "exercises/pig/thumbnail.svg",
+    "text": {
+      "uk": "Порося",
+      "en": "Pig",
+      "es": "Cerdo"
+    }
+  },
+  {
+    "id": "sheep",
+    "difficulty": 1,
+    "image": "exercises/sheep/thumbnail.svg",
+    "text": {
+      "uk": "Овечка",
+      "en": "Sheep",
+      "es": "Oveja"
+    }
+  },
+  {
+    "id": "chick",
+    "difficulty": 1,
+    "image": "exercises/chick/thumbnail.svg",
+    "text": {
+      "uk": "Курча",
+      "en": "Chick",
+      "es": "Pollito"
+    }
+  },
+  {
+    "id": "duck",
+    "difficulty": 1,
+    "image": "exercises/duck/thumbnail.svg",
+    "text": {
+      "uk": "Каченя",
+      "en": "Duckling",
+      "es": "Pato"
+    }
+  },
+  {
+    "id": "corn",
+    "difficulty": 1,
+    "image": "exercises/corn/thumbnail.svg",
+    "text": {
+      "uk": "Кукурудза",
+      "en": "Corn",
+      "es": "Maiz"
+    }
+  },
+  {
+    "id": "carrot",
+    "difficulty": 1,
+    "image": "exercises/carrot/thumbnail.svg",
+    "text": {
+      "uk": "Морквина",
+      "en": "Carrot",
+      "es": "Zanahoria"
+    }
+  },
+  {
+    "id": "bunny",
+    "difficulty": 1,
+    "image": "exercises/bunny/thumbnail.svg",
+    "text": {
+      "uk": "Зайчик",
+      "en": "Bunny",
+      "es": "Conejo"
+    }
+  },
+  {
+    "id": "bee",
+    "difficulty": 1,
+    "image": "exercises/bee/thumbnail.svg",
+    "text": {
+      "uk": "Бджілка",
+      "en": "Bee",
+      "es": "Abeja"
+    }
+  },
+  {
+    "id": "rooster",
+    "difficulty": 1,
+    "image": "vocabulary/farm/rooster.svg",
+    "text": {
+      "uk": "Півень",
+      "en": "Rooster",
+      "es": "Gallo"
+    }
+  },
+  {
+    "id": "hen",
+    "difficulty": 1,
+    "image": "vocabulary/farm/hen.svg",
+    "text": {
+      "uk": "Курка",
+      "en": "Hen",
+      "es": "Gallina"
+    }
+  },
+  {
+    "id": "horse",
+    "difficulty": 1,
+    "image": "vocabulary/farm/horse.svg",
+    "text": {
+      "uk": "Кінь",
+      "en": "Horse",
+      "es": "Caballo"
+    }
+  },
+  {
+    "id": "goat",
+    "difficulty": 1,
+    "image": "vocabulary/farm/goat.svg",
+    "text": {
+      "uk": "Коза",
+      "en": "Goat",
+      "es": "Cabra"
+    }
+  },
+  {
+    "id": "egg",
+    "difficulty": 1,
+    "image": "vocabulary/farm/egg.svg",
+    "text": {
+      "uk": "Яйце",
+      "en": "Egg",
+      "es": "Huevo"
+    }
+  },
+  {
+    "id": "fence",
+    "difficulty": 1,
+    "image": "vocabulary/farm/fence.svg",
+    "text": {
+      "uk": "Паркан",
+      "en": "Fence",
+      "es": "Cerca"
+    }
+  },
+  {
+    "id": "cart",
+    "difficulty": 1,
+    "image": "vocabulary/farm/cart.svg",
+    "text": {
+      "uk": "Візок",
+      "en": "Cart",
+      "es": "Carro"
+    }
+  },
+  {
+    "id": "well",
+    "difficulty": 1,
+    "image": "vocabulary/farm/well.svg",
+    "text": {
+      "uk": "Криниця",
+      "en": "Water well",
+      "es": "Pozo"
+    }
+  },
+  {
+    "id": "goose",
+    "difficulty": 1,
+    "image": "vocabulary/farm/goose.svg",
+    "text": {
+      "uk": "Гусак",
+      "en": "Goose",
+      "es": "Ganso"
+    }
+  },
+  {
+    "id": "wheat",
+    "difficulty": 1,
+    "image": "vocabulary/farm/wheat.svg",
+    "text": {
+      "uk": "Пшениця",
+      "en": "Wheat",
+      "es": "Trigo"
+    }
+  },
+  {
+    "id": "pumpkin",
+    "difficulty": 1,
+    "image": "vocabulary/farm/pumpkin.svg",
+    "text": {
+      "uk": "Гарбуз",
+      "en": "Pumpkin",
+      "es": "Calabaza"
+    }
+  },
+  {
+    "id": "cow",
+    "difficulty": 2,
+    "image": "exercises/cow/thumbnail.svg",
+    "text": {
+      "uk": "Корівка",
+      "en": "Cow",
+      "es": "Vaca"
+    }
+  },
+  {
+    "id": "tractor",
+    "difficulty": 2,
+    "image": "exercises/tractor/thumbnail.svg",
+    "text": {
+      "uk": "Трактор",
+      "en": "Tractor",
+      "es": "Tractor"
+    }
+  },
+  {
+    "id": "donkey",
+    "difficulty": 2,
+    "image": "vocabulary/farm/donkey.svg",
+    "text": {
+      "uk": "Ослик",
+      "en": "Donkey",
+      "es": "Burro"
+    }
+  },
+  {
+    "id": "barn",
+    "difficulty": 2,
+    "image": "vocabulary/farm/barn.svg",
+    "text": {
+      "uk": "Сарай",
+      "en": "Barn",
+      "es": "Granero"
+    }
+  },
+  {
+    "id": "haystack",
+    "difficulty": 2,
+    "image": "vocabulary/farm/haystack.svg",
+    "text": {
+      "uk": "Скирта сіна",
+      "en": "Haystack",
+      "es": "Almiar"
+    }
+  },
+  {
+    "id": "scarecrow",
+    "difficulty": 2,
+    "image": "vocabulary/farm/scarecrow.svg",
+    "text": {
+      "uk": "Опудало",
+      "en": "Scarecrow",
+      "es": "Espantapájaros"
+    }
+  },
+  {
+    "id": "wheelbarrow",
+    "difficulty": 2,
+    "image": "vocabulary/farm/wheelbarrow.svg",
+    "text": {
+      "uk": "Тачка",
+      "en": "Wheelbarrow",
+      "es": "Carretilla"
+    }
+  },
+  {
+    "id": "beehive",
+    "difficulty": 2,
+    "image": "vocabulary/farm/beehive.svg",
+    "text": {
+      "uk": "Вулик",
+      "en": "Beehive",
+      "es": "Colmena"
+    }
+  },
+  {
+    "id": "windmill",
+    "difficulty": 2,
+    "image": "vocabulary/farm/windmill.svg",
+    "text": {
+      "uk": "Вітряк",
+      "en": "Windmill",
+      "es": "Molino"
+    }
+  },
+  {
+    "id": "farmer",
+    "difficulty": 2,
+    "image": "vocabulary/farm/farmer.svg",
+    "text": {
+      "uk": "Фермер",
+      "en": "Farmer",
+      "es": "Granjero"
+    }
+  },
+  {
+    "id": "turkey",
+    "difficulty": 2,
+    "image": "vocabulary/farm/turkey.svg",
+    "text": {
+      "uk": "Індик",
+      "en": "Turkey",
+      "es": "Pavo"
+    }
+  }
+]

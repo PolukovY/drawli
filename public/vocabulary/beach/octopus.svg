@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="vol-0" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#b586e8"/>
+      <stop offset="46%" stop-color="#9B5CE0"/>
+      <stop offset="100%" stop-color="#60398b"/>
+    </radialGradient>
+    <radialGradient id="vol-1" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#b586e8"/>
+      <stop offset="46%" stop-color="#9B5CE0"/>
+      <stop offset="100%" stop-color="#60398b"/>
+    </radialGradient>
+    <radialGradient id="vol-2" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#c198ee"/>
+      <stop offset="46%" stop-color="#AB74E8"/>
+      <stop offset="100%" stop-color="#6a4890"/>
+    </radialGradient>
+    <radialGradient id="vol-3" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#b586e8"/>
+      <stop offset="46%" stop-color="#9B5CE0"/>
+      <stop offset="100%" stop-color="#60398b"/>
+    </radialGradient>
+    <radialGradient id="vol-4" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#c198ee"/>
+      <stop offset="46%" stop-color="#AB74E8"/>
+      <stop offset="100%" stop-color="#6a4890"/>
+    </radialGradient>
+    <linearGradient id="depth" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="38%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0.3"/>
+    </linearGradient>
+    <radialGradient id="floor">
+      <stop offset="0%" stop-color="#2A2340" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="200" cy="368" rx="150" ry="22" fill="url(#floor)"/>
+  <g fill="url(#vol-0)" stroke="none"><circle cx="200" cy="188" r="90"/></g>
+  <g fill="url(#vol-1)" stroke="none"><path d="M130 240 q-40 40 -10 90 q30 -20 40 -70"/></g>
+  <g fill="url(#vol-2)" stroke="none"><path d="M170 262 q-16 54 20 90 q20 -30 8 -80"/></g>
+  <g fill="url(#vol-3)" stroke="none"><path d="M230 262 q16 54 -20 90 q-20 -30 -8 -80"/></g>
+  <g fill="url(#vol-4)" stroke="none"><path d="M270 240 q40 40 10 90 q-30 -20 -40 -70"/></g>
+  <g fill="url(#depth)" stroke="none"><circle cx="200" cy="188" r="90"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M130 240 q-40 40 -10 90 q30 -20 40 -70"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M170 262 q-16 54 20 90 q20 -30 8 -80"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M230 262 q16 54 -20 90 q-20 -30 -8 -80"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M270 240 q40 40 10 90 q-30 -20 -40 -70"/></g>
+  <g fill="none" stroke="#2A2340" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <circle cx="176" cy="176" r="9"/>
+    <circle cx="224" cy="176" r="9"/>
+  </g>
+</svg>

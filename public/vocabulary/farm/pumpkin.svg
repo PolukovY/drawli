@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="vol-0" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#f8a86e"/>
+      <stop offset="46%" stop-color="#F5893B"/>
+      <stop offset="100%" stop-color="#985525"/>
+    </radialGradient>
+    <radialGradient id="vol-1" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#7cbc89"/>
+      <stop offset="46%" stop-color="#4EA55F"/>
+      <stop offset="100%" stop-color="#30663b"/>
+    </radialGradient>
+    <linearGradient id="depth" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="38%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0.3"/>
+    </linearGradient>
+    <radialGradient id="floor">
+      <stop offset="0%" stop-color="#2A2340" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="200" cy="368" rx="150" ry="22" fill="url(#floor)"/>
+  <g fill="url(#vol-0)" stroke="none"><ellipse cx="200" cy="248" rx="110" ry="88"/></g>
+  <g fill="url(#vol-1)" stroke="none"><path d="M188 158 q0 -34 24 -40 q6 20 -8 40 z"/></g>
+  <g fill="url(#depth)" stroke="none"><ellipse cx="200" cy="248" rx="110" ry="88"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M188 158 q0 -34 24 -40 q6 20 -8 40 z"/></g>
+  <g fill="none" stroke="#2A2340" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <path d="M200 150 L200 320"/>
+    <path d="M148 170 Q140 250 158 316"/>
+    <path d="M252 170 Q260 250 242 316"/>
+  </g>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="vol-0" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#a9886f"/>
+      <stop offset="46%" stop-color="#8B5E3C"/>
+      <stop offset="100%" stop-color="#563a25"/>
+    </radialGradient>
+    <radialGradient id="vol-1" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#7ca5ee"/>
+      <stop offset="46%" stop-color="#4E86E8"/>
+      <stop offset="100%" stop-color="#305390"/>
+    </radialGradient>
+    <radialGradient id="vol-2" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#7cbc89"/>
+      <stop offset="46%" stop-color="#4EA55F"/>
+      <stop offset="100%" stop-color="#30663b"/>
+    </radialGradient>
+    <radialGradient id="vol-3" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#7cbc89"/>
+      <stop offset="46%" stop-color="#4EA55F"/>
+      <stop offset="100%" stop-color="#30663b"/>
+    </radialGradient>
+    <linearGradient id="depth" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="38%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0.3"/>
+    </linearGradient>
+    <radialGradient id="floor">
+      <stop offset="0%" stop-color="#2A2340" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="200" cy="368" rx="150" ry="22" fill="url(#floor)"/>
+  <g fill="url(#vol-0)" stroke="none"><path d="M170 300 L230 300 L220 330 L180 330 Z"/></g>
+  <g fill="url(#vol-1)" stroke="none"><circle cx="200" cy="200" r="90"/></g>
+  <g fill="url(#vol-2)" stroke="none"><path d="M150 160 q30 -20 50 10 q-10 30 -40 20 z"/></g>
+  <g fill="url(#vol-3)" stroke="none"><path d="M210 230 q40 -10 50 20 q-20 20 -50 6 z"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M170 300 L230 300 L220 330 L180 330 Z"/></g>
+  <g fill="url(#depth)" stroke="none"><circle cx="200" cy="200" r="90"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M150 160 q30 -20 50 10 q-10 30 -40 20 z"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M210 230 q40 -10 50 20 q-20 20 -50 6 z"/></g>
+  <g fill="none" stroke="#2A2340" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <path d="M200 130 Q160 200 200 270"/>
+    <path d="M200 130 Q240 200 200 270"/>
+    <path d="M130 200 L270 200"/>
+  </g>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="vol-0" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#fcfbff"/>
+      <stop offset="46%" stop-color="#FBFAFF"/>
+      <stop offset="100%" stop-color="#9c9b9e"/>
+    </radialGradient>
+    <radialGradient id="vol-1" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#eb756e"/>
+      <stop offset="46%" stop-color="#E4443B"/>
+      <stop offset="100%" stop-color="#8d2a25"/>
+    </radialGradient>
+    <radialGradient id="vol-2" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#7ca5ee"/>
+      <stop offset="46%" stop-color="#4E86E8"/>
+      <stop offset="100%" stop-color="#305390"/>
+    </radialGradient>
+    <radialGradient id="vol-3" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#7ca5ee"/>
+      <stop offset="46%" stop-color="#4E86E8"/>
+      <stop offset="100%" stop-color="#305390"/>
+    </radialGradient>
+    <radialGradient id="vol-4" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#9eb8f4"/>
+      <stop offset="46%" stop-color="#7C9FF0"/>
+      <stop offset="100%" stop-color="#4d6395"/>
+    </radialGradient>
+    <radialGradient id="vol-5" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#9eb8f4"/>
+      <stop offset="46%" stop-color="#7C9FF0"/>
+      <stop offset="100%" stop-color="#4d6395"/>
+    </radialGradient>
+    <linearGradient id="depth" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="38%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0.3"/>
+    </linearGradient>
+    <radialGradient id="floor">
+      <stop offset="0%" stop-color="#2A2340" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="200" cy="368" rx="150" ry="22" fill="url(#floor)"/>
+  <g fill="url(#vol-0)" stroke="none"><path d="M180 340 L192 150 L248 150 L268 340 Z"/></g>
+  <g fill="url(#vol-1)" stroke="none"><path d="M186 150 L220 108 L254 150 Z"/></g>
+  <g fill="url(#vol-2)" stroke="none"><ellipse cx="220" cy="72" rx="14" ry="50"/></g>
+  <g fill="url(#vol-3)" stroke="none"><ellipse cx="220" cy="72" rx="14" ry="50" transform="rotate(90 220 72)"/></g>
+  <g fill="url(#vol-4)" stroke="none"><ellipse cx="220" cy="72" rx="14" ry="50" transform="rotate(45 220 72)"/></g>
+  <g fill="url(#vol-5)" stroke="none"><ellipse cx="220" cy="72" rx="14" ry="50" transform="rotate(135 220 72)"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M180 340 L192 150 L248 150 L268 340 Z"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M186 150 L220 108 L254 150 Z"/></g>
+  <g fill="url(#depth)" stroke="none"><ellipse cx="220" cy="72" rx="14" ry="50"/></g>
+  <g fill="url(#depth)" stroke="none"><ellipse cx="220" cy="72" rx="14" ry="50" transform="rotate(90 220 72)"/></g>
+  <g fill="url(#depth)" stroke="none"><ellipse cx="220" cy="72" rx="14" ry="50" transform="rotate(45 220 72)"/></g>
+  <g fill="url(#depth)" stroke="none"><ellipse cx="220" cy="72" rx="14" ry="50" transform="rotate(135 220 72)"/></g>
+  <g fill="none" stroke="#2A2340" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <circle cx="220" cy="130" r="10"/>
+  </g>
+</svg>

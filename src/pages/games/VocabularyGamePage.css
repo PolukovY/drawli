@@ -1,0 +1,40 @@
+.vocab { gap: 18px; }
+
+/* The whole prompt: tap it to hear the word again. Big, because it is the
+   only thing on screen the child needs before they can play at all. */
+.vocab__speaker {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--c-accent);
+  box-shadow: var(--sh-float);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.1s ease;
+}
+.vocab__speaker:active { transform: scale(0.94); }
+
+/* A wrong guess is named, not just dimmed — the point of the game is telling
+   two pictures apart by what they are called. */
+.vocab__correction {
+  max-width: 640px;
+  text-align: center;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--c-text);
+  background: var(--c-surface);
+  border-radius: var(--r-xl);
+  padding: 12px 20px;
+  box-shadow: var(--sh-card);
+}
+
+@media (max-width: 700px) {
+  .vocab__speaker { width: 76px; height: 76px; }
+  .vocab__correction { font-size: 15px; padding: 10px 16px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .vocab__speaker { width: 60px; height: 60px; }
+  .vocab__correction { display: none; }
+}

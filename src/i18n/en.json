@@ -642,11 +642,40 @@
     "oddWordHint": "Three belong together — tap the one that does not",
     "oddWordAgain": "Say them again",
     "oddWordSay": "Say this word",
-    "dotsHeart": "A heart!"
+    "dotsHeart": "A heart!",
+    "rps": "Rock, paper, scissors",
+    "rpsHint": "Choose what to show",
+    "rpsWaiting": "Showing hands…",
+    "rpsYou": "You",
+    "rpsComputer": "Computer",
+    "rpsVs": "vs",
+    "rpsRock": "Rock",
+    "rpsPaper": "Paper",
+    "rpsScissors": "Scissors",
+    "rpsWin": "You win!",
+    "rpsTie": "Tie!",
+    "rpsLose": "The computer this time",
+    "rpsTally": "Wins: {{win}} · ties: {{tie}} · losses: {{lose}}",
+    "vocabulary": "Learn words"
   },
   "free": {
     "title": "Blank sheet",
     "hint": "Draw anything you like",
     "newSheet": "New sheet"
+  },
+  "vocabulary": {
+    "pickTheme": "Choose a theme",
+    "hint": "Tap the picture you heard",
+    "hear": "Hear it again",
+    "theme": {
+      "animals": "Animals",
+      "home": "Home",
+      "nature": "Nature",
+      "food": "Food",
+      "transport": "Transport",
+      "farm": "Farm",
+      "beach": "Beach",
+      "school": "School"
+    }
   }
 }

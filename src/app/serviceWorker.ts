@@ -3,7 +3,7 @@ import { registerSW } from 'virtual:pwa-register'
 const HOUR = 60 * 60 * 1000
 
 /** Caches this build owns; anything else with these prefixes is last build's. */
-const RUNTIME_CACHES = ['drawli-catalogue', 'drawli-exercises']
+const RUNTIME_CACHES = ['drawli-catalogue', 'drawli-exercises', 'drawli-vocabulary']
 
 export const BUILD_ID = __BUILD_ID__
 

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+  <defs>
+    <radialGradient id="vol-0" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#a9886f"/>
+      <stop offset="46%" stop-color="#8B5E3C"/>
+      <stop offset="100%" stop-color="#563a25"/>
+    </radialGradient>
+    <radialGradient id="vol-1" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#615c72"/>
+      <stop offset="46%" stop-color="#2A2340"/>
+      <stop offset="100%" stop-color="#1a1628"/>
+    </radialGradient>
+    <radialGradient id="vol-2" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#d7a87a"/>
+      <stop offset="46%" stop-color="#C98A4B"/>
+      <stop offset="100%" stop-color="#7d562f"/>
+    </radialGradient>
+    <radialGradient id="vol-3" cx="34%" cy="26%" r="82%">
+      <stop offset="0%" stop-color="#a9886f"/>
+      <stop offset="46%" stop-color="#8B5E3C"/>
+      <stop offset="100%" stop-color="#563a25"/>
+    </radialGradient>
+    <linearGradient id="depth" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.16"/>
+      <stop offset="38%" stop-color="#FFFFFF" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0.3"/>
+    </linearGradient>
+    <radialGradient id="floor">
+      <stop offset="0%" stop-color="#2A2340" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2A2340" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="200" cy="368" rx="150" ry="22" fill="url(#floor)"/>
+  <g fill="url(#vol-0)" stroke="none"><path d="M120 130 q10 -40 70 -40 q60 0 62 60 q2 40 -20 70 q-6 46 -46 60 q-46 -8 -56 -56 q-30 -18 -22 -54 q-4 -20 12 -40"/></g>
+  <g fill="url(#vol-1)" stroke="none"><path d="M158 118 q-4 -44 -34 -50 q0 34 22 54 z"/></g>
+  <g fill="url(#vol-2)" stroke="none"><ellipse cx="150" cy="262" rx="42" ry="34"/></g>
+  <g fill="url(#vol-3)" stroke="none"><path d="M244 108 q-4 -30 24 -34 q0 26 -10 40 z"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M120 130 q10 -40 70 -40 q60 0 62 60 q2 40 -20 70 q-6 46 -46 60 q-46 -8 -56 -56 q-30 -18 -22 -54 q-4 -20 12 -40"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M158 118 q-4 -44 -34 -50 q0 34 22 54 z"/></g>
+  <g fill="url(#depth)" stroke="none"><ellipse cx="150" cy="262" rx="42" ry="34"/></g>
+  <g fill="url(#depth)" stroke="none"><path d="M244 108 q-4 -30 24 -34 q0 26 -10 40 z"/></g>
+  <g fill="none" stroke="#2A2340" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <circle cx="180" cy="196" r="9"/>
+    <path d="M158 118 q-4 -44 -34 -50 q0 34 22 54"/>
+    <circle cx="150" cy="272" r="7"/>
+  </g>
+</svg>

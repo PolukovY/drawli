@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "exercises": "node scripts/generate-exercises.mjs"
+    "exercises": "node scripts/generate-exercises.mjs",
+    "vocabulary": "node scripts/generate-vocabulary.mjs"
   },
   "dependencies": {
     "dexie": "^4.0.11",

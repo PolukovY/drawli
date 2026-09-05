@@ -1,0 +1,222 @@
+[
+  {
+    "id": "apple",
+    "difficulty": 1,
+    "image": "exercises/apple/thumbnail.svg",
+    "text": {
+      "uk": "Яблуко",
+      "en": "Apple",
+      "es": "Manzana"
+    }
+  },
+  {
+    "id": "pear",
+    "difficulty": 1,
+    "image": "exercises/pear/thumbnail.svg",
+    "text": {
+      "uk": "Груша",
+      "en": "Pear",
+      "es": "Pera"
+    }
+  },
+  {
+    "id": "banana",
+    "difficulty": 1,
+    "image": "exercises/banana/thumbnail.svg",
+    "text": {
+      "uk": "Банан",
+      "en": "Banana",
+      "es": "Platano"
+    }
+  },
+  {
+    "id": "cherries",
+    "difficulty": 1,
+    "image": "exercises/cherries/thumbnail.svg",
+    "text": {
+      "uk": "Вишеньки",
+      "en": "Cherries",
+      "es": "Cerezas"
+    }
+  },
+  {
+    "id": "watermelon",
+    "difficulty": 1,
+    "image": "exercises/watermelon/thumbnail.svg",
+    "text": {
+      "uk": "Кавун",
+      "en": "Watermelon",
+      "es": "Sandia"
+    }
+  },
+  {
+    "id": "strawberry",
+    "difficulty": 1,
+    "image": "exercises/strawberry/thumbnail.svg",
+    "text": {
+      "uk": "Полуниця",
+      "en": "Strawberry",
+      "es": "Fresa"
+    }
+  },
+  {
+    "id": "orange",
+    "difficulty": 1,
+    "image": "exercises/orange/thumbnail.svg",
+    "text": {
+      "uk": "Апельсин",
+      "en": "Orange",
+      "es": "Naranja"
+    }
+  },
+  {
+    "id": "lemon",
+    "difficulty": 1,
+    "image": "exercises/lemon/thumbnail.svg",
+    "text": {
+      "uk": "Лимон",
+      "en": "Lemon",
+      "es": "Limon"
+    }
+  },
+  {
+    "id": "icecream",
+    "difficulty": 1,
+    "image": "exercises/icecream/thumbnail.svg",
+    "text": {
+      "uk": "Морозиво",
+      "en": "Ice cream",
+      "es": "Helado"
+    }
+  },
+  {
+    "id": "popsicle",
+    "difficulty": 1,
+    "image": "exercises/popsicle/thumbnail.svg",
+    "text": {
+      "uk": "Ескімо",
+      "en": "Popsicle",
+      "es": "Polo"
+    }
+  },
+  {
+    "id": "cupcake",
+    "difficulty": 1,
+    "image": "exercises/cupcake/thumbnail.svg",
+    "text": {
+      "uk": "Капкейк",
+      "en": "Cupcake",
+      "es": "Pastelito"
+    }
+  },
+  {
+    "id": "donut",
+    "difficulty": 1,
+    "image": "exercises/donut/thumbnail.svg",
+    "text": {
+      "uk": "Пончик",
+      "en": "Donut",
+      "es": "Dona"
+    }
+  },
+  {
+    "id": "cookie",
+    "difficulty": 1,
+    "image": "exercises/cookie/thumbnail.svg",
+    "text": {
+      "uk": "Печиво",
+      "en": "Cookie",
+      "es": "Galleta"
+    }
+  },
+  {
+    "id": "candy",
+    "difficulty": 1,
+    "image": "exercises/candy/thumbnail.svg",
+    "text": {
+      "uk": "Цукерка",
+      "en": "Candy",
+      "es": "Caramelo"
+    }
+  },
+  {
+    "id": "lollipop",
+    "difficulty": 1,
+    "image": "exercises/lollipop/thumbnail.svg",
+    "text": {
+      "uk": "Льодяник",
+      "en": "Lollipop",
+      "es": "Piruleta"
+    }
+  },
+  {
+    "id": "pizza",
+    "difficulty": 1,
+    "image": "exercises/pizza/thumbnail.svg",
+    "text": {
+      "uk": "Піца",
+      "en": "Pizza",
+      "es": "Pizza"
+    }
+  },
+  {
+    "id": "cake",
+    "difficulty": 1,
+    "image": "exercises/cake/thumbnail.svg",
+    "text": {
+      "uk": "Тортик",
+      "en": "Cake",
+      "es": "Tarta"
+    }
+  },
+  {
+    "id": "carrot",
+    "difficulty": 1,
+    "image": "exercises/carrot/thumbnail.svg",
+    "text": {
+      "uk": "Морквина",
+      "en": "Carrot",
+      "es": "Zanahoria"
+    }
+  },
+  {
+    "id": "corn",
+    "difficulty": 1,
+    "image": "exercises/corn/thumbnail.svg",
+    "text": {
+      "uk": "Кукурудза",
+      "en": "Corn",
+      "es": "Maiz"
+    }
+  },
+  {
+    "id": "juice",
+    "difficulty": 1,
+    "image": "exercises/juice/thumbnail.svg",
+    "text": {
+      "uk": "Сік",
+      "en": "Juice",
+      "es": "Zumo"
+    }
+  },
+  {
+    "id": "grapes",
+    "difficulty": 2,
+    "image": "exercises/grapes/thumbnail.svg",
+    "text": {
+      "uk": "Виноград",
+      "en": "Grapes",
+      "es": "Uvas"
+    }
+  },
+  {
+    "id": "croissant",
+    "difficulty": 2,
+    "image": "exercises/croissant/thumbnail.svg",
+    "text": {
+      "uk": "Круасан",
+      "en": "Croissant",
+      "es": "Cruasan"
+    }
+  }
+]

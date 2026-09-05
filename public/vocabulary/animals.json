@@ -1,0 +1,242 @@
+[
+  {
+    "id": "ladybug",
+    "difficulty": 1,
+    "image": "exercises/ladybug/thumbnail.svg",
+    "text": {
+      "uk": "Сонечко",
+      "en": "Ladybug",
+      "es": "Mariquita"
+    }
+  },
+  {
+    "id": "fish",
+    "difficulty": 1,
+    "image": "exercises/fish/thumbnail.svg",
+    "text": {
+      "uk": "Рибка",
+      "en": "Fish",
+      "es": "Pez"
+    }
+  },
+  {
+    "id": "cat",
+    "difficulty": 1,
+    "image": "exercises/cat/thumbnail.svg",
+    "text": {
+      "uk": "Котик",
+      "en": "Cat",
+      "es": "Gato"
+    }
+  },
+  {
+    "id": "dog",
+    "difficulty": 1,
+    "image": "exercises/dog/thumbnail.svg",
+    "text": {
+      "uk": "Песик",
+      "en": "Dog",
+      "es": "Perro"
+    }
+  },
+  {
+    "id": "bunny",
+    "difficulty": 1,
+    "image": "exercises/bunny/thumbnail.svg",
+    "text": {
+      "uk": "Зайчик",
+      "en": "Bunny",
+      "es": "Conejo"
+    }
+  },
+  {
+    "id": "bear",
+    "difficulty": 1,
+    "image": "exercises/bear/thumbnail.svg",
+    "text": {
+      "uk": "Ведмедик",
+      "en": "Bear",
+      "es": "Oso"
+    }
+  },
+  {
+    "id": "turtle",
+    "difficulty": 1,
+    "image": "exercises/turtle/thumbnail.svg",
+    "text": {
+      "uk": "Черепаха",
+      "en": "Turtle",
+      "es": "Tortuga"
+    }
+  },
+  {
+    "id": "duck",
+    "difficulty": 1,
+    "image": "exercises/duck/thumbnail.svg",
+    "text": {
+      "uk": "Каченя",
+      "en": "Duckling",
+      "es": "Pato"
+    }
+  },
+  {
+    "id": "bee",
+    "difficulty": 1,
+    "image": "exercises/bee/thumbnail.svg",
+    "text": {
+      "uk": "Бджілка",
+      "en": "Bee",
+      "es": "Abeja"
+    }
+  },
+  {
+    "id": "snail",
+    "difficulty": 1,
+    "image": "exercises/snail/thumbnail.svg",
+    "text": {
+      "uk": "Равлик",
+      "en": "Snail",
+      "es": "Caracol"
+    }
+  },
+  {
+    "id": "frog",
+    "difficulty": 1,
+    "image": "exercises/frog/thumbnail.svg",
+    "text": {
+      "uk": "Жабка",
+      "en": "Frog",
+      "es": "Rana"
+    }
+  },
+  {
+    "id": "penguin",
+    "difficulty": 1,
+    "image": "exercises/penguin/thumbnail.svg",
+    "text": {
+      "uk": "Пінгвін",
+      "en": "Penguin",
+      "es": "Pinguino"
+    }
+  },
+  {
+    "id": "mouse",
+    "difficulty": 1,
+    "image": "exercises/mouse/thumbnail.svg",
+    "text": {
+      "uk": "Мишка",
+      "en": "Mouse",
+      "es": "Raton"
+    }
+  },
+  {
+    "id": "pig",
+    "difficulty": 1,
+    "image": "exercises/pig/thumbnail.svg",
+    "text": {
+      "uk": "Порося",
+      "en": "Pig",
+      "es": "Cerdo"
+    }
+  },
+  {
+    "id": "sheep",
+    "difficulty": 1,
+    "image": "exercises/sheep/thumbnail.svg",
+    "text": {
+      "uk": "Овечка",
+      "en": "Sheep",
+      "es": "Oveja"
+    }
+  },
+  {
+    "id": "chick",
+    "difficulty": 1,
+    "image": "exercises/chick/thumbnail.svg",
+    "text": {
+      "uk": "Курча",
+      "en": "Chick",
+      "es": "Pollito"
+    }
+  },
+  {
+    "id": "crab",
+    "difficulty": 1,
+    "image": "exercises/crab/thumbnail.svg",
+    "text": {
+      "uk": "Крабик",
+      "en": "Crab",
+      "es": "Cangrejo"
+    }
+  },
+  {
+    "id": "whale",
+    "difficulty": 1,
+    "image": "exercises/whale/thumbnail.svg",
+    "text": {
+      "uk": "Кит",
+      "en": "Whale",
+      "es": "Ballena"
+    }
+  },
+  {
+    "id": "fox",
+    "difficulty": 1,
+    "image": "exercises/fox/thumbnail.svg",
+    "text": {
+      "uk": "Лисичка",
+      "en": "Fox",
+      "es": "Zorro"
+    }
+  },
+  {
+    "id": "butterfly",
+    "difficulty": 2,
+    "image": "exercises/butterfly/thumbnail.svg",
+    "text": {
+      "uk": "Метелик",
+      "en": "Butterfly",
+      "es": "Mariposa"
+    }
+  },
+  {
+    "id": "owl",
+    "difficulty": 2,
+    "image": "exercises/owl/thumbnail.svg",
+    "text": {
+      "uk": "Сова",
+      "en": "Owl",
+      "es": "Buho"
+    }
+  },
+  {
+    "id": "elephant",
+    "difficulty": 2,
+    "image": "exercises/elephant/thumbnail.svg",
+    "text": {
+      "uk": "Слоник",
+      "en": "Elephant",
+      "es": "Elefante"
+    }
+  },
+  {
+    "id": "giraffe",
+    "difficulty": 2,
+    "image": "exercises/giraffe/thumbnail.svg",
+    "text": {
+      "uk": "Жирафа",
+      "en": "Giraffe",
+      "es": "Jirafa"
+    }
+  },
+  {
+    "id": "cow",
+    "difficulty": 2,
+    "image": "exercises/cow/thumbnail.svg",
+    "text": {
+      "uk": "Корівка",
+      "en": "Cow",
+      "es": "Vaca"
+    }
+  }
+]

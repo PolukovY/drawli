@@ -1,0 +1,302 @@
+[
+  {
+    "id": "sun",
+    "difficulty": 1,
+    "image": "exercises/sun/thumbnail.svg",
+    "text": {
+      "uk": "Сонце",
+      "en": "Sun",
+      "es": "Sol"
+    }
+  },
+  {
+    "id": "shell",
+    "difficulty": 1,
+    "image": "exercises/shell/thumbnail.svg",
+    "text": {
+      "uk": "Мушля",
+      "en": "Seashell",
+      "es": "Concha"
+    }
+  },
+  {
+    "id": "umbrella",
+    "difficulty": 1,
+    "image": "exercises/umbrella/thumbnail.svg",
+    "text": {
+      "uk": "Парасолька",
+      "en": "Umbrella",
+      "es": "Paraguas"
+    }
+  },
+  {
+    "id": "crab",
+    "difficulty": 1,
+    "image": "exercises/crab/thumbnail.svg",
+    "text": {
+      "uk": "Крабик",
+      "en": "Crab",
+      "es": "Cangrejo"
+    }
+  },
+  {
+    "id": "fish",
+    "difficulty": 1,
+    "image": "exercises/fish/thumbnail.svg",
+    "text": {
+      "uk": "Рибка",
+      "en": "Fish",
+      "es": "Pez"
+    }
+  },
+  {
+    "id": "boat",
+    "difficulty": 1,
+    "image": "exercises/boat/thumbnail.svg",
+    "text": {
+      "uk": "Кораблик",
+      "en": "Boat",
+      "es": "Barco"
+    }
+  },
+  {
+    "id": "icecream",
+    "difficulty": 1,
+    "image": "exercises/icecream/thumbnail.svg",
+    "text": {
+      "uk": "Морозиво",
+      "en": "Ice cream",
+      "es": "Helado"
+    }
+  },
+  {
+    "id": "watermelon",
+    "difficulty": 1,
+    "image": "exercises/watermelon/thumbnail.svg",
+    "text": {
+      "uk": "Кавун",
+      "en": "Watermelon",
+      "es": "Sandia"
+    }
+  },
+  {
+    "id": "ball",
+    "difficulty": 1,
+    "image": "exercises/ball/thumbnail.svg",
+    "text": {
+      "uk": "Мʼячик",
+      "en": "Ball",
+      "es": "Pelota"
+    }
+  },
+  {
+    "id": "wave",
+    "difficulty": 1,
+    "image": "vocabulary/beach/wave.svg",
+    "text": {
+      "uk": "Хвиля",
+      "en": "Wave",
+      "es": "Ola"
+    }
+  },
+  {
+    "id": "starfish",
+    "difficulty": 1,
+    "image": "vocabulary/beach/starfish.svg",
+    "text": {
+      "uk": "Морська зірка",
+      "en": "Starfish",
+      "es": "Estrella de mar"
+    }
+  },
+  {
+    "id": "bucket",
+    "difficulty": 1,
+    "image": "vocabulary/beach/bucket.svg",
+    "text": {
+      "uk": "Відерко",
+      "en": "Bucket",
+      "es": "Cubo"
+    }
+  },
+  {
+    "id": "spade",
+    "difficulty": 1,
+    "image": "vocabulary/beach/spade.svg",
+    "text": {
+      "uk": "Лопатка",
+      "en": "Spade",
+      "es": "Pala"
+    }
+  },
+  {
+    "id": "sunglasses",
+    "difficulty": 1,
+    "image": "vocabulary/beach/sunglasses.svg",
+    "text": {
+      "uk": "Окуляри",
+      "en": "Sunglasses",
+      "es": "Gafas de sol"
+    }
+  },
+  {
+    "id": "seagull",
+    "difficulty": 1,
+    "image": "vocabulary/beach/seagull.svg",
+    "text": {
+      "uk": "Чайка",
+      "en": "Seagull",
+      "es": "Gaviota"
+    }
+  },
+  {
+    "id": "towel",
+    "difficulty": 1,
+    "image": "vocabulary/beach/towel.svg",
+    "text": {
+      "uk": "Рушник",
+      "en": "Towel",
+      "es": "Toalla"
+    }
+  },
+  {
+    "id": "coconut",
+    "difficulty": 1,
+    "image": "vocabulary/beach/coconut.svg",
+    "text": {
+      "uk": "Кокос",
+      "en": "Coconut",
+      "es": "Coco"
+    }
+  },
+  {
+    "id": "anchor",
+    "difficulty": 1,
+    "image": "vocabulary/beach/anchor.svg",
+    "text": {
+      "uk": "Якір",
+      "en": "Anchor",
+      "es": "Ancla"
+    }
+  },
+  {
+    "id": "beachhat",
+    "difficulty": 1,
+    "image": "vocabulary/beach/beachhat.svg",
+    "text": {
+      "uk": "Капелюх",
+      "en": "Sun hat",
+      "es": "Sombrero"
+    }
+  },
+  {
+    "id": "buoy",
+    "difficulty": 1,
+    "image": "vocabulary/beach/buoy.svg",
+    "text": {
+      "uk": "Буй",
+      "en": "Buoy",
+      "es": "Boya"
+    }
+  },
+  {
+    "id": "palm",
+    "difficulty": 2,
+    "image": "exercises/palm/thumbnail.svg",
+    "text": {
+      "uk": "Пальма",
+      "en": "Palm",
+      "es": "Palmera"
+    }
+  },
+  {
+    "id": "sandcastle",
+    "difficulty": 2,
+    "image": "vocabulary/beach/sandcastle.svg",
+    "text": {
+      "uk": "Замок з піску",
+      "en": "Sandcastle",
+      "es": "Castillo de arena"
+    }
+  },
+  {
+    "id": "flipflops",
+    "difficulty": 2,
+    "image": "vocabulary/beach/flipflops.svg",
+    "text": {
+      "uk": "В’єтнамки",
+      "en": "Flip-flops",
+      "es": "Chanclas"
+    }
+  },
+  {
+    "id": "surfboard",
+    "difficulty": 2,
+    "image": "vocabulary/beach/surfboard.svg",
+    "text": {
+      "uk": "Дошка для серфінгу",
+      "en": "Surfboard",
+      "es": "Tabla de surf"
+    }
+  },
+  {
+    "id": "swimsuit",
+    "difficulty": 2,
+    "image": "vocabulary/beach/swimsuit.svg",
+    "text": {
+      "uk": "Купальник",
+      "en": "Swimsuit",
+      "es": "Traje de baño"
+    }
+  },
+  {
+    "id": "snorkelmask",
+    "difficulty": 2,
+    "image": "vocabulary/beach/snorkelmask.svg",
+    "text": {
+      "uk": "Маска для пірнання",
+      "en": "Snorkel mask",
+      "es": "Máscara de buceo"
+    }
+  },
+  {
+    "id": "lighthouse",
+    "difficulty": 2,
+    "image": "vocabulary/beach/lighthouse.svg",
+    "text": {
+      "uk": "Маяк",
+      "en": "Lighthouse",
+      "es": "Faro"
+    }
+  },
+  {
+    "id": "jellyfish",
+    "difficulty": 2,
+    "image": "vocabulary/beach/jellyfish.svg",
+    "text": {
+      "uk": "Медуза",
+      "en": "Jellyfish",
+      "es": "Medusa"
+    }
+  },
+  {
+    "id": "seahorse",
+    "difficulty": 2,
+    "image": "vocabulary/beach/seahorse.svg",
+    "text": {
+      "uk": "Морський коник",
+      "en": "Seahorse",
+      "es": "Caballito de mar"
+    }
+  },
+  {
+    "id": "octopus",
+    "difficulty": 2,
+    "image": "vocabulary/beach/octopus.svg",
+    "text": {
+      "uk": "Восьминіг",
+      "en": "Octopus",
+      "es": "Pulpo"
+    }
+  }
+]

@@ -1,0 +1,282 @@
+[
+  {
+    "id": "book",
+    "difficulty": 1,
+    "image": "exercises/book/thumbnail.svg",
+    "text": {
+      "uk": "Книжка",
+      "en": "Book",
+      "es": "Libro"
+    }
+  },
+  {
+    "id": "backpack",
+    "difficulty": 1,
+    "image": "exercises/backpack/thumbnail.svg",
+    "text": {
+      "uk": "Рюкзак",
+      "en": "Backpack",
+      "es": "Mochila"
+    }
+  },
+  {
+    "id": "chair",
+    "difficulty": 1,
+    "image": "exercises/chair/thumbnail.svg",
+    "text": {
+      "uk": "Стільчик",
+      "en": "Chair",
+      "es": "Silla"
+    }
+  },
+  {
+    "id": "clock",
+    "difficulty": 1,
+    "image": "exercises/clock/thumbnail.svg",
+    "text": {
+      "uk": "Годинник",
+      "en": "Clock",
+      "es": "Reloj"
+    }
+  },
+  {
+    "id": "apple",
+    "difficulty": 1,
+    "image": "exercises/apple/thumbnail.svg",
+    "text": {
+      "uk": "Яблуко",
+      "en": "Apple",
+      "es": "Manzana"
+    }
+  },
+  {
+    "id": "bus",
+    "difficulty": 1,
+    "image": "exercises/bus/thumbnail.svg",
+    "text": {
+      "uk": "Автобус",
+      "en": "Bus",
+      "es": "Autobus"
+    }
+  },
+  {
+    "id": "pencil",
+    "difficulty": 1,
+    "image": "vocabulary/school/pencil.svg",
+    "text": {
+      "uk": "Олівець",
+      "en": "Pencil",
+      "es": "Lápiz"
+    }
+  },
+  {
+    "id": "ruler",
+    "difficulty": 1,
+    "image": "vocabulary/school/ruler.svg",
+    "text": {
+      "uk": "Лінійка",
+      "en": "Ruler",
+      "es": "Regla"
+    }
+  },
+  {
+    "id": "eraser",
+    "difficulty": 1,
+    "image": "vocabulary/school/eraser.svg",
+    "text": {
+      "uk": "Гумка",
+      "en": "Eraser",
+      "es": "Goma de borrar"
+    }
+  },
+  {
+    "id": "glue",
+    "difficulty": 1,
+    "image": "vocabulary/school/glue.svg",
+    "text": {
+      "uk": "Клей",
+      "en": "Glue stick",
+      "es": "Pegamento"
+    }
+  },
+  {
+    "id": "pencilcase",
+    "difficulty": 1,
+    "image": "vocabulary/school/pencilcase.svg",
+    "text": {
+      "uk": "Пенал",
+      "en": "Pencil case",
+      "es": "Estuche"
+    }
+  },
+  {
+    "id": "paintbrush",
+    "difficulty": 1,
+    "image": "vocabulary/school/paintbrush.svg",
+    "text": {
+      "uk": "Пензлик",
+      "en": "Paintbrush",
+      "es": "Pincel"
+    }
+  },
+  {
+    "id": "notebook",
+    "difficulty": 1,
+    "image": "vocabulary/school/notebook.svg",
+    "text": {
+      "uk": "Зошит",
+      "en": "Notebook",
+      "es": "Cuaderno"
+    }
+  },
+  {
+    "id": "bell",
+    "difficulty": 1,
+    "image": "vocabulary/school/bell.svg",
+    "text": {
+      "uk": "Дзвоник",
+      "en": "School bell",
+      "es": "Campana"
+    }
+  },
+  {
+    "id": "globe",
+    "difficulty": 1,
+    "image": "vocabulary/school/globe.svg",
+    "text": {
+      "uk": "Глобус",
+      "en": "Globe",
+      "es": "Globo terráqueo"
+    }
+  },
+  {
+    "id": "alphabetblock",
+    "difficulty": 1,
+    "image": "vocabulary/school/alphabetblock.svg",
+    "text": {
+      "uk": "Кубик з літерою",
+      "en": "Alphabet block",
+      "es": "Cubo con letras"
+    }
+  },
+  {
+    "id": "lunchbox",
+    "difficulty": 1,
+    "image": "vocabulary/school/lunchbox.svg",
+    "text": {
+      "uk": "Ланч-бокс",
+      "en": "Lunchbox",
+      "es": "Lonchera"
+    }
+  },
+  {
+    "id": "waterbottle",
+    "difficulty": 1,
+    "image": "vocabulary/school/waterbottle.svg",
+    "text": {
+      "uk": "Пляшечка води",
+      "en": "Water bottle",
+      "es": "Botella de agua"
+    }
+  },
+  {
+    "id": "calendar",
+    "difficulty": 1,
+    "image": "vocabulary/school/calendar.svg",
+    "text": {
+      "uk": "Календар",
+      "en": "Calendar",
+      "es": "Calendario"
+    }
+  },
+  {
+    "id": "sharpener",
+    "difficulty": 1,
+    "image": "vocabulary/school/sharpener.svg",
+    "text": {
+      "uk": "Стругачка",
+      "en": "Pencil sharpener",
+      "es": "Sacapuntas"
+    }
+  },
+  {
+    "id": "scissors",
+    "difficulty": 2,
+    "image": "vocabulary/school/scissors.svg",
+    "text": {
+      "uk": "Ножиці",
+      "en": "Scissors",
+      "es": "Tijeras"
+    }
+  },
+  {
+    "id": "chalkboard",
+    "difficulty": 2,
+    "image": "vocabulary/school/chalkboard.svg",
+    "text": {
+      "uk": "Дошка",
+      "en": "Chalkboard",
+      "es": "Pizarra"
+    }
+  },
+  {
+    "id": "desk",
+    "difficulty": 2,
+    "image": "vocabulary/school/desk.svg",
+    "text": {
+      "uk": "Парта",
+      "en": "School desk",
+      "es": "Pupitre"
+    }
+  },
+  {
+    "id": "paintpalette",
+    "difficulty": 2,
+    "image": "vocabulary/school/paintpalette.svg",
+    "text": {
+      "uk": "Палітра",
+      "en": "Paint palette",
+      "es": "Paleta de pintura"
+    }
+  },
+  {
+    "id": "calculator",
+    "difficulty": 2,
+    "image": "vocabulary/school/calculator.svg",
+    "text": {
+      "uk": "Калькулятор",
+      "en": "Calculator",
+      "es": "Calculadora"
+    }
+  },
+  {
+    "id": "graduationcap",
+    "difficulty": 2,
+    "image": "vocabulary/school/graduationcap.svg",
+    "text": {
+      "uk": "Академічна шапочка",
+      "en": "Graduation cap",
+      "es": "Birrete"
+    }
+  },
+  {
+    "id": "paints",
+    "difficulty": 2,
+    "image": "vocabulary/school/paints.svg",
+    "text": {
+      "uk": "Фарби",
+      "en": "Paints",
+      "es": "Pinturas"
+    }
+  },
+  {
+    "id": "stapler",
+    "difficulty": 2,
+    "image": "vocabulary/school/stapler.svg",
+    "text": {
+      "uk": "Степлер",
+      "en": "Stapler",
+      "es": "Grapadora"
+    }
+  }
+]
