@@ -145,6 +145,14 @@
       "robot": "Robot"
     }
   },
+  "update": {
+    "ready": "A new version of Drawli is ready",
+    "readyHint": "Drawings and stars stay. Or keep drawing — it updates next time you open the app.",
+    "now": "Update",
+    "later": "Later",
+    "applying": "Updating…",
+    "done": "Drawli updated"
+  },
   "category": {
     "motor": "Motor skills",
     "shapes": "Shapes",
