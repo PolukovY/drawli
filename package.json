@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "exercises": "node scripts/generate-exercises.mjs"
+    "exercises": "node scripts/generate-exercises.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "dexie": "^4.0.11",
@@ -24,9 +26,11 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
+    "jsdom": "^26.1.0",
     "oxlint": "^1.75.0",
     "typescript": "~6.0.2",
     "vite": "^8.2.0",
-    "vite-plugin-pwa": "1.3.0"
+    "vite-plugin-pwa": "1.3.0",
+    "vitest": "^3.2.7"
   }
 }

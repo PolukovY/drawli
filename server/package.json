@@ -1,0 +1,15 @@
+{
+  "name": "drawli-tts-backend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Reference backend for Drawli's optional neural TTS layer. Deployed separately from the static app \u2014 see README.md.",
+  "scripts": {
+    "start": "node index.mjs",
+    "dev": "node --watch index.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

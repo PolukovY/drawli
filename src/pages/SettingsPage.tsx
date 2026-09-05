@@ -47,7 +47,7 @@ export function SettingsPage() {
   // Read straight from the browser: the list changes with the device, not with
   // anything this app stores.
   const voiceOptions = voiceOn ? listVoiceOptions(voiceLang) : []
-  const chosenVoiceId = settings?.voiceChoice ?? currentVoiceOption(voiceLang)?.id
+  const chosenVoiceId = settings?.voiceChoice?.[voiceLang] ?? currentVoiceOption(voiceLang)?.id
 
   async function handleFile(file: File) {
     const parsed = parseBackup(await file.text())
@@ -212,7 +212,7 @@ export function SettingsPage() {
                   key={option.id}
                   className={`voice-card ${option.id === chosenVoiceId ? 'voice-card--on' : ''}`}
                   onClick={() => {
-                    void setVoiceChoice(option.id)
+                    void setVoiceChoice(voiceLang, option.id)
                     speak(praiseLine(voiceLang, settings?.childName), { lang: voiceLang, option })
                   }}
                   aria-pressed={option.id === chosenVoiceId}

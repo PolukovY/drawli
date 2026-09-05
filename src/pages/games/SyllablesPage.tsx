@@ -6,6 +6,7 @@ import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
 import { randomSeed, shuffle } from '../../games/shuffle'
+import { speakWord, stopSpeaking } from '../../audio/speech'
 import { Icon } from '../../components/Icon'
 import './SyllablesPage.css'
 
@@ -14,9 +15,6 @@ const CHOICES = [1, 2, 3, 4]
 
 const LANGUAGE_LABELS: Record<WordLanguage, string> = {
   uk: 'Українська', en: 'English', es: 'Español',
-}
-const VOICE_LOCALE: Record<WordLanguage, string> = {
-  uk: 'uk-UA', en: 'en-US', es: 'es-ES',
 }
 /**
  * One syllable per vowel sound. True for Ukrainian and Spanish; English spells
@@ -74,14 +72,7 @@ export function SyllablesPage() {
   const game = useGameSession(rounds)
   const current = game.current
 
-  const say = useCallback((word: string) => {
-    if (!speech || !word) return
-    const utterance = new SpeechSynthesisUtterance(word.toLowerCase())
-    utterance.lang = VOICE_LOCALE[language]
-    utterance.rate = 0.7
-    window.speechSynthesis.cancel()
-    window.speechSynthesis.speak(utterance)
-  }, [language, speech])
+  const say = useCallback((word: string) => speakWord(word.toLowerCase(), language, 0.7), [language])
 
   useEffect(() => {
     setWrong([])
@@ -89,7 +80,8 @@ export function SyllablesPage() {
     if (current) say(current.word)
   }, [current, say])
 
-  useEffect(() => () => { if (speech) window.speechSynthesis.cancel() }, [speech])
+  // Leaving the screen mid-word should not follow the child to the next one.
+  useEffect(() => stopSpeaking, [])
 
   function pick(value: number) {
     if (!current || game.solved || wrong.includes(value)) return

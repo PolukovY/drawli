@@ -89,8 +89,12 @@ export interface AppSettings {
   /** The drawn tutor: a hand that traces the step, and a dot for the pace. */
   demoEnabled?: boolean
   voiceLanguage?: VoiceLanguage
-  /** Which voice and character the child picked, as "voice name#character". */
-  voiceChoice?: string
+  /**
+   * Which voice and character the child picked, as "voice name#character" —
+   * kept per language, so a voice picked for Ukrainian does not follow the
+   * child into Spanish, and is still there coming back.
+   */
+  voiceChoice?: Partial<Record<VoiceLanguage, string>>
   stars: number
   onboardedAt: string
   /** Coach marks are shown once per screen, then never again. */
