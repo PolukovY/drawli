@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { checkGateAnswer, groupPhotosByDay, makeGateQuestion } from './photoUtils'
+import { checkGateAnswer, groupPhotosByDay, imageDisplayRect, makeGateQuestion } from './photoUtils'
 import type { ChildPhoto } from '../../storage/types'
 import { PHOTO_EFFECTS, EFFECT_COLLECTIONS, effectById } from './effects'
 import { MAX_DECORATIONS, STICKERS } from './stickers'
@@ -103,5 +103,36 @@ describe('stickers', () => {
   it('caps decorations within the sticker count', () => {
     expect(MAX_DECORATIONS).toBeLessThanOrEqual(STICKERS.length)
     expect(MAX_DECORATIONS).toBeGreaterThanOrEqual(5)
+  })
+})
+
+describe('imageDisplayRect', () => {
+  it('fills exactly when the container matches the photo\'s aspect ratio', () => {
+    const rect = imageDisplayRect(400, 300, 4 / 3)
+    expect(rect).toEqual({ offsetX: 0, offsetY: 0, width: 400, height: 300 })
+  })
+
+  it('letterboxes top and bottom when the container is narrower (relatively taller) than the photo', () => {
+    // A 4:3 photo in a square container: width-constrained, bars above/below.
+    const rect = imageDisplayRect(400, 400, 4 / 3)
+    expect(rect.offsetX).toBe(0)
+    expect(rect.width).toBe(400)
+    expect(rect.height).toBeCloseTo(300)
+    expect(rect.offsetY).toBeCloseTo((400 - 300) / 2)
+  })
+
+  it('pillarboxes left and right when the container is wider (relatively shorter) than the photo', () => {
+    // A 4:3 photo in a 2:1 container: height-constrained, bars left/right.
+    const rect = imageDisplayRect(400, 200, 4 / 3)
+    expect(rect.offsetY).toBe(0)
+    expect(rect.height).toBe(200)
+    expect(rect.width).toBeCloseTo(200 * (4 / 3))
+    expect(rect.offsetX).toBeCloseTo((400 - rect.width) / 2)
+  })
+
+  it('is always centered — offsets are non-negative and symmetric', () => {
+    const rect = imageDisplayRect(500, 900, 16 / 9)
+    expect(rect.offsetX).toBeGreaterThanOrEqual(0)
+    expect(rect.offsetY).toBeGreaterThanOrEqual(0)
   })
 })
