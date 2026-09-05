@@ -59,6 +59,8 @@
   color: var(--c-text-muted);
 }
 .icon-btn:active { transform: scale(0.94); }
+/* The one thing on the row that starts something new, same as .btn--primary. */
+.icon-btn--primary { background: var(--c-accent); color: #fff; box-shadow: var(--sh-float); }
 
 .btn {
   height: var(--tap-primary);

@@ -77,6 +77,10 @@ export function HomePage() {
   }
 
   const resumeExercise = index?.exercises.find((e) => e.id === resume?.exerciseId)
+  // The blank sheet and the gallery belong to both drawing tabs — a child
+  // writing letters still wants a page to draw on and a place to see what
+  // they made. Games have their own catalogue instead.
+  const showFreeform = mode === 'draw' || mode === 'write'
 
   // First visit only, and only once the cards are actually on screen.
   const showCoach = settings ? !settings.tutorialHomeDone && exercises.length > 0 : false
@@ -216,7 +220,10 @@ export function HomePage() {
         </div>
       ) : (
         <div className="home__grid">
-          {mode === 'draw' ? (
+          {/* A blank sheet is worth having open from Letters too — a child
+              practising Aa1 still reaches for it to draw what a letter
+              reminds them of. */}
+          {showFreeform ? (
             <button className="exercise-card free-card" onClick={() => navigate('/free')}>
               <span className="free-card__art">
                 <Icon name="pencil" size={40} color="#fff" />
@@ -249,19 +256,16 @@ export function HomePage() {
         </div>
       )}
 
-      {/* The blank sheet and the gallery belong to drawing. Letters, numbers
-          and games get the screen to themselves. Progress moved into
-          Settings — a screen a parent opens on purpose, not a third button
-          competing for space on every visit home. */}
-      {mode === 'draw' ? (
+      {/* Icon-only: the pencil and the gallery frame are already what these
+          do, and a row that now sits under two tabs instead of one earns its
+          keep more by staying out of the way than by spelling itself out. */}
+      {showFreeform ? (
       <nav className="home__nav">
-        <button className="btn btn--primary" onClick={() => navigate('/free')}>
+        <button className="icon-btn icon-btn--primary" onClick={() => navigate('/free')} aria-label={t('free.title')}>
           <Icon name="pencil" size={26} color="#fff" />
-          {t('free.title')}
         </button>
-        <button className="btn" onClick={() => navigate('/drawings')}>
+        <button className="icon-btn" onClick={() => navigate('/drawings')} aria-label={t('nav.drawings')}>
           <Icon name="gallery" size={26} color="var(--c-text-muted)" />
-          {t('nav.drawings')}
         </button>
       </nav>
       ) : null}
