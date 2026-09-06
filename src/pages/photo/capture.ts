@@ -1,5 +1,5 @@
 import type { PhotoDecoration } from '../../storage/types'
-import { effectById, type PhotoEffect } from './effects'
+import { effectById, type EffectParticle, type PhotoEffect } from './effects'
 import { sceneById, SCENE_SIZE, type PhotoScene } from './scenes'
 
 const MAX_SIDE = 960
@@ -67,6 +67,21 @@ function coverRect(srcWidth: number, srcHeight: number, dstWidth: number, dstHei
   return { sx: (srcWidth - sw) / 2, sy: (srcHeight - sh) / 2, sw, sh }
 }
 
+/** Draws an effect's baked-in emoji within a given rect (the whole photo, or just its scene slot). */
+function drawParticles(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, particles: EffectParticle[]) {
+  const base = Math.min(w, h)
+  for (const p of particles) {
+    ctx.save()
+    ctx.translate(x + p.x * w, y + p.y * h)
+    if (p.rotation) ctx.rotate((p.rotation * Math.PI) / 180)
+    ctx.font = `${p.size * base}px sans-serif`
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.fillText(p.emoji, 0, 0)
+    ctx.restore()
+  }
+}
+
 function roundedRectPath(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
   ctx.beginPath()
   ctx.moveTo(x + r, y)
@@ -124,6 +139,7 @@ function drawScene(ctx: CanvasRenderingContext2D, size: number, scene: PhotoScen
     ctx.fillRect(slotX, slotY, slotW, slotH)
     ctx.globalAlpha = 1
   }
+  if (effect.particles) drawParticles(ctx, slotX, slotY, slotW, slotH, effect.particles)
   ctx.restore()
 
   ctx.save()
@@ -176,6 +192,7 @@ export async function composePhoto(
         ctx.fillRect(0, 0, canvas.width, canvas.height)
         ctx.globalAlpha = 1
       }
+      if (effect.particles) drawParticles(ctx, 0, 0, canvas.width, canvas.height, effect.particles)
     }
 
     for (const deco of decorations) {

@@ -89,6 +89,22 @@ describe('photo effects', () => {
     expect(effectById(null).id).toBe('none')
     expect(effectById('does-not-exist').id).toBe('none')
   })
+
+  it('offers many effects, across a real spread of collections', () => {
+    expect(PHOTO_EFFECTS.length).toBeGreaterThanOrEqual(25)
+  })
+
+  it('keeps every particle centered inside the photo with a positive size', () => {
+    for (const effect of PHOTO_EFFECTS) {
+      for (const particle of effect.particles ?? []) {
+        expect(particle.x).toBeGreaterThanOrEqual(0)
+        expect(particle.x).toBeLessThanOrEqual(1)
+        expect(particle.y).toBeGreaterThanOrEqual(0)
+        expect(particle.y).toBeLessThanOrEqual(1)
+        expect(particle.size).toBeGreaterThan(0)
+      }
+    }
+  })
 })
 
 describe('stickers', () => {

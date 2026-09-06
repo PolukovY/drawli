@@ -164,6 +164,11 @@
 
 .ps-effect-overlay { position: absolute; inset: 0; pointer-events: none; }
 
+/* Sized to exactly `stageRect` (no scene active) so an effect's baked-in
+   particles — percentage-positioned children — line up with the same box
+   `imageDisplayRect` hands to every placed sticker. */
+.ps-frame-inner { position: absolute; overflow: hidden; }
+
 .ps-stage { touch-action: none; }
 
 /* ── Tool switcher: effects and stickers share one screen ─────────────── */
@@ -313,6 +318,9 @@
 }
 .ps-sticker-btn:active { transform: scale(0.94); }
 .ps-sticker-btn:disabled { opacity: 0.4; }
+
+/* Animal masks: same tray, bigger glyphs — they're meant to cover a face, not sit in a corner. */
+.ps-sticker-btn--mask { font-size: 34px; }
 
 /* ── Done step ─────────────────────────────────────────────────────────── */
 

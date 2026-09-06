@@ -10,9 +10,10 @@ import { getPhoto, savePhoto } from '../../storage/PhotoRepository'
 import type { PhotoDecoration } from '../../storage/types'
 import { useCamera } from './useCamera'
 import { captureFrame, composePhoto } from './capture'
-import { EFFECT_COLLECTIONS, PHOTO_EFFECTS, effectById } from './effects'
+import { EFFECT_COLLECTIONS, PHOTO_EFFECTS, effectById, type EffectParticle } from './effects'
 import { MAX_DECORATIONS, STICKERS } from './stickers'
 import { PHOTO_SCENES, SCENE_SIZE, sceneById } from './scenes'
+import { ANIMAL_MASKS, MASK_SCALE } from './masks'
 import { imageDisplayRect, type DisplayRect } from './photoUtils'
 import { Sticker } from './Sticker'
 import '../../styles/ui.css'
@@ -20,7 +21,30 @@ import '../../games/GameShell.css'
 import './PhotoStudioPage.css'
 
 type Step = 'home' | 'camera' | 'preview' | 'decorations' | 'done'
-type Tool = 'effects' | 'scenes' | 'stickers'
+type Tool = 'effects' | 'scenes' | 'masks' | 'stickers'
+
+/** An effect's baked-in emoji, positioned as % children of whatever box represents the photo right now. */
+function EffectParticles({ particles, basisPx }: { particles: EffectParticle[]; basisPx: number }) {
+  return (
+    <>
+      {particles.map((p, i) => (
+        <span
+          key={i}
+          className="ps-scene-prop"
+          aria-hidden="true"
+          style={{
+            left: `${p.x * 100}%`,
+            top: `${p.y * 100}%`,
+            fontSize: p.size * basisPx,
+            transform: `translate(-50%, -50%) rotate(${p.rotation ?? 0}deg)`,
+          }}
+        >
+          {p.emoji}
+        </span>
+      ))}
+    </>
+  )
+}
 
 interface Shot {
   blob: Blob
@@ -148,6 +172,18 @@ export function PhotoStudioPage() {
       scale: 1,
       rotation: Math.round(Math.random() * 16 - 8),
     }
+    setDecorations((prev) => [...prev, deco])
+    setSelectedDeco(id)
+  }
+
+  // An animal mask starts big and roughly where a face already is, since it's
+  // meant to be dragged straight onto the child's own face rather than fanned
+  // out to an empty corner the way a small sticker is.
+  function addMask(sticker: string) {
+    if (decorations.length >= MAX_DECORATIONS) return
+    playSound('tap')
+    const id = crypto.randomUUID()
+    const deco: PhotoDecoration = { id, sticker, x: 0.5, y: 0.42, scale: MASK_SCALE, rotation: 0 }
     setDecorations((prev) => [...prev, deco])
     setSelectedDeco(id)
   }
@@ -366,15 +402,24 @@ export function PhotoStudioPage() {
                 {effect.overlay ? (
                   <div className="ps-effect-overlay" style={{ background: effect.overlay.color, opacity: effect.overlay.alpha }} />
                 ) : null}
+                {effect.particles ? (
+                  <EffectParticles particles={effect.particles} basisPx={Math.min(scene.slot.w * stageRect.width, scene.slot.h * stageRect.height)} />
+                ) : null}
               </div>
             </div>
           ) : (
-            <>
+            <div
+              className="ps-frame-inner"
+              style={{ left: stageRect.offsetX, top: stageRect.offsetY, width: stageRect.width, height: stageRect.height }}
+            >
               <img src={shot.url} alt="" className="ps-photo-frame__img" style={{ filter: effect.filter }} />
               {effect.overlay ? (
                 <div className="ps-effect-overlay" style={{ background: effect.overlay.color, opacity: effect.overlay.alpha }} />
               ) : null}
-            </>
+              {effect.particles ? (
+                <EffectParticles particles={effect.particles} basisPx={Math.min(stageRect.width, stageRect.height)} />
+              ) : null}
+            </div>
           )}
           {decorations.map((deco) => (
             <Sticker
@@ -391,9 +436,9 @@ export function PhotoStudioPage() {
           ))}
         </div>
 
-        {/* Effects, scenes, and stickers share one screen now — a child
-            switches tools instead of being marched through a fixed order
-            of steps. */}
+        {/* Effects, scenes, masks, and stickers share one screen now — a
+            child switches tools instead of being marched through a fixed
+            order of steps. */}
         <div className="ps-tool-tabs">
           <button className={`ps-tool-tab ${tool === 'effects' ? 'ps-tool-tab--on' : ''}`} onClick={() => setTool('effects')}>
             <span aria-hidden="true">🎨</span>
@@ -402,6 +447,10 @@ export function PhotoStudioPage() {
           <button className={`ps-tool-tab ${tool === 'scenes' ? 'ps-tool-tab--on' : ''}`} onClick={() => setTool('scenes')}>
             <span aria-hidden="true">🏠</span>
             {t('photo.toolScenes')}
+          </button>
+          <button className={`ps-tool-tab ${tool === 'masks' ? 'ps-tool-tab--on' : ''}`} onClick={() => setTool('masks')}>
+            <span aria-hidden="true">🐾</span>
+            {t('photo.toolMasks')}
           </button>
           <button className={`ps-tool-tab ${tool === 'stickers' ? 'ps-tool-tab--on' : ''}`} onClick={() => setTool('stickers')}>
             <span aria-hidden="true">😊</span>
@@ -474,6 +523,14 @@ export function PhotoStudioPage() {
                     ) : null}
                   </span>
                   <span className="ps-effect-card__label">{t(s.titleKey)}</span>
+                </button>
+              ))}
+            </div>
+          ) : tool === 'masks' ? (
+            <div className="ps-sticker-tray">
+              {ANIMAL_MASKS.map((mask) => (
+                <button key={mask} className="ps-sticker-btn ps-sticker-btn--mask" onClick={() => addMask(mask)} disabled={decorations.length >= MAX_DECORATIONS}>
+                  {mask}
                 </button>
               ))}
             </div>
