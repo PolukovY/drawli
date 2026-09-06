@@ -12,6 +12,7 @@ import { useCamera } from './useCamera'
 import { captureFrame, composePhoto } from './capture'
 import { EFFECT_COLLECTIONS, PHOTO_EFFECTS, effectById } from './effects'
 import { MAX_DECORATIONS, STICKERS } from './stickers'
+import { PHOTO_SCENES, SCENE_SIZE, sceneById } from './scenes'
 import { imageDisplayRect, type DisplayRect } from './photoUtils'
 import { Sticker } from './Sticker'
 import '../../styles/ui.css'
@@ -19,7 +20,7 @@ import '../../games/GameShell.css'
 import './PhotoStudioPage.css'
 
 type Step = 'home' | 'camera' | 'preview' | 'decorations' | 'done'
-type Tool = 'effects' | 'stickers'
+type Tool = 'effects' | 'scenes' | 'stickers'
 
 interface Shot {
   blob: Blob
@@ -39,6 +40,7 @@ export function PhotoStudioPage() {
   const [tool, setTool] = useState<Tool>('effects')
   const [shot, setShot] = useState<Shot | null>(null)
   const [effectId, setEffectId] = useState<string>('none')
+  const [sceneId, setSceneId] = useState<string | null>(null)
   const [decorations, setDecorations] = useState<PhotoDecoration[]>([])
   const [selectedDeco, setSelectedDeco] = useState<string | null>(null)
   const [flash, setFlash] = useState(false)
@@ -61,18 +63,21 @@ export function PhotoStudioPage() {
   // doesn't exist in the DOM until the decorations step actually renders,
   // so an effect keyed on `shot` alone fires once too early (ref still
   // null), never reruns once the div mounts, and every sticker is left
-  // pinned at the zero-rect default — stuck in the top-left corner.
+  // pinned at the zero-rect default — stuck in the top-left corner. Also
+  // depends on `sceneId`: a scene replaces the photo's own aspect ratio with
+  // the scene's fixed square, so stickers (and the scene layer itself) need
+  // to be measured against that square instead once one is picked.
   useLayoutEffect(() => {
     if (step !== 'decorations') return
     const el = stageRef.current
     if (!el || !shot) return
-    const aspect = shot.width / shot.height
+    const aspect = sceneId ? 1 : shot.width / shot.height
     const update = () => setStageRect(imageDisplayRect(el.clientWidth, el.clientHeight, aspect))
     update()
     const observer = new ResizeObserver(update)
     observer.observe(el)
     return () => observer.disconnect()
-  }, [shot, step])
+  }, [shot, step, sceneId])
 
   useEffect(() => {
     if (!editId) return
@@ -83,6 +88,7 @@ export function PhotoStudioPage() {
       editingRef.current = { id: photo.id, createdAt: photo.createdAt }
       setShot({ blob: photo.originalImage, url: URL.createObjectURL(photo.originalImage), width: photo.width, height: photo.height })
       setEffectId(photo.selectedEffect ?? 'none')
+      setSceneId(photo.selectedScene ?? null)
       setDecorations(photo.decorations)
     })
     return () => { cancelled = true }
@@ -107,6 +113,7 @@ export function PhotoStudioPage() {
     editingRef.current = null
     setShot(null)
     setEffectId('none')
+    setSceneId(null)
     setDecorations([])
     setSelectedDeco(null)
     setStep('camera')
@@ -168,7 +175,7 @@ export function PhotoStudioPage() {
     setSaving(true)
     try {
       const editing = editingRef.current
-      const { processed, thumbnail } = await composePhoto(shot.blob, effectId, decorations)
+      const { processed, thumbnail } = await composePhoto(shot.blob, effectId, decorations, sceneId)
       await savePhoto({
         id: editing?.id ?? crypto.randomUUID(),
         createdAt: editing?.createdAt ?? new Date().toISOString(),
@@ -178,6 +185,7 @@ export function PhotoStudioPage() {
         width: shot.width,
         height: shot.height,
         selectedEffect: effectId === 'none' ? null : effectId,
+        selectedScene: sceneId,
         decorations,
       })
       // A re-edit already earned its star the first time it was saved.
@@ -296,6 +304,8 @@ export function PhotoStudioPage() {
     const backFromDecorations = editingRef.current
       ? () => navigate('/photo-studio/gallery')
       : () => setStep('preview')
+    const scene = sceneById(sceneId)
+    const effect = effectById(effectId)
     return (
       <div className="screen game-screen">
         <header className="row">
@@ -308,11 +318,64 @@ export function PhotoStudioPage() {
           </button>
         </header>
 
-        <div ref={stageRef} className="ps-photo-frame ps-stage" style={{ aspectRatio: `${shot.width} / ${shot.height}` }} onPointerDown={() => setSelectedDeco(null)}>
-          <img src={shot.url} alt="" className="ps-photo-frame__img" style={{ filter: effectById(effectId).filter }} />
-          {effectById(effectId).overlay ? (
-            <div className="ps-effect-overlay" style={{ background: effectById(effectId).overlay!.color, opacity: effectById(effectId).overlay!.alpha }} />
-          ) : null}
+        <div
+          ref={stageRef}
+          className="ps-photo-frame ps-stage"
+          style={{ aspectRatio: scene ? '1 / 1' : `${shot.width} / ${shot.height}` }}
+          onPointerDown={() => setSelectedDeco(null)}
+        >
+          {scene ? (
+            <div
+              className="ps-scene-layer"
+              style={{
+                left: stageRect.offsetX,
+                top: stageRect.offsetY,
+                width: stageRect.width,
+                height: stageRect.height,
+                background: `linear-gradient(${scene.skyTop}, ${scene.skyBottom})`,
+              }}
+            >
+              {scene.groundColor && scene.groundHeight ? (
+                <div className="ps-scene-ground" style={{ height: `${scene.groundHeight * 100}%`, background: scene.groundColor }} />
+              ) : null}
+              {scene.props.map((prop, i) => (
+                <span
+                  key={i}
+                  className="ps-scene-prop"
+                  aria-hidden="true"
+                  style={{
+                    left: `${prop.x * 100}%`,
+                    top: `${prop.y * 100}%`,
+                    fontSize: (prop.size / SCENE_SIZE) * stageRect.width,
+                    transform: `translate(-50%, -50%) rotate(${prop.rotation ?? 0}deg)`,
+                  }}
+                >
+                  {prop.emoji}
+                </span>
+              ))}
+              <div
+                className="ps-scene-slot"
+                style={{
+                  left: `${scene.slot.x * 100}%`,
+                  top: `${scene.slot.y * 100}%`,
+                  width: `${scene.slot.w * 100}%`,
+                  height: `${scene.slot.h * 100}%`,
+                }}
+              >
+                <img src={shot.url} alt="" className="ps-scene-slot__img" style={{ filter: effect.filter }} />
+                {effect.overlay ? (
+                  <div className="ps-effect-overlay" style={{ background: effect.overlay.color, opacity: effect.overlay.alpha }} />
+                ) : null}
+              </div>
+            </div>
+          ) : (
+            <>
+              <img src={shot.url} alt="" className="ps-photo-frame__img" style={{ filter: effect.filter }} />
+              {effect.overlay ? (
+                <div className="ps-effect-overlay" style={{ background: effect.overlay.color, opacity: effect.overlay.alpha }} />
+              ) : null}
+            </>
+          )}
           {decorations.map((deco) => (
             <Sticker
               key={deco.id}
@@ -328,12 +391,17 @@ export function PhotoStudioPage() {
           ))}
         </div>
 
-        {/* Effects and stickers share one screen now — a child switches
-            tools instead of being marched through a fixed order of steps. */}
+        {/* Effects, scenes, and stickers share one screen now — a child
+            switches tools instead of being marched through a fixed order
+            of steps. */}
         <div className="ps-tool-tabs">
           <button className={`ps-tool-tab ${tool === 'effects' ? 'ps-tool-tab--on' : ''}`} onClick={() => setTool('effects')}>
             <span aria-hidden="true">🎨</span>
             {t('photo.toolEffects')}
+          </button>
+          <button className={`ps-tool-tab ${tool === 'scenes' ? 'ps-tool-tab--on' : ''}`} onClick={() => setTool('scenes')}>
+            <span aria-hidden="true">🏠</span>
+            {t('photo.toolScenes')}
           </button>
           <button className={`ps-tool-tab ${tool === 'stickers' ? 'ps-tool-tab--on' : ''}`} onClick={() => setTool('stickers')}>
             <span aria-hidden="true">😊</span>
@@ -371,6 +439,42 @@ export function PhotoStudioPage() {
                     ))}
                   </div>
                 </div>
+              ))}
+            </div>
+          ) : tool === 'scenes' ? (
+            <div className="ps-effect-row">
+              <button
+                className={`ps-scene-card ${sceneId === null ? 'ps-scene-card--on' : ''}`}
+                onClick={() => { playSound('tap'); setSceneId(null) }}
+                aria-pressed={sceneId === null}
+              >
+                <span className="ps-scene-card__swatch" style={{ background: 'var(--c-surface)' }}>
+                  <span aria-hidden="true">🚫</span>
+                  {sceneId === null ? (
+                    <span className="ps-effect-card__check">
+                      <Icon name="check" size={13} color="#fff" width={3} />
+                    </span>
+                  ) : null}
+                </span>
+                <span className="ps-effect-card__label">{t('photo.sceneNone')}</span>
+              </button>
+              {PHOTO_SCENES.map((s) => (
+                <button
+                  key={s.id}
+                  className={`ps-scene-card ${sceneId === s.id ? 'ps-scene-card--on' : ''}`}
+                  onClick={() => { playSound('tap'); setSceneId(s.id) }}
+                  aria-pressed={sceneId === s.id}
+                >
+                  <span className="ps-scene-card__swatch" style={{ background: `linear-gradient(${s.skyTop}, ${s.groundColor ?? s.skyBottom})` }}>
+                    <span aria-hidden="true">{s.previewEmoji}</span>
+                    {sceneId === s.id ? (
+                      <span className="ps-effect-card__check">
+                        <Icon name="check" size={13} color="#fff" width={3} />
+                      </span>
+                    ) : null}
+                  </span>
+                  <span className="ps-effect-card__label">{t(s.titleKey)}</span>
+                </button>
               ))}
             </div>
           ) : (

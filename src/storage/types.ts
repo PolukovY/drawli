@@ -138,5 +138,7 @@ export interface ChildPhoto {
   height: number
   /** `null` is "Без ефекту". */
   selectedEffect: string | null
+  /** `null` is no scene — the photo just fills the frame. See `pages/photo/scenes.ts`. */
+  selectedScene: string | null
   decorations: PhotoDecoration[]
 }

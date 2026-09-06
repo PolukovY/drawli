@@ -1,5 +1,6 @@
 import type { PhotoDecoration } from '../../storage/types'
-import { effectById } from './effects'
+import { effectById, type PhotoEffect } from './effects'
+import { sceneById, SCENE_SIZE, type PhotoScene } from './scenes'
 
 const MAX_SIDE = 960
 const THUMB_SIDE = 320
@@ -52,15 +53,100 @@ function loadImage(url: string): Promise<HTMLImageElement> {
   })
 }
 
+/** The source rect that `object-fit: cover` would crop, for a canvas draw. */
+function coverRect(srcWidth: number, srcHeight: number, dstWidth: number, dstHeight: number) {
+  const srcAspect = srcWidth / srcHeight
+  const dstAspect = dstWidth / dstHeight
+  let sw = srcWidth
+  let sh = srcHeight
+  if (srcAspect > dstAspect) {
+    sw = srcHeight * dstAspect
+  } else {
+    sh = srcWidth / dstAspect
+  }
+  return { sx: (srcWidth - sw) / 2, sy: (srcHeight - sh) / 2, sw, sh }
+}
+
+function roundedRectPath(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
+  ctx.beginPath()
+  ctx.moveTo(x + r, y)
+  ctx.arcTo(x + w, y, x + w, y + h, r)
+  ctx.arcTo(x + w, y + h, x, y + h, r)
+  ctx.arcTo(x, y + h, x, y, r)
+  ctx.arcTo(x, y, x + w, y, r)
+  ctx.closePath()
+}
+
 /**
- * Bakes the chosen effect and every placed sticker into one flat image, plus
- * a small thumbnail for the gallery grid. The original blob is never touched
- * by this — it's what lets the effect be changed later without re-shooting.
+ * Draws the illustrated background, then the child's photo cover-cropped and
+ * clipped into the scene's rounded "slot" — like a framed picture standing
+ * inside the room, rather than the photo filling the whole square.
+ */
+function drawScene(ctx: CanvasRenderingContext2D, size: number, scene: PhotoScene, img: HTMLImageElement, effect: PhotoEffect) {
+  const sky = ctx.createLinearGradient(0, 0, 0, size)
+  sky.addColorStop(0, scene.skyTop)
+  sky.addColorStop(1, scene.skyBottom)
+  ctx.fillStyle = sky
+  ctx.fillRect(0, 0, size, size)
+
+  if (scene.groundColor && scene.groundHeight) {
+    ctx.fillStyle = scene.groundColor
+    ctx.fillRect(0, size * (1 - scene.groundHeight), size, size * scene.groundHeight)
+  }
+
+  for (const prop of scene.props) {
+    ctx.save()
+    ctx.translate(prop.x * size, prop.y * size)
+    if (prop.rotation) ctx.rotate((prop.rotation * Math.PI) / 180)
+    ctx.font = `${prop.size}px sans-serif`
+    ctx.textAlign = 'center'
+    ctx.textBaseline = 'middle'
+    ctx.fillText(prop.emoji, 0, 0)
+    ctx.restore()
+  }
+
+  const slotX = scene.slot.x * size
+  const slotY = scene.slot.y * size
+  const slotW = scene.slot.w * size
+  const slotH = scene.slot.h * size
+  const radius = slotW * 0.06
+
+  ctx.save()
+  roundedRectPath(ctx, slotX, slotY, slotW, slotH, radius)
+  ctx.clip()
+  const { sx, sy, sw, sh } = coverRect(img.naturalWidth, img.naturalHeight, slotW, slotH)
+  ctx.filter = effect.filter
+  ctx.drawImage(img, sx, sy, sw, sh, slotX, slotY, slotW, slotH)
+  ctx.filter = 'none'
+  if (effect.overlay) {
+    ctx.globalAlpha = effect.overlay.alpha
+    ctx.fillStyle = effect.overlay.color
+    ctx.fillRect(slotX, slotY, slotW, slotH)
+    ctx.globalAlpha = 1
+  }
+  ctx.restore()
+
+  ctx.save()
+  roundedRectPath(ctx, slotX, slotY, slotW, slotH, radius)
+  ctx.lineWidth = size * 0.012
+  ctx.strokeStyle = '#fff'
+  ctx.stroke()
+  ctx.restore()
+}
+
+/**
+ * Bakes the chosen effect, scene, and every placed sticker into one flat
+ * image, plus a small thumbnail for the gallery grid. The original blob is
+ * never touched by this — it's what lets the effect or scene to be changed
+ * later without re-shooting. With a scene, the canvas is a fixed square
+ * (the scene's own size) instead of the photo's own dimensions, since the
+ * photo is now just one framed element inside a larger illustration.
  */
 export async function composePhoto(
   originalBlob: Blob,
   effectId: string | null,
   decorations: PhotoDecoration[],
+  sceneId: string | null = null,
 ): Promise<{ processed: Blob; thumbnail: Blob }> {
   const url = URL.createObjectURL(originalBlob)
   let img: HTMLImageElement
@@ -71,19 +157,25 @@ export async function composePhoto(
   }
 
   const effect = effectById(effectId)
+  const scene = sceneById(sceneId)
+
   const draw = (canvas: HTMLCanvasElement) => {
     const ctx = canvas.getContext('2d')
     if (!ctx) throw new Error('2D canvas unavailable')
 
-    ctx.filter = effect.filter
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-    ctx.filter = 'none'
+    if (scene) {
+      drawScene(ctx, canvas.width, scene, img, effect)
+    } else {
+      ctx.filter = effect.filter
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+      ctx.filter = 'none'
 
-    if (effect.overlay) {
-      ctx.globalAlpha = effect.overlay.alpha
-      ctx.fillStyle = effect.overlay.color
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-      ctx.globalAlpha = 1
+      if (effect.overlay) {
+        ctx.globalAlpha = effect.overlay.alpha
+        ctx.fillStyle = effect.overlay.color
+        ctx.fillRect(0, 0, canvas.width, canvas.height)
+        ctx.globalAlpha = 1
+      }
     }
 
     for (const deco of decorations) {
@@ -99,14 +191,14 @@ export async function composePhoto(
   }
 
   const full = document.createElement('canvas')
-  full.width = img.naturalWidth
-  full.height = img.naturalHeight
+  full.width = scene ? SCENE_SIZE : img.naturalWidth
+  full.height = scene ? SCENE_SIZE : img.naturalHeight
   draw(full)
 
-  const thumbScale = Math.min(1, THUMB_SIDE / Math.max(img.naturalWidth, img.naturalHeight))
+  const thumbScale = Math.min(1, THUMB_SIDE / Math.max(full.width, full.height))
   const thumb = document.createElement('canvas')
-  thumb.width = Math.round(img.naturalWidth * thumbScale)
-  thumb.height = Math.round(img.naturalHeight * thumbScale)
+  thumb.width = Math.round(full.width * thumbScale)
+  thumb.height = Math.round(full.height * thumbScale)
   draw(thumb)
 
   const [processed, thumbnail] = await Promise.all([toBlob(full), toBlob(thumb, 0.85)])
