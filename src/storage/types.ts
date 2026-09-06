@@ -138,7 +138,9 @@ export interface ChildPhoto {
   height: number
   /** `null` is "Без ефекту". */
   selectedEffect: string | null
-  /** `null` is no scene — the photo just fills the frame. See `pages/photo/scenes.ts`. */
+  /** `null` is no scene — the photo just fills the frame. See `pages/photo/scenes.ts`. Mutually exclusive with `selectedCutout`. */
   selectedScene: string | null
+  /** `null` is no cutout. See `pages/photo/animalCutouts.ts`. Mutually exclusive with `selectedScene`. */
+  selectedCutout: string | null
   decorations: PhotoDecoration[]
 }

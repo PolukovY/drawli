@@ -15,6 +15,7 @@ function photoAt(id: string, iso: string): ChildPhoto {
     height: 480,
     selectedEffect: null,
     selectedScene: null,
+    selectedCutout: null,
     decorations: [],
   }
 }

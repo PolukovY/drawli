@@ -10,10 +10,10 @@ import { getPhoto, savePhoto } from '../../storage/PhotoRepository'
 import type { PhotoDecoration } from '../../storage/types'
 import { useCamera } from './useCamera'
 import { captureFrame, composePhoto } from './capture'
-import { EFFECT_COLLECTIONS, PHOTO_EFFECTS, effectById, type EffectParticle } from './effects'
+import { EFFECT_COLLECTIONS, PHOTO_EFFECTS, effectById, type EffectParticle, type PhotoEffect } from './effects'
 import { MAX_DECORATIONS, STICKERS } from './stickers'
 import { PHOTO_SCENES, SCENE_SIZE, sceneById } from './scenes'
-import { ANIMAL_MASKS, MASK_SCALE } from './masks'
+import { ANIMAL_CUTOUTS, cutoutById, type AnimalCutout } from './animalCutouts'
 import { imageDisplayRect, type DisplayRect } from './photoUtils'
 import { Sticker } from './Sticker'
 import '../../styles/ui.css'
@@ -21,7 +21,7 @@ import '../../games/GameShell.css'
 import './PhotoStudioPage.css'
 
 type Step = 'home' | 'camera' | 'preview' | 'decorations' | 'done'
-type Tool = 'effects' | 'scenes' | 'masks' | 'stickers'
+type Tool = 'effects' | 'scenes' | 'cutouts' | 'stickers'
 
 /** An effect's baked-in emoji, positioned as % children of whatever box represents the photo right now. */
 function EffectParticles({ particles, basisPx }: { particles: EffectParticle[]; basisPx: number }) {
@@ -46,6 +46,87 @@ function EffectParticles({ particles, basisPx }: { particles: EffectParticle[]; 
   )
 }
 
+/**
+ * A face-in-the-hole cutout, mirrored from `drawCutout` in `capture.ts`: an
+ * illustrated animal body with a round hole, and the child's own photo
+ * cover-cropped into that hole — never a graphic drawn over their real face.
+ */
+function CutoutStage({ cutout, size, photoUrl, effect }: { cutout: AnimalCutout; size: number; photoUrl: string; effect: PhotoEffect }) {
+  const cx = cutout.faceSlot.cx * size
+  const cy = cutout.faceSlot.cy * size
+  const r = cutout.faceSlot.r * size
+  const earDx = r * 0.95
+  const earY = cy - r * 0.85
+  const bodyTopY = cy + r * 0.6
+  const bodyW = r * 2.6
+  const bodyH = size - bodyTopY + r * 0.3
+  const bellyW = bodyW * 0.5
+  const bellyH = bodyH * 0.55
+  const earColor = cutout.earColor ?? cutout.bodyColor
+
+  function ear(dx: 1 | -1) {
+    const x = cx + dx * earDx
+    switch (cutout.earShape) {
+      case 'pointy':
+        return (
+          <div
+            key={dx}
+            className="ps-cutout-ear ps-cutout-ear--pointy"
+            style={{ left: x - r * 0.4, top: earY - r * 0.9, width: r * 0.8, height: r * 1.2, background: earColor }}
+          />
+        )
+      case 'tall':
+        return (
+          <div
+            key={dx}
+            className="ps-cutout-ear ps-cutout-ear--tall"
+            style={{ left: x - r * 0.28, top: earY - r * 1.05, width: r * 0.56, height: r * 1.5, background: earColor }}
+          >
+            <span className="ps-cutout-ear__inner" style={{ background: cutout.innerEarColor }} />
+          </div>
+        )
+      case 'floppy':
+        return (
+          <div
+            key={dx}
+            className="ps-cutout-ear ps-cutout-ear--floppy"
+            style={{ left: x - r * 0.32, top: earY - r * 0.15, width: r * 0.64, height: r * 1.3, background: earColor }}
+          />
+        )
+      case 'round':
+      default:
+        return (
+          <div
+            key={dx}
+            className="ps-cutout-ear ps-cutout-ear--round"
+            style={{ left: x - r * 0.42, top: earY - r * 0.42, width: r * 0.84, height: r * 0.84, background: earColor }}
+          >
+            <span className="ps-cutout-ear__inner" style={{ background: cutout.innerEarColor }} />
+          </div>
+        )
+    }
+  }
+
+  return (
+    <>
+      {cutout.maneColor ? (
+        <div className="ps-cutout-mane" style={{ left: cx - r * 1.55, top: cy - r * 1.55, width: r * 3.1, height: r * 3.1, background: cutout.maneColor }} />
+      ) : null}
+      {cutout.earShape !== 'floppy' ? <>{ear(-1)}{ear(1)}</> : null}
+      <div className="ps-cutout-body" style={{ left: cx - bodyW / 2, top: bodyTopY, width: bodyW, height: bodyH, background: cutout.bodyColor }} />
+      {cutout.bellyColor ? (
+        <div className="ps-cutout-belly" style={{ left: cx - bellyW / 2, top: bodyTopY + bodyH * 0.35, width: bellyW, height: bellyH, background: cutout.bellyColor }} />
+      ) : null}
+      {cutout.earShape === 'floppy' ? <>{ear(-1)}{ear(1)}</> : null}
+      <div className="ps-cutout-slot" style={{ left: cx - r, top: cy - r, width: r * 2, height: r * 2 }}>
+        <img src={photoUrl} alt="" className="ps-cutout-slot__img" style={{ filter: effect.filter }} />
+        {effect.overlay ? <div className="ps-effect-overlay" style={{ background: effect.overlay.color, opacity: effect.overlay.alpha }} /> : null}
+        {effect.particles ? <EffectParticles particles={effect.particles} basisPx={r * 2} /> : null}
+      </div>
+    </>
+  )
+}
+
 interface Shot {
   blob: Blob
   url: string
@@ -65,6 +146,7 @@ export function PhotoStudioPage() {
   const [shot, setShot] = useState<Shot | null>(null)
   const [effectId, setEffectId] = useState<string>('none')
   const [sceneId, setSceneId] = useState<string | null>(null)
+  const [cutoutId, setCutoutId] = useState<string | null>(null)
   const [decorations, setDecorations] = useState<PhotoDecoration[]>([])
   const [selectedDeco, setSelectedDeco] = useState<string | null>(null)
   const [flash, setFlash] = useState(false)
@@ -88,20 +170,21 @@ export function PhotoStudioPage() {
   // so an effect keyed on `shot` alone fires once too early (ref still
   // null), never reruns once the div mounts, and every sticker is left
   // pinned at the zero-rect default — stuck in the top-left corner. Also
-  // depends on `sceneId`: a scene replaces the photo's own aspect ratio with
-  // the scene's fixed square, so stickers (and the scene layer itself) need
-  // to be measured against that square instead once one is picked.
+  // depends on `sceneId`/`cutoutId`: either one replaces the photo's own
+  // aspect ratio with a fixed square, so stickers (and the scene/cutout
+  // layer itself) need to be measured against that square instead once one
+  // is picked.
   useLayoutEffect(() => {
     if (step !== 'decorations') return
     const el = stageRef.current
     if (!el || !shot) return
-    const aspect = sceneId ? 1 : shot.width / shot.height
+    const aspect = sceneId || cutoutId ? 1 : shot.width / shot.height
     const update = () => setStageRect(imageDisplayRect(el.clientWidth, el.clientHeight, aspect))
     update()
     const observer = new ResizeObserver(update)
     observer.observe(el)
     return () => observer.disconnect()
-  }, [shot, step, sceneId])
+  }, [shot, step, sceneId, cutoutId])
 
   useEffect(() => {
     if (!editId) return
@@ -113,6 +196,7 @@ export function PhotoStudioPage() {
       setShot({ blob: photo.originalImage, url: URL.createObjectURL(photo.originalImage), width: photo.width, height: photo.height })
       setEffectId(photo.selectedEffect ?? 'none')
       setSceneId(photo.selectedScene ?? null)
+      setCutoutId(photo.selectedCutout ?? null)
       setDecorations(photo.decorations)
     })
     return () => { cancelled = true }
@@ -138,6 +222,7 @@ export function PhotoStudioPage() {
     setShot(null)
     setEffectId('none')
     setSceneId(null)
+    setCutoutId(null)
     setDecorations([])
     setSelectedDeco(null)
     setStep('camera')
@@ -176,16 +261,19 @@ export function PhotoStudioPage() {
     setSelectedDeco(id)
   }
 
-  // An animal mask starts big and roughly where a face already is, since it's
-  // meant to be dragged straight onto the child's own face rather than fanned
-  // out to an empty corner the way a small sticker is.
-  function addMask(sticker: string) {
-    if (decorations.length >= MAX_DECORATIONS) return
+  // A scene (a rectangular framed photo inside an illustration) and a cutout
+  // (a round face-hole inside an animal body) both replace the whole canvas,
+  // so picking one always clears the other.
+  function pickScene(id: string | null) {
     playSound('tap')
-    const id = crypto.randomUUID()
-    const deco: PhotoDecoration = { id, sticker, x: 0.5, y: 0.42, scale: MASK_SCALE, rotation: 0 }
-    setDecorations((prev) => [...prev, deco])
-    setSelectedDeco(id)
+    setSceneId(id)
+    setCutoutId(null)
+  }
+
+  function pickCutout(id: string | null) {
+    playSound('tap')
+    setCutoutId(id)
+    setSceneId(null)
   }
 
   function moveSticker(id: string, x: number, y: number) {
@@ -211,7 +299,7 @@ export function PhotoStudioPage() {
     setSaving(true)
     try {
       const editing = editingRef.current
-      const { processed, thumbnail } = await composePhoto(shot.blob, effectId, decorations, sceneId)
+      const { processed, thumbnail } = await composePhoto(shot.blob, effectId, decorations, sceneId, cutoutId)
       await savePhoto({
         id: editing?.id ?? crypto.randomUUID(),
         createdAt: editing?.createdAt ?? new Date().toISOString(),
@@ -222,6 +310,7 @@ export function PhotoStudioPage() {
         height: shot.height,
         selectedEffect: effectId === 'none' ? null : effectId,
         selectedScene: sceneId,
+        selectedCutout: cutoutId,
         decorations,
       })
       // A re-edit already earned its star the first time it was saved.
@@ -341,6 +430,7 @@ export function PhotoStudioPage() {
       ? () => navigate('/photo-studio/gallery')
       : () => setStep('preview')
     const scene = sceneById(sceneId)
+    const cutout = cutoutById(cutoutId)
     const effect = effectById(effectId)
     return (
       <div className="screen game-screen">
@@ -357,7 +447,7 @@ export function PhotoStudioPage() {
         <div
           ref={stageRef}
           className="ps-photo-frame ps-stage"
-          style={{ aspectRatio: scene ? '1 / 1' : `${shot.width} / ${shot.height}` }}
+          style={{ aspectRatio: scene || cutout ? '1 / 1' : `${shot.width} / ${shot.height}` }}
           onPointerDown={() => setSelectedDeco(null)}
         >
           {scene ? (
@@ -407,6 +497,19 @@ export function PhotoStudioPage() {
                 ) : null}
               </div>
             </div>
+          ) : cutout ? (
+            <div
+              className="ps-scene-layer"
+              style={{
+                left: stageRect.offsetX,
+                top: stageRect.offsetY,
+                width: stageRect.width,
+                height: stageRect.height,
+                background: `linear-gradient(${cutout.bgTop}, ${cutout.bgBottom})`,
+              }}
+            >
+              <CutoutStage cutout={cutout} size={stageRect.width} photoUrl={shot.url} effect={effect} />
+            </div>
           ) : (
             <div
               className="ps-frame-inner"
@@ -436,7 +539,7 @@ export function PhotoStudioPage() {
           ))}
         </div>
 
-        {/* Effects, scenes, masks, and stickers share one screen now — a
+        {/* Effects, scenes, cutouts, and stickers share one screen now — a
             child switches tools instead of being marched through a fixed
             order of steps. */}
         <div className="ps-tool-tabs">
@@ -448,9 +551,9 @@ export function PhotoStudioPage() {
             <span aria-hidden="true">🏠</span>
             {t('photo.toolScenes')}
           </button>
-          <button className={`ps-tool-tab ${tool === 'masks' ? 'ps-tool-tab--on' : ''}`} onClick={() => setTool('masks')}>
+          <button className={`ps-tool-tab ${tool === 'cutouts' ? 'ps-tool-tab--on' : ''}`} onClick={() => setTool('cutouts')}>
             <span aria-hidden="true">🐾</span>
-            {t('photo.toolMasks')}
+            {t('photo.toolCutouts')}
           </button>
           <button className={`ps-tool-tab ${tool === 'stickers' ? 'ps-tool-tab--on' : ''}`} onClick={() => setTool('stickers')}>
             <span aria-hidden="true">😊</span>
@@ -494,7 +597,7 @@ export function PhotoStudioPage() {
             <div className="ps-effect-row">
               <button
                 className={`ps-scene-card ${sceneId === null ? 'ps-scene-card--on' : ''}`}
-                onClick={() => { playSound('tap'); setSceneId(null) }}
+                onClick={() => pickScene(null)}
                 aria-pressed={sceneId === null}
               >
                 <span className="ps-scene-card__swatch" style={{ background: 'var(--c-surface)' }}>
@@ -511,7 +614,7 @@ export function PhotoStudioPage() {
                 <button
                   key={s.id}
                   className={`ps-scene-card ${sceneId === s.id ? 'ps-scene-card--on' : ''}`}
-                  onClick={() => { playSound('tap'); setSceneId(s.id) }}
+                  onClick={() => pickScene(s.id)}
                   aria-pressed={sceneId === s.id}
                 >
                   <span className="ps-scene-card__swatch" style={{ background: `linear-gradient(${s.skyTop}, ${s.groundColor ?? s.skyBottom})` }}>
@@ -526,11 +629,39 @@ export function PhotoStudioPage() {
                 </button>
               ))}
             </div>
-          ) : tool === 'masks' ? (
-            <div className="ps-sticker-tray">
-              {ANIMAL_MASKS.map((mask) => (
-                <button key={mask} className="ps-sticker-btn ps-sticker-btn--mask" onClick={() => addMask(mask)} disabled={decorations.length >= MAX_DECORATIONS}>
-                  {mask}
+          ) : tool === 'cutouts' ? (
+            <div className="ps-effect-row">
+              <button
+                className={`ps-scene-card ${cutoutId === null ? 'ps-scene-card--on' : ''}`}
+                onClick={() => pickCutout(null)}
+                aria-pressed={cutoutId === null}
+              >
+                <span className="ps-scene-card__swatch" style={{ background: 'var(--c-surface)' }}>
+                  <span aria-hidden="true">🚫</span>
+                  {cutoutId === null ? (
+                    <span className="ps-effect-card__check">
+                      <Icon name="check" size={13} color="#fff" width={3} />
+                    </span>
+                  ) : null}
+                </span>
+                <span className="ps-effect-card__label">{t('photo.sceneNone')}</span>
+              </button>
+              {ANIMAL_CUTOUTS.map((c) => (
+                <button
+                  key={c.id}
+                  className={`ps-scene-card ${cutoutId === c.id ? 'ps-scene-card--on' : ''}`}
+                  onClick={() => pickCutout(c.id)}
+                  aria-pressed={cutoutId === c.id}
+                >
+                  <span className="ps-scene-card__swatch" style={{ background: `linear-gradient(${c.bgTop}, ${c.bgBottom})` }}>
+                    <span aria-hidden="true">{c.previewEmoji}</span>
+                    {cutoutId === c.id ? (
+                      <span className="ps-effect-card__check">
+                        <Icon name="check" size={13} color="#fff" width={3} />
+                      </span>
+                    ) : null}
+                  </span>
+                  <span className="ps-effect-card__label">{t(c.titleKey)}</span>
                 </button>
               ))}
             </div>
