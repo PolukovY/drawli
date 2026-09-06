@@ -1,13 +1,3 @@
-/*
- * ui.css forces every direct child of `.screen` to flex-shrink: 0 by
- * default (an allowlist opts specific scrollable regions back in) — this
- * list wasn't on it, so it rendered at full content height instead of
- * shrinking to the space left for it, pushing "Далі" off the bottom of the
- * screen the moment there were enough effects to make it taller than the
- * viewport.
- */
-.screen > .ps-effect-list { flex-shrink: 1; min-height: 0; }
-
 /* ── Home step ─────────────────────────────────────────────────────────── */
 
 .ps-home {
@@ -171,15 +161,40 @@
  * stickers still land where they were put.
  */
 .ps-photo-frame__img { width: 100%; height: 100%; object-fit: contain; display: block; }
-.ps-photo-frame--small { flex-grow: 0; height: 130px; }
 
 .ps-effect-overlay { position: absolute; inset: 0; pointer-events: none; }
 
 .ps-stage { touch-action: none; }
 
+/* ── Tool switcher: effects and stickers share one screen ─────────────── */
+
+.ps-tool-tabs { display: flex; gap: 8px; flex-shrink: 0; }
+.ps-tool-tab {
+  flex: 1 1 0;
+  height: 48px;
+  border-radius: var(--r-lg);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 800;
+  background: var(--c-surface);
+  color: var(--c-text-soft);
+  box-shadow: var(--sh-card);
+}
+.ps-tool-tab--on { background: var(--c-accent); color: #fff; box-shadow: 0 8px 20px rgba(124, 92, 255, 0.32); }
+
+/*
+ * A viewer can flip between a one-row sticker tray and a much taller effect
+ * list — capping the height (rather than fixing it) lets the panel hug the
+ * short content and only scroll internally once the tall content needs it.
+ */
+.ps-tool-panel { max-height: 260px; overflow-y: auto; flex-shrink: 0; }
+
 /* ── Effects picker ────────────────────────────────────────────────────── */
 
-.ps-effect-list { flex-grow: 1; overflow-y: auto; min-height: 0; display: flex; flex-direction: column; gap: 4px; }
+.ps-effect-list { display: flex; flex-direction: column; gap: 4px; }
 .ps-effect-heading { font-size: 15px; font-weight: 800; color: var(--c-text-soft); margin: 8px 0 2px; }
 
 /*
@@ -281,4 +296,5 @@
 @media (max-width: 700px) {
   .ps-effect-card__swatch { width: 72px; height: 72px; }
   .ps-done-thumb img { width: 140px; height: 140px; }
+  .ps-tool-panel { max-height: 210px; }
 }
