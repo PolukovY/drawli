@@ -18,7 +18,8 @@ import '../../styles/ui.css'
 import '../../games/GameShell.css'
 import './PhotoStudioPage.css'
 
-type Step = 'home' | 'camera' | 'preview' | 'effects' | 'decorations' | 'done'
+type Step = 'home' | 'camera' | 'preview' | 'decorations' | 'done'
+type Tool = 'effects' | 'stickers'
 
 interface Shot {
   blob: Blob
@@ -34,7 +35,8 @@ export function PhotoStudioPage() {
   const awardStars = useAppStore((s) => s.awardStars)
   const stars = useAppStore((s) => s.settings?.stars ?? 0)
 
-  const [step, setStep] = useState<Step>(editId ? 'effects' : 'home')
+  const [step, setStep] = useState<Step>(editId ? 'decorations' : 'home')
+  const [tool, setTool] = useState<Tool>('effects')
   const [shot, setShot] = useState<Shot | null>(null)
   const [effectId, setEffectId] = useState<string>('none')
   const [decorations, setDecorations] = useState<PhotoDecoration[]>([])
@@ -55,7 +57,13 @@ export function PhotoStudioPage() {
 
   // Recomputed on every resize (rotation, split-view) so a placed sticker
   // stays under the same point on the photo, not the same point on screen.
+  // Depends on `step` too, not just `shot`: the stage <div> this measures
+  // doesn't exist in the DOM until the decorations step actually renders,
+  // so an effect keyed on `shot` alone fires once too early (ref still
+  // null), never reruns once the div mounts, and every sticker is left
+  // pinned at the zero-rect default — stuck in the top-left corner.
   useLayoutEffect(() => {
+    if (step !== 'decorations') return
     const el = stageRef.current
     if (!el || !shot) return
     const aspect = shot.width / shot.height
@@ -64,7 +72,7 @@ export function PhotoStudioPage() {
     const observer = new ResizeObserver(update)
     observer.observe(el)
     return () => observer.disconnect()
-  }, [shot])
+  }, [shot, step])
 
   useEffect(() => {
     if (!editId) return
@@ -275,7 +283,7 @@ export function PhotoStudioPage() {
             <Icon name="again" size={22} color="var(--c-text-soft)" />
             {t('photo.retake')}
           </button>
-          <button className="btn btn--primary grow" onClick={() => setStep('effects')}>
+          <button className="btn btn--primary grow" onClick={() => setStep('decorations')}>
             <Icon name="check" size={20} color="#fff" width={2.6} />
             {t('photo.likeIt')}
           </button>
@@ -284,64 +292,14 @@ export function PhotoStudioPage() {
     )
   }
 
-  if (step === 'effects' && shot) {
-    const backFromEffects = editingRef.current
+  if (step === 'decorations' && shot) {
+    const backFromDecorations = editingRef.current
       ? () => navigate('/photo-studio/gallery')
       : () => setStep('preview')
     return (
       <div className="screen game-screen">
-        {header(t('photo.effectsTitle'), backFromEffects)}
-        <div className="ps-photo-frame ps-photo-frame--small" style={{ aspectRatio: `${shot.width} / ${shot.height}` }}>
-          <img src={shot.url} alt="" className="ps-photo-frame__img" style={{ filter: effectById(effectId).filter }} />
-          {effectById(effectId).overlay ? (
-            <div className="ps-effect-overlay" style={{ background: effectById(effectId).overlay!.color, opacity: effectById(effectId).overlay!.alpha }} />
-          ) : null}
-        </div>
-
-        <div className="ps-effect-list">
-          {EFFECT_COLLECTIONS.map((collection) => (
-            <div key={collection.id}>
-              <div className="ps-effect-heading">{t(collection.titleKey)}</div>
-              <div className="ps-effect-row">
-                {PHOTO_EFFECTS.filter((e) => e.collection === collection.id).map((effect) => (
-                  <button
-                    key={effect.id}
-                    className={`ps-effect-card ${effectId === effect.id ? 'ps-effect-card--on' : ''}`}
-                    onClick={() => { playSound('tap'); setEffectId(effect.id) }}
-                    aria-pressed={effectId === effect.id}
-                  >
-                    <span className="ps-effect-card__swatch">
-                      <img src={shot.url} alt="" style={{ filter: effect.filter }} />
-                      {effect.overlay ? (
-                        <span className="ps-effect-overlay" style={{ background: effect.overlay.color, opacity: effect.overlay.alpha }} />
-                      ) : null}
-                      {effectId === effect.id ? (
-                        <span className="ps-effect-card__check">
-                          <Icon name="check" size={13} color="#fff" width={3} />
-                        </span>
-                      ) : null}
-                    </span>
-                    <span className="ps-effect-card__label">{t(effect.titleKey)}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <button className="btn btn--primary btn--hero" onClick={() => setStep('decorations')}>
-          {t('photo.next')}
-          <Icon name="arrow" size={20} color="#fff" />
-        </button>
-      </div>
-    )
-  }
-
-  if (step === 'decorations' && shot) {
-    return (
-      <div className="screen game-screen">
         <header className="row">
-          <button className="icon-btn" onClick={() => setStep('effects')} aria-label={t('nav.home')}>
+          <button className="icon-btn" onClick={backFromDecorations} aria-label={t('nav.home')}>
             <Icon name="back" size={26} color="var(--c-text)" width={2.6} />
           </button>
           <div className="title grow">{t('photo.decorationsTitle')}</div>
@@ -370,12 +328,60 @@ export function PhotoStudioPage() {
           ))}
         </div>
 
-        <div className="ps-sticker-tray">
-          {STICKERS.map((sticker) => (
-            <button key={sticker} className="ps-sticker-btn" onClick={() => addSticker(sticker)} disabled={decorations.length >= MAX_DECORATIONS}>
-              {sticker}
-            </button>
-          ))}
+        {/* Effects and stickers share one screen now — a child switches
+            tools instead of being marched through a fixed order of steps. */}
+        <div className="ps-tool-tabs">
+          <button className={`ps-tool-tab ${tool === 'effects' ? 'ps-tool-tab--on' : ''}`} onClick={() => setTool('effects')}>
+            <span aria-hidden="true">🎨</span>
+            {t('photo.toolEffects')}
+          </button>
+          <button className={`ps-tool-tab ${tool === 'stickers' ? 'ps-tool-tab--on' : ''}`} onClick={() => setTool('stickers')}>
+            <span aria-hidden="true">😊</span>
+            {t('photo.toolStickers')}
+          </button>
+        </div>
+
+        <div className="ps-tool-panel">
+          {tool === 'effects' ? (
+            <div className="ps-effect-list">
+              {EFFECT_COLLECTIONS.map((collection) => (
+                <div key={collection.id}>
+                  <div className="ps-effect-heading">{t(collection.titleKey)}</div>
+                  <div className="ps-effect-row">
+                    {PHOTO_EFFECTS.filter((e) => e.collection === collection.id).map((effect) => (
+                      <button
+                        key={effect.id}
+                        className={`ps-effect-card ${effectId === effect.id ? 'ps-effect-card--on' : ''}`}
+                        onClick={() => { playSound('tap'); setEffectId(effect.id) }}
+                        aria-pressed={effectId === effect.id}
+                      >
+                        <span className="ps-effect-card__swatch">
+                          <img src={shot.url} alt="" style={{ filter: effect.filter }} />
+                          {effect.overlay ? (
+                            <span className="ps-effect-overlay" style={{ background: effect.overlay.color, opacity: effect.overlay.alpha }} />
+                          ) : null}
+                          {effectId === effect.id ? (
+                            <span className="ps-effect-card__check">
+                              <Icon name="check" size={13} color="#fff" width={3} />
+                            </span>
+                          ) : null}
+                        </span>
+                        <span className="ps-effect-card__label">{t(effect.titleKey)}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="ps-sticker-tray">
+              {STICKERS.map((sticker) => (
+                <button key={sticker} className="ps-sticker-btn" onClick={() => addSticker(sticker)} disabled={decorations.length >= MAX_DECORATIONS}>
+                  {sticker}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         <button className="btn btn--primary btn--hero" onClick={() => void finish()} disabled={saving}>

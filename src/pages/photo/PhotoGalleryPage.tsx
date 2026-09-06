@@ -11,17 +11,14 @@ import './PhotoGalleryPage.css'
 
 const DAY_LABEL_KEY = { today: 'photo.galleryToday', yesterday: 'photo.galleryYesterday', earlier: 'photo.galleryEarlier' } as const
 
-// Deleting a photo isn't gated — a child undoing their own mistake is not
-// the thing this needs to guard against. Only leaving the app with a copy
-// (download / share) goes through the parental question.
-type GateAction = { kind: 'download' | 'share' }
-
 export function PhotoGalleryPage() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const [photos, setPhotos] = useState<ChildPhoto[]>([])
   const [viewingId, setViewingId] = useState<string | null>(null)
-  const [gate, setGate] = useState<GateAction | null>(null)
+  // Deleting and saving to the device aren't gated — only sharing (handing
+  // the photo to another app or person) goes through the parental question.
+  const [sharing, setSharing] = useState(false)
   const [slideshow, setSlideshow] = useState(false)
 
   useEffect(() => {
@@ -72,9 +69,9 @@ export function PhotoGalleryPage() {
     setSlideshow(false)
   }
 
-  async function runGated(action: GateAction) {
-    if (viewing) await downloadOrShare(viewing, action.kind)
-    setGate(null)
+  async function confirmShare() {
+    if (viewing) await downloadOrShare(viewing, 'share')
+    setSharing(false)
   }
 
   async function removePhoto(id: string) {
@@ -170,12 +167,12 @@ export function PhotoGalleryPage() {
                 <Icon name="brush" size={20} color="#fff" />
                 {t('photo.reEdit')}
               </button>
-              <button className="ps-viewer__btn" onClick={() => setGate({ kind: 'download' })}>
+              <button className="ps-viewer__btn" onClick={() => void downloadOrShare(viewing, 'download')}>
                 <Icon name="download" size={20} color="#fff" />
                 {t('photo.download')}
               </button>
               {typeof navigator.share === 'function' ? (
-                <button className="ps-viewer__btn" onClick={() => setGate({ kind: 'share' })}>
+                <button className="ps-viewer__btn" onClick={() => setSharing(true)}>
                   <Icon name="share" size={20} color="#fff" />
                   {t('photo.share')}
                 </button>
@@ -189,8 +186,8 @@ export function PhotoGalleryPage() {
         </div>
       ) : null}
 
-      {gate ? (
-        <ParentalGate onCancel={() => setGate(null)} onSuccess={() => void runGated(gate)} />
+      {sharing ? (
+        <ParentalGate onCancel={() => setSharing(false)} onSuccess={() => void confirmShare()} />
       ) : null}
     </div>
   )
