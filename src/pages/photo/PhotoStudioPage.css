@@ -171,12 +171,28 @@
 
 .ps-stage { touch-action: none; }
 
-/* ── Tool switcher: effects and stickers share one screen ─────────────── */
+/* ── Tool switcher: effects, scenes, cutouts, and stickers share one screen ── */
 
-.ps-tool-tabs { display: flex; gap: 8px; flex-shrink: 0; }
+/*
+ * Four tabs' natural width can exceed a narrow phone's screen — `flex: 1 1 0`
+ * alone can't shrink a tab below its icon+label's own min-content width, so
+ * the row just overflowed past the edge with the last tab unreachable. A
+ * horizontally scrolling row (same pattern as the effect/scene pickers)
+ * keeps every tab reachable regardless of viewport width or label length.
+ */
+.ps-tool-tabs {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.ps-tool-tabs::-webkit-scrollbar { display: none; }
 .ps-tool-tab {
-  flex: 1 1 0;
+  flex: 0 0 auto;
   height: 48px;
+  padding: 0 18px;
   border-radius: var(--r-lg);
   display: inline-flex;
   align-items: center;
@@ -184,6 +200,7 @@
   gap: 8px;
   font-size: 15px;
   font-weight: 800;
+  white-space: nowrap;
   background: var(--c-surface);
   color: var(--c-text-soft);
   box-shadow: var(--sh-card);
