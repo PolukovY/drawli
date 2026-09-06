@@ -164,6 +164,11 @@
 
 .ps-effect-overlay { position: absolute; inset: 0; pointer-events: none; }
 
+/* Sized to exactly `stageRect` (no scene active) so an effect's baked-in
+   particles — percentage-positioned children — line up with the same box
+   `imageDisplayRect` hands to every placed sticker. */
+.ps-frame-inner { position: absolute; overflow: hidden; }
+
 .ps-stage { touch-action: none; }
 
 /* ── Tool switcher: effects and stickers share one screen ─────────────── */
@@ -268,6 +273,34 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
 }
 .ps-scene-slot__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ── Animal cutout (live preview) ─────────────────────────────────────── */
+
+/*
+ * A face-in-the-hole photo prop: an illustrated body with a round hole, not
+ * a graphic drawn over the child's real face. Every piece here mirrors
+ * `drawCutout` in capture.ts so the live preview matches the saved photo.
+ */
+.ps-cutout-mane { position: absolute; border-radius: 50%; }
+
+.ps-cutout-ear { position: absolute; }
+.ps-cutout-ear--round,
+.ps-cutout-ear--tall { border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.ps-cutout-ear__inner { display: block; width: 50%; height: 50%; border-radius: 50%; }
+.ps-cutout-ear--pointy { clip-path: polygon(50% 0%, 0% 100%, 100% 100%); }
+.ps-cutout-ear--floppy { border-radius: 50%; }
+
+.ps-cutout-body { position: absolute; border-radius: 30%; }
+.ps-cutout-belly { position: absolute; border-radius: 30%; }
+
+.ps-cutout-slot {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+}
+.ps-cutout-slot__img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 /* ── Scene picker ──────────────────────────────────────────────────────── */
 
