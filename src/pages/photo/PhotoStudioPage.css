@@ -166,6 +166,33 @@
 
 .ps-stage { touch-action: none; }
 
+/* ── Scene: the photo framed inside an illustrated background ─────────── */
+
+/*
+ * Positioned with pixel values from `stageRect`, not 100%/100% — the same
+ * reason Sticker.tsx does: `.ps-stage`'s own aspect-ratio can't be trusted
+ * to hold under flex-grow, so this targets the box that was actually
+ * measured rather than the box CSS merely asked for.
+ */
+.ps-scene-layer { position: absolute; overflow: hidden; }
+
+.ps-scene-ground { position: absolute; bottom: 0; left: 0; right: 0; }
+
+.ps-scene-prop { position: absolute; line-height: 1; pointer-events: none; filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2)); }
+
+.ps-scene-slot {
+  position: absolute;
+  background: #fff;
+  border-radius: var(--r-lg);
+  box-shadow: var(--sh-raised);
+  padding: 3%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.ps-scene-slot__img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: var(--r-md); }
+
+.ps-scene-card__swatch { display: flex; align-items: center; justify-content: center; background: var(--c-inset); }
+
 /* ── Tool switcher: effects and stickers share one screen ─────────────── */
 
 .ps-tool-tabs { display: flex; gap: 8px; flex-shrink: 0; }

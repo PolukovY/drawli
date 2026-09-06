@@ -138,5 +138,7 @@ export interface ChildPhoto {
   height: number
   /** `null` is "Без ефекту". */
   selectedEffect: string | null
+  /** `null` is no background scene — the photo fills the whole frame as before. */
+  selectedScene: string | null
   decorations: PhotoDecoration[]
 }
