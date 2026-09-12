@@ -37,6 +37,7 @@ import { PictureSudokuPage } from '../pages/games/PictureSudokuPage'
 import { DifferencesPage } from '../pages/games/DifferencesPage'
 import { SyllablesPage } from '../pages/games/SyllablesPage'
 import { OddWordPage } from '../pages/games/OddWordPage'
+import { RockPaperScissorsPage } from '../pages/games/RockPaperScissorsPage'
 import { PhotoStudioPage } from '../pages/photo/PhotoStudioPage'
 import { PhotoGalleryPage } from '../pages/photo/PhotoGalleryPage'
 
@@ -86,6 +87,7 @@ export const router = createHashRouter([
   { path: '/differences', element: <DifferencesPage /> },
   { path: '/syllables', element: <SyllablesPage /> },
   { path: '/odd-word', element: <OddWordPage /> },
+  { path: '/rock-paper-scissors', element: <RockPaperScissorsPage /> },
   { path: '/photo-studio', element: <PhotoStudioPage /> },
   { path: '/photo-studio/edit/:id', element: <PhotoStudioPage /> },
   { path: '/photo-studio/gallery', element: <PhotoGalleryPage /> },

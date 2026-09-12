@@ -646,7 +646,18 @@
     "oddWordHint": "Three belong together — tap the one that does not",
     "oddWordAgain": "Say them again",
     "oddWordSay": "Say this word",
-    "dotsHeart": "A heart!"
+    "dotsHeart": "A heart!",
+    "rps": "Rock, paper, scissors",
+    "rpsHint": "Pick rock, paper, or scissors",
+    "rpsRock": "Rock",
+    "rpsPaper": "Paper",
+    "rpsScissors": "Scissors",
+    "rpsThinking": "The computer is choosing...",
+    "rpsWin": "You won!",
+    "rpsLose": "The computer won this time",
+    "rpsTie": "A tie!",
+    "rpsYou": "You",
+    "rpsComputer": "Computer"
   },
   "free": {
     "title": "Blank sheet",
