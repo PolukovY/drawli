@@ -657,7 +657,11 @@
     "rpsLose": "The computer won this time",
     "rpsTie": "A tie!",
     "rpsYou": "You",
-    "rpsComputer": "Computer"
+    "rpsComputer": "Computer",
+    "syllableReading": "Read it syllable by syllable",
+    "syllableReadingHint": "Tap each part of the word to hear it, then read the whole word",
+    "syllableReadingHear": "By syllable",
+    "syllableReadingSay": "Whole word"
   },
   "free": {
     "title": "Blank sheet",
