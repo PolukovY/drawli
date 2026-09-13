@@ -657,7 +657,17 @@
     "rpsLose": "The computer won this time",
     "rpsTie": "A tie!",
     "rpsYou": "You",
-    "rpsComputer": "Computer"
+    "rpsComputer": "Computer",
+    "syllableReading": "Read it syllable by syllable",
+    "syllableReadingHint": "Tap each part of the word to hear it, then read the whole word",
+    "syllableReadingHear": "By syllable",
+    "syllableReadingSay": "Whole word",
+    "soundPosition": "Where is the sound?",
+    "soundPositionHint": "Listen to the word and say where you hear that sound",
+    "soundPositionListen": "Listen to the word",
+    "soundPositionStart": "At the start",
+    "soundPositionMiddle": "In the middle",
+    "soundPositionEnd": "At the end"
   },
   "free": {
     "title": "Blank sheet",

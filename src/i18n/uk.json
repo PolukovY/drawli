@@ -660,7 +660,17 @@
     "rpsLose": "Цього разу переміг комп'ютер",
     "rpsTie": "Нічия!",
     "rpsYou": "Ти",
-    "rpsComputer": "Комп'ютер"
+    "rpsComputer": "Комп'ютер",
+    "syllableReading": "Читання по складах",
+    "syllableReadingHint": "Торкнись кожної частини слова, щоб почути її, а тоді прочитай усе слово",
+    "syllableReadingHear": "По складах",
+    "syllableReadingSay": "Ціле слово",
+    "soundPosition": "Де живе звук?",
+    "soundPositionHint": "Послухай слово і скажи, де ти чуєш цей звук",
+    "soundPositionListen": "Послухати слово",
+    "soundPositionStart": "На початку",
+    "soundPositionMiddle": "Всередині",
+    "soundPositionEnd": "В кінці"
   },
   "free": {
     "title": "Чистий аркуш",

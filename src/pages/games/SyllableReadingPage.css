@@ -1,0 +1,33 @@
+.sylread__card { display: flex; justify-content: center; padding: 10px; }
+.sylread__card img { width: 130px; height: 130px; object-fit: contain; }
+
+.sylread__parts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 6px 4px;
+}
+
+.sylread__part {
+  min-width: 64px;
+  padding: 12px 20px;
+  border-radius: var(--r-lg);
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  box-shadow: var(--sh-card);
+  border: 3px solid transparent;
+  transition: transform 0.12s ease, border-color 0.2s ease;
+}
+.sylread__part:active { transform: scale(0.94); }
+.sylread__part--a { background: var(--c-accent); }
+.sylread__part--b { background: var(--c-accent-dark); }
+/* Read, not answered — every syllable is correct the moment it's tapped. */
+.sylread__part--read { border-color: var(--c-success); }
+
+@media (max-width: 700px) {
+  .sylread__card img { width: 96px; height: 96px; }
+  .sylread__part { font-size: 24px; padding: 9px 16px; min-width: 52px; }
+}
