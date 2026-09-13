@@ -44,6 +44,7 @@ export const GAMES: GameEntry[] = [
   { id: 'differences', path: '/differences', titleKey: 'play.differences', art: '🔍', languages: 'all', order: 29 },
   { id: 'syllables', path: '/syllables', titleKey: 'play.syllables', art: '👏', languages: 'all', order: 30 },
   { id: 'syllablereading', path: '/read-syllables', titleKey: 'play.syllableReading', art: '📖', languages: 'all', order: 30.5 },
+  { id: 'soundposition', path: '/sound-position', titleKey: 'play.soundPosition', art: '👂', languages: 'all', order: 30.7 },
   { id: 'oddword', path: '/odd-word', titleKey: 'play.oddWord', art: '🎧', languages: 'all', order: 31 },
   { id: 'rps', path: '/rock-paper-scissors', titleKey: 'play.rps', art: '✂️', languages: 'all', order: 32 },
   { id: 'photostudio', path: '/photo-studio', titleKey: 'photo.title', art: '📸', languages: 'all', order: 33 },
