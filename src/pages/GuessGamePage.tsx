@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next'
 import { GameShell } from '../games/GameShell'
 import { useGameSession } from '../games/useGameSession'
 import { randomSeed, shuffle } from '../games/shuffle'
+import { biasByLearningStats, type LearningStat } from '../games/learningBias'
+import { listLearningStats, recordItemMissed, recordItemSeen } from '../storage/LearningStatsRepository'
 import { Icon } from '../components/Icon'
 import { assetUrl, loadArticles, loadIndex, loadWords, type WordLanguage } from '../exercise/ExerciseLoader'
 import type { ExerciseSummary } from '../exercise/Exercise'
@@ -13,6 +15,7 @@ import './GuessGamePage.css'
 const ROUNDS = 5
 const CHOICES = 4
 const ABSTRACT_CATEGORIES = new Set(['motor', 'shapes'])
+const GAME_ID = 'guess'
 
 const LANGUAGE_LABELS: Record<WordLanguage, string> = {
   uk: 'Українська',
@@ -41,6 +44,9 @@ export function GuessGamePage() {
   const [articles, setArticles] = useState<Record<string, string>>({})
   const [seed, setSeed] = useState(randomSeed)
   const [picked, setPicked] = useState<string[]>([])
+  const [stats, setStats] = useState<Record<string, LearningStat>>({})
+
+  useEffect(() => { void listLearningStats(GAME_ID).then(setStats) }, [])
 
   useEffect(() => {
     void loadWords().then((words) => setDictionary(words[language] ?? {})).catch(() => undefined)
@@ -66,7 +72,8 @@ export function GuessGamePage() {
     if (pool.length === 0 || Object.keys(dictionary).length === 0) return []
 
     const named = pool.filter((e) => dictionary[e.id])
-    const picks = shuffle(named, seed).slice(0, ROUNDS)
+    // Words never seen, or seen and missed, come up before ones already mastered.
+    const picks = biasByLearningStats(named, seed, (e) => stats[e.id]).slice(0, ROUNDS)
 
     return picks.map((answer, i) => {
       // Wrong options come from other categories too, so the answer is never
@@ -82,7 +89,7 @@ export function GuessGamePage() {
         article: articles[answer.id] ?? '',
       }
     })
-  }, [pool, dictionary, articles, seed])
+  }, [pool, dictionary, articles, stats, seed])
 
   const game = useGameSession(rounds)
   const current = game.current
@@ -91,11 +98,17 @@ export function GuessGamePage() {
   // not run the Next handler, so clearing them there was not enough.
   useEffect(() => { setPicked([]) }, [game.round, rounds])
 
+  // Recorded once per round, not once per stats reload above.
+  useEffect(() => {
+    if (current) void recordItemSeen(GAME_ID, current.answer.id)
+  }, [current?.answer.id])
+
   function pick(id: string) {
     if (!current || game.solved || picked.includes(id)) return
     if (id === current.answer.id) { void game.solve(); return }
     // A wrong card simply steps aside; the child keeps looking.
     game.miss()
+    void recordItemMissed(GAME_ID, current.answer.id)
     setPicked((prev) => [...prev, id])
   }
 

@@ -8,17 +8,21 @@ import { useGameSession } from '../../games/useGameSession'
 import { randomSeed, shuffle } from '../../games/shuffle'
 import { difficultyTier } from '../../games/difficultyTier'
 import { lookalikesOf } from '../../games/confusableLetters'
+import { biasByLearningStats, type LearningStat } from '../../games/learningBias'
+import { listLearningStats, recordItemMissed, recordItemSeen } from '../../storage/LearningStatsRepository'
 import { Icon } from '../../components/Icon'
 import './FirstLetterPage.css'
 
 const ROUNDS = 5
 const CHOICES = 4
+const GAME_ID = 'firstletter'
 
 const LANGUAGE_LABELS: Record<WordLanguage, string> = {
   uk: 'Українська', en: 'English', es: 'Español',
 }
 
 interface Round {
+  itemId: string
   thumbnail: string
   letter: string
   choices: string[]
@@ -34,6 +38,9 @@ export function FirstLetterPage() {
   const content = useGameContent(language)
   const [seed, setSeed] = useState(randomSeed)
   const [wrong, setWrong] = useState<string[]>([])
+  const [stats, setStats] = useState<Record<string, LearningStat>>({})
+
+  useEffect(() => { void listLearningStats(GAME_ID).then(setStats) }, [])
 
   const rounds = useMemo<Round[]>(() => {
     if (!content.ready || content.letters.length < CHOICES) return []
@@ -41,7 +48,12 @@ export function FirstLetterPage() {
       .map((picture) => ({ picture, word: (content.words[picture.id] ?? '').toUpperCase() }))
       .filter(({ word }) => /^[^\s·]/u.test(word))
 
-    return shuffle(named, seed).slice(0, ROUNDS).map(({ picture, word }, i) => {
+    // Words never seen, or seen and missed, come up before ones already mastered.
+    // Stats are scoped per language: the same picture is a different word in each.
+    const picks = biasByLearningStats(named, seed, (n) => stats[`${language}:${n.picture.id}`])
+      .slice(0, ROUNDS)
+
+    return picks.map(({ picture, word }, i) => {
       const letter = word[0]
       const pool = content.letters.filter((l) => l !== letter)
       // Early rounds keep choices visually distinct; later ones mix in
@@ -53,12 +65,13 @@ export function FirstLetterPage() {
       const rest = shuffle(pool.filter((l) => !lookalikes.includes(l)), seed + i * 19)
       const others = [...lookalikes, ...rest].slice(0, CHOICES - 1)
       return {
+        itemId: `${language}:${picture.id}`,
         thumbnail: picture.thumbnail,
         letter,
         choices: shuffle([letter, ...others], seed + i * 23),
       }
     })
-  }, [content.ready, content.pictures, content.words, content.letters, language, seed])
+  }, [content.ready, content.pictures, content.words, content.letters, language, stats, seed])
 
   const game = useGameSession(rounds)
   const current = game.current
@@ -67,10 +80,16 @@ export function FirstLetterPage() {
   // not run the Next handler, so clearing them there was not enough.
   useEffect(() => { setWrong([]) }, [game.round, rounds])
 
+  // Recorded once per round, not once per stats reload above.
+  useEffect(() => {
+    if (current) void recordItemSeen(GAME_ID, current.itemId)
+  }, [current?.itemId])
+
   function pick(letter: string) {
     if (!current || game.solved || wrong.includes(letter)) return
     if (letter === current.letter) { void game.solve(); return }
     game.miss()
+    void recordItemMissed(GAME_ID, current.itemId)
     setWrong((prev) => [...prev, letter])
   }
 

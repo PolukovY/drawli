@@ -157,3 +157,19 @@ export interface GameStats {
   starsEarned: number
   lastPlayedAt: string
 }
+
+/**
+ * Per-word/per-letter practice history, one row per (gameId, itemId). Powers
+ * biasing a game's round selection toward items a child hasn't seen yet or
+ * keeps missing, per doc/ai-roadmap.md's `learningStats` proposal. Separate
+ * from `GameStats` above, which only tracks per-*game* totals.
+ */
+export interface LearningStats {
+  /** `${gameId}:${itemId}` — Dexie's primary key needs a plain string. */
+  id: string
+  gameId: string
+  itemId: string
+  seenCount: number
+  missCount: number
+  lastSeenAt: string
+}

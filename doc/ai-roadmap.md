@@ -29,8 +29,16 @@ following piece is reviewed.
   touched here.
 - ✅ **Shipped**: `Count`/`CountThings` now ramp to 20 (P1's third bullet — its other two bullets
   were already covered by the P0 pass above).
-- ⬜ Everything else in Section E (the `learningStats`/spaced-repetition work, P1's remaining
-  bullet, P2–P4) is still just the plan.
+- ✅ **Shipped**: P0's last open item, a proof of concept. A `learningStats` Dexie table
+  (version 4: `{id, gameId, itemId, seenCount, missCount, lastSeenAt}`) plus a deterministic
+  `biasByLearningStats` helper — never-seen items first, then seen-and-missed, then mastered,
+  ties broken by the same seeded shuffle every other pool uses. Wired into `Guess` and
+  `FirstLetter` (P1's remaining bullet, started): each round now records what was shown and
+  what was missed, and the next round selection is biased by it. The other five vocabulary/
+  phonics games named in that bullet (`Listen`, `Missing`, `Syllables`, `SoundPosition`,
+  `OddWord`) are still on plain `shuffle()`.
+- ⬜ Everything else in Section E (wiring the remaining five games above, P2–P4) is still just
+  the plan.
 
 ## 0. Five findings that shape everything below
 
@@ -396,11 +404,11 @@ problem, and the brief's own core principle ("AI is not the source of truth") ar
 - ✅ **Shipped**: `gameStats` Dexie table (version 3) — play count, cumulative stars, last-played
   per game — plus the Games Audit screen reading it. This is the coarse, per-*game* half of this
   bullet; see Status above.
-- Still open: a finer-grained `learningStats` table (`{gameId, itemId, seenCount, missCount,
-  lastSeenAt}`, per *word/letter*, would land as version 4 on top of the schema above) and a
-  deterministic weighted-selection helper on top of it; wire into 2–3 games as a proof of concept.
-  This is what actually powers spaced repetition (Phase 9) — `gameStats` alone only tells you
-  *which games* get played, not *which words within them* still need practice.
+- ✅ **Shipped**: `learningStats` table (version 4: `{id, gameId, itemId, seenCount, missCount,
+  lastSeenAt}`, per *word/letter*) and a deterministic `biasByLearningStats` weighted-selection
+  helper, wired into `Guess` and `FirstLetter` as the proof of concept. `gameStats` alone only
+  told you *which games* get played; this tells you *which words within them* still need
+  practice. See Status above.
 - Shared `useDifficultyTier` helper; apply to the highest-repetition-risk flat games from Section A.
 - Migrate `Spell`/`Guess`/`Articles` onto `useGameSession` + shared `shuffle.ts`.
 - ~~Fix the Articles en a/an data bug~~ — not real, see the note above.
@@ -412,9 +420,9 @@ problem, and the brief's own core principle ("AI is not the source of truth") ar
   `Symmetry`, `MemoryTrace`, `WhatsGone` — done as part of the P0 cross-cutting pass, see Status.
 - ✅ **Shipped**: `Count`/`CountThings` now ramp a third tier up to 20 (was capped at 9), reusing
   the same `difficultyTier` helper and reaching `BiggerNumber`'s existing ceiling.
-- Still open: wire `learningStats`-biased selection into the vocabulary/phonics games (`Guess`,
-  `Listen`, `Missing`, `FirstLetter`, `Syllables`, `SoundPosition`, `OddWord`) — blocked on the
-  `learningStats` table itself, which is still just the P0 plan (see above), not yet built.
+- ✅ **Shipped (started)**: `Guess` and `FirstLetter` now bias their round selection on
+  `learningStats`. Still open: wire the same bias into the rest of the vocabulary/phonics games
+  this bullet names — `Listen`, `Missing`, `Syllables`, `SoundPosition`, `OddWord`.
 
 **P2 — Highest-value new games (fully deterministic, ship with zero AI dependency)**
 - Trace the Letter (guide-weakening + per-letter mastery, enhancement to `DrawingPage`).
