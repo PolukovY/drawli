@@ -27,8 +27,10 @@ following piece is reviewed.
   original 6-shape Connect the Dots landed in a round roughly 14 times in 18,000 trials instead
   of the expected ~3,000). That fix benefits every game that shuffles a pool, not just the ones
   touched here.
-- ⬜ Everything else in Section E (the per-item stat/spaced-repetition work, P1–P4) is still just
-  the plan.
+- ✅ **Shipped**: `Count`/`CountThings` now ramp to 20 (P1's third bullet — its other two bullets
+  were already covered by the P0 pass above).
+- ⬜ Everything else in Section E (the `learningStats`/spaced-repetition work, P1's remaining
+  bullet, P2–P4) is still just the plan.
 
 ## 0. Five findings that shape everything below
 
@@ -406,11 +408,13 @@ problem, and the brief's own core principle ("AI is not the source of truth") ar
   fallback) — ships as inert, zero-risk plumbing before any model integration exists.
 
 **P1 — Existing-game improvements (Section A's per-game list)**
-- Content-pool growth for `Puzzle`, `Connect the Dots`, `PictureSudoku`, `Symmetry`, `MemoryTrace`,
-  `WhatsGone`.
-- Wire `learningStats`-biased selection into the rest of the vocabulary/phonics games (`Guess`,
-  `Listen`, `Missing`, `FirstLetter`, `Syllables`, `SoundPosition`, `OddWord`).
-- Extend `Count`/`CountThings` range toward 1–20.
+- ✅ **Shipped**: content-pool growth for `Puzzle`, `Connect the Dots`, `PictureSudoku`,
+  `Symmetry`, `MemoryTrace`, `WhatsGone` — done as part of the P0 cross-cutting pass, see Status.
+- ✅ **Shipped**: `Count`/`CountThings` now ramp a third tier up to 20 (was capped at 9), reusing
+  the same `difficultyTier` helper and reaching `BiggerNumber`'s existing ceiling.
+- Still open: wire `learningStats`-biased selection into the vocabulary/phonics games (`Guess`,
+  `Listen`, `Missing`, `FirstLetter`, `Syllables`, `SoundPosition`, `OddWord`) — blocked on the
+  `learningStats` table itself, which is still just the P0 plan (see above), not yet built.
 
 **P2 — Highest-value new games (fully deterministic, ship with zero AI dependency)**
 - Trace the Letter (guide-weakening + per-letter mastery, enhancement to `DrawingPage`).

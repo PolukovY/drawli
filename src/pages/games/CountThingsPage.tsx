@@ -8,7 +8,7 @@ import { Icon } from '../../components/Icon'
 import './CountThingsPage.css'
 
 const ROUNDS = 5
-const MAX_COUNT = 9
+const MAX_COUNT = 20
 
 /** Things a child can name at a glance — the counting is the hard part. */
 const THINGS = ['🍎', '🍐', '🍓', '🐞', '⭐', '🌸', '🐟', '🍋', '🦋', '🍄', '🐝', '🍊']
@@ -38,15 +38,17 @@ export function CountThingsPage() {
     for (let i = 0; i < ROUNDS; i += 1) {
       const kinds = shuffle(THINGS, seed + i * 23).slice(0, 3)
       // Early rounds stay small; later ones ask for more.
-      const ceiling = difficultyTier(i, [{ from: 0, value: 5 }, { from: 2, value: MAX_COUNT }])
+      const ceiling = difficultyTier(i, [{ from: 0, value: 5 }, { from: 2, value: 9 }, { from: 4, value: MAX_COUNT }])
       const count = 2 + roll(ceiling - 1)
       const items = [
         ...Array.from({ length: count }, () => kinds[0]),
         ...Array.from({ length: 1 + roll(4) }, () => kinds[1]),
         ...Array.from({ length: 1 + roll(3) }, () => kinds[2]),
       ]
+      // Distractors stay within the round's own ceiling too, so an easy
+      // round never has to rule out a number far bigger than anything shown.
       const others = shuffle(
-        Array.from({ length: MAX_COUNT }, (_, n) => n + 1).filter((n) => n !== count),
+        Array.from({ length: ceiling }, (_, n) => n + 1).filter((n) => n !== count),
         seed + i * 17,
       ).slice(0, 3)
       out.push({
