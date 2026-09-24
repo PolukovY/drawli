@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { assetUrl, loadIndex } from '../../exercise/ExerciseLoader'
 import type { ExerciseSummary } from '../../exercise/Exercise'
 import { randomSeed, shuffle } from '../../games/shuffle'
+import { difficultyTier } from '../../games/difficultyTier'
 import { STARS_PER_ROUND } from '../../games/useGameSession'
 import { useAppStore } from '../../app/store'
 import { playSound } from '../../audio/sounds'
@@ -14,11 +15,23 @@ import '../../games/GameShell.css'
 import './PuzzlePage.css'
 
 const ROUNDS = 3
-const PIECES = 4
+/** Grid shape [cols, rows] for each piece count the puzzle grows into. */
+const GRIDS: Record<number, [number, number]> = { 4: [2, 2], 6: [3, 2], 9: [3, 3] }
+
+/** How much of the picture a piece at `index` shows, in a `cols`x`rows` cut. */
+function pieceOffset(index: number, cols: number, rows: number) {
+  return {
+    width: `${cols * 100}%`,
+    height: `${rows * 100}%`,
+    left: `${-(index % cols) * 100}%`,
+    top: `${-Math.floor(index / cols) * 100}%`,
+  }
+}
 
 /**
- * A picture cut into four. Pieces are placed by tapping — a piece, then its
- * slot — because dragging on a tablet fights with palm rejection.
+ * A picture cut into pieces — 4 for the first round, then 6, then 9 — placed
+ * by tapping: a piece, then its slot, because dragging on a tablet fights
+ * with palm rejection.
  */
 export function PuzzlePage() {
   const navigate = useNavigate()
@@ -50,9 +63,11 @@ export function PuzzlePage() {
   }, [seed])
 
   const current = pictures[round]
+  const pieces = difficultyTier(round, [{ from: 0, value: 4 }, { from: 1, value: 6 }, { from: 2, value: 9 }])
+  const [cols, rows] = GRIDS[pieces]
   const order = useMemo(
-    () => shuffle([0, 1, 2, 3], seed + round * 13),
-    [seed, round],
+    () => shuffle(Array.from({ length: pieces }, (_, i) => i), seed + round * 13),
+    [seed, round, pieces],
   )
 
   useEffect(() => {
@@ -60,7 +75,7 @@ export function PuzzlePage() {
     setHeld(null)
   }, [current])
 
-  const solved = Object.keys(placed).length === PIECES
+  const solved = Object.keys(placed).length === pieces
 
   const next = useCallback(() => {
     // Never call setState from inside an updater: React may re-run it and drop
@@ -128,8 +143,11 @@ export function PuzzlePage() {
 
       {current ? (
         <div className="puzzle">
-          <div className="puzzle__frame card">
-            {[0, 1, 2, 3].map((slot) => (
+          <div
+            className="puzzle__frame card"
+            style={{ gridTemplateColumns: `repeat(${cols}, 1fr)`, gridTemplateRows: `repeat(${rows}, 1fr)` }}
+          >
+            {Array.from({ length: pieces }, (_, slot) => (
               <button
                 key={slot}
                 className={`puzzle__slot ${placed[slot] !== undefined ? 'puzzle__slot--filled' : ''}`}
@@ -137,8 +155,8 @@ export function PuzzlePage() {
                 aria-label={`${slot + 1}`}
               >
                 {placed[slot] !== undefined ? (
-                  <span className="puzzle__piece" data-piece={slot}>
-                    <img src={assetUrl(current.thumbnail)} alt="" />
+                  <span className="puzzle__piece">
+                    <img src={assetUrl(current.thumbnail)} alt="" style={pieceOffset(slot, cols, rows)} />
                   </span>
                 ) : null}
               </button>
@@ -157,8 +175,8 @@ export function PuzzlePage() {
                   onClick={() => { if (!used) { playSound('tap'); setHeld(piece) } }}
                   disabled={used}
                 >
-                  <span className="puzzle__piece" data-piece={piece}>
-                    <img src={assetUrl(current.thumbnail)} alt="" />
+                  <span className="puzzle__piece">
+                    <img src={assetUrl(current.thumbnail)} alt="" style={pieceOffset(piece, cols, rows)} />
                   </span>
                 </button>
               )

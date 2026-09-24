@@ -38,15 +38,10 @@
 }
 .puzzle__piece img {
   position: absolute;
-  width: 200%;
-  height: 200%;
 }
-.puzzle__piece[data-piece="0"] img { left: 0; top: 0; }
-.puzzle__piece[data-piece="1"] img { left: -100%; top: 0; }
-.puzzle__piece[data-piece="2"] img { left: 0; top: -100%; }
-.puzzle__piece[data-piece="3"] img { left: -100%; top: -100%; }
 
-.puzzle__tray { display: flex; gap: 14px; }
+/* Wraps once the piece count grows past what fits on one line. */
+.puzzle__tray { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; max-width: 100%; }
 
 .puzzle__loose {
   width: 96px;
