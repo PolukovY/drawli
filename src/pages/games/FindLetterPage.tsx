@@ -6,6 +6,8 @@ import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
 import { randomSeed, shuffle } from '../../games/shuffle'
+import { difficultyTier } from '../../games/difficultyTier'
+import { lookalikesOf } from '../../games/confusableLetters'
 import { Icon } from '../../components/Icon'
 
 const ROUNDS = 5
@@ -34,11 +36,18 @@ export function FindLetterPage() {
   const rounds = useMemo<Round[]>(() => {
     if (content.letters.length < CHOICES) return []
     return shuffle(content.letters, seed).slice(0, ROUNDS).map((letter, i) => {
-      const others = shuffle(content.letters.filter((l) => l !== letter), seed + i * 17)
-        .slice(0, CHOICES - 1)
+      const pool = content.letters.filter((l) => l !== letter)
+      // Early rounds keep choices visually distinct; later ones mix in
+      // letters this letter is actually easy to mix up.
+      const lookalikes = difficultyTier(i, [
+        { from: 0, value: [] as string[] },
+        { from: 2, value: lookalikesOf(language, letter) },
+      ]).filter((l) => pool.includes(l))
+      const rest = shuffle(pool.filter((l) => !lookalikes.includes(l)), seed + i * 17)
+      const others = [...lookalikes, ...rest].slice(0, CHOICES - 1)
       return { letter, choices: shuffle([letter, ...others], seed + i * 29) }
     })
-  }, [content.letters, seed])
+  }, [content.letters, language, seed])
 
   const game = useGameSession(rounds)
   const current = game.current
