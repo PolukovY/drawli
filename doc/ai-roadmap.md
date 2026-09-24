@@ -49,8 +49,17 @@ following piece is reviewed.
   a fact — the monster starts with a few pieces of fruit, the child taps to give it more one at a
   time, and only once the giving is done does the equation appear. Sums to 5 then 9, via
   `difficultyTier`; no quiz, no wrong answer, same "no-fail" shape as `Puzzle`/`Symmetry`.
-- ⬜ P2's remaining three games (`Trace the Letter`, `Write With Me`, `Find It`) and P3–P4 are
-  still just the plan.
+- ✅ **Shipped**: P2's second new game, `Write With Me`. Bridges single-letter tracing to whole-
+  word writing: one letter guided at a time (reusing `GuideLayer`/`DrawingCanvas` standalone,
+  outside the full `DrawingPage` multi-step flow), and once every letter in the word is traced,
+  the word is revealed with its picture and TTS pronunciation. 3-letter words first, then longer,
+  from words whose every letter has a `letters_*` guide exercise. Works in all three languages;
+  resolves each letter's guide-exercise id from the real catalogue rather than assuming
+  `${language}-${letter}` (Spanish Ñ is `es-enye`, not `es-ñ` — would have silently broken).
+- ⬜ P2's remaining game (`Trace the Letter`, an enhancement to the existing `DrawingPage` rather
+  than a new page — bigger regression surface, deliberately left for last) and `Find It` (blocked
+  on the content-pipeline color/size-attribute work called out below) are still just the plan.
+  P3–P4 untouched.
 
 ## 0. Five findings that shape everything below
 
@@ -437,7 +446,7 @@ problem, and the brief's own core principle ("AI is not the source of truth") ar
 
 **P2 — Highest-value new games (fully deterministic, ship with zero AI dependency)**
 - Trace the Letter (guide-weakening + per-letter mastery, enhancement to `DrawingPage`).
-- Write With Me.
+- ✅ **Shipped**: Write With Me.
 - ✅ **Shipped**: Feed the Monster.
 - Find It (needs the content-pipeline addition of color/size attributes, scoped separately).
 
