@@ -6,18 +6,22 @@ import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
 import { randomSeed, shuffle } from '../../games/shuffle'
+import { biasByLearningStats, type LearningStat } from '../../games/learningBias'
+import { listLearningStats, recordItemMissed, recordItemSeen } from '../../storage/LearningStatsRepository'
 import { playSound } from '../../audio/sounds'
 import { Icon } from '../../components/Icon'
 import './MissingLettersPage.css'
 
 const ROUNDS = 5
 const MAX_WORD = 8
+const GAME_ID = 'missing'
 
 const LANGUAGE_LABELS: Record<WordLanguage, string> = {
   uk: 'Українська', en: 'English', es: 'Español',
 }
 
 interface Round {
+  itemId: string
   word: string
   thumbnail: string
   /** Positions punched out of the word, left to right. */
@@ -37,6 +41,9 @@ export function MissingLettersPage() {
   const [seed, setSeed] = useState(randomSeed)
   const [filled, setFilled] = useState<Record<number, string>>({})
   const [used, setUsed] = useState<number[]>([])
+  const [stats, setStats] = useState<Record<string, LearningStat>>({})
+
+  useEffect(() => { void listLearningStats(GAME_ID).then(setStats) }, [])
 
   const rounds = useMemo<Round[]>(() => {
     if (!content.ready) return []
@@ -44,7 +51,11 @@ export function MissingLettersPage() {
       .map((picture) => ({ picture, word: (content.words[picture.id] ?? '').toUpperCase() }))
       .filter(({ word }) => /^[^\s·]+$/u.test(word) && word.length >= 4 && word.length <= MAX_WORD)
 
-    return shuffle(candidates, seed).slice(0, ROUNDS).map(({ picture, word }, i) => {
+    // Words never seen, or seen and missed, come up before ones already mastered.
+    const picks = biasByLearningStats(candidates, seed, (c) => stats[`${language}:${c.picture.id}`])
+      .slice(0, ROUNDS)
+
+    return picks.map(({ picture, word }, i) => {
       // Two holes for short words, three once there is room to guess from.
       const holes = word.length >= 6 ? 3 : 2
       const positions = word.split('').map((_, index) => index)
@@ -55,13 +66,14 @@ export function MissingLettersPage() {
         seed + i * 29,
       ).slice(0, 3)
       return {
+        itemId: `${language}:${picture.id}`,
         word,
         thumbnail: picture.thumbnail,
         gaps,
         choices: shuffle([...missing, ...spare], seed + i * 41),
       }
     })
-  }, [content.ready, content.pictures, content.words, content.letters, seed])
+  }, [content.ready, content.pictures, content.words, content.letters, language, stats, seed])
 
   const game = useGameSession(rounds)
   const current = game.current
@@ -69,7 +81,8 @@ export function MissingLettersPage() {
   useEffect(() => {
     setFilled({})
     setUsed([])
-  }, [game.round, rounds])
+    if (current) void recordItemSeen(GAME_ID, current.itemId)
+  }, [current, game.round, rounds])
 
   // The round is won once every hole holds its own letter.
   const solved = game.solved
@@ -96,6 +109,7 @@ export function MissingLettersPage() {
 
       if (current.word[gap] !== letter) {
         game.miss()
+        void recordItemMissed(GAME_ID, current.itemId)
         return prev
       }
 

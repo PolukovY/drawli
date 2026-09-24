@@ -6,12 +6,15 @@ import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
 import { randomSeed, shuffle } from '../../games/shuffle'
+import { biasByLearningStats, type LearningStat } from '../../games/learningBias'
+import { listLearningStats, recordItemMissed, recordItemSeen } from '../../storage/LearningStatsRepository'
 import { speakSequence, speakWord, stopSpeaking } from '../../audio/speech'
 import { Icon } from '../../components/Icon'
 import './OddWordPage.css'
 
 const ROUNDS = 5
 const GROUP = 3
+const GAME_ID = 'oddword'
 
 const LANGUAGE_LABELS: Record<WordLanguage, string> = {
   uk: 'Українська', en: 'English', es: 'Español',
@@ -35,6 +38,9 @@ export function OddWordPage() {
   const content = useGameContent(language)
   const [seed, setSeed] = useState(randomSeed)
   const [wrong, setWrong] = useState<string[]>([])
+  const [stats, setStats] = useState<Record<string, LearningStat>>({})
+
+  useEffect(() => { void listLearningStats(GAME_ID).then(setStats) }, [])
 
   // Only used for the "this device cannot speak" hint below — speakWord()
   // and speakSequence() already guard every real call themselves.
@@ -56,10 +62,12 @@ export function OddWordPage() {
     return Array.from({ length: ROUNDS }, (_, i) => {
       const [family, other] = shuffle(usable, seed + i * 31).slice(0, 2)
       const same = shuffle(family[1], seed + i * 37).slice(0, GROUP)
-      const odd = shuffle(other[1], seed + i * 41)[0]
+      // The odd word out is the one actually being tested; never-heard or
+      // previously-missed words come up before ones already mastered.
+      const odd = biasByLearningStats(other[1], seed + i * 41, (w) => stats[`${language}:${w}`])[0]
       return { words: shuffle([...same, odd], seed + i * 43), odd }
     })
-  }, [content.ready, content.pictures, content.words, seed])
+  }, [content.ready, content.pictures, content.words, language, stats, seed])
 
   const game = useGameSession(rounds)
   const current = game.current
@@ -72,8 +80,8 @@ export function OddWordPage() {
 
   useEffect(() => {
     setWrong([])
-    if (current) sayAll(current.words)
-  }, [current, sayAll])
+    if (current) { sayAll(current.words); void recordItemSeen(GAME_ID, `${language}:${current.odd}`) }
+  }, [current, sayAll, language])
 
   // Leaving the screen mid-word should not follow the child to the next one.
   useEffect(() => stopSpeaking, [])
@@ -82,6 +90,7 @@ export function OddWordPage() {
     if (!current || game.solved || wrong.includes(word)) return
     if (word === current.odd) { void game.solve(); return }
     game.miss()
+    void recordItemMissed(GAME_ID, `${language}:${current.odd}`)
     setWrong((prev) => [...prev, word])
   }
 
