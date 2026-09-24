@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GameShell } from '../../games/GameShell'
 import { useGameSession } from '../../games/useGameSession'
-import { randomSeed } from '../../games/shuffle'
+import { createRoller, randomSeed } from '../../games/shuffle'
 import { playSound } from '../../audio/sounds'
 import { Icon } from '../../components/Icon'
 import './MazePage.css'
@@ -34,11 +34,7 @@ const STEPS: Record<Dir, { dr: number; dc: number; back: Dir }> = {
  * cells, so the mouse can never be truly stuck, only turned around.
  */
 function carve(seed: number): Cell[] {
-  let value = seed
-  const roll = (max: number) => {
-    value = (value * 1103515245 + 12345) % 2147483648
-    return value % max
-  }
+  const roll = createRoller(seed)
 
   const cells: Cell[] = Array.from({ length: SIZE * SIZE }, () => ({
     up: true, down: true, left: true, right: true,

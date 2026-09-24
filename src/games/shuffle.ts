@@ -21,3 +21,19 @@ export function shuffle<T>(items: T[], seed: number): T[] {
 export function randomSeed(): number {
   return 1 + Math.floor(Math.random() * 100000)
 }
+
+/**
+ * A `roll(max)` closure for games that need numbers, not a reordered array:
+ * each call advances the same LCG `shuffle` uses and returns a value in
+ * [0, max). Several games used to hand-roll this with `state % max`
+ * directly, which hit the same low-bit weakness `shuffle` had — a small
+ * modulus could return the same value for many calls in a row. This reads
+ * the generator's high bits instead, like `shuffle` does.
+ */
+export function createRoller(seed: number): (max: number) => number {
+  let state = seed
+  return (max: number) => {
+    state = (state * 1103515245 + 12345) % 2147483648
+    return Math.floor(state / 65536) % max
+  }
+}

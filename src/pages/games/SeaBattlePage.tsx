@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GameShell } from '../../games/GameShell'
 import { useGameSession } from '../../games/useGameSession'
-import { randomSeed } from '../../games/shuffle'
+import { createRoller, randomSeed } from '../../games/shuffle'
 import { Icon } from '../../components/Icon'
 import { playSound } from '../../audio/sounds'
 import './SeaBattlePage.css'
@@ -20,11 +20,7 @@ interface Board {
 
 /** Places the fleet without ships touching, so every hit is unambiguous. */
 function deploy(seed: number): Board {
-  let value = seed
-  const roll = (max: number) => {
-    value = (value * 1103515245 + 12345) % 2147483648
-    return value % max
-  }
+  const roll = createRoller(seed)
 
   const ships = new Map<number, number>()
   const blocked = new Set<number>()
