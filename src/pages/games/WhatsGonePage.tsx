@@ -10,7 +10,10 @@ import './WhatsGonePage.css'
 const ROUNDS = 5
 /** Long enough to look at every card once, short enough to still be a memory. */
 const LOOK_MS = 4000
-const THINGS = ['🍎', '🐞', '⭐', '🌸', '🐟', '🦋', '🍄', '🐝', '🍋', '🌙', '🍓', '🐢', '🚗', '🎈', '🐸', '🍌']
+const THINGS = [
+  '🍎', '🐞', '⭐', '🌸', '🐟', '🦋', '🍄', '🐝', '🍋', '🌙', '🍓', '🐢', '🚗', '🎈', '🐸', '🍌',
+  '🐰', '🐱', '🐶', '🍇', '🌻', '🚌', '🦆', '🧸',
+]
 
 interface Round {
   shown: string[]
