@@ -10,7 +10,7 @@ import { Icon } from '../../components/Icon'
 import './CountPage.css'
 
 const ROUNDS = 5
-const MAX_COUNT = 9
+const MAX_COUNT = 20
 
 interface Round {
   thumbnail: string
@@ -29,7 +29,7 @@ export function CountPage() {
     if (content.allPictures.length === 0) return []
     return shuffle(content.allPictures, seed).slice(0, ROUNDS).map((picture, i) => {
       // Early rounds stay small; later ones ask for more.
-      const ceiling = difficultyTier(i, [{ from: 0, value: 5 }, { from: 2, value: MAX_COUNT }])
+      const ceiling = difficultyTier(i, [{ from: 0, value: 5 }, { from: 2, value: 9 }, { from: 4, value: MAX_COUNT }])
       const count = 1 + ((seed * (i + 3) * 7 + i * 5) % ceiling)
       const others = shuffle(
         Array.from({ length: ceiling }, (_, n) => n + 1).filter((n) => n !== count),
