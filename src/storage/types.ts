@@ -144,3 +144,16 @@ export interface ChildPhoto {
   selectedCutout: string | null
   decorations: PhotoDecoration[]
 }
+
+/**
+ * How much a child has played one game — one row per `GameEntry.id` from
+ * `games/catalogue.ts`. Powers the "which games get played most" audit view;
+ * not a per-word/per-letter mastery model (see `doc/ai-roadmap.md`'s
+ * `learningStats` proposal for that, which is separate, future work).
+ */
+export interface GameStats {
+  gameId: string
+  playCount: number
+  starsEarned: number
+  lastPlayedAt: string
+}

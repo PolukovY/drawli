@@ -1,0 +1,37 @@
+.audit-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+}
+
+.audit-row__rank {
+  width: 28px;
+  flex-shrink: 0;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--c-text-muted);
+}
+
+.audit-row__art { font-size: 30px; flex-shrink: 0; }
+
+.audit-row__title { font-size: 17px; font-weight: 800; }
+.audit-row__meta { font-size: 14px; padding-top: 2px; }
+
+.audit-row__stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--c-text);
+}
+
+@media (max-width: 700px) {
+  .audit-row { padding: 10px 12px; gap: 10px; }
+  .audit-row__art { font-size: 24px; }
+  .audit-row__title { font-size: 15px; }
+  .audit-row__meta { font-size: 12px; }
+}

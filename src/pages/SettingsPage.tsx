@@ -251,6 +251,17 @@ export function SettingsPage() {
         </section>
 
         <section className="card setting">
+          <span className="setting__icon"><Icon name="play" size={28} color="var(--c-accent)" filled /></span>
+          <div className="grow">
+            <div className="setting__title">{t('settings.audit')}</div>
+            <div className="muted" style={{ fontSize: 16 }}>{t('settings.auditHint')}</div>
+          </div>
+          <button className="btn btn--primary" onClick={() => navigate('/audit')}>
+            {t('settings.auditOpen')}
+          </button>
+        </section>
+
+        <section className="card setting">
           <span className="setting__icon"><Icon name="download" size={28} color="var(--c-accent)" /></span>
           <div className="grow">
             <div className="setting__title">{t('settings.backup')}</div>

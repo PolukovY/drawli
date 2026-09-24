@@ -7,6 +7,7 @@ import { Fireworks } from '../../components/Fireworks'
 import { playSound } from '../../audio/sounds'
 import { speak, stopSpeaking } from '../../audio/speech'
 import { getPhoto, savePhoto } from '../../storage/PhotoRepository'
+import { recordGamePlay } from '../../storage/GameStatsRepository'
 import type { PhotoDecoration } from '../../storage/types'
 import { useCamera } from './useCamera'
 import { captureFrame, composePhoto } from './capture'
@@ -206,6 +207,13 @@ export function PhotoStudioPage() {
     if (step === 'home') speak(t('photo.homeHint'))
     return () => stopSpeaking()
   }, [step, t])
+
+  // Photo Studio doesn't render through GameShell (its own camera/decorate
+  // flow needs a different header), so it records its own play for the
+  // games audit instead of getting it for free like the other games.
+  useEffect(() => {
+    void recordGamePlay('photostudio')
+  }, [])
 
   // Revoke the previous object URL whenever a new one replaces it, and on unmount.
   useEffect(() => {

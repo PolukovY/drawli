@@ -5,6 +5,7 @@ import { DrawingPage } from '../pages/DrawingPage'
 import { MyDrawingsPage } from '../pages/MyDrawingsPage'
 import { ProgressPage } from '../pages/ProgressPage'
 import { SettingsPage } from '../pages/SettingsPage'
+import { AuditPage } from '../pages/AuditPage'
 import { SpellGamePage } from '../pages/SpellGamePage'
 import { FreeDrawPage } from '../pages/FreeDrawPage'
 import { GuessGamePage } from '../pages/GuessGamePage'
@@ -57,6 +58,7 @@ export const router = createHashRouter([
   { path: '/drawings', element: <MyDrawingsPage /> },
   { path: '/progress', element: <ProgressPage /> },
   { path: '/settings', element: <SettingsPage /> },
+  { path: '/audit', element: <AuditPage /> },
   { path: '/spell', element: <SpellGamePage /> },
   { path: '/free', element: <FreeDrawPage /> },
   { path: '/guess', element: <GuessGamePage /> },
