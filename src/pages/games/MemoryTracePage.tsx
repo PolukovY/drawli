@@ -18,7 +18,10 @@ import './MemoryTracePage.css'
 const ROUNDS = 3
 const PEEK_SECONDS = 3
 /** Simple silhouettes: what a child can hold in their head for three seconds. */
-const SUBJECTS = ['circle', 'square', 'triangle', 'heart', 'star', 'moon', 'egg', 'cross', 'arrow', 'house', 'apple', 'balloon']
+const SUBJECTS = [
+  'circle', 'square', 'triangle', 'heart', 'star', 'moon', 'egg', 'cross', 'arrow', 'house',
+  'apple', 'balloon', 'diamond', 'hexagon', 'pentagon', 'oval', 'rectangle',
+]
 
 interface Round {
   id: string
