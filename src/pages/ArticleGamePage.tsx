@@ -1,19 +1,16 @@
-import { useCallback, useEffect, useState, useRef } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '../components/Icon'
-import { Fireworks } from '../components/Fireworks'
-import { playSound } from '../audio/sounds'
-import { useAppStore } from '../app/store'
-import { randomSeed } from '../games/shuffle'
+import { GameShell } from '../games/GameShell'
+import { useGameSession } from '../games/useGameSession'
+import { randomSeed, shuffle } from '../games/shuffle'
 import { assetUrl, loadArticles, loadIndex, loadWords } from '../exercise/ExerciseLoader'
 import type { ExerciseSummary } from '../exercise/Exercise'
 import '../styles/ui.css'
 import './ArticleGamePage.css'
 
 const ROUNDS = 5
-const STARS_PER_ROUND = 2
-const NEXT_DELAY = 3000
 const ABSTRACT_CATEGORIES = new Set(['motor', 'shapes'])
 
 /** Only languages that have articles; Ukrainian has none to practise. */
@@ -29,17 +26,6 @@ const LANGUAGE_LABELS: Record<ArticleLanguage, string> = {
   es: 'Español',
 }
 
-function shuffle<T>(items: T[], seed: number): T[] {
-  const out = [...items]
-  let random = seed
-  for (let i = out.length - 1; i > 0; i -= 1) {
-    random = (random * 1103515245 + 12345) % 2147483648
-    const j = random % (i + 1)
-    ;[out[i], out[j]] = [out[j], out[i]]
-  }
-  return out
-}
-
 interface Round {
   exercise: ExerciseSummary
   word: string
@@ -47,26 +33,16 @@ interface Round {
 }
 
 export function ArticleGamePage() {
-  const navigate = useNavigate()
   const [search] = useSearchParams()
   const { t } = useTranslation()
-  const awardStars = useAppStore((s) => s.awardStars)
-  const stars = useAppStore((s) => s.settings?.stars ?? 0)
 
   const language: ArticleLanguage = search.get('lang') === 'es' ? 'es' : 'en'
 
   const [pool, setPool] = useState<ExerciseSummary[]>([])
   const [words, setWords] = useState<Record<string, string>>({})
   const [articles, setArticles] = useState<Record<string, string>>({})
-  const [rounds, setRounds] = useState<Round[]>([])
-  const [round, setRound] = useState(0)
-  const roundRef = useRef(0)
-  roundRef.current = round
   const [seed, setSeed] = useState(randomSeed)
   const [wrong, setWrong] = useState<string[]>([])
-  const [solved, setSolved] = useState(false)
-  const [earned, setEarned] = useState(0)
-  const [finished, setFinished] = useState(false)
 
   useEffect(() => {
     void loadWords().then((all) => setWords(all[language] ?? {})).catch(() => undefined)
@@ -86,102 +62,42 @@ export function ArticleGamePage() {
       .catch(() => undefined)
   }, [])
 
-  useEffect(() => {
-    if (pool.length === 0 || Object.keys(articles).length === 0) return
+  const rounds = useMemo<Round[]>(() => {
+    if (pool.length === 0 || Object.keys(articles).length === 0) return []
 
     // Plurals carry "los" / "las", which are not on offer here.
     const usable = pool.filter((e) => words[e.id] && OPTIONS[language].includes(articles[e.id]))
 
-    setRounds(
-      shuffle(usable, seed)
-        .slice(0, ROUNDS)
-        .map((exercise) => ({ exercise, word: words[exercise.id], article: articles[exercise.id] })),
-    )
-    setRound(0)
-    setFinished(false)
+    return shuffle(usable, seed)
+      .slice(0, ROUNDS)
+      .map((exercise) => ({ exercise, word: words[exercise.id], article: articles[exercise.id] }))
   }, [pool, words, articles, language, seed])
 
-  const current = rounds[round]
+  const game = useGameSession(rounds)
+  const current = game.current
 
-  const next = useCallback(() => {
-    // Never call setState from inside an updater: React may re-run it and drop
-    // the call, which used to leave the game running past its last round.
-    if (roundRef.current + 1 < rounds.length) setRound(roundRef.current + 1)
-    else setFinished(true)
-  }, [rounds.length])
+  // Wrong picks belong to the round they were made in; the auto-advance does
+  // not run the Next handler, so clearing them there was not enough.
+  useEffect(() => { setWrong([]) }, [game.round, rounds])
 
-  useEffect(() => {
-    setWrong([])
-    setSolved(false)
-  }, [round])
-
-  useEffect(() => {
-    if (finished) playSound('fanfare')
-  }, [finished])
-
-  useEffect(() => {
-    if (!solved) return
-    const timer = window.setTimeout(next, NEXT_DELAY)
-    return () => window.clearTimeout(timer)
-  }, [solved, next])
-
-  async function pick(option: string) {
-    if (!current || solved || wrong.includes(option)) return
-    if (option === current.article) {
-      playSound('correct')
-      setSolved(true)
-      setEarned((e) => e + STARS_PER_ROUND)
-      await awardStars(STARS_PER_ROUND)
-      return
-    }
-    playSound('soft')
+  function pick(option: string) {
+    if (!current || game.solved || wrong.includes(option)) return
+    if (option === current.article) { void game.solve(); return }
+    game.miss()
     setWrong((prev) => [...prev, option])
   }
 
-  if (finished) {
-    return (
-      <div className="center-screen">
-        <Fireworks variant="finale" />
-        <div style={{ fontSize: 36, fontWeight: 800 }}>{t('play.finished')}</div>
-        <div className="completion__stars">
-          <Icon name="star" size={30} color="var(--c-star)" filled />
-          {t('complete.stars', { count: earned })}
-        </div>
-        <div className="row" style={{ gap: 12 }}>
-          <button
-            className="btn btn--primary btn--hero"
-            onClick={() => { setSeed((s) => s + 89); setEarned(0) }}
-          >
-            <Icon name="again" size={24} color="#fff" width={2.4} />
-            {t('play.again')}
-          </button>
-          <button className="btn btn--hero" onClick={() => navigate('/')}>
-            {t('complete.another')}
-          </button>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div className="screen article-game">
-      {solved ? <Fireworks /> : null}
-
-      <header className="row">
-        <button className="icon-btn" onClick={() => navigate('/')} aria-label={t('nav.draw')}>
-          <Icon name="back" size={26} color="var(--c-text)" width={2.6} />
-        </button>
-        <div className="title grow">{t('play.article')}</div>
-        <div className="chip">{LANGUAGE_LABELS[language]}</div>
-        <div className="muted" style={{ fontSize: 17 }}>
-          {round + 1} / {rounds.length || ROUNDS}
-        </div>
-        <div className="star-badge">
-          <Icon name="star" size={22} color="var(--c-star)" filled />
-          {stars}
-        </div>
-      </header>
-
+    <GameShell
+      title={t('play.article')}
+      language={LANGUAGE_LABELS[language]}
+      round={game.round}
+      total={game.total}
+      solved={game.solved}
+      finished={game.finished}
+      earned={game.earned}
+      onPlayAgain={() => { setSeed((s) => s + 89); game.restart() }}
+    >
       {current ? (
         <div className="article-board">
           <div className="article-picture card">
@@ -189,8 +105,8 @@ export function ArticleGamePage() {
           </div>
 
           <div className="article-phrase">
-            <span className={`article-slot ${solved ? 'article-slot--ok' : ''}`}>
-              {solved ? current.article : '?'}
+            <span className={`article-slot ${game.solved ? 'article-slot--ok' : ''}`}>
+              {game.solved ? current.article : '?'}
             </span>
             <span className="article-word">{current.word.toLowerCase()}</span>
           </div>
@@ -200,18 +116,18 @@ export function ArticleGamePage() {
               <button
                 key={option}
                 className={`article-option ${
-                  solved && option === current.article ? 'article-option--ok' : ''
+                  game.solved && option === current.article ? 'article-option--ok' : ''
                 } ${wrong.includes(option) ? 'article-option--off' : ''}`}
-                onClick={() => void pick(option)}
-                disabled={solved || wrong.includes(option)}
+                onClick={() => pick(option)}
+                disabled={game.solved || wrong.includes(option)}
               >
                 {option}
               </button>
             ))}
           </div>
 
-          {solved ? (
-            <button className="btn btn--primary btn--hero article-next" onClick={next}>
+          {game.solved ? (
+            <button className="btn btn--primary btn--hero article-next" onClick={game.next}>
               <span className="article-next__fill" />
               <span className="article-next__label">
                 {t('play.next')}
@@ -225,6 +141,6 @@ export function ArticleGamePage() {
       ) : (
         <div className="subtitle">{t('play.loading')}</div>
       )}
-    </div>
+    </GameShell>
   )
 }

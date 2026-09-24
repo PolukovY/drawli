@@ -1,5 +1,3 @@
-.guess { gap: 14px; }
-
 .guess__board {
   flex-grow: 1;
   display: flex;
@@ -84,9 +82,6 @@
 }
 
 @media (max-width: 700px) {
-  .guess > header .title { font-size: 16px; white-space: nowrap; }
-  .guess > header .muted { white-space: nowrap; font-size: 14px; }
-  .guess > header .chip { font-size: 13px; padding: 0 10px; }
   .guess__word { font-size: 30px; }
   .guess__hint { font-size: 14px; text-align: center; }
   .guess__choices { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }

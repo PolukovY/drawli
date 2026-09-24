@@ -17,7 +17,10 @@ import './SymmetryPage.css'
 
 const ROUNDS = 3
 /** Symmetrical enough that half of it is a fair prompt. */
-const SUBJECTS = ['butterfly', 'ladybug', 'heart', 'star', 'flower', 'sun', 'tree', 'firtree', 'balloon', 'apple']
+const SUBJECTS = [
+  'butterfly', 'ladybug', 'heart', 'star', 'flower', 'sun', 'tree', 'firtree', 'balloon', 'apple',
+  'snowflake', 'gift', 'penguin', 'sunflower', 'umbrella', 'vase',
+]
 
 interface Round {
   id: string

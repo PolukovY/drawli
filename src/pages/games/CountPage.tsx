@@ -5,6 +5,7 @@ import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
 import { randomSeed, shuffle } from '../../games/shuffle'
+import { difficultyTier } from '../../games/difficultyTier'
 import { Icon } from '../../components/Icon'
 import './CountPage.css'
 
@@ -27,9 +28,11 @@ export function CountPage() {
   const rounds = useMemo<Round[]>(() => {
     if (content.allPictures.length === 0) return []
     return shuffle(content.allPictures, seed).slice(0, ROUNDS).map((picture, i) => {
-      const count = 1 + ((seed * (i + 3) * 7 + i * 5) % MAX_COUNT)
+      // Early rounds stay small; later ones ask for more.
+      const ceiling = difficultyTier(i, [{ from: 0, value: 5 }, { from: 2, value: MAX_COUNT }])
+      const count = 1 + ((seed * (i + 3) * 7 + i * 5) % ceiling)
       const others = shuffle(
-        Array.from({ length: MAX_COUNT }, (_, n) => n + 1).filter((n) => n !== count),
+        Array.from({ length: ceiling }, (_, n) => n + 1).filter((n) => n !== count),
         seed + i * 13,
       ).slice(0, 3)
       return { thumbnail: picture.thumbnail, count, choices: shuffle([count, ...others], seed + i * 19) }

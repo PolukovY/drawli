@@ -14,7 +14,21 @@ following piece is reviewed.
   last-played, per game) and a parent-facing **Games Audit** screen (`Settings → Games audit`)
   ranking every game by how much it's played. This is the first slice of the P0 list below —
   pure deterministic instrumentation, no AI. Branch: `claude/games-audit-tracking`.
-- ⬜ Everything else in Section E (P0's remaining items, P1–P4) is still just the plan.
+- ✅ **Shipped**: all four of the P0 cross-cutting fixes from Section 0 below. `Guess` and
+  `Articles` migrated onto `useGameSession` + shared `shuffle.ts` (`Spell` was deliberately left
+  alone — its partial-credit retry state has no clean equivalent in `useGameSession`). Added the
+  shared `difficultyTier` helper and applied it to `Count`, `FindLetter`/`FirstLetter`,
+  `BiggerNumber`/`CountThings`. Grew every "smallest fixed pool" game named in the audit:
+  `Puzzle` (4 → 4/6/9 pieces by round), `Connect the Dots` (6 → 10 shapes), `Picture Sudoku`
+  (3 → 8 emoji sets), `Symmetry` (10 → 16 subjects), `Memory Trace` (12 → 17 subjects), `What's
+  Gone?` (16 → 24 emoji). Along the way, found and fixed a real bug in the shared `shuffle()`
+  itself: a poor-quality low-bit LCG output was feeding the swap index directly, so pools of
+  ~10 items had one or two entries that almost never got picked (verified: "house" in the
+  original 6-shape Connect the Dots landed in a round roughly 14 times in 18,000 trials instead
+  of the expected ~3,000). That fix benefits every game that shuffles a pool, not just the ones
+  touched here.
+- ⬜ Everything else in Section E (the per-item stat/spaced-repetition work, P1–P4) is still just
+  the plan.
 
 ## 0. Five findings that shape everything below
 
@@ -67,7 +81,7 @@ Per-game entries (grouped by what they teach; ★ = uses `useGameSession`, ⚙ =
 | Missing Letters ★ | `/missing` | Fill blanks in a word | 2–3 gaps by word length | No (gap count only) | Moderate | C |
 | Guess ⚙ | `/guess` | Word→picture recognition | 4-picture choice | No | Moderate | C |
 | First Letter ★ | `/first-letter` | First-letter phonics | 4 letter choices | No | High (small alphabet) | C |
-| Articles ⚙ | `/articles` | a/an, el/la | Binary choice, en/es only | No | **Highest** (binary, and **en side is a data bug — every word maps to "a", never "an"**) | C (fix the bug; no AI needed) |
+| Articles ⚙ | `/articles` | a/an, el/la | Binary choice, en/es only | No | **Highest** (binary choice) | C |
 | Find Letter ★ | `/find-letter` | Letter matching | 4 letters, no pictures | No | High (most abstract) | D |
 | Count ★ | `/count` | Count 1–9 | Repeated icon + number choice | No | Moderate | C |
 | Bigger Number ★ | `/bigger` | Numeral comparison | Two numbers + dot count | **Yes** (9→20 by round) | Low-moderate | C |
@@ -121,10 +135,11 @@ example — variation and phrasing on top of a deterministic answer, never picki
    `FirstLetter`/`FindLetter`: start with visually-distinct distractor letters, introduce
    visually-similar ones — b/d, p/q — only in later rounds; `PictureSudoku`/`Puzzle`: grow piece
    count 4→6→9 across repeat plays, tracked via the new `learningStats` table in P0 below).
-3. *Fix the Articles English data bug*: `articles.json`'s English half is literally always
-   `"a"`. Compute a/an deterministically from whether the word's first letter is a vowel
-   (same spirit as the existing `syllableSplit.ts` vowel-set heuristics) rather than hand-editing
-   148 entries.
+3. ~~Fix the Articles English data bug~~ — **checked, not actually a bug**: an earlier pass of
+   this audit claimed `articles.json`'s English half was always `"a"`, based on sampling only the
+   first few (consonant-starting, abstract-category) entries. The full file was verified directly:
+   135 "a" / 13 "an", zero mismatches against which words actually start with a vowel letter. No
+   fix needed here — corrected so this doesn't get "fixed" again later.
 4. *Grow the smallest fixed content pools*, which are the games' own biggest repetition-risk
    contributors and need no AI: `Puzzle`'s piece count, `Connect the Dots`'s 6 shapes,
    `PictureSudoku`'s 3 emoji sets, `Symmetry`/`MemoryTrace`'s 10–12 subject pools, `WhatsGone`'s
@@ -386,7 +401,7 @@ problem, and the brief's own core principle ("AI is not the source of truth") ar
   *which games* get played, not *which words within them* still need practice.
 - Shared `useDifficultyTier` helper; apply to the highest-repetition-risk flat games from Section A.
 - Migrate `Spell`/`Guess`/`Articles` onto `useGameSession` + shared `shuffle.ts`.
-- Fix the Articles en a/an data bug.
+- ~~Fix the Articles en a/an data bug~~ — not real, see the note above.
 - Scaffold `LocalAIService` as an interface + a `NoopProvider` (always returns the deterministic
   fallback) — ships as inert, zero-risk plumbing before any model integration exists.
 

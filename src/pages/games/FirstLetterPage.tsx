@@ -6,6 +6,8 @@ import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
 import { randomSeed, shuffle } from '../../games/shuffle'
+import { difficultyTier } from '../../games/difficultyTier'
+import { lookalikesOf } from '../../games/confusableLetters'
 import { Icon } from '../../components/Icon'
 import './FirstLetterPage.css'
 
@@ -41,15 +43,22 @@ export function FirstLetterPage() {
 
     return shuffle(named, seed).slice(0, ROUNDS).map(({ picture, word }, i) => {
       const letter = word[0]
-      const others = shuffle(content.letters.filter((l) => l !== letter), seed + i * 19)
-        .slice(0, CHOICES - 1)
+      const pool = content.letters.filter((l) => l !== letter)
+      // Early rounds keep choices visually distinct; later ones mix in
+      // letters this letter is actually easy to mix up.
+      const lookalikes = difficultyTier(i, [
+        { from: 0, value: [] as string[] },
+        { from: 2, value: lookalikesOf(language, letter) },
+      ]).filter((l) => pool.includes(l))
+      const rest = shuffle(pool.filter((l) => !lookalikes.includes(l)), seed + i * 19)
+      const others = [...lookalikes, ...rest].slice(0, CHOICES - 1)
       return {
         thumbnail: picture.thumbnail,
         letter,
         choices: shuffle([letter, ...others], seed + i * 23),
       }
     })
-  }, [content.ready, content.pictures, content.words, content.letters, seed])
+  }, [content.ready, content.pictures, content.words, content.letters, language, seed])
 
   const game = useGameSession(rounds)
   const current = game.current

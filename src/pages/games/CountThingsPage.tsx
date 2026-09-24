@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { GameShell } from '../../games/GameShell'
 import { useGameSession } from '../../games/useGameSession'
 import { randomSeed, shuffle } from '../../games/shuffle'
+import { difficultyTier } from '../../games/difficultyTier'
 import { Icon } from '../../components/Icon'
 import './CountThingsPage.css'
 
@@ -37,7 +38,7 @@ export function CountThingsPage() {
     for (let i = 0; i < ROUNDS; i += 1) {
       const kinds = shuffle(THINGS, seed + i * 23).slice(0, 3)
       // Early rounds stay small; later ones ask for more.
-      const ceiling = i < 2 ? 5 : MAX_COUNT
+      const ceiling = difficultyTier(i, [{ from: 0, value: 5 }, { from: 2, value: MAX_COUNT }])
       const count = 2 + roll(ceiling - 1)
       const items = [
         ...Array.from({ length: count }, () => kinds[0]),
