@@ -3,9 +3,18 @@
 Companion to [arch.md](arch.md) and [feature.md](feature.md) (both currently a bit stale — see
 the note at the end). This document is the output of a full repo audit done before touching any
 code, per the brief: understand what exists, find where AI genuinely helps, propose an
-architecture, and lay out a phased plan. **No implementation has happened yet.** This is the
-"Phase 13" deliverable (Existing Game Audit → Missing Areas → New Game Proposals → Architecture
-→ Prioritized Plan); Phase 14 (actual coding) starts only after this is reviewed.
+architecture, and lay out a phased plan. This is the "Phase 13" deliverable (Existing Game Audit
+→ Missing Areas → New Game Proposals → Architecture → Prioritized Plan); Phase 14 (actual coding)
+now has its first slice shipped — see **Status** below — with the rest starting only as each
+following piece is reviewed.
+
+## Status
+
+- ✅ **Shipped**: game-play tracking (`gameStats` Dexie table: play count, cumulative stars,
+  last-played, per game) and a parent-facing **Games Audit** screen (`Settings → Games audit`)
+  ranking every game by how much it's played. This is the first slice of the P0 list below —
+  pure deterministic instrumentation, no AI. Branch: `claude/games-audit-tracking`.
+- ⬜ Everything else in Section E (P0's remaining items, P1–P4) is still just the plan.
 
 ## 0. Five findings that shape everything below
 
@@ -367,9 +376,14 @@ problem, and the brief's own core principle ("AI is not the source of truth") ar
 ## E. Prioritized Implementation Plan
 
 **P0 — Foundation (no AI, ships value immediately, de-risks everything after it)**
-- New Dexie table `learningStats` (`{gameId, itemId, seenCount, missCount, lastSeenAt}`) +
-  version-3 migration (additive only, following the existing v1→v2 precedent).
-- Deterministic weighted-selection helper on top of it; wire into 2–3 games as a proof of concept.
+- ✅ **Shipped**: `gameStats` Dexie table (version 3) — play count, cumulative stars, last-played
+  per game — plus the Games Audit screen reading it. This is the coarse, per-*game* half of this
+  bullet; see Status above.
+- Still open: a finer-grained `learningStats` table (`{gameId, itemId, seenCount, missCount,
+  lastSeenAt}`, per *word/letter*, would land as version 4 on top of the schema above) and a
+  deterministic weighted-selection helper on top of it; wire into 2–3 games as a proof of concept.
+  This is what actually powers spaced repetition (Phase 9) — `gameStats` alone only tells you
+  *which games* get played, not *which words within them* still need practice.
 - Shared `useDifficultyTier` helper; apply to the highest-repetition-risk flat games from Section A.
 - Migrate `Spell`/`Guess`/`Articles` onto `useGameSession` + shared `shuffle.ts`.
 - Fix the Articles en a/an data bug.
