@@ -14,7 +14,21 @@ following piece is reviewed.
   last-played, per game) and a parent-facing **Games Audit** screen (`Settings → Games audit`)
   ranking every game by how much it's played. This is the first slice of the P0 list below —
   pure deterministic instrumentation, no AI. Branch: `claude/games-audit-tracking`.
-- ⬜ Everything else in Section E (P0's remaining items, P1–P4) is still just the plan.
+- ✅ **Shipped**: all four of the P0 cross-cutting fixes from Section 0 below. `Guess` and
+  `Articles` migrated onto `useGameSession` + shared `shuffle.ts` (`Spell` was deliberately left
+  alone — its partial-credit retry state has no clean equivalent in `useGameSession`). Added the
+  shared `difficultyTier` helper and applied it to `Count`, `FindLetter`/`FirstLetter`,
+  `BiggerNumber`/`CountThings`. Grew every "smallest fixed pool" game named in the audit:
+  `Puzzle` (4 → 4/6/9 pieces by round), `Connect the Dots` (6 → 10 shapes), `Picture Sudoku`
+  (3 → 8 emoji sets), `Symmetry` (10 → 16 subjects), `Memory Trace` (12 → 17 subjects), `What's
+  Gone?` (16 → 24 emoji). Along the way, found and fixed a real bug in the shared `shuffle()`
+  itself: a poor-quality low-bit LCG output was feeding the swap index directly, so pools of
+  ~10 items had one or two entries that almost never got picked (verified: "house" in the
+  original 6-shape Connect the Dots landed in a round roughly 14 times in 18,000 trials instead
+  of the expected ~3,000). That fix benefits every game that shuffles a pool, not just the ones
+  touched here.
+- ⬜ Everything else in Section E (the per-item stat/spaced-repetition work, P1–P4) is still just
+  the plan.
 
 ## 0. Five findings that shape everything below
 
