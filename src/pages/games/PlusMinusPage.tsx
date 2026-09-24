@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GameShell } from '../../games/GameShell'
 import { useGameSession } from '../../games/useGameSession'
-import { randomSeed, shuffle } from '../../games/shuffle'
+import { createRoller, randomSeed, shuffle } from '../../games/shuffle'
 import { Icon } from '../../components/Icon'
 import './PlusMinusPage.css'
 
@@ -28,11 +28,7 @@ export function PlusMinusPage() {
 
   const rounds = useMemo<Round[]>(() => {
     const out: Round[] = []
-    let value = seed
-    const roll = (max: number) => {
-      value = (value * 1103515245 + 12345) % 2147483648
-      return value % max
-    }
+    const roll = createRoller(seed)
 
     for (let i = 0; i < ROUNDS; i += 1) {
       const thing = shuffle(THINGS, seed + i * 13)[0]

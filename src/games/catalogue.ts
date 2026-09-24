@@ -40,6 +40,8 @@ export const GAMES: GameEntry[] = [
   { id: 'sorting', path: '/sorting', titleKey: 'play.sorting', art: '🧺', languages: 'all', order: 25 },
   { id: 'maze', path: '/maze', titleKey: 'play.maze', art: '🧭', languages: 'all', order: 26 },
   { id: 'plusminus', path: '/plus-minus', titleKey: 'play.plusMinus', art: '➕', languages: 'all', order: 27 },
+  { id: 'feedmonster', path: '/feed-monster', titleKey: 'play.feedMonster', art: '👹', languages: 'all', order: 27.5 },
+  { id: 'writewithme', path: '/write-with-me', titleKey: 'play.writeWithMe', art: '✍️', languages: 'all', order: 4.5 },
   { id: 'sudoku', path: '/picture-sudoku', titleKey: 'play.sudoku', art: '🧠', languages: 'all', order: 28 },
   { id: 'differences', path: '/differences', titleKey: 'play.differences', art: '🔍', languages: 'all', order: 29 },
   { id: 'syllables', path: '/syllables', titleKey: 'play.syllables', art: '👏', languages: 'all', order: 30 },

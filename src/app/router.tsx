@@ -34,6 +34,8 @@ import { SizeOrderPage } from '../pages/games/SizeOrderPage'
 import { SortingPage } from '../pages/games/SortingPage'
 import { MazePage } from '../pages/games/MazePage'
 import { PlusMinusPage } from '../pages/games/PlusMinusPage'
+import { FeedMonsterPage } from '../pages/games/FeedMonsterPage'
+import { WriteWithMePage } from '../pages/games/WriteWithMePage'
 import { PictureSudokuPage } from '../pages/games/PictureSudokuPage'
 import { DifferencesPage } from '../pages/games/DifferencesPage'
 import { SyllablesPage } from '../pages/games/SyllablesPage'
@@ -87,6 +89,8 @@ export const router = createHashRouter([
   { path: '/sorting', element: <SortingPage /> },
   { path: '/maze', element: <MazePage /> },
   { path: '/plus-minus', element: <PlusMinusPage /> },
+  { path: '/feed-monster', element: <FeedMonsterPage /> },
+  { path: '/write-with-me', element: <WriteWithMePage /> },
   { path: '/picture-sudoku', element: <PictureSudokuPage /> },
   { path: '/differences', element: <DifferencesPage /> },
   { path: '/syllables', element: <SyllablesPage /> },

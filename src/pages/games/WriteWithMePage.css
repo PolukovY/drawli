@@ -1,0 +1,52 @@
+.write-with-me { align-items: center; gap: 18px; }
+
+.write-with-me__progress {
+  display: flex;
+  gap: 10px;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--c-text-muted);
+}
+
+.write-with-me__letter {
+  min-width: 30px;
+  text-align: center;
+  border-bottom: 3px solid #CFC7E6;
+}
+.write-with-me__letter--done { color: var(--c-success); border-color: var(--c-success); }
+.write-with-me__letter--current { color: var(--c-accent); border-color: var(--c-accent); }
+
+.write-with-me__stage {
+  width: min(60vh, 340px);
+  height: min(60vh, 340px);
+  position: relative;
+}
+
+.write-with-me__reveal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.write-with-me__picture {
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.write-with-me__picture img { max-width: 100%; max-height: 100%; }
+
+@media (max-width: 700px) {
+  .write-with-me__progress { font-size: 26px; gap: 6px; }
+  .write-with-me__stage { width: min(44vh, 240px); height: min(44vh, 240px); }
+  .write-with-me__picture { width: 140px; height: 140px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .write-with-me__stage { width: 180px; height: 180px; }
+  .write-with-me__picture { width: 100px; height: 100px; }
+}

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GameShell } from '../../games/GameShell'
 import { useGameSession } from '../../games/useGameSession'
-import { randomSeed, shuffle } from '../../games/shuffle'
+import { createRoller, randomSeed, shuffle } from '../../games/shuffle'
 import { difficultyTier } from '../../games/difficultyTier'
 import { Icon } from '../../components/Icon'
 import './BiggerNumberPage.css'
@@ -21,14 +21,12 @@ export function BiggerNumberPage() {
 
   const rounds = useMemo<Round[]>(() => {
     const out: Round[] = []
-    let value = seed
+    const roll = createRoller(seed)
     for (let i = 0; i < ROUNDS; i += 1) {
-      value = (value * 1103515245 + 12345) % 2147483648
       // Early rounds stay under ten, later ones go up to twenty.
       const ceiling = difficultyTier(i, [{ from: 0, value: 9 }, { from: 2, value: 20 }])
-      const a = 1 + (value % ceiling)
-      value = (value * 1103515245 + 12345) % 2147483648
-      let b = 1 + (value % ceiling)
+      const a = 1 + roll(ceiling)
+      let b = 1 + roll(ceiling)
       if (b === a) b = a === ceiling ? a - 1 : a + 1
       out.push({ pair: shuffle([a, b], seed + i * 7) as [number, number] })
     }
