@@ -108,6 +108,9 @@
     "demoHint": "Shows the step first",
     "progressHint": "Finished and remaining pictures",
     "progressOpen": "View",
+    "audit": "Games audit",
+    "auditHint": "Which games get played most, and how many stars each has earned",
+    "auditOpen": "View",
     "backup": "Backup",
     "backupHint": "All drawings and stars, one file",
     "export": "Export",
@@ -148,6 +151,16 @@
       "calm": "Calm",
       "robot": "Robot"
     }
+  },
+  "audit": {
+    "title": "Games audit",
+    "totalPlays": "times played",
+    "totalStars": "stars from games",
+    "playCount_one": "Played {{count}} time",
+    "playCount_other": "Played {{count}} times",
+    "playedToday": "today",
+    "playedYesterday": "yesterday",
+    "empty": "The most-played games will show up here once your child plays one"
   },
   "update": {
     "ready": "A new version of Drawli is ready",

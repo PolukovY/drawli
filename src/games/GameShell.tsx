@@ -1,9 +1,11 @@
-import type { ReactNode } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useRef, type ReactNode } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '../components/Icon'
 import { Fireworks } from '../components/Fireworks'
 import { useAppStore } from '../app/store'
+import { GAMES } from './catalogue'
+import { addGameStars, recordGamePlay } from '../storage/GameStatsRepository'
 import '../styles/ui.css'
 import './GameShell.css'
 
@@ -25,8 +27,29 @@ export function GameShell({
   title, language, round, total, solved = false, finished, earned, onPlayAgain, children,
 }: Props) {
   const navigate = useNavigate()
+  const location = useLocation()
   const { t } = useTranslation()
   const stars = useAppStore((s) => s.settings?.stars ?? 0)
+
+  // One integration point for the games audit (`doc/ai-roadmap.md`): every
+  // game renders through this shell, so recording a play here — instead of
+  // in each of the ~30 game pages — covers all of them for free. The id is
+  // read from the route rather than passed as a prop, for the same reason.
+  const gameId = GAMES.find((g) => g.path === location.pathname)?.id ?? null
+  const lastEarnedRef = useRef(0)
+
+  useEffect(() => {
+    if (gameId) void recordGamePlay(gameId)
+  }, [gameId])
+
+  // `earned` only ever grows within a session — a replay resets it to 0
+  // first — so any increase is stars the child just earned in this game.
+  useEffect(() => {
+    if (gameId && earned > lastEarnedRef.current) {
+      void addGameStars(gameId, earned - lastEarnedRef.current)
+    }
+    lastEarnedRef.current = earned
+  }, [gameId, earned])
 
   if (finished) {
     return (
