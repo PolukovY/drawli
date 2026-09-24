@@ -1,6 +1,7 @@
 import Dexie, { type EntityTable } from 'dexie'
 import type {
-  AppSettings, Achievement, ChildPhoto, ExerciseProgress, GameStats, LearningStats, SavedDrawing,
+  AppSettings, Achievement, ChildPhoto, ExerciseProgress, GameStats, LearningStats, LetterMastery,
+  SavedDrawing,
 } from './types'
 
 export class DrawliDatabase extends Dexie {
@@ -11,6 +12,7 @@ export class DrawliDatabase extends Dexie {
   photos!: EntityTable<ChildPhoto, 'id'>
   gameStats!: EntityTable<GameStats, 'gameId'>
   learningStats!: EntityTable<LearningStats, 'id'>
+  letterMastery!: EntityTable<LetterMastery, 'id'>
 
   constructor() {
     super('drawli')
@@ -50,6 +52,18 @@ export class DrawliDatabase extends Dexie {
       photos: 'id, createdAt',
       gameStats: 'gameId',
       learningStats: 'id, gameId',
+    })
+    // Per-letter guide-strength progress for DrawingPage's letter exercises —
+    // see doc/ai-roadmap.md's "Trace the Letter".
+    this.version(5).stores({
+      drawings: 'id, exerciseId, status, updatedAt',
+      progress: 'exerciseId, status, updatedAt',
+      settings: 'id',
+      achievements: 'id, type',
+      photos: 'id, createdAt',
+      gameStats: 'gameId',
+      learningStats: 'id, gameId',
+      letterMastery: 'id, language',
     })
   }
 }

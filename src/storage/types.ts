@@ -173,3 +173,19 @@ export interface LearningStats {
   missCount: number
   lastSeenAt: string
 }
+
+/**
+ * Per-letter guide-strength progress for `DrawingPage`'s letter exercises —
+ * `doc/ai-roadmap.md`'s "Trace the Letter". Advances one level each time the
+ * letter is fully traced, regresses one level if the child asks to see the
+ * guide again on a letter that had already advanced. 0 = strong dotted
+ * (today's only guide), 1 = weak/thinned, 2 = free (no guide).
+ */
+export interface LetterMastery {
+  /** `${language}:${letter}` — Dexie's primary key needs a plain string. */
+  id: string
+  language: string
+  letter: string
+  level: number
+  lastPracticedAt: string
+}

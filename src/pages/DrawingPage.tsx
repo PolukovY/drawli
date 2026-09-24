@@ -24,6 +24,7 @@ import { cheerLine, praiseLine, stepLine } from '../audio/phrases'
 import type { DrawingAction, ToolId, VoiceLanguage } from '../storage/types'
 import { findInProgress, upsertDrawing } from '../storage/DrawingRepository'
 import { markCompleted, markStarted } from '../storage/ProgressRepository'
+import { advanceLetterMastery, getLetterLevel, regressLetterMastery } from '../storage/LetterMasteryRepository'
 import '../styles/ui.css'
 import './DrawingPage.css'
 
@@ -72,6 +73,8 @@ export function DrawingPage() {
   const [guides, setGuides] = useState(guidesWanted)
   /** The hand demonstration: plays once per step opened, or on request. */
   const [demo, setDemo] = useState(false)
+  /** Guide strength for a letter exercise — see LetterMastery. Unused otherwise. */
+  const [letterLevel, setLetterLevel] = useState(0)
 
   const engineRef = useRef<DrawingEngine | null>(null)
   const cardRef = useRef<HTMLDivElement>(null)
@@ -101,6 +104,17 @@ export function DrawingPage() {
   const isColoring = currentStep?.mode === 'COLORING'
   const isLastStep = stepIndex === steps.length - 1
   const title = exercise ? t(exercise.titleKey) : ''
+
+  // "Trace the Letter": guide strength tracked per letter, not per session.
+  const letterLanguage = exercise?.category.startsWith('letters_')
+    ? exercise.category.slice('letters_'.length)
+    : null
+  const letter = letterLanguage ? exercise?.glyph : undefined
+
+  useEffect(() => {
+    if (!letterLanguage || !letter) { setLetterLevel(0); return }
+    void getLetterLevel(letterLanguage, letter).then(setLetterLevel)
+  }, [letterLanguage, letter])
 
   /**
    * The tutor explains the step out loud. Autoplay is blocked until the child
@@ -343,6 +357,7 @@ export function DrawingPage() {
       : await engineRef.current?.toThumbnail()
     const stars = await markCompleted(exercise.id, exercise.steps.length)
     await awardStars(stars)
+    if (letterLanguage && letter) void advanceLetterMastery(letterLanguage, letter)
     playSound('fanfare')
     speak(cheerLine(voiceLang))
 
@@ -425,6 +440,11 @@ export function DrawingPage() {
               const next = !guides
               setGuides(next)
               try { sessionStorage.setItem(GUIDES_KEY, next ? 'on' : 'off') } catch { /* no storage, no memory */ }
+              // Asking to see the guide again on a letter it had already
+              // outgrown means it was not as mastered as advancing assumed.
+              if (next && letterLanguage && letter && letterLevel > 0) {
+                void regressLetterMastery(letterLanguage, letter).then(setLetterLevel)
+              }
             }}
           >
             <Icon
@@ -486,13 +506,18 @@ export function DrawingPage() {
               ) : guides ? (
                 <>
                   {/* The tutor layer owns direction and pace now — two comets
-                      chasing each other along the same line only confused it. */}
-                  <GuideLayer
-                    exerciseId={exercise.id}
-                    steps={steps}
-                    currentIndex={stepIndex}
-                    showTrace={false}
-                  />
+                      chasing each other along the same line only confused it.
+                      A letter at the free level (fully mastered) shows no
+                      static outline at all — just the hand demo on request. */}
+                  {letterLevel < 2 ? (
+                    <GuideLayer
+                      exerciseId={exercise.id}
+                      steps={steps}
+                      currentIndex={stepIndex}
+                      showTrace={false}
+                      level={letterLanguage ? (letterLevel as 0 | 1) : undefined}
+                    />
+                  ) : null}
                   {/* Nothing of the tutor is on the screen — no markup, no
                       animation — unless it was asked for. "Показати" is the
                       ask, and it puts the hand back for one pass. */}
@@ -523,7 +548,7 @@ export function DrawingPage() {
               <Icon name="star" size={20} color="var(--c-accent)" filled />
               {isColoring
                 ? t('drawing.hintColor')
-                : !guides
+                : !guides || letterLevel >= 2
                   ? t('drawing.hintFree')
                   : exercise?.glyph
                   ? t(/^\d+$/.test(exercise.glyph) ? 'drawing.hintNumber' : 'drawing.hintWrite')

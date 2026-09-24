@@ -9,9 +9,16 @@ interface Props {
   currentIndex: number
   /** Runs a light along the current outline to show where the stroke starts. */
   showTrace?: boolean
+  /**
+   * Per-letter guide strength for `DrawingPage`'s letter exercises (see
+   * `LetterMastery`): 0 = strong dotted (the default below), 1 = weak and
+   * thinned. Omitted for every other exercise type, which always gets the
+   * strong outline this component has always shown.
+   */
+  level?: 0 | 1
 }
 
-export function GuideLayer({ exerciseId, steps, currentIndex, showTrace = true }: Props) {
+export function GuideLayer({ exerciseId, steps, currentIndex, showTrace = true, level = 0 }: Props) {
   const [markup, setMarkup] = useState<Record<string, string>>({})
   const traceRef = useRef<HTMLDivElement>(null)
 
@@ -68,10 +75,13 @@ export function GuideLayer({ exerciseId, steps, currentIndex, showTrace = true }
         if (!step.guide || step.mode === 'COLORING') return null
         const svg = markup[step.guide]
         if (!svg) return null
+        const isCurrent = index === currentIndex
         return (
           <div
             key={step.id}
-            className={`guide ${index === currentIndex ? 'guide--current' : 'guide--past'}`}
+            className={`guide ${isCurrent ? 'guide--current' : 'guide--past'} ${
+              isCurrent && level === 1 ? 'guide--weak' : ''
+            }`}
             dangerouslySetInnerHTML={{ __html: svg }}
           />
         )
