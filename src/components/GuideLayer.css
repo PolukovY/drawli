@@ -24,6 +24,12 @@
 .guide--current { color: #B8B2CC; opacity: 0.9; }
 .guide--current svg { stroke-dasharray: 9 9; }
 
+/* A letter the child has already traced successfully once: still there to
+   glance at, quieter than the full guide so tracing from memory feels like
+   the next step, not a discontinuity. */
+.guide--weak { opacity: 0.4; }
+.guide--weak svg { stroke-width: 2; stroke-dasharray: 4 10; }
+
 /* A short dash travelling along the outline: it shows the direction to draw
    without ever covering the guide the child is tracing. */
 .guide--trace { color: var(--c-accent); opacity: 0.85; }

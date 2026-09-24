@@ -56,10 +56,19 @@ following piece is reviewed.
   from words whose every letter has a `letters_*` guide exercise. Works in all three languages;
   resolves each letter's guide-exercise id from the real catalogue rather than assuming
   `${language}-${letter}` (Spanish Ñ is `es-enye`, not `es-ñ` — would have silently broken).
-- ⬜ P2's remaining game (`Trace the Letter`, an enhancement to the existing `DrawingPage` rather
-  than a new page — bigger regression surface, deliberately left for last) and `Find It` (blocked
-  on the content-pipeline color/size-attribute work called out below) are still just the plan.
-  P3–P4 untouched.
+- ✅ **Shipped**: P2's fourth item, `Trace the Letter`, scoped to 3 guide levels instead of the
+  originally-proposed 4 (strong dotted → weak/thinned → free; no separate "start-point-dot-only"
+  tier — it needs real SVG coordinate-transform math across ~90 different letter guides for the
+  least essential visual step, not worth the correctness risk for a first cut). A new
+  `letterMastery` Dexie table (version 5: `{id, language, letter, level, lastPracticedAt}`)
+  advances one level each time a letter is fully traced, and regresses one level if the child
+  re-enables a hidden guide on a letter that had already advanced. Additive only: every other
+  exercise type (pictures, shapes, motor skills, coloring, numbers) renders exactly as before,
+  verified directly. Deferred: the "letters practiced" collection view in Progress — nothing in
+  that page renders at sub-exercise granularity today, so this is a genuinely separate addition,
+  not a cut corner of this one.
+- ⬜ `Find It`, P2's last item, is blocked on the content-pipeline color/size-attribute work called
+  out below. P3–P4 untouched.
 
 ## 0. Five findings that shape everything below
 
@@ -445,7 +454,7 @@ problem, and the brief's own core principle ("AI is not the source of truth") ar
   `SoundPosition`, `OddWord`) now bias their round selection on `learningStats`.
 
 **P2 — Highest-value new games (fully deterministic, ship with zero AI dependency)**
-- Trace the Letter (guide-weakening + per-letter mastery, enhancement to `DrawingPage`).
+- ✅ **Shipped**: Trace the Letter (3 guide levels, not the originally-proposed 4 — see Status).
 - ✅ **Shipped**: Write With Me.
 - ✅ **Shipped**: Feed the Monster.
 - Find It (needs the content-pipeline addition of color/size attributes, scoped separately).
