@@ -5,13 +5,16 @@ import { assetUrl, type WordLanguage } from '../../exercise/ExerciseLoader'
 import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
-import { randomSeed, shuffle } from '../../games/shuffle'
+import { randomSeed } from '../../games/shuffle'
+import { biasByLearningStats, type LearningStat } from '../../games/learningBias'
+import { listLearningStats, recordItemMissed, recordItemSeen } from '../../storage/LearningStatsRepository'
 import { speakWord, stopSpeaking } from '../../audio/speech'
 import { Icon } from '../../components/Icon'
 import './SyllablesPage.css'
 
 const ROUNDS = 5
 const CHOICES = [1, 2, 3, 4]
+const GAME_ID = 'syllables'
 
 const LANGUAGE_LABELS: Record<WordLanguage, string> = {
   uk: 'Українська', en: 'English', es: 'Español',
@@ -34,6 +37,7 @@ function syllables(word: string, language: WordLanguage): number {
 }
 
 interface Round {
+  itemId: string
   word: string
   thumbnail: string
   count: number
@@ -50,6 +54,9 @@ export function SyllablesPage() {
   const [seed, setSeed] = useState(randomSeed)
   const [wrong, setWrong] = useState<number[]>([])
   const [claps, setClaps] = useState(0)
+  const [stats, setStats] = useState<Record<string, LearningStat>>({})
+
+  useEffect(() => { void listLearningStats(GAME_ID).then(setStats) }, [])
 
   const speech = typeof window !== 'undefined' && 'speechSynthesis' in window
 
@@ -62,12 +69,17 @@ export function SyllablesPage() {
       // Words whose spelling does not answer the question are left out.
       .filter(({ count }) => count >= 1 && count <= 4)
 
-    return shuffle(candidates, seed).slice(0, ROUNDS).map(({ picture, word, count }) => ({
+    // Words never seen, or seen and missed, come up before ones already mastered.
+    const picks = biasByLearningStats(candidates, seed, (c) => stats[`${language}:${c.picture.id}`])
+      .slice(0, ROUNDS)
+
+    return picks.map(({ picture, word, count }) => ({
+      itemId: `${language}:${picture.id}`,
       word,
       thumbnail: picture.thumbnail,
       count,
     }))
-  }, [content.ready, content.pictures, content.words, language, seed])
+  }, [content.ready, content.pictures, content.words, language, stats, seed])
 
   const game = useGameSession(rounds)
   const current = game.current
@@ -77,7 +89,7 @@ export function SyllablesPage() {
   useEffect(() => {
     setWrong([])
     setClaps(0)
-    if (current) say(current.word)
+    if (current) { say(current.word); void recordItemSeen(GAME_ID, current.itemId) }
   }, [current, say])
 
   // Leaving the screen mid-word should not follow the child to the next one.
@@ -87,6 +99,7 @@ export function SyllablesPage() {
     if (!current || game.solved || wrong.includes(value)) return
     if (value === current.count) { void game.solve(); return }
     game.miss()
+    void recordItemMissed(GAME_ID, current.itemId)
     setWrong((prev) => [...prev, value])
   }
 

@@ -5,9 +5,11 @@ import { assetUrl, type WordLanguage } from '../../exercise/ExerciseLoader'
 import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
-import { randomSeed, shuffle } from '../../games/shuffle'
+import { randomSeed } from '../../games/shuffle'
 import { findSoundPosition, type SoundPosition } from '../../games/soundPosition'
 import { splitIntoSyllables } from '../../games/syllableSplit'
+import { biasByLearningStats, type LearningStat } from '../../games/learningBias'
+import { listLearningStats, recordItemMissed, recordItemSeen } from '../../storage/LearningStatsRepository'
 import { playSound } from '../../audio/sounds'
 import { speakWord, stopSpeaking } from '../../audio/speech'
 import { Icon } from '../../components/Icon'
@@ -15,6 +17,7 @@ import './SyllableReadingPage.css'
 import './SoundPositionPage.css'
 
 const ROUNDS_PER_GROUP = 2
+const GAME_ID = 'soundposition'
 // Easiest first: a sound at the very start of a word is the one most kids
 // can point to; the end comes next; a sound buried in the middle is hardest.
 const GROUP_ORDER: SoundPosition[] = ['start', 'end', 'middle']
@@ -25,6 +28,7 @@ const LANGUAGE_LABELS: Record<WordLanguage, string> = {
 }
 
 interface Round {
+  itemId: string
   letter: string
   word: string
   thumbnail: string
@@ -59,6 +63,9 @@ export function SoundPositionPage() {
   const [seed, setSeed] = useState(randomSeed)
   const [wrong, setWrong] = useState<SoundPosition[]>([])
   const [revealed, setRevealed] = useState(false)
+  const [stats, setStats] = useState<Record<string, LearningStat>>({})
+
+  useEffect(() => { void listLearningStats(GAME_ID).then(setStats) }, [])
 
   const speech = typeof window !== 'undefined' && 'speechSynthesis' in window
   const say = useCallback((word: string) => speakWord(word.toLowerCase(), language, 0.75), [language])
@@ -84,12 +91,19 @@ export function SoundPositionPage() {
     const used = new Set<string>()
     const selected: Round[] = []
     GROUP_ORDER.forEach((position, groupIndex) => {
-      const pool = shuffle(byPosition[position], seed + groupIndex * 101)
+      // Never-heard or previously-missed (letter, word) pairs come up before
+      // ones already mastered, within this position's own easy-to-hard slot.
+      const pool = biasByLearningStats(
+        byPosition[position],
+        seed + groupIndex * 101,
+        (item) => stats[`${language}:${item.picture.id}:${item.letter}`],
+      )
       for (const item of pool) {
         if (selected.filter((r) => r.position === position).length >= ROUNDS_PER_GROUP) break
         if (used.has(item.picture.id)) continue
         used.add(item.picture.id)
         selected.push({
+          itemId: `${language}:${item.picture.id}:${item.letter}`,
           letter: item.letter,
           word: item.word,
           thumbnail: item.picture.thumbnail,
@@ -99,7 +113,7 @@ export function SoundPositionPage() {
       }
     })
     return selected
-  }, [content.ready, content.pictures, content.words, content.letters, language, seed])
+  }, [content.ready, content.pictures, content.words, content.letters, language, stats, seed])
 
   const game = useGameSession(rounds)
   const current = game.current
@@ -107,7 +121,7 @@ export function SoundPositionPage() {
   useEffect(() => {
     setWrong([])
     setRevealed(false)
-    if (current) say(current.word)
+    if (current) { say(current.word); void recordItemSeen(GAME_ID, current.itemId) }
   }, [current, say])
 
   // Leaving the screen mid-word should not follow the child to the next one.
@@ -117,6 +131,7 @@ export function SoundPositionPage() {
     if (!current || game.solved || wrong.includes(position)) return
     if (position === current.position) { void game.solve(); return }
     game.miss()
+    void recordItemMissed(GAME_ID, current.itemId)
     setWrong((prev) => [...prev, position])
     setRevealed(true)
   }

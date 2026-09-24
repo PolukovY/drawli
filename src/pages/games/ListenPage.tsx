@@ -6,6 +6,8 @@ import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
 import { randomSeed, shuffle } from '../../games/shuffle'
+import { biasByLearningStats, type LearningStat } from '../../games/learningBias'
+import { listLearningStats, recordItemMissed, recordItemSeen } from '../../storage/LearningStatsRepository'
 import { playSound } from '../../audio/sounds'
 import { speakWord, stopSpeaking } from '../../audio/speech'
 import { Icon } from '../../components/Icon'
@@ -13,12 +15,14 @@ import './ListenPage.css'
 
 const ROUNDS = 5
 const MAX_WORD = 7
+const GAME_ID = 'listen'
 
 const LANGUAGE_LABELS: Record<WordLanguage, string> = {
   uk: 'Українська', en: 'English', es: 'Español',
 }
 
 interface Round {
+  itemId: string
   word: string
   thumbnail: string
   tiles: string[]
@@ -36,6 +40,9 @@ export function ListenPage() {
   const [typed, setTyped] = useState<string[]>([])
   const [used, setUsed] = useState<number[]>([])
   const [revealed, setRevealed] = useState(false)
+  const [stats, setStats] = useState<Record<string, LearningStat>>({})
+
+  useEffect(() => { void listLearningStats(GAME_ID).then(setStats) }, [])
 
   // Only used for the "this device cannot speak" hint below — speakWord()
   // already guards every real call itself.
@@ -48,18 +55,23 @@ export function ListenPage() {
       .map((picture) => ({ picture, word: (content.words[picture.id] ?? '').toUpperCase() }))
       .filter(({ word }) => /^[^\s·]+$/u.test(word) && word.length >= 3 && word.length <= MAX_WORD)
 
-    return shuffle(candidates, seed).slice(0, ROUNDS).map(({ picture, word }, i) => {
+    // Words never seen, or seen and missed, come up before ones already mastered.
+    const picks = biasByLearningStats(candidates, seed, (c) => stats[`${language}:${c.picture.id}`])
+      .slice(0, ROUNDS)
+
+    return picks.map(({ picture, word }, i) => {
       const spare = shuffle(
         content.letters.filter((letter) => !word.includes(letter)),
         seed + i * 31,
       ).slice(0, 3)
       return {
+        itemId: `${language}:${picture.id}`,
         word,
         thumbnail: picture.thumbnail,
         tiles: shuffle([...word.split(''), ...spare], seed + i * 47),
       }
     })
-  }, [content.ready, content.pictures, content.words, content.letters, seed])
+  }, [content.ready, content.pictures, content.words, content.letters, language, stats, seed])
 
   const game = useGameSession(rounds)
   const current = game.current
@@ -68,7 +80,7 @@ export function ListenPage() {
     setTyped([])
     setUsed([])
     setRevealed(false)
-    if (current) say(current.word)
+    if (current) { say(current.word); void recordItemSeen(GAME_ID, current.itemId) }
   }, [current, say])
 
   // Leaving the screen mid-word should not follow the child to the next one.
@@ -88,7 +100,11 @@ export function ListenPage() {
 
     setTyped((prev) => {
       if (used.includes(index)) return prev
-      if (current.word[prev.length] !== letter) { game.miss(); return prev }
+      if (current.word[prev.length] !== letter) {
+        game.miss()
+        void recordItemMissed(GAME_ID, current.itemId)
+        return prev
+      }
       playSound('tap')
       setUsed((usedNow) => (usedNow.includes(index) ? usedNow : [...usedNow, index]))
       return [...prev, letter]

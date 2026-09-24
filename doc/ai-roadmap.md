@@ -29,16 +29,17 @@ following piece is reviewed.
   touched here.
 - ✅ **Shipped**: `Count`/`CountThings` now ramp to 20 (P1's third bullet — its other two bullets
   were already covered by the P0 pass above).
-- ✅ **Shipped**: P0's last open item, a proof of concept. A `learningStats` Dexie table
-  (version 4: `{id, gameId, itemId, seenCount, missCount, lastSeenAt}`) plus a deterministic
-  `biasByLearningStats` helper — never-seen items first, then seen-and-missed, then mastered,
-  ties broken by the same seeded shuffle every other pool uses. Wired into `Guess` and
-  `FirstLetter` (P1's remaining bullet, started): each round now records what was shown and
-  what was missed, and the next round selection is biased by it. The other five vocabulary/
-  phonics games named in that bullet (`Listen`, `Missing`, `Syllables`, `SoundPosition`,
-  `OddWord`) are still on plain `shuffle()`.
-- ⬜ Everything else in Section E (wiring the remaining five games above, P2–P4) is still just
-  the plan.
+- ✅ **Shipped**: P0's last open item. A `learningStats` Dexie table (version 4: `{id, gameId,
+  itemId, seenCount, missCount, lastSeenAt}`) plus a deterministic `biasByLearningStats` helper —
+  never-seen items first, then seen-and-missed, then mastered, ties broken by the same seeded
+  shuffle every other pool uses.
+- ✅ **Shipped**: P1's `learningStats`-wiring bullet, fully. All seven named games (`Guess`,
+  `FirstLetter`, `Listen`, `Missing`, `Syllables`, `SoundPosition`, `OddWord`) now record what
+  each round showed and whether it was missed, and bias their next round selection on it.
+  `SoundPosition` applies the bias inside each start/middle/end difficulty group rather than
+  across the whole pool, so its existing easy-to-hard progression stays intact; `OddWord` biases
+  which word gets picked as the odd one out, since that's the word actually being tested.
+- ⬜ Everything else in Section E (P2–P4) is still just the plan.
 
 ## 0. Five findings that shape everything below
 
@@ -420,9 +421,8 @@ problem, and the brief's own core principle ("AI is not the source of truth") ar
   `Symmetry`, `MemoryTrace`, `WhatsGone` — done as part of the P0 cross-cutting pass, see Status.
 - ✅ **Shipped**: `Count`/`CountThings` now ramp a third tier up to 20 (was capped at 9), reusing
   the same `difficultyTier` helper and reaching `BiggerNumber`'s existing ceiling.
-- ✅ **Shipped (started)**: `Guess` and `FirstLetter` now bias their round selection on
-  `learningStats`. Still open: wire the same bias into the rest of the vocabulary/phonics games
-  this bullet names — `Listen`, `Missing`, `Syllables`, `SoundPosition`, `OddWord`.
+- ✅ **Shipped**: all seven named games (`Guess`, `Listen`, `Missing`, `FirstLetter`, `Syllables`,
+  `SoundPosition`, `OddWord`) now bias their round selection on `learningStats`.
 
 **P2 — Highest-value new games (fully deterministic, ship with zero AI dependency)**
 - Trace the Letter (guide-weakening + per-letter mastery, enhancement to `DrawingPage`).
