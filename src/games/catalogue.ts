@@ -35,6 +35,7 @@ export const GAMES: GameEntry[] = [
   { id: 'patterns', path: '/patterns', titleKey: 'play.patterns', art: '🔁', languages: 'all', order: 20 },
   { id: 'dots', path: '/connect-dots', titleKey: 'play.dots', art: '🔢', languages: 'all', order: 21 },
   { id: 'shadow', path: '/shadow', titleKey: 'play.shadow', art: '🌑', languages: 'all', order: 22 },
+  { id: 'findit', path: '/find-it', titleKey: 'play.findIt', art: '🔎', languages: 'all', order: 22.5 },
   { id: 'whatsgone', path: '/whats-gone', titleKey: 'play.whatsGone', art: '🫥', languages: 'all', order: 23 },
   { id: 'sizeorder', path: '/size-order', titleKey: 'play.sizeOrder', art: '📏', languages: 'all', order: 24 },
   { id: 'sorting', path: '/sorting', titleKey: 'play.sorting', art: '🧺', languages: 'all', order: 25 },
