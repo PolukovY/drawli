@@ -29,6 +29,7 @@ import { SeaBattlePage } from '../pages/games/SeaBattlePage'
 import { PatternsPage } from '../pages/games/PatternsPage'
 import { DotsPage } from '../pages/games/DotsPage'
 import { ShadowPage } from '../pages/games/ShadowPage'
+import { FindItPage } from '../pages/games/FindItPage'
 import { WhatsGonePage } from '../pages/games/WhatsGonePage'
 import { SizeOrderPage } from '../pages/games/SizeOrderPage'
 import { SortingPage } from '../pages/games/SortingPage'
@@ -84,6 +85,7 @@ export const router = createHashRouter([
   { path: '/patterns', element: <PatternsPage /> },
   { path: '/connect-dots', element: <DotsPage /> },
   { path: '/shadow', element: <ShadowPage /> },
+  { path: '/find-it', element: <FindItPage /> },
   { path: '/whats-gone', element: <WhatsGonePage /> },
   { path: '/size-order', element: <SizeOrderPage /> },
   { path: '/sorting', element: <SortingPage /> },

@@ -67,8 +67,18 @@ following piece is reviewed.
   verified directly. Deferred: the "letters practiced" collection view in Progress — nothing in
   that page renders at sub-exercise granularity today, so this is a genuinely separate addition,
   not a cut corner of this one.
-- ⬜ `Find It`, P2's last item, is blocked on the content-pipeline color/size-attribute work called
-  out below. P3–P4 untouched.
+- ✅ **Shipped**: `Find It`, P2's last item, unblocking the content-pipeline work called out below
+  with a scoped, lightweight version rather than tagging the whole 335-exercise library. A new
+  `games/findItAttributes.ts` curates 31 existing pictures with the color and relative size
+  actually visible in each one's own artwork — checked directly against the rendered thumbnails
+  (a watermelon slice reads mostly red; a snail's shell reads orange), not guessed from the
+  object's name — living in app code as static data rather than a change to the asset-generation
+  pipeline itself. The game escalates "find the APPLE" (word only) → "+ this color" (a swatch, no
+  attempt at grammatically fusing a translated color adjective onto a foreign-language noun,
+  which would need reliable per-noun grammatical gender in Ukrainian this project has no source
+  for) → "+ this size" (a plain badge, same reasoning), with decoys deliberately chosen to share
+  one attribute but not all — same-color-different-size and same-size-different-color — so
+  recognizing just one attribute is never enough at the higher tiers. P3–P4 untouched.
 
 ## 0. Five findings that shape everything below
 
@@ -457,7 +467,8 @@ problem, and the brief's own core principle ("AI is not the source of truth") ar
 - ✅ **Shipped**: Trace the Letter (3 guide levels, not the originally-proposed 4 — see Status).
 - ✅ **Shipped**: Write With Me.
 - ✅ **Shipped**: Feed the Monster.
-- Find It (needs the content-pipeline addition of color/size attributes, scoped separately).
+- ✅ **Shipped**: Find It (a curated 31-picture attribute list in app code, not a change to the
+  content pipeline itself — see Status). **P2 is now complete.**
 
 **P3 — AI-enhanced/adaptive (behind `LocalAIService`, opt-in, graceful no-op everywhere else)**
 - Integrate Transformers.js + Gemma 3 270M in a Worker; empirically validate structured-output
