@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { Icon } from '../components/Icon'
 import { useAppStore } from '../app/store'
 import { useLocalAI } from '../ai/useLocalAI'
+import { isAiFeatureEnabled } from '../ai/featureFlag'
 import { currentVoiceOption, hasVoiceFor, listVoiceOptions, speak, voiceQuality } from '../audio/speech'
 import { praiseLine } from '../audio/phrases'
 import type { VoiceLanguage } from '../storage/types'
@@ -271,33 +272,35 @@ export function SettingsPage() {
           </button>
         </section>
 
-        <section className="card setting">
-          <span className="setting__icon"><Icon name="download" size={28} color="var(--c-accent)" /></span>
-          <div className="grow">
-            <div className="setting__title">{t('settings.aiIdeas')}</div>
-            <div className="muted" style={{ fontSize: 16 }}>
-              {!aiSupported
-                ? t('settings.aiUnsupported')
-                : aiStatus === 'loading'
-                  ? t('settings.aiDownloading', { pct: aiProgress })
-                  : aiStatus === 'ready'
-                    ? t('settings.aiReady')
-                    : aiStatus === 'error'
-                      ? t('settings.aiError')
-                      : t('settings.aiIdeasHint')}
+        {isAiFeatureEnabled() ? (
+          <section className="card setting">
+            <span className="setting__icon"><Icon name="download" size={28} color="var(--c-accent)" /></span>
+            <div className="grow">
+              <div className="setting__title">{t('settings.aiIdeas')}</div>
+              <div className="muted" style={{ fontSize: 16 }}>
+                {!aiSupported
+                  ? t('settings.aiUnsupported')
+                  : aiStatus === 'loading'
+                    ? t('settings.aiDownloading', { pct: aiProgress })
+                    : aiStatus === 'ready'
+                      ? t('settings.aiReady')
+                      : aiStatus === 'error'
+                        ? t('settings.aiError')
+                        : t('settings.aiIdeasHint')}
+              </div>
             </div>
-          </div>
-          <button
-            className={`switch ${aiOn ? 'switch--on' : ''}`}
-            onClick={() => void handleAiToggle(!aiOn)}
-            role="switch"
-            aria-checked={aiOn}
-            aria-label={t('settings.aiIdeas')}
-            disabled={!aiSupported}
-          >
-            <span />
-          </button>
-        </section>
+            <button
+              className={`switch ${aiOn ? 'switch--on' : ''}`}
+              onClick={() => void handleAiToggle(!aiOn)}
+              role="switch"
+              aria-checked={aiOn}
+              aria-label={t('settings.aiIdeas')}
+              disabled={!aiSupported}
+            >
+              <span />
+            </button>
+          </section>
+        ) : null}
 
         <section className="card setting">
           <span className="setting__icon"><Icon name="download" size={28} color="var(--c-accent)" /></span>

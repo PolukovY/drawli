@@ -1,12 +1,17 @@
 import { useCallback, useState } from 'react'
+import { isAiFeatureEnabled } from './featureFlag'
 import type { LocalAIService, LocalAIStatus } from './LocalAIService'
 import { NoopProvider } from './NoopProvider'
 import { TransformersJsProvider } from './TransformersJsProvider'
 
 // One provider for the whole app: `load()` downloads/starts the model once,
 // and every game that calls `useLocalAI()` afterward sees it already ready.
+// The feature-flag check happens once, here, so a disabled build never even
+// constructs `TransformersJsProvider`.
 const transformersProvider = new TransformersJsProvider()
-const service: LocalAIService = transformersProvider.isSupported() ? transformersProvider : new NoopProvider()
+const service: LocalAIService = isAiFeatureEnabled() && transformersProvider.isSupported()
+  ? transformersProvider
+  : new NoopProvider()
 
 /** The shared provider directly, for the rare non-component caller. */
 export function localAIService(): LocalAIService {
