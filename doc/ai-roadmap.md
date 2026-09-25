@@ -79,6 +79,41 @@ following piece is reviewed.
   for) → "+ this size" (a plain badge, same reasoning), with decoys deliberately chosen to share
   one attribute but not all — same-color-different-size and same-size-different-color — so
   recognizing just one attribute is never enough at the higher tiers. P3–P4 untouched.
+- ✅ **Shipped**: P3's foundation — `LocalAIService` (the interface from Section D, unchanged from
+  the original design) with two implementations: `NoopProvider` (always rejects, so every caller's
+  existing deterministic fallback runs untouched) and `TransformersJsProvider`, which runs
+  Transformers.js + `onnx-community/gemma-3-270m-it-ONNX` (q4, WASM, single-threaded to avoid
+  needing cross-origin-isolation headers GitHub Pages doesn't offer) inside a dedicated Web Worker
+  over the typed `load | generate | abort | progress | result | error` protocol the architecture
+  section called for. Nothing about the model or the ~27MB ONNX Runtime WASM binary is precached or
+  fetched until a parent explicitly opts in — a new Settings toggle ("AI drawing ideas") is the only
+  thing that calls `load()`; `vite.config.ts`'s workbox `globIgnores` now excludes the worker bundle
+  itself for the same reason the exercise library is excluded, with a `CacheFirst` runtime-caching
+  rule so the download only ever happens once. **Empirically validated** (not guessed) by running
+  the real model directly against `@huggingface/transformers`'s Node backend: generation is fast
+  (well under a second per short reply on CPU, not the "single-digit seconds" this doc originally
+  assumed — good news), JSON-array output for a `distractors` intent is reliably parseable once
+  wrapped by the code-fence-tolerant parser in `textSafety.ts`, but **the model does not reliably
+  follow a "reply in Ukrainian" instruction** — it answers in English regardless of what it's told.
+  Since this app is Ukrainian-first, `Draw It`'s AI upgrade (below) is gated to English UI only
+  rather than ship a feature that silently ignores the child's language; this is recorded here so
+  it isn't re-discovered the hard way later, and doesn't rule out a future non-English-first use of
+  `generateHint`/`generateVariation`/`generateStory`/`generateDistractors` — they're implemented and
+  unit-tested against the validators, just not yet wired into any game (see the P3 note below).
+- ✅ **Shipped**: `Draw It`, the roadmap's designated first consumer (Section C, item 5) — a "New
+  idea" button on `FreeDrawPage` that always shows an instant, localized idea from a static list
+  first (never gated on AI, per the architecture's own rule that no mechanic may require an instant
+  AI response), then silently upgrades to a freshly-generated one if a parent has turned AI on, it's
+  ready, and the UI is in English; a stale response (the child tapped again, or left the page) is
+  discarded rather than overwriting what's on screen. Parent-mode toggle (Settings → "AI drawing
+  ideas") shows live download progress and status, and turning it off calls `unload()`.
+  **Deferred, deliberately**: layering `generateDistractors`/`generateVariation` onto 2–3
+  already-shipped P1 games, as the roadmap's third P3 bullet proposes. Each of those games already
+  works correctly today; wiring an AI-generated distractor into one risks a subtle regression in a
+  game a child already plays, and — per the finding above — needs its own quality pass now that the
+  model's format-vs-content-precision gap is known (e.g. it once suggested "pet" as an animal-name
+  distractor: valid JSON, valid format, not actually a great answer). Worth a follow-up once each
+  target game gets one, not a mechanical retrofit across all of them at once.
 
 ## 0. Five findings that shape everything below
 
@@ -471,12 +506,15 @@ problem, and the brief's own core principle ("AI is not the source of truth") ar
   content pipeline itself — see Status). **P2 is now complete.**
 
 **P3 — AI-enhanced/adaptive (behind `LocalAIService`, opt-in, graceful no-op everywhere else)**
-- Integrate Transformers.js + Gemma 3 270M in a Worker; empirically validate structured-output
-  reliability before committing to it over Qwen2.5-0.5B-Instruct.
-- Draw It (the cleanest first consumer — plain text, no structured JSON needed).
-- `generateDistractors`/`generateVariation` layered onto 2–3 already-shipped P1 games as an
-  optional enhancement.
-- Parent-mode: AI model download/remove toggle, offline-AI status indicator.
+- ✅ **Shipped**: Transformers.js + Gemma 3 270M in a Worker, empirically validated (see Status
+  above) — reliable enough to keep over Qwen2.5-0.5B-Instruct for now; the one real finding
+  (English-only instruction-following) is recorded above rather than guessed at.
+- ✅ **Shipped**: Draw It (the cleanest first consumer — plain text, no structured JSON needed).
+- ✅ **Shipped**: Parent-mode AI model download/remove toggle with a live offline-AI status
+  indicator (Settings → "AI drawing ideas").
+- Deferred: `generateDistractors`/`generateVariation` layered onto 2–3 already-shipped P1 games —
+  the service methods exist and are unit-tested, just not wired into a game yet (see Status above
+  for why).
 
 **P4 — Optional/advanced (research spikes, not commitments)**
 - Say It / Speech Games area — pending a dedicated speech-recognition feasibility check.

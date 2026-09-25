@@ -111,6 +111,12 @@
     "audit": "Games audit",
     "auditHint": "Which games get played most, and how many stars each has earned",
     "auditOpen": "View",
+    "aiIdeas": "AI drawing ideas",
+    "aiIdeasHint": "One-time model download (~300MB), then runs fully offline. Currently only adds English drawing ideas in Draw It",
+    "aiUnsupported": "Not supported on this device",
+    "aiDownloading": "Downloading... {{pct}}%",
+    "aiReady": "Ready, works offline",
+    "aiError": "Couldn't download it, try again",
     "backup": "Backup",
     "backupHint": "All drawings and stars, one file",
     "export": "Export",
@@ -701,7 +707,28 @@
   "free": {
     "title": "Blank sheet",
     "hint": "Draw anything you like",
-    "newSheet": "New sheet"
+    "newSheet": "New sheet",
+    "drawIt": "What to draw?",
+    "drawItNew": "New idea",
+    "drawItAi": "AI idea",
+    "drawItPrompts": [
+      "Draw a smiling sun",
+      "Draw a sleeping cat",
+      "Draw your favorite fruit",
+      "Draw a rocket in space",
+      "Draw a rainbow over a house",
+      "Draw a fish in the sea",
+      "Draw a dragon with wings",
+      "Draw a car on the road",
+      "Draw a snowman in winter",
+      "Draw a butterfly on a flower",
+      "Draw your family",
+      "Draw a castle with towers",
+      "Draw a running dog",
+      "Draw a tree with apples",
+      "Draw a little boat on waves",
+      "Draw a dinosaur"
+    ]
   },
   "photo": {
     "title": "Photo Studio",

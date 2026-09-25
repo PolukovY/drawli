@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { Icon } from '../components/Icon'
 import { useAppStore } from '../app/store'
+import { useLocalAI } from '../ai/useLocalAI'
 import { currentVoiceOption, hasVoiceFor, listVoiceOptions, speak, voiceQuality } from '../audio/speech'
 import { praiseLine } from '../audio/phrases'
 import type { VoiceLanguage } from '../storage/types'
@@ -32,6 +33,7 @@ export function SettingsPage() {
   const setSoundEnabled = useAppStore((s) => s.setSoundEnabled)
   const setVoiceEnabled = useAppStore((s) => s.setVoiceEnabled)
   const setDemoEnabled = useAppStore((s) => s.setDemoEnabled)
+  const setAiIdeasEnabled = useAppStore((s) => s.setAiIdeasEnabled)
   const setVoiceLanguage = useAppStore((s) => s.setVoiceLanguage)
   const setVoiceChoice = useAppStore((s) => s.setVoiceChoice)
   const reloadSettings = useAppStore((s) => s.reloadSettings)
@@ -44,6 +46,14 @@ export function SettingsPage() {
 
   const voiceOn = settings?.voiceEnabled ?? false
   const demoOn = settings?.demoEnabled ?? false
+  const aiOn = settings?.aiIdeasEnabled ?? false
+  const { status: aiStatus, progress: aiProgress, load: loadAi, unload: unloadAi, isSupported: aiSupported } = useLocalAI()
+
+  async function handleAiToggle(next: boolean) {
+    await setAiIdeasEnabled(next)
+    if (next) void loadAi()
+    else unloadAi()
+  }
   const voiceLang: VoiceLanguage = settings?.voiceLanguage ?? settings?.language ?? 'uk'
   // Read straight from the browser: the list changes with the device, not with
   // anything this app stores.
@@ -258,6 +268,34 @@ export function SettingsPage() {
           </div>
           <button className="btn btn--primary" onClick={() => navigate('/audit')}>
             {t('settings.auditOpen')}
+          </button>
+        </section>
+
+        <section className="card setting">
+          <span className="setting__icon"><Icon name="download" size={28} color="var(--c-accent)" /></span>
+          <div className="grow">
+            <div className="setting__title">{t('settings.aiIdeas')}</div>
+            <div className="muted" style={{ fontSize: 16 }}>
+              {!aiSupported
+                ? t('settings.aiUnsupported')
+                : aiStatus === 'loading'
+                  ? t('settings.aiDownloading', { pct: aiProgress })
+                  : aiStatus === 'ready'
+                    ? t('settings.aiReady')
+                    : aiStatus === 'error'
+                      ? t('settings.aiError')
+                      : t('settings.aiIdeasHint')}
+            </div>
+          </div>
+          <button
+            className={`switch ${aiOn ? 'switch--on' : ''}`}
+            onClick={() => void handleAiToggle(!aiOn)}
+            role="switch"
+            aria-checked={aiOn}
+            aria-label={t('settings.aiIdeas')}
+            disabled={!aiSupported}
+          >
+            <span />
           </button>
         </section>
 

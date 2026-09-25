@@ -65,7 +65,11 @@ export default defineConfig({
         // Only the shell ships with the install: the library is hundreds of
         // small SVGs and precaching them would make the first launch crawl.
         globPatterns: ['**/*.{js,css,html,ico,png}'],
-        globIgnores: ['**/exercises/**'],
+        // Same reasoning applies even harder to the AI worker bundle: it (and
+        // the much larger ONNX Runtime wasm binary it pulls in at actual
+        // runtime, never precached at all) must stay untouched until a parent
+        // opts in via Settings — see src/ai/useLocalAI.ts.
+        globIgnores: ['**/exercises/**', '**/aiWorker*.js'],
         navigateFallback: `${base}index.html`,
         runtimeCaching: [
           {
@@ -87,6 +91,18 @@ export default defineConfig({
             options: {
               cacheName: `drawli-exercises-${buildId}`,
               expiration: { maxEntries: 2000, maxAgeSeconds: 60 * 60 * 24 * 180 },
+            },
+          },
+          {
+            // Never precached (see globIgnores above), but once a parent
+            // opts into AI drawing ideas and it's actually fetched, cache it
+            // like anything else this app promises works offline afterward.
+            // .wasm is only ever this — the ONNX Runtime binary behind it.
+            urlPattern: /\/assets\/(aiWorker.*\.js|.*\.wasm)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: `drawli-ai-runtime-${buildId}`,
+              expiration: { maxEntries: 4, maxAgeSeconds: 60 * 60 * 24 * 180 },
             },
           },
           {

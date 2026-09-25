@@ -88,6 +88,11 @@ export interface AppSettings {
   voiceEnabled?: boolean
   /** The drawn tutor: a hand that traces the step, and a dot for the pace. */
   demoEnabled?: boolean
+  /**
+   * Parent opt-in for the local on-device AI model (Draw It's idea generator).
+   * Off by default: enabling it is what triggers the one-time ~300MB download.
+   */
+  aiIdeasEnabled?: boolean
   voiceLanguage?: VoiceLanguage
   /**
    * Which voice and character the child picked, as "voice name#character" —

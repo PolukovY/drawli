@@ -36,6 +36,7 @@ interface AppStore {
   setSoundEnabled: (enabled: boolean) => Promise<void>
   setVoiceEnabled: (enabled: boolean) => Promise<void>
   setDemoEnabled: (enabled: boolean) => Promise<void>
+  setAiIdeasEnabled: (enabled: boolean) => Promise<void>
   setVoiceLanguage: (language: VoiceLanguage) => Promise<void>
   setVoiceChoice: (language: VoiceLanguage, choice: string) => Promise<void>
   awardStars: (amount: number) => Promise<void>
@@ -107,6 +108,11 @@ export const useAppStore = create<AppStore>((set, get) => ({
   async setDemoEnabled(demoEnabled) {
     await updateSettings({ demoEnabled })
     set((s) => ({ settings: s.settings ? { ...s.settings, demoEnabled } : null }))
+  },
+
+  async setAiIdeasEnabled(aiIdeasEnabled) {
+    await updateSettings({ aiIdeasEnabled })
+    set((s) => ({ settings: s.settings ? { ...s.settings, aiIdeasEnabled } : null }))
   },
 
   async setVoiceLanguage(voiceLanguage) {
