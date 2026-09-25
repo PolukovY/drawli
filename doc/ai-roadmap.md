@@ -106,7 +106,12 @@ following piece is reviewed.
   AI response), then silently upgrades to a freshly-generated one if a parent has turned AI on, it's
   ready, and the UI is in English; a stale response (the child tapped again, or left the page) is
   discarded rather than overwriting what's on screen. Parent-mode toggle (Settings → "AI drawing
-  ideas") shows live download progress and status, and turning it off calls `unload()`.
+  ideas") shows live download progress and status, and turning it off calls `unload()`. There are
+  now two independent off-switches, at two different levels: that Settings toggle is each parent's
+  own opt-in (default off, per device), and a separate build-time flag, `VITE_AI_FEATURE_ENABLED`
+  (`.env.example`, same idiom as `VITE_TTS_ENDPOINT`), is a maintainer-level kill switch — set it to
+  `"false"` and the whole Settings section disappears and `TransformersJsProvider` is never even
+  constructed, for pulling the feature from a live build without a code change if it doesn't work out.
   **Deferred, deliberately**: layering `generateDistractors`/`generateVariation` onto 2–3
   already-shipped P1 games, as the roadmap's third P3 bullet proposes. Each of those games already
   works correctly today; wiring an AI-generated distractor into one risks a subtle regression in a
@@ -511,7 +516,8 @@ problem, and the brief's own core principle ("AI is not the source of truth") ar
   (English-only instruction-following) is recorded above rather than guessed at.
 - ✅ **Shipped**: Draw It (the cleanest first consumer — plain text, no structured JSON needed).
 - ✅ **Shipped**: Parent-mode AI model download/remove toggle with a live offline-AI status
-  indicator (Settings → "AI drawing ideas").
+  indicator (Settings → "AI drawing ideas"), plus a separate `VITE_AI_FEATURE_ENABLED` build-time
+  kill switch for the whole feature (see Status above).
 - Deferred: `generateDistractors`/`generateVariation` layered onto 2–3 already-shipped P1 games —
   the service methods exist and are unit-tested, just not wired into a game yet (see Status above
   for why).
