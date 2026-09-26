@@ -79,6 +79,10 @@ following piece is reviewed.
   for) → "+ this size" (a plain badge, same reasoning), with decoys deliberately chosen to share
   one attribute but not all — same-color-different-size and same-size-different-color — so
   recognizing just one attribute is never enough at the higher tiers. P3–P4 untouched.
+- ❌ **Tried and not adopted**: P3, the local on-device AI model. It was built end to end and
+  tested against the real model, and it doesn't clear the bar for this app: it can't write
+  Ukrainian, its hints don't work, and the one feature it could serve didn't need it. Nothing
+  from it was merged. Full write-up in **Section F** below, so it isn't retried blind.
 
 ## 0. Five findings that shape everything below
 
@@ -331,6 +335,9 @@ game" status for genuine gaps.
 
 ## D. Local Browser AI Architecture
 
+> **Outcome:** this architecture was built and tested in P3 and **not adopted** — see Section F.
+> Kept as-is below as the record of what was designed.
+
 ### Library: Transformers.js (Hugging Face v3+), not WebLLM/MLC
 
 Both libraries fall back to WASM when WebGPU is absent — this isn't a differentiator by itself.
@@ -470,21 +477,111 @@ problem, and the brief's own core principle ("AI is not the source of truth") ar
 - ✅ **Shipped**: Find It (a curated 31-picture attribute list in app code, not a change to the
   content pipeline itself — see Status). **P2 is now complete.**
 
-**P3 — AI-enhanced/adaptive (behind `LocalAIService`, opt-in, graceful no-op everywhere else)**
-- Integrate Transformers.js + Gemma 3 270M in a Worker; empirically validate structured-output
-  reliability before committing to it over Qwen2.5-0.5B-Instruct.
-- Draw It (the cleanest first consumer — plain text, no structured JSON needed).
-- `generateDistractors`/`generateVariation` layered onto 2–3 already-shipped P1 games as an
-  optional enhancement.
-- Parent-mode: AI model download/remove toggle, offline-AI status indicator.
+**P3 — AI-enhanced/adaptive** — ❌ **tried and not adopted, see Section F.** Nothing below
+was merged.
+- ~~Integrate Transformers.js + Gemma 3 270M in a Worker; empirically validate structured-output
+  reliability before committing to it over Qwen2.5-0.5B-Instruct.~~ Built and validated: fails on
+  Ukrainian and on hints.
+- ~~Draw It (the cleanest first consumer — plain text, no structured JSON needed).~~
+- ~~`generateDistractors`/`generateVariation` layered onto 2–3 already-shipped P1 games as an
+  optional enhancement.~~
+- ~~Parent-mode: AI model download/remove toggle, offline-AI status indicator.~~
 
 **P4 — Optional/advanced (research spikes, not commitments)**
-- Say It / Speech Games area — pending a dedicated speech-recognition feasibility check.
-- Richer parent dashboard (today/weekly summary).
-- Simple AI-generated short stories.
+- Say It / Speech Games area — pending a dedicated speech-recognition feasibility check. (Not
+  affected by Section F: this would use the browser's speech API, not a language model.)
+- Richer parent dashboard (today/weekly summary). (No AI needed; reads `gameStats`/`learningStats`.)
+- ~~Simple AI-generated short stories.~~ Dropped: same model, same Ukrainian problem (Section F).
 - Drawing-recognition-as-feedback — explicitly experimental only, never required for a game to
   function, and only revisited if a genuinely lightweight local vision model becomes viable for
   this device class (not assumed here).
+
+---
+
+## F. Local AI experiment (P3): why it was not adopted
+
+**Short version:** the app doesn't need a language model, and the one we could run on a child's
+tablet doesn't work well enough anyway. It can't write Ukrainian, and Ukrainian is this app's
+default language.
+
+### What was built
+
+The full Section D design, in closed-unmerged PR #23 (branch
+`claude/drawli-ui-responsiveness-0antpa`, code under `src/ai/`):
+
+- `LocalAIService` with a `NoopProvider` fallback and a `TransformersJsProvider` running
+  Transformers.js + `onnx-community/gemma-3-270m-it-ONNX` (q4, WASM) in a Web Worker.
+- `Draw It`: a "New idea" button on the free-draw screen that shows an idea from a static list
+  and swaps in a generated one when the model is ready.
+- A parent opt-in toggle in Settings (off by default) and a build-time kill switch.
+- The model stayed out of the PWA precache and downloaded only after a parent opted in.
+
+The plumbing worked: lazy download, offline caching, fallback when the model is missing, no
+regressions across all routes. **The infrastructure is not the problem. The model's output is.**
+
+### What the real model actually produced
+
+A small probe: the real model, loaded directly through `@huggingface/transformers` (Node, CPU),
+one greedy run per prompt. These are the exact prompts the app would send.
+
+| Asked for | Got back | Verdict |
+|---|---|---|
+| A drawing idea, in English | `**A fluffy, fluffy, fluffy cotton ball**` | Usable after stripping formatting, but repetitive |
+| A drawing idea, **in Ukrainian** | `**"A fluffy, fluffy, fluffy face."**` | ❌ Answered in English: it ignores the language instruction |
+| A drawing idea about animals | `A fluffy, fluffy bunny with a nose twitching is a classic animal drawing.` | Coherent, but a description rather than an instruction |
+| 3 animal names other than "cat", as JSON | `["cat", "dog", "bird", "pet"]` (in a code fence) | ⚠️ Valid JSON, but it included the excluded answer and "pet" isn't an animal |
+| A gentle hint for the word CAT | `The child is stuck on the word CAT. Give one short hint.` | ❌ Echoed the prompt back; no hint at all |
+
+Speed was not an issue: about 11s to load and 0.5–0.9s per reply once loaded. (In-browser
+download couldn't be exercised in the build sandbox because its TLS proxy blocks the browser's
+connection to Hugging Face. The browser path was verified up to the fallback, and the model
+itself was verified in Node.)
+
+Five prompts is a small sample, but the deciding failure was not borderline: asked for
+Ukrainian, the model gave no Ukrainian at all.
+
+### Why it doesn't work for this app
+
+1. **No Ukrainian.** Ukrainian is the default UI language. A feature that only works in English
+   is a side feature for a minority of users, not an improvement to the app.
+2. **Hints fail outright.** Hints were the most education-relevant use (`generateHint`), and
+   the model couldn't produce one.
+3. **Content can't be trusted unchecked.** Even when the format is right, the content can be
+   wrong ("pet" as an animal, repeating the excluded answer). Anything shown to a child would
+   need a deterministic check, which brings us back to the deterministic code we already have.
+
+### Why the app doesn't need it
+
+- **The audit already said so.** No game in Section A scored "A = AI significantly improves
+  it". Every real weakness (flat difficulty, small pools, words repeating) had a deterministic
+  fix.
+- **Those fixes are what made the games better, and they shipped without AI.** P0–P2 delivered
+  them: `learningStats` resurfacing missed words, `difficultyTier` ramps, bigger content pools,
+  and four new games (Feed the Monster, Write With Me, Trace the Letter, Find It).
+- **AI was never allowed to decide anything.** By design (Section D), the answer always comes
+  from validated data, never the model. That limits AI to varying phrasing, which is the least
+  valuable part of a learning game.
+- **The one feature it served didn't need it.** Draw It works with the static list. If ideas
+  start repeating, a longer hand-written list (in both languages) is the cheaper fix.
+
+### What it would have cost
+
+- ~323MB model download per device, plus ~27MB WASM runtime and ~540KB worker bundle.
+- A new ML dependency tree (`@huggingface/transformers`, ONNX Runtime; its Node binary needed an
+  install workaround).
+- Worker, cache and fallback code to maintain, for one English-only button.
+
+### Before anyone tries this again
+
+Don't integrate first. Rerun the probe above (same prompts, Ukrainian included) against the
+candidate model, and continue only if all three hold:
+
+1. It answers **in Ukrainian** when asked.
+2. It produces a **real hint** that doesn't give away the answer.
+3. The download size is acceptable for a family tablet.
+
+The obvious next candidate is Qwen2.5-0.5B-Instruct (untested; bigger download). The PR #23 code
+is a working starting point if a model ever passes.
 
 ---
 
