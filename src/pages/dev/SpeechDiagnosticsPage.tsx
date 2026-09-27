@@ -21,9 +21,10 @@ const TEST_LINES: Record<VoiceLang, { words: string[]; phrase: string }> = {
   uk: { words: ['яблуко', 'веселка', 'черепаха'], phrase: 'Це червоне яблуко.' },
   es: { words: ['manzana', 'arcoíris', 'tortuga'], phrase: 'Esta es una manzana roja.' },
   en: { words: ['apple', 'rainbow', 'turtle'], phrase: 'This is a red apple.' },
+  ru: { words: ['яблоко', 'радуга', 'черепаха'], phrase: 'Это красное яблоко.' },
 }
 
-const LANG_LABEL: Record<VoiceLang, string> = { uk: 'Українська (uk-UA)', en: 'English', es: 'Español (es-ES)' }
+const LANG_LABEL: Record<VoiceLang, string> = { uk: 'Українська (uk-UA)', en: 'English', es: 'Español (es-ES)', ru: 'Русский (ru-RU)' }
 
 function detectEnvironment() {
   const ua = navigator.userAgent
@@ -71,7 +72,7 @@ export function SpeechDiagnosticsPage() {
   async function testNeural(lang: VoiceLang, text: string) {
     unlockAudioForGesture()
     setNeuralStatus((s) => ({ ...s, [text]: 'requesting…' }))
-    const blob = await fetchNeuralAudio({ text, locale: lang === 'uk' ? 'uk-UA' : lang === 'es' ? 'es-ES' : 'en-GB' })
+    const blob = await fetchNeuralAudio({ text, locale: lang === 'uk' ? 'uk-UA' : lang === 'es' ? 'es-ES' : lang === 'ru' ? 'ru-RU' : 'en-GB' })
     if (!blob) {
       setNeuralStatus((s) => ({ ...s, [text]: 'unavailable (no backend configured, or the request failed)' }))
       return

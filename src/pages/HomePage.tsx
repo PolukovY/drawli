@@ -38,7 +38,9 @@ export function HomePage() {
   const markTutorialDone = useAppStore((s) => s.markTutorialDone)
 
   useEffect(() => {
-    if (settings?.language) setPlayLanguage(settings.language)
+    // Games have Ukrainian, English and Spanish words; a Russian interface
+    // starts them in Ukrainian, and the chips below switch it as usual.
+    if (settings?.language) setPlayLanguage(settings.language === 'ru' ? 'uk' : settings.language)
   }, [settings?.language])
 
   const [index, setIndex] = useState<ExerciseIndex | null>(null)

@@ -5,7 +5,7 @@ import { Icon } from '../components/Icon'
 import { useAppStore } from '../app/store'
 import { currentVoiceOption, hasVoiceFor, listVoiceOptions, speak, voiceQuality } from '../audio/speech'
 import { praiseLine } from '../audio/phrases'
-import type { VoiceLanguage } from '../storage/types'
+import type { Language, VoiceLanguage } from '../storage/types'
 import { LANGUAGE_FLAG } from '../i18n/languageFlags'
 import { BUILD_ID, refreshApp } from '../app/serviceWorker'
 import {
@@ -16,10 +16,17 @@ import '../styles/ui.css'
 import './SettingsPage.css'
 
 /** Shown as a flag; the label lives on for the aria-label a flag can't carry. */
+const UI_LANGUAGES: { id: Language; label: string }[] = [
+  { id: 'uk', label: 'Українська' },
+  { id: 'en', label: 'English' },
+  { id: 'ru', label: 'Русский' },
+]
+
 const VOICE_LANGUAGES: { id: VoiceLanguage; label: string }[] = [
   { id: 'uk', label: 'Українська' },
   { id: 'en', label: 'English' },
   { id: 'es', label: 'Español' },
+  { id: 'ru', label: 'Русский' },
 ]
 
 export function SettingsPage() {
@@ -103,24 +110,18 @@ export function SettingsPage() {
           <span className="setting__icon"><Icon name="globe" size={28} color="var(--c-accent)" /></span>
           <div className="setting__title grow">{t('settings.language')}</div>
           <div className="row" style={{ gap: 10 }}>
-            <button
-              className={`btn lang-flag ${settings?.language === 'uk' ? 'btn--primary' : ''}`}
-              onClick={() => void setLanguage('uk')}
-              aria-label="Українська"
-              aria-pressed={settings?.language === 'uk'}
-              title="Українська"
-            >
-              {LANGUAGE_FLAG.uk}
-            </button>
-            <button
-              className={`btn lang-flag ${settings?.language === 'en' ? 'btn--primary' : ''}`}
-              onClick={() => void setLanguage('en')}
-              aria-label="English"
-              aria-pressed={settings?.language === 'en'}
-              title="English"
-            >
-              {LANGUAGE_FLAG.en}
-            </button>
+            {UI_LANGUAGES.map(({ id, label }) => (
+              <button
+                key={id}
+                className={`btn lang-flag ${settings?.language === id ? 'btn--primary' : ''}`}
+                onClick={() => void setLanguage(id)}
+                aria-label={label}
+                aria-pressed={settings?.language === id}
+                title={label}
+              >
+                {LANGUAGE_FLAG[id]}
+              </button>
+            ))}
           </div>
         </section>
 
