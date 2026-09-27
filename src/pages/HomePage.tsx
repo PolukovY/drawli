@@ -29,6 +29,7 @@ const PLAY_LANGUAGES: Array<{ id: WordLanguage; label: string }> = [
   { id: 'uk', label: 'Українська' },
   { id: 'en', label: 'English' },
   { id: 'es', label: 'Español' },
+  { id: 'ru', label: 'Русский' },
 ]
 
 export function HomePage() {
@@ -38,10 +39,12 @@ export function HomePage() {
   const markTutorialDone = useAppStore((s) => s.markTutorialDone)
 
   useEffect(() => {
-    // Games have Ukrainian, English and Spanish words; a Russian interface
-    // starts them in Ukrainian, and the chips below switch it as usual.
-    if (settings?.language) setPlayLanguage(settings.language === 'ru' ? 'uk' : settings.language)
+    if (settings?.language) setPlayLanguage(settings.language)
   }, [settings?.language])
+
+  // Russian words are only offered once Russian is the chosen interface
+  // language; everyone else sees the same three languages as before.
+  const playLanguages = PLAY_LANGUAGES.filter((lang) => lang.id !== 'ru' || settings?.language === 'ru')
 
   const [index, setIndex] = useState<ExerciseIndex | null>(null)
   const [mode, setMode] = useState<CategoryKind | 'play'>(rememberedMode)
@@ -180,7 +183,7 @@ export function HomePage() {
             language the child wants to play in. */}
         {mode === 'play' ? (
           <div className="home__categories scroll-row">
-            {PLAY_LANGUAGES.map((lang) => (
+            {playLanguages.map((lang) => (
               <button
                 key={lang.id}
                 className={`chip lang-flag ${playLanguage === lang.id ? 'chip--on' : ''}`}

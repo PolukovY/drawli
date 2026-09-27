@@ -7,6 +7,14 @@ import type { CategorySummary, ExerciseSummary } from '../exercise/Exercise'
 /** Lines, waves and polygons are not things a word game can name. */
 const ABSTRACT_CATEGORIES = new Set(['motor', 'shapes'])
 
+/**
+ * Letters for a language that has words but no letter-tracing exercises of
+ * its own to read them from (the other three take theirs from `letters_*`).
+ */
+const ALPHABETS: Partial<Record<WordLanguage, string>> = {
+  ru: 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ',
+}
+
 export interface GameContent {
   /** Recognisable pictures only. */
   pictures: ExerciseSummary[]
@@ -38,18 +46,17 @@ export function useGameContent(language: WordLanguage): GameContent {
         const namable = new Set(drawing.filter((id) => !ABSTRACT_CATEGORIES.has(id)))
         setAllPictures(index.exercises.filter((e) => drawing.includes(e.category)))
         setPictures(index.exercises.filter((e) => namable.has(e.category)))
-        setLetters(
-          index.exercises
-            .filter((e) => e.category === `letters_${language}` && e.glyph)
-            .map((e) => e.glyph as string),
-        )
+        const glyphs = index.exercises
+          .filter((e) => e.category === `letters_${language}` && e.glyph)
+          .map((e) => e.glyph as string)
+        setLetters(glyphs.length > 0 ? glyphs : [...(ALPHABETS[language] ?? '')])
       })
       .catch(() => undefined)
   }, [language])
 
   useEffect(() => {
     void loadWords().then((all) => setWords(all[language] ?? {})).catch(() => undefined)
-    if (language === 'uk') { setArticles({}); return }
+    if (language !== 'en' && language !== 'es') { setArticles({}); return }
     void loadArticles().then((all) => setArticles(all[language] ?? {})).catch(() => undefined)
   }, [language])
 

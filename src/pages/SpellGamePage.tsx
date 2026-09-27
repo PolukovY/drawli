@@ -6,7 +6,7 @@ import { Fireworks } from '../components/Fireworks'
 import { playSound } from '../audio/sounds'
 import { useAppStore } from '../app/store'
 import { randomSeed, shuffle } from '../games/shuffle'
-import { assetUrl, loadIndex, loadWords, type WordLanguage } from '../exercise/ExerciseLoader'
+import { assetUrl, loadIndex, loadWords, type WordLanguage, parseWordLanguage, WORD_LANGUAGE_LABELS } from '../exercise/ExerciseLoader'
 import type { ExerciseSummary } from '../exercise/Exercise'
 import '../styles/ui.css'
 import './SpellGamePage.css'
@@ -15,12 +15,7 @@ const ALPHABETS: Record<WordLanguage, string> = {
   uk: 'АБВГДЕЄЖЗИІЇЙКЛМНОПРСТУФХЦЧШЩЮЯ',
   en: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
   es: 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ',
-}
-
-const LANGUAGE_LABELS: Record<WordLanguage, string> = {
-  uk: 'Українська',
-  en: 'English',
-  es: 'Español',
+  ru: 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЫЭЮЯ',
 }
 
 const ROUNDS = 5
@@ -43,8 +38,7 @@ export function SpellGamePage() {
   const { t } = useTranslation()
 
   const requested = search.get('lang')
-  const language: WordLanguage =
-    requested === 'en' || requested === 'es' || requested === 'uk' ? requested : 'uk'
+  const language = parseWordLanguage(requested)
   const awardStars = useAppStore((s) => s.awardStars)
   const stars = useAppStore((s) => s.settings?.stars ?? 0)
 
@@ -241,7 +235,7 @@ export function SpellGamePage() {
           <Icon name="back" size={26} color="var(--c-text)" width={2.6} />
         </button>
         <div className="title grow">{t('play.spell')}</div>
-        <div className="chip">{LANGUAGE_LABELS[language]}</div>
+        <div className="chip">{WORD_LANGUAGE_LABELS[language]}</div>
         <div className="muted" style={{ fontSize: 17 }}>
           {round + 1} / {words.length || ROUNDS}
         </div>

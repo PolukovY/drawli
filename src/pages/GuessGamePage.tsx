@@ -7,7 +7,7 @@ import { randomSeed, shuffle } from '../games/shuffle'
 import { biasByLearningStats, type LearningStat } from '../games/learningBias'
 import { listLearningStats, recordItemMissed, recordItemSeen } from '../storage/LearningStatsRepository'
 import { Icon } from '../components/Icon'
-import { assetUrl, loadArticles, loadIndex, loadWords, type WordLanguage } from '../exercise/ExerciseLoader'
+import { assetUrl, loadArticles, loadIndex, loadWords, parseWordLanguage, WORD_LANGUAGE_LABELS } from '../exercise/ExerciseLoader'
 import type { ExerciseSummary } from '../exercise/Exercise'
 import '../styles/ui.css'
 import './GuessGamePage.css'
@@ -16,12 +16,6 @@ const ROUNDS = 5
 const CHOICES = 4
 const ABSTRACT_CATEGORIES = new Set(['motor', 'shapes'])
 const GAME_ID = 'guess'
-
-const LANGUAGE_LABELS: Record<WordLanguage, string> = {
-  uk: 'Українська',
-  en: 'English',
-  es: 'Español',
-}
 
 interface Round {
   word: string
@@ -36,8 +30,7 @@ export function GuessGamePage() {
   const { t } = useTranslation()
 
   const requested = search.get('lang')
-  const language: WordLanguage =
-    requested === 'en' || requested === 'es' || requested === 'uk' ? requested : 'uk'
+  const language = parseWordLanguage(requested)
 
   const [pool, setPool] = useState<ExerciseSummary[]>([])
   const [dictionary, setDictionary] = useState<Record<string, string>>({})
@@ -50,8 +43,8 @@ export function GuessGamePage() {
 
   useEffect(() => {
     void loadWords().then((words) => setDictionary(words[language] ?? {})).catch(() => undefined)
-    // Ukrainian has none; for the other two the article belongs with the word.
-    if (language === 'uk') { setArticles({}); return }
+    // Only English and Spanish have articles; there they belong with the word.
+    if (language !== 'en' && language !== 'es') { setArticles({}); return }
     void loadArticles().then((all) => setArticles(all[language] ?? {})).catch(() => undefined)
   }, [language])
 
@@ -115,7 +108,7 @@ export function GuessGamePage() {
   return (
     <GameShell
       title={t('play.guess')}
-      language={LANGUAGE_LABELS[language]}
+      language={WORD_LANGUAGE_LABELS[language]}
       round={game.round}
       total={game.total}
       solved={game.solved}
