@@ -9,6 +9,7 @@ const GROUPS: Record<WordLanguage, string[][]> = {
   uk: [['И', 'Н'], ['Ш', 'Щ'], ['Г', 'Ґ'], ['Б', 'В'], ['Е', 'Є']],
   en: [['C', 'G'], ['E', 'F'], ['M', 'N'], ['O', 'Q'], ['P', 'R'], ['U', 'V']],
   es: [['C', 'G'], ['E', 'F'], ['M', 'N'], ['O', 'Q'], ['P', 'R'], ['U', 'V']],
+  ru: [['И', 'Н'], ['Ш', 'Щ'], ['Б', 'В'], ['Е', 'Ё'], ['Ь', 'Ъ']],
 }
 
 /** The other letters in `letter`'s lookalike group, if it has one. */

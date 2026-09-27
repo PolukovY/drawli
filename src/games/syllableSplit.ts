@@ -4,6 +4,7 @@ const VOWEL_CHARS: Record<WordLanguage, string> = {
   uk: 'АЕЄИІЇОУЮЯ',
   en: 'AEIOUY',
   es: 'AEIOUÁÉÍÓÚÜ',
+  ru: 'АЕЁИОУЫЭЮЯ',
 }
 
 /**
@@ -15,6 +16,9 @@ const ONSET_CLUSTERS: Partial<Record<WordLanguage, ReadonlySet<string>>> = {
   es: new Set(['BL', 'BR', 'CH', 'CL', 'CR', 'DR', 'FL', 'FR', 'GL', 'GR', 'LL', 'PL', 'PR', 'RR', 'TR']),
 }
 
+/** Languages whose primers split by open syllables, one vowel letter each. */
+const OPEN_SYLLABLES: ReadonlySet<WordLanguage> = new Set(['uk', 'ru'])
+
 function isVowel(ch: string, language: WordLanguage): boolean {
   return VOWEL_CHARS[language].includes(ch.toUpperCase())
 }
@@ -23,7 +27,8 @@ function isVowel(ch: string, language: WordLanguage): boolean {
  * Splits a word into syllables for reading practice. This is a teaching
  * approximation, not a dictionary lookup:
  *
- * - Ukrainian follows the open-syllable convention Ukrainian primers use —
+ * - Ukrainian (and Russian, whose primers do the same) follows the
+ *   open-syllable convention Ukrainian primers use —
  *   every consonant between two vowels moves to the *following* syllable
  *   ("ко-ше-ня", "ві-кно"), and each vowel letter is its own syllable (no
  *   grouping into diphthongs, since Ukrainian mostly doesn't have them).
@@ -47,7 +52,7 @@ export function splitIntoSyllables(word: string, language: WordLanguage): string
   while (i < scanLen) {
     if (!isVowel(upper[i], language)) { i += 1; continue }
     let end = i + 1
-    if (language !== 'uk') {
+    if (!OPEN_SYLLABLES.has(language)) {
       while (end < scanLen && isVowel(upper[end], language)) end += 1
     }
     nuclei.push({ start: i, end })
@@ -63,7 +68,7 @@ export function splitIntoSyllables(word: string, language: WordLanguage): string
     const consEnd = nuclei[n + 1].start
     const runLength = consEnd - consStart
 
-    if (runLength <= 1 || language === 'uk') {
+    if (runLength <= 1 || OPEN_SYLLABLES.has(language)) {
       boundaries.push(consStart)
     } else if (runLength === 2) {
       const pair = upper.slice(consStart, consEnd)

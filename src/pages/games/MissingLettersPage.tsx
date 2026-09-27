@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { assetUrl, type WordLanguage } from '../../exercise/ExerciseLoader'
+import { assetUrl, parseWordLanguage, WORD_LANGUAGE_LABELS } from '../../exercise/ExerciseLoader'
 import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
@@ -15,10 +15,6 @@ import './MissingLettersPage.css'
 const ROUNDS = 5
 const MAX_WORD = 8
 const GAME_ID = 'missing'
-
-const LANGUAGE_LABELS: Record<WordLanguage, string> = {
-  uk: 'Українська', en: 'English', es: 'Español',
-}
 
 interface Round {
   itemId: string
@@ -34,8 +30,7 @@ export function MissingLettersPage() {
   const [search] = useSearchParams()
   const { t } = useTranslation()
   const requested = search.get('lang')
-  const language: WordLanguage =
-    requested === 'en' || requested === 'es' ? requested : 'uk'
+  const language = parseWordLanguage(requested)
 
   const content = useGameContent(language)
   const [seed, setSeed] = useState(randomSeed)
@@ -122,7 +117,7 @@ export function MissingLettersPage() {
   return (
     <GameShell
       title={t('play.missing')}
-      language={LANGUAGE_LABELS[language]}
+      language={WORD_LANGUAGE_LABELS[language]}
       round={game.round}
       total={game.total}
       solved={game.solved}

@@ -46,7 +46,16 @@ export function loadSvg(exerciseId: string, file: string): Promise<string> {
   return promise
 }
 
-export type WordLanguage = 'uk' | 'en' | 'es'
+export type WordLanguage = 'uk' | 'en' | 'es' | 'ru'
+
+export const WORD_LANGUAGE_LABELS: Record<WordLanguage, string> = {
+  uk: 'Українська', en: 'English', es: 'Español', ru: 'Русский',
+}
+
+/** A game's `?lang=` value; anything unrecognised plays in Ukrainian. */
+export function parseWordLanguage(value: string | null): WordLanguage {
+  return value === 'en' || value === 'es' || value === 'ru' ? value : 'uk'
+}
 
 let wordsPromise: Promise<Record<WordLanguage, Record<string, string>>> | null = null
 

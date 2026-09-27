@@ -3,6 +3,7 @@ import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { CATEGORIES, EXERCISES } from './exercise-data.mjs'
 import { ES_WORDS } from './exercises/es-words.mjs'
+import { RU_TITLES } from './exercises/ru-words.mjs'
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const outDir = resolve(root, 'public/exercises')
@@ -131,8 +132,8 @@ const index = {
   exercises: [],
 }
 
-const titles = { uk: {}, en: {} }
-const wordList = { uk: {}, en: {}, es: {} }
+const titles = { uk: {}, en: {}, ru: {} }
+const wordList = { uk: {}, en: {}, es: {}, ru: {} }
 /**
  * Articles ride in their own file: the word games read plain words, the article
  * game reads these. English follows the vowel rule; Spanish gender is data.
@@ -203,12 +204,15 @@ for (const exercise of EXERCISES) {
 
   titles.uk[exercise.id] = exercise.title.uk
   titles.en[exercise.id] = exercise.title.en
+  // Letters and numbers read the same in every language.
+  titles.ru[exercise.id] = exercise.glyph ? exercise.title.uk : RU_TITLES[exercise.id]
 
   // The spelling game reads words from here, so it can run in a language the
   // interface is not translated into (Spanish).
   if (!exercise.glyph) {
     wordList.uk[exercise.id] = exercise.title.uk
     wordList.en[exercise.id] = exercise.title.en
+    wordList.ru[exercise.id] = RU_TITLES[exercise.id]
     articleList.en[exercise.id] = englishArticle(exercise.title.en)
 
     const spanish = ES_WORDS[exercise.id]
@@ -231,7 +235,10 @@ if (missingEs.length) console.warn(`no Spanish word for: ${missingEs.map((e) => 
 
 // Exercise names live beside their geometry; the translation files are generated
 // so a new exercise can never ship with a missing title in one language.
-for (const lang of ['uk', 'en']) {
+const missingRu = index.exercises.filter((e) => !e.glyph && !RU_TITLES[e.id])
+if (missingRu.length) throw new Error(`no Russian title for: ${missingRu.map((e) => e.id).join(', ')}`)
+
+for (const lang of ['uk', 'en', 'ru']) {
   const file = resolve(i18nDir, `${lang}.json`)
   const messages = JSON.parse(await readFile(file, 'utf8'))
   messages.exercise = titles[lang]

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { assetUrl, type WordLanguage } from '../../exercise/ExerciseLoader'
+import { assetUrl, parseWordLanguage, WORD_LANGUAGE_LABELS } from '../../exercise/ExerciseLoader'
 import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
@@ -16,16 +16,15 @@ import { Icon } from '../../components/Icon'
 import './SyllableReadingPage.css'
 import './SoundPositionPage.css'
 
+/** Soft and hard signs are letters without a sound of their own. */
+const SIGNS = new Set(['Ь', 'Ъ'])
+
 const ROUNDS_PER_GROUP = 2
 const GAME_ID = 'soundposition'
 // Easiest first: a sound at the very start of a word is the one most kids
 // can point to; the end comes next; a sound buried in the middle is hardest.
 const GROUP_ORDER: SoundPosition[] = ['start', 'end', 'middle']
 const ZONES: SoundPosition[] = ['start', 'middle', 'end']
-
-const LANGUAGE_LABELS: Record<WordLanguage, string> = {
-  uk: 'Українська', en: 'English', es: 'Español',
-}
 
 interface Round {
   itemId: string
@@ -57,7 +56,7 @@ export function SoundPositionPage() {
   const [search] = useSearchParams()
   const { t } = useTranslation()
   const requested = search.get('lang')
-  const language: WordLanguage = requested === 'en' || requested === 'es' ? requested : 'uk'
+  const language = parseWordLanguage(requested)
 
   const content = useGameContent(language)
   const [seed, setSeed] = useState(randomSeed)
@@ -83,6 +82,7 @@ export function SoundPositionPage() {
     }
     for (const { picture, word } of words) {
       for (const letter of content.letters) {
+        if (SIGNS.has(letter)) continue
         const position = findSoundPosition(word, letter)
         if (position) byPosition[position].push({ picture, word, letter })
       }
@@ -139,7 +139,7 @@ export function SoundPositionPage() {
   return (
     <GameShell
       title={t('play.soundPosition')}
-      language={LANGUAGE_LABELS[language]}
+      language={WORD_LANGUAGE_LABELS[language]}
       round={game.round}
       total={game.total}
       solved={game.solved}
