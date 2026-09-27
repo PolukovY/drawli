@@ -43,6 +43,9 @@ export function WriteWithMePage() {
   const [seed, setSeed] = useState(randomSeed)
   const [letterIndex, setLetterIndex] = useState(0)
   const [steps, setSteps] = useState<ExerciseStep[] | null>(null)
+  // A letter takes several strokes, so the first one only unlocks Next; the
+  // child decides when the letter is finished.
+  const [hasDrawn, setHasDrawn] = useState(false)
   // Glyph -> exercise id: mostly `${language}-${letter.toLowerCase()}`, but
   // not always (Spanish Ñ is `es-enye`), so this is read from the real data.
   const [letterIds, setLetterIds] = useState<Record<string, string>>({})
@@ -81,7 +84,7 @@ export function WriteWithMePage() {
   const game = useGameSession(rounds)
   const current = game.current
 
-  useEffect(() => { setLetterIndex(0); setSteps(null) }, [game.round, rounds])
+  useEffect(() => { setLetterIndex(0); setSteps(null); setHasDrawn(false) }, [game.round, rounds])
 
   useEffect(() => {
     if (!current || game.solved) return
@@ -103,11 +106,13 @@ export function WriteWithMePage() {
       speakWord(current.word.toLowerCase(), language, 0.8)
     } else {
       playSound('tap')
+      setHasDrawn(false)
       setLetterIndex((i) => i + 1)
     }
   }
 
   const currentLetterId = current ? letterIds[current.word[letterIndex]] : undefined
+  const isLastLetter = current ? letterIndex + 1 >= current.word.length : false
 
   return (
     <GameShell
@@ -158,7 +163,7 @@ export function WriteWithMePage() {
                   key={`${game.round}-${letterIndex}`}
                   tool="PENCIL"
                   color={color}
-                  onFirstAction={letterTraced}
+                  onFirstAction={() => setHasDrawn(true)}
                 />
               </div>
             </div>
@@ -173,7 +178,13 @@ export function WriteWithMePage() {
               </span>
             </button>
           ) : (
-            <div className="muted game-hint">{t('play.writeWithMeHint')}</div>
+            <div className="write-with-me__actions">
+              <div className="muted game-hint">{t('play.writeWithMeHint')}</div>
+              <button className="btn btn--primary btn--hero" onClick={letterTraced} disabled={!hasDrawn}>
+                {t(isLastLetter ? 'drawing.done' : 'drawing.next')}
+                <Icon name={isLastLetter ? 'check' : 'arrow'} size={24} color="#fff" width={2.6} />
+              </button>
+            </div>
           )}
         </div>
       ) : (

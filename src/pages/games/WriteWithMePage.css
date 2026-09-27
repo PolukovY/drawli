@@ -23,6 +23,12 @@
   position: relative;
 }
 
+.write-with-me__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
 .write-with-me__reveal {
   display: flex;
   flex-direction: column;
