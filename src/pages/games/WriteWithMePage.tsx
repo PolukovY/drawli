@@ -43,9 +43,13 @@ export function WriteWithMePage() {
   const [seed, setSeed] = useState(randomSeed)
   const [letterIndex, setLetterIndex] = useState(0)
   const [steps, setSteps] = useState<ExerciseStep[] | null>(null)
-  // A letter takes several strokes, so the first one only unlocks Next; the
-  // child decides when the letter is finished.
-  const [hasDrawn, setHasDrawn] = useState(false)
+  // Letters are written in stages (К: the upright first, then both arms),
+  // walked one at a time like the tracing screen, so the guide shows what to
+  // draw now and in what order — not the whole letter with most of it marked
+  // as already done. Next unlocks once this stage has a stroke of its own.
+  const [stepIndex, setStepIndex] = useState(0)
+  const [strokes, setStrokes] = useState(0)
+  const [stepBaseline, setStepBaseline] = useState(0)
   // Bumped to remount the canvas: a clean sheet for the same letter.
   const [attempt, setAttempt] = useState(0)
   // Glyph -> exercise id: mostly `${language}-${letter.toLowerCase()}`, but
@@ -86,7 +90,13 @@ export function WriteWithMePage() {
   const game = useGameSession(rounds)
   const current = game.current
 
-  useEffect(() => { setLetterIndex(0); setSteps(null); setHasDrawn(false) }, [game.round, rounds])
+  function resetLetter() {
+    setStepIndex(0)
+    setStrokes(0)
+    setStepBaseline(0)
+  }
+
+  useEffect(() => { setLetterIndex(0); setSteps(null); resetLetter() }, [game.round, rounds])
 
   useEffect(() => {
     if (!current || game.solved) return
@@ -100,26 +110,33 @@ export function WriteWithMePage() {
     return () => { cancelled = true }
   }, [current, letterIndex, letterIds, game.solved])
 
-  function letterTraced() {
+  const stepCount = steps?.length ?? 0
+  const isLastStep = stepIndex >= stepCount - 1
+  const isLastLetter = current ? letterIndex + 1 >= current.word.length : false
+  const canProceed = steps !== null && strokes > stepBaseline
+
+  function next() {
     if (!current) return
-    if (letterIndex + 1 >= current.word.length) {
-      playSound('tap')
+    playSound('tap')
+    if (!isLastStep) {
+      setStepBaseline(strokes)
+      setStepIndex((i) => i + 1)
+    } else if (!isLastLetter) {
+      setSteps(null)
+      resetLetter()
+      setLetterIndex((i) => i + 1)
+    } else {
       void game.solve()
       speakWord(current.word.toLowerCase(), language, 0.8)
-    } else {
-      playSound('tap')
-      setHasDrawn(false)
-      setLetterIndex((i) => i + 1)
     }
   }
 
   function clearLetter() {
     setAttempt((a) => a + 1)
-    setHasDrawn(false)
+    resetLetter()
   }
 
   const currentLetterId = current ? letterIds[current.word[letterIndex]] : undefined
-  const isLastLetter = current ? letterIndex + 1 >= current.word.length : false
 
   return (
     <GameShell
@@ -163,14 +180,14 @@ export function WriteWithMePage() {
           ) : (
             <div className="canvas-card card write-with-me__stage">
               {steps && steps.length > 0 && currentLetterId ? (
-                <GuideLayer exerciseId={currentLetterId} steps={steps} currentIndex={steps.length - 1} showTrace />
+                <GuideLayer exerciseId={currentLetterId} steps={steps} currentIndex={stepIndex} showTrace />
               ) : null}
               <div className="canvas-holder">
                 <DrawingCanvas
                   key={`${game.round}-${letterIndex}-${attempt}`}
                   tool="PENCIL"
                   color={color}
-                  onFirstAction={() => setHasDrawn(true)}
+                  onActionCommitted={(actions) => setStrokes(actions.length)}
                 />
               </div>
             </div>
@@ -187,13 +204,13 @@ export function WriteWithMePage() {
           ) : (
             <div className="write-with-me__actions">
               <div className="muted game-hint">{t('play.writeWithMeHint')}</div>
-              <button className="btn btn--hero" onClick={clearLetter} disabled={!hasDrawn}>
+              <button className="btn btn--hero" onClick={clearLetter} disabled={strokes === 0}>
                 <Icon name="eraser" size={24} color="var(--c-text-soft)" width={2.4} />
                 {t('drawing.tool.clear')}
               </button>
-              <button className="btn btn--primary btn--hero" onClick={letterTraced} disabled={!hasDrawn}>
-                {t(isLastLetter ? 'drawing.done' : 'drawing.next')}
-                <Icon name={isLastLetter ? 'check' : 'arrow'} size={24} color="#fff" width={2.6} />
+              <button className="btn btn--primary btn--hero" onClick={next} disabled={!canProceed}>
+                {t(isLastLetter && isLastStep ? 'drawing.done' : 'drawing.next')}
+                <Icon name={isLastLetter && isLastStep ? 'check' : 'arrow'} size={24} color="#fff" width={2.6} />
               </button>
             </div>
           )}
