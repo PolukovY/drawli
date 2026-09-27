@@ -46,6 +46,8 @@ export function WriteWithMePage() {
   // A letter takes several strokes, so the first one only unlocks Next; the
   // child decides when the letter is finished.
   const [hasDrawn, setHasDrawn] = useState(false)
+  // Bumped to remount the canvas: a clean sheet for the same letter.
+  const [attempt, setAttempt] = useState(0)
   // Glyph -> exercise id: mostly `${language}-${letter.toLowerCase()}`, but
   // not always (Spanish Ñ is `es-enye`), so this is read from the real data.
   const [letterIds, setLetterIds] = useState<Record<string, string>>({})
@@ -111,6 +113,11 @@ export function WriteWithMePage() {
     }
   }
 
+  function clearLetter() {
+    setAttempt((a) => a + 1)
+    setHasDrawn(false)
+  }
+
   const currentLetterId = current ? letterIds[current.word[letterIndex]] : undefined
   const isLastLetter = current ? letterIndex + 1 >= current.word.length : false
 
@@ -160,7 +167,7 @@ export function WriteWithMePage() {
               ) : null}
               <div className="canvas-holder">
                 <DrawingCanvas
-                  key={`${game.round}-${letterIndex}`}
+                  key={`${game.round}-${letterIndex}-${attempt}`}
                   tool="PENCIL"
                   color={color}
                   onFirstAction={() => setHasDrawn(true)}
@@ -180,6 +187,10 @@ export function WriteWithMePage() {
           ) : (
             <div className="write-with-me__actions">
               <div className="muted game-hint">{t('play.writeWithMeHint')}</div>
+              <button className="btn btn--hero" onClick={clearLetter} disabled={!hasDrawn}>
+                <Icon name="eraser" size={24} color="var(--c-text-soft)" width={2.4} />
+                {t('drawing.tool.clear')}
+              </button>
               <button className="btn btn--primary btn--hero" onClick={letterTraced} disabled={!hasDrawn}>
                 {t(isLastLetter ? 'drawing.done' : 'drawing.next')}
                 <Icon name={isLastLetter ? 'check' : 'arrow'} size={24} color="#fff" width={2.6} />
