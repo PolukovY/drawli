@@ -24,6 +24,7 @@ import { MemoryTracePage } from '../pages/games/MemoryTracePage'
 import { PuzzlePage } from '../pages/games/PuzzlePage'
 import { ListenPage } from '../pages/games/ListenPage'
 import { TicTacToePage } from '../pages/games/TicTacToePage'
+import { ColorRacePage } from '../pages/games/ColorRacePage'
 import { SnakePage } from '../pages/games/SnakePage'
 import { SeaBattlePage } from '../pages/games/SeaBattlePage'
 import { PatternsPage } from '../pages/games/PatternsPage'
@@ -80,6 +81,7 @@ export const router = createHashRouter([
   { path: '/puzzle', element: <PuzzlePage /> },
   { path: '/listen', element: <ListenPage /> },
   { path: '/tic-tac-toe', element: <TicTacToePage /> },
+  { path: '/color-race', element: <ColorRacePage /> },
   { path: '/snake', element: <SnakePage /> },
   { path: '/sea-battle', element: <SeaBattlePage /> },
   { path: '/patterns', element: <PatternsPage /> },

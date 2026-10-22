@@ -1,0 +1,81 @@
+.race { gap: 14px; width: 100%; }
+.race__modes { gap: 10px; }
+
+.race__track {
+  display: grid;
+  grid-template-columns: repeat(18, minmax(0, 1fr));
+  gap: 4px;
+  width: min(100%, 1060px);
+  padding: 10px;
+  border-radius: var(--r-xl);
+  background: #6B6B78;
+  box-shadow: var(--sh-card);
+}
+
+.race__cell {
+  aspect-ratio: 1;
+  border: 3px solid transparent;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: clamp(14px, 3vw, 34px);
+  line-height: 1;
+  transition: transform 0.1s ease;
+}
+.race__cell:disabled { opacity: 1; cursor: default; }
+.race__cell--start { background: #8A8A96; }
+.race__cell--finish {
+  background-color: #fff;
+  background-image: conic-gradient(#2A2340 25%, #fff 0 50%, #2A2340 0 75%, #fff 0);
+  background-size: 50% 50%;
+}
+
+/* A square the child can drive to right now. */
+.race__cell--go {
+  border-color: #fff;
+  box-shadow: 0 0 0 3px var(--c-accent);
+  animation: race-pulse 1s ease-in-out infinite;
+  cursor: pointer;
+}
+.race__cell--go:active { transform: scale(0.92); }
+@keyframes race-pulse {
+  50% { transform: scale(1.08); }
+}
+
+.race__mark { color: rgba(255, 255, 255, 0.75); font-size: 0.55em; }
+/* The car emoji faces left; the race runs left to right. */
+.race__car { display: inline-block; transform: scaleX(-1); }
+
+.race__dice-row { display: flex; align-items: center; gap: 16px; min-height: 76px; }
+.race__turn { font-size: 40px; display: inline-block; transform: scaleX(-1); }
+.race__dice { display: flex; gap: 12px; }
+.race__die {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 28px;
+  box-shadow: var(--sh-raised);
+  border: 3px solid #fff;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.race__die--used { opacity: 0.25; transform: scale(0.85); }
+
+@media (max-width: 700px) {
+  .race__track { gap: 2px; padding: 6px; }
+  .race__cell { border-width: 2px; border-radius: 6px; }
+  .race__die { width: 48px; height: 48px; font-size: 22px; }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .race__die { width: 44px; height: 44px; font-size: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .race__cell--go { animation: none; }
+}
