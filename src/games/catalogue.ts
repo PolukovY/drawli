@@ -29,6 +29,7 @@ export const GAMES: GameEntry[] = [
   { id: 'symmetry', path: '/symmetry', titleKey: 'play.symmetry', art: '🦋', languages: 'all', order: 14 },
   { id: 'memorytrace', path: '/memory-trace', titleKey: 'play.memoryTrace', art: '💭', languages: 'all', order: 15 },
   { id: 'listen', path: '/listen', titleKey: 'play.listen', art: '🔊', languages: 'all', order: 16 },
+  { id: 'colorrace', path: '/color-race', titleKey: 'play.race', art: '🏁', languages: 'all', order: 17.5 },
   { id: 'tictactoe', path: '/tic-tac-toe', titleKey: 'play.ticTacToe', art: '⭕', languages: 'all', order: 17 },
   { id: 'snake', path: '/snake', titleKey: 'play.snake', art: '🐍', languages: 'all', order: 18 },
   { id: 'seabattle', path: '/sea-battle', titleKey: 'play.seaBattle', art: '🚢', languages: 'all', order: 19 },

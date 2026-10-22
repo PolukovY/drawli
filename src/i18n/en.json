@@ -696,7 +696,19 @@
     "soundPositionListen": "Listen to the word",
     "soundPositionStart": "At the start",
     "soundPositionMiddle": "In the middle",
-    "soundPositionEnd": "At the end"
+    "soundPositionEnd": "At the end",
+    "race": "Colour race",
+    "raceVsRobot": "Against the computer",
+    "raceVsFriend": "Two players",
+    "raceRoll": "Roll the dice",
+    "raceRollHint": "Roll the dice to drive",
+    "raceRollTurn": "{{car}}'s turn — roll the dice",
+    "raceHint": "Tap a square the same colour as a die",
+    "raceNoMoves": "No way forward — next turn",
+    "raceRobotTurn": "The computer is driving…",
+    "raceWin": "You crossed the line first!",
+    "raceLost": "The computer finished first this time",
+    "raceWinner": "{{car}} finishes first!"
   },
   "free": {
     "title": "Blank sheet",

@@ -700,7 +700,19 @@
     "soundPositionListen": "Послухати слово",
     "soundPositionStart": "На початку",
     "soundPositionMiddle": "Всередині",
-    "soundPositionEnd": "В кінці"
+    "soundPositionEnd": "В кінці",
+    "race": "Кольорові перегони",
+    "raceVsRobot": "Проти комп'ютера",
+    "raceVsFriend": "Удвох",
+    "raceRoll": "Кинути кубики",
+    "raceRollHint": "Кинь кубики, щоб поїхати",
+    "raceRollTurn": "Хід {{car}} — кидай кубики",
+    "raceHint": "Торкнись клітинки такого кольору, як на кубику",
+    "raceNoMoves": "Далі нема куди їхати — хід переходить",
+    "raceRobotTurn": "Комп'ютер їде…",
+    "raceWin": "Ти перший на фініші!",
+    "raceLost": "Цього разу першим був комп'ютер",
+    "raceWinner": "{{car}} фінішує першим!"
   },
   "free": {
     "title": "Чистий аркуш",
