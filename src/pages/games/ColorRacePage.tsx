@@ -1,10 +1,10 @@
-import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { GameShell } from '../../games/GameShell'
 import { useGameSession } from '../../games/useGameSession'
 import { randomSeed } from '../../games/shuffle'
 import {
-  bestPath, finished, LANES, makeTrack, nextSteps, rollDice,
+  bestPath, finished, LANES, LENGTH, makeTrack, nextSteps, rollDice,
   type Car, type Die, type Step,
 } from '../../games/colorRace'
 import { playSound } from '../../audio/sounds'
@@ -48,6 +48,7 @@ export function ColorRacePage() {
   const [dice, setDice] = useState<Die[] | null>(null)
   const [winner, setWinner] = useState<Player | null>(null)
   const [stuck, setStuck] = useState(false)
+  const [rollId, setRollId] = useState(0)
   const carsRef = useRef(cars)
   carsRef.current = cars
 
@@ -97,6 +98,7 @@ export function ColorRacePage() {
     later(STEP_DELAY, () => {
       const rolled = rollDice()
       setDice(rolled)
+      setRollId((n) => n + 1)
       playSound('tap')
       const [human, robot] = carsRef.current
       let path = bestPath(track, robot, human, rolled)
@@ -125,6 +127,7 @@ export function ColorRacePage() {
     if (dice || winner !== null || robotTurn) return
     playSound('tap')
     setDice(rollDice())
+    setRollId((n) => n + 1)
   }
 
   function drive(step: Step) {
@@ -143,10 +146,11 @@ export function ColorRacePage() {
   }
 
   const stepAt = (lane: number, col: number) => steps.find((s) => s.lane === lane && s.col === col)
-  const carAt = (lane: number, col: number) => {
-    const index = cars.findIndex((c) => c.lane === lane && c.col === col)
-    return index >= 0 ? <span className="race__car">{CARS[index]}</span> : null
-  }
+  /** Where a car sits on the track, as a share of the grid: start grid, 16 squares, finish. */
+  const carStyle = (car: Car) => ({
+    left: `${((car.col + 1.5) / (LENGTH + 2)) * 100}%`,
+    top: `${((car.lane + 0.5) / LANES) * 100}%`,
+  })
 
   const hint = winner !== null
     ? mode === 'duo'
@@ -182,41 +186,57 @@ export function ColorRacePage() {
 
         <div className="muted game-hint">{hint}</div>
 
-        <div className="race__track">
-          {track.map((laneColors, lane) => (
-            <Fragment key={lane}>
-              <div className="race__cell race__cell--start">{carAt(lane, -1)}</div>
-              {laneColors.map((color, col) => {
-                const step = stepAt(lane, col)
-                return (
-                  <button
-                    key={col}
-                    className={`race__cell ${step ? 'race__cell--go' : ''}`}
-                    style={{ background: COLORS[color].hex }}
-                    onClick={() => step && drive(step)}
-                    disabled={!step}
-                    aria-label={step ? t('play.raceHint') : undefined}
-                  >
-                    {carAt(lane, col) ?? <span className="race__mark">{COLORS[color].mark}</span>}
-                  </button>
-                )
-              })}
-              <div className="race__cell race__cell--finish" />
-            </Fragment>
-          ))}
+        <div className="race__scene">
+          <div className="race__stands" aria-hidden="true">🎉 🙌 🚩 🙌 🎈 🙌 🚩 🙌 🎉</div>
+          <div className="race__track">
+            <div className="race__grid">
+              {track.map((laneColors, lane) => (
+                <Fragment key={lane}>
+                  <div className="race__cell race__cell--start" />
+                  {laneColors.map((color, col) => {
+                    const step = stepAt(lane, col)
+                    return (
+                      <button
+                        key={col}
+                        className={`race__cell ${step ? 'race__cell--go' : ''}`}
+                        style={{ '--cell': COLORS[color].hex } as CSSProperties}
+                        onClick={() => step && drive(step)}
+                        disabled={!step}
+                        aria-label={step ? t('play.raceHint') : undefined}
+                      >
+                        <span className="race__mark">{COLORS[color].mark}</span>
+                      </button>
+                    )
+                  })}
+                  <div className="race__cell race__cell--finish" />
+                </Fragment>
+              ))}
+            </div>
+            {/* Cars ride a layer of their own so they glide square to square
+                and stand upright off the tilted track. */}
+            <div className="race__cars" aria-hidden="true">
+              {cars.map((car, i) => (
+                <div key={i} className={`race__car race__car--${i} ${winner === i ? 'race__car--won' : ''}`} style={carStyle(car)}>
+                  <span className="race__car-body">{CARS[i]}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         <div className="race__dice-row">
           <span className="race__turn">{CARS[turn]}</span>
           {dice ? (
-            <div className="race__dice">
+            <div className="race__dice" key={rollId}>
               {dice.map((die, i) => (
                 <span
                   key={i}
                   className={`race__die ${die.used ? 'race__die--used' : ''}`}
-                  style={{ background: COLORS[die.color].hex }}
+                  style={{ '--cell': COLORS[die.color].hex, animationDelay: `${i * 70}ms` } as CSSProperties}
                 >
-                  {COLORS[die.color].mark}
+                  {['front', 'back', 'right', 'left', 'top', 'bottom'].map((face) => (
+                    <span key={face} className={`race__face race__face--${face}`}>{COLORS[die.color].mark}</span>
+                  ))}
                 </span>
               ))}
             </div>
