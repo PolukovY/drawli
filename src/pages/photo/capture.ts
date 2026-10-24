@@ -4,6 +4,14 @@ import { sceneById, SCENE_SIZE, type PhotoScene } from './scenes'
 import { cutoutById, type AnimalCutout } from './animalCutouts'
 
 const MAX_SIDE = 960
+
+/**
+ * Emoji drawn onto the canvas name the colour emoji fonts first. With plain
+ * "sans-serif" Safari can pick a black text glyph for a sticker that looks
+ * coloured on screen (where the page's own font fallback finds the emoji font).
+ */
+const EMOJI_FONT = '"Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif'
+const emojiFont = (size: number) => `${size}px ${EMOJI_FONT}`
 const THUMB_SIDE = 320
 
 function toBlob(canvas: HTMLCanvasElement, quality = 0.9): Promise<Blob> {
@@ -78,7 +86,7 @@ function drawParticles(ctx: CanvasRenderingContext2D, x: number, y: number, w: n
     ctx.save()
     ctx.translate(x + p.x * w, y + p.y * h)
     if (p.rotation) ctx.rotate((p.rotation * Math.PI) / 180)
-    ctx.font = `${p.size * base}px sans-serif`
+    ctx.font = emojiFont(p.size * base)
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     ctx.fillText(p.emoji, 0, 0)
@@ -117,7 +125,7 @@ function drawScene(ctx: CanvasRenderingContext2D, size: number, scene: PhotoScen
     ctx.save()
     ctx.translate(prop.x * size, prop.y * size)
     if (prop.rotation) ctx.rotate((prop.rotation * Math.PI) / 180)
-    ctx.font = `${prop.size}px sans-serif`
+    ctx.font = emojiFont(prop.size)
     ctx.textAlign = 'center'
     ctx.textBaseline = 'middle'
     ctx.fillText(prop.emoji, 0, 0)
@@ -325,7 +333,7 @@ export async function composePhoto(
         ctx.save()
         ctx.translate(deco.x * canvas.width, deco.y * canvas.height)
         ctx.rotate((deco.rotation * Math.PI) / 180)
-        ctx.font = `${64 * deco.scale}px sans-serif`
+        ctx.font = emojiFont(64 * deco.scale)
         ctx.textAlign = 'center'
         ctx.textBaseline = 'middle'
         ctx.fillText(deco.sticker, 0, 0)
