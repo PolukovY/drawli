@@ -45,13 +45,16 @@ export async function captureFrame(
   return { blob, width, height }
 }
 
-function loadImage(url: string): Promise<HTMLImageElement> {
-  return new Promise((resolve, reject) => {
-    const img = new Image()
-    img.onload = () => resolve(img)
-    img.onerror = () => reject(new Error('image load failed'))
-    img.src = url
-  })
+/**
+ * Loads and fully decodes the photo before anything draws it. Safari decodes
+ * lazily: an image drawn after its blob URL was revoked, or before decoding
+ * finished, comes out as nothing — and an empty canvas saved as JPEG is black.
+ */
+async function loadImage(url: string): Promise<HTMLImageElement> {
+  const img = new Image()
+  img.src = url
+  await img.decode()
+  return img
 }
 
 /** The source rect that `object-fit: cover` would crop, for a canvas draw. */
@@ -284,63 +287,66 @@ export async function composePhoto(
   sceneId: string | null = null,
   cutoutId: string | null = null,
 ): Promise<{ processed: Blob; thumbnail: Blob }> {
+  // Kept alive until both canvases are drawn; revoked in the finally below.
   const url = URL.createObjectURL(originalBlob)
-  let img: HTMLImageElement
   try {
-    img = await loadImage(url)
+    const img = await loadImage(url)
+
+    const effect = effectById(effectId)
+    const scene = sceneById(sceneId)
+    const cutout = cutoutById(cutoutId)
+
+    const draw = (canvas: HTMLCanvasElement) => {
+      const ctx = canvas.getContext('2d')
+      if (!ctx) throw new Error('2D canvas unavailable')
+      // JPEG has no transparency: anything left undrawn would save as black.
+      ctx.fillStyle = '#fff'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      if (scene) {
+        drawScene(ctx, canvas.width, scene, img, effect)
+      } else if (cutout) {
+        drawCutout(ctx, canvas.width, cutout, img, effect)
+      } else {
+        ctx.filter = effect.filter
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+        ctx.filter = 'none'
+
+        if (effect.overlay) {
+          ctx.globalAlpha = effect.overlay.alpha
+          ctx.fillStyle = effect.overlay.color
+          ctx.fillRect(0, 0, canvas.width, canvas.height)
+          ctx.globalAlpha = 1
+        }
+        if (effect.particles) drawParticles(ctx, 0, 0, canvas.width, canvas.height, effect.particles)
+      }
+
+      for (const deco of decorations) {
+        ctx.save()
+        ctx.translate(deco.x * canvas.width, deco.y * canvas.height)
+        ctx.rotate((deco.rotation * Math.PI) / 180)
+        ctx.font = `${64 * deco.scale}px sans-serif`
+        ctx.textAlign = 'center'
+        ctx.textBaseline = 'middle'
+        ctx.fillText(deco.sticker, 0, 0)
+        ctx.restore()
+      }
+    }
+
+    const full = document.createElement('canvas')
+    full.width = scene || cutout ? SCENE_SIZE : img.naturalWidth
+    full.height = scene || cutout ? SCENE_SIZE : img.naturalHeight
+    draw(full)
+
+    const thumbScale = Math.min(1, THUMB_SIDE / Math.max(full.width, full.height))
+    const thumb = document.createElement('canvas')
+    thumb.width = Math.round(full.width * thumbScale)
+    thumb.height = Math.round(full.height * thumbScale)
+    draw(thumb)
+
+    const [processed, thumbnail] = await Promise.all([toBlob(full), toBlob(thumb, 0.85)])
+    return { processed, thumbnail }
   } finally {
     URL.revokeObjectURL(url)
   }
-
-  const effect = effectById(effectId)
-  const scene = sceneById(sceneId)
-  const cutout = cutoutById(cutoutId)
-
-  const draw = (canvas: HTMLCanvasElement) => {
-    const ctx = canvas.getContext('2d')
-    if (!ctx) throw new Error('2D canvas unavailable')
-
-    if (scene) {
-      drawScene(ctx, canvas.width, scene, img, effect)
-    } else if (cutout) {
-      drawCutout(ctx, canvas.width, cutout, img, effect)
-    } else {
-      ctx.filter = effect.filter
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-      ctx.filter = 'none'
-
-      if (effect.overlay) {
-        ctx.globalAlpha = effect.overlay.alpha
-        ctx.fillStyle = effect.overlay.color
-        ctx.fillRect(0, 0, canvas.width, canvas.height)
-        ctx.globalAlpha = 1
-      }
-      if (effect.particles) drawParticles(ctx, 0, 0, canvas.width, canvas.height, effect.particles)
-    }
-
-    for (const deco of decorations) {
-      ctx.save()
-      ctx.translate(deco.x * canvas.width, deco.y * canvas.height)
-      ctx.rotate((deco.rotation * Math.PI) / 180)
-      ctx.font = `${64 * deco.scale}px sans-serif`
-      ctx.textAlign = 'center'
-      ctx.textBaseline = 'middle'
-      ctx.fillText(deco.sticker, 0, 0)
-      ctx.restore()
-    }
-  }
-
-  const full = document.createElement('canvas')
-  full.width = scene || cutout ? SCENE_SIZE : img.naturalWidth
-  full.height = scene || cutout ? SCENE_SIZE : img.naturalHeight
-  draw(full)
-
-  const thumbScale = Math.min(1, THUMB_SIDE / Math.max(full.width, full.height))
-  const thumb = document.createElement('canvas')
-  thumb.width = Math.round(full.width * thumbScale)
-  thumb.height = Math.round(full.height * thumbScale)
-  draw(thumb)
-
-  const [processed, thumbnail] = await Promise.all([toBlob(full), toBlob(thumb, 0.85)])
-  return { processed, thumbnail }
 }
