@@ -11,7 +11,7 @@
  * instead (calls this app's own backend endpoint, which is the one thing
  * that is allowed to know a key).
  */
-export type TtsLocale = 'uk-UA' | 'es-ES' | 'en-GB' | 'en-US' | string
+export type TtsLocale = 'uk-UA' | 'es-ES' | 'ru-RU' | 'en-GB' | 'en-US' | string
 
 export type TtsStyle = 'child-friendly' | 'neutral' | 'educational'
 

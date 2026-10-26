@@ -12,7 +12,7 @@
 import type { TtsLocale } from './tts/TtsProvider'
 import { fetchNeuralAudio, isNeuralConfigured, playNeuralAudio, unlockAudioForGesture } from './tts/NeuralSpeech'
 
-export type VoiceLang = 'uk' | 'en' | 'es'
+export type VoiceLang = 'uk' | 'en' | 'es' | 'ru'
 
 /**
  * BCP-47 tags to look for, best first: an exact regional match always wins
@@ -27,6 +27,7 @@ const TAGS: Record<VoiceLang, string[]> = {
   uk: ['uk-UA', 'uk'],
   en: ['en-GB', 'en-US', 'en'],
   es: ['es-ES', 'es-MX', 'es-US', 'es'],
+  ru: ['ru-RU', 'ru'],
 }
 
 /**
@@ -40,6 +41,7 @@ const LANGUAGE_RATE: Record<VoiceLang, number> = {
   uk: 0.9,
   en: 0.95,
   es: 0.9,
+  ru: 0.9,
 }
 
 /**
@@ -406,6 +408,7 @@ function speakShaped(text: string, value: VoiceLang, options: SpeakOptions) {
 const NEURAL_LOCALE: Record<VoiceLang, TtsLocale> = {
   uk: 'uk-UA',
   es: 'es-ES',
+  ru: 'ru-RU',
   en: TAGS.en[0],
 }
 

@@ -71,13 +71,13 @@ export interface ExerciseProgress {
   updatedAt: string
 }
 
-export type Language = 'uk' | 'en'
+export type Language = 'uk' | 'en' | 'ru'
 
 /**
  * The tutor's voice has its own language: a Ukrainian-speaking child can be
- * praised in Spanish, which is half the point of having three.
+ * praised in Spanish, which is half the point of having several.
  */
-export type VoiceLanguage = 'uk' | 'en' | 'es'
+export type VoiceLanguage = 'uk' | 'en' | 'es' | 'ru'
 
 export interface AppSettings {
   id: 'app'

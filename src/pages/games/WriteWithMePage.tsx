@@ -7,7 +7,7 @@ import { useGameContent } from '../../games/useGameContent'
 import { randomSeed, shuffle } from '../../games/shuffle'
 import { DrawingCanvas } from '../../components/DrawingCanvas'
 import { GuideLayer } from '../../components/GuideLayer'
-import { assetUrl, loadExercise, loadIndex, type WordLanguage } from '../../exercise/ExerciseLoader'
+import { assetUrl, loadExercise, loadIndex, parseWordLanguage, WORD_LANGUAGE_LABELS, type WordLanguage } from '../../exercise/ExerciseLoader'
 import type { ExerciseStep } from '../../exercise/Exercise'
 import { useAppStore } from '../../app/store'
 import { speakWord } from '../../audio/speech'
@@ -18,12 +18,15 @@ import '../../games/GameShell.css'
 import './WriteWithMePage.css'
 
 const ROUNDS = 5
+
+/**
+ * Russian has no tracing exercises of its own, but every Cyrillic letter it
+ * shares with Ukrainian is drawn the same way; words that need Ё, Ы, Э or Ъ
+ * simply never come up, since those letters have no guide.
+ */
+const GUIDE_SOURCE: Partial<Record<WordLanguage, WordLanguage>> = { ru: 'uk' }
 const MIN_LEN = 3
 const MAX_LEN = 6
-
-const LANGUAGE_LABELS: Record<WordLanguage, string> = {
-  uk: 'Українська', en: 'English', es: 'Español',
-}
 
 interface Round {
   word: string
@@ -36,7 +39,7 @@ export function WriteWithMePage() {
   const [search] = useSearchParams()
   const { t } = useTranslation()
   const requested = search.get('lang')
-  const language: WordLanguage = requested === 'en' || requested === 'es' ? requested : 'uk'
+  const language = parseWordLanguage(requested)
 
   const content = useGameContent(language)
   const color = useAppStore((s) => s.color)
@@ -61,7 +64,7 @@ export function WriteWithMePage() {
       .then((index) => {
         const map: Record<string, string> = {}
         for (const e of index.exercises) {
-          if (e.category === `letters_${language}` && e.glyph) map[e.glyph] = e.id
+          if (e.category === `letters_${GUIDE_SOURCE[language] ?? language}` && e.glyph) map[e.glyph] = e.id
         }
         setLetterIds(map)
       })
@@ -69,12 +72,12 @@ export function WriteWithMePage() {
   }, [language])
 
   const rounds = useMemo<Round[]>(() => {
-    if (!content.ready || content.letters.length === 0) return []
-    const letterSet = new Set(content.letters)
+    if (!content.ready || Object.keys(letterIds).length === 0) return []
     const candidates = content.pictures
       .map((picture) => ({ picture, word: (content.words[picture.id] ?? '').toUpperCase() }))
       .filter(({ word }) => /^[^\s·]+$/u.test(word) && word.length >= MIN_LEN && word.length <= MAX_LEN)
-      .filter(({ word }) => [...word].every((letter) => letterSet.has(letter)))
+      // Only words whose every letter has a guide to trace.
+      .filter(({ word }) => [...word].every((letter) => letter in letterIds))
 
     const shortWords = candidates.filter(({ word }) => word.length === MIN_LEN)
     const longerWords = candidates.filter(({ word }) => word.length > MIN_LEN)
@@ -85,7 +88,7 @@ export function WriteWithMePage() {
     const longPicks = shuffle(longPool, seed + 13).slice(0, ROUNDS - shortPicks.length)
 
     return [...shortPicks, ...longPicks].map(({ picture, word }) => ({ word, thumbnail: picture.thumbnail }))
-  }, [content.ready, content.pictures, content.words, content.letters, seed])
+  }, [content.ready, content.pictures, content.words, letterIds, seed])
 
   const game = useGameSession(rounds)
   const current = game.current
@@ -141,7 +144,7 @@ export function WriteWithMePage() {
   return (
     <GameShell
       title={t('play.writeWithMe')}
-      language={LANGUAGE_LABELS[language]}
+      language={WORD_LANGUAGE_LABELS[language]}
       round={game.round}
       total={game.total}
       solved={game.solved}

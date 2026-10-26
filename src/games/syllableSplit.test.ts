@@ -9,6 +9,13 @@ describe('splitIntoSyllables', () => {
     expect(splitIntoSyllables('Поїзд', 'uk')).toEqual(['По', 'їзд'])
   })
 
+  it('splits Russian words the same open-syllable way, with Ё and Ы as vowels', () => {
+    expect(splitIntoSyllables('Лисичка', 'ru')).toEqual(['Ли', 'си', 'чка'])
+    expect(splitIntoSyllables('Ёлочка', 'ru')).toEqual(['Ё', 'ло', 'чка'])
+    expect(splitIntoSyllables('Рыбка', 'ru')).toEqual(['Ры', 'бка'])
+    expect(splitIntoSyllables('Кит', 'ru')).toEqual(['Кит'])
+  })
+
   it('leaves a one-vowel Ukrainian word whole', () => {
     expect(splitIntoSyllables('Стіл', 'uk')).toEqual(['Стіл'])
   })

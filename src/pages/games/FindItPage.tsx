@@ -8,7 +8,7 @@ import { randomSeed } from '../../games/shuffle'
 import { difficultyTier, type DifficultyTier } from '../../games/difficultyTier'
 import { FIND_IT_ITEMS, FIND_IT_COLOR_HEX } from '../../games/findItAttributes'
 import { buildFindItRound } from '../../games/findItRounds'
-import { assetUrl, type WordLanguage } from '../../exercise/ExerciseLoader'
+import { assetUrl, parseWordLanguage, WORD_LANGUAGE_LABELS } from '../../exercise/ExerciseLoader'
 import { Icon } from '../../components/Icon'
 import '../../styles/ui.css'
 import '../../games/GameShell.css'
@@ -17,10 +17,6 @@ import './FindItPage.css'
 const ROUNDS = 5
 // Word only, then word + color, then word + color + size.
 const TIERS: DifficultyTier<0 | 1 | 2>[] = [{ from: 0, value: 0 }, { from: 2, value: 1 }, { from: 4, value: 2 }]
-
-const LANGUAGE_LABELS: Record<WordLanguage, string> = {
-  uk: 'Українська', en: 'English', es: 'Español',
-}
 
 interface Round {
   targetId: string
@@ -37,8 +33,7 @@ export function FindItPage() {
   const [search] = useSearchParams()
   const { t } = useTranslation()
   const requested = search.get('lang')
-  const language: WordLanguage =
-    requested === 'en' || requested === 'es' || requested === 'uk' ? requested : 'uk'
+  const language = parseWordLanguage(requested)
 
   const content = useGameContent(language)
   const [seed, setSeed] = useState(randomSeed)
@@ -92,7 +87,7 @@ export function FindItPage() {
   return (
     <GameShell
       title={t('play.findIt')}
-      language={LANGUAGE_LABELS[language]}
+      language={WORD_LANGUAGE_LABELS[language]}
       round={game.round}
       total={game.total}
       solved={game.solved}

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { assetUrl, type WordLanguage } from '../../exercise/ExerciseLoader'
+import { assetUrl, parseWordLanguage, WORD_LANGUAGE_LABELS } from '../../exercise/ExerciseLoader'
 import { GameShell } from '../../games/GameShell'
 import { useGameContent } from '../../games/useGameContent'
 import { useGameSession } from '../../games/useGameSession'
@@ -17,10 +17,6 @@ const ROUNDS = 5
 const CHOICES = 4
 const GAME_ID = 'firstletter'
 
-const LANGUAGE_LABELS: Record<WordLanguage, string> = {
-  uk: 'Українська', en: 'English', es: 'Español',
-}
-
 interface Round {
   itemId: string
   thumbnail: string
@@ -33,7 +29,7 @@ export function FirstLetterPage() {
   const [search] = useSearchParams()
   const { t } = useTranslation()
   const requested = search.get('lang')
-  const language: WordLanguage = requested === 'en' || requested === 'es' ? requested : 'uk'
+  const language = parseWordLanguage(requested)
 
   const content = useGameContent(language)
   const [seed, setSeed] = useState(randomSeed)
@@ -96,7 +92,7 @@ export function FirstLetterPage() {
   return (
     <GameShell
       title={t('play.firstLetter')}
-      language={LANGUAGE_LABELS[language]}
+      language={WORD_LANGUAGE_LABELS[language]}
       round={game.round}
       total={game.total}
       solved={game.solved}

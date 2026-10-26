@@ -7,9 +7,13 @@
  *
  * English is the Union Jack, not the Stars and Stripes, to match the accent
  * this app already prefers (`en-GB` before `en-US` in `audio/speech.ts`).
+ *
+ * Russian gets a plain "RU" instead of a flag: a flag names a state, not a
+ * language, and a state flag is not something this app shows.
  */
-export const LANGUAGE_FLAG: Record<'uk' | 'en' | 'es', string> = {
+export const LANGUAGE_FLAG: Record<'uk' | 'en' | 'es' | 'ru', string> = {
   uk: '🇺🇦',
   en: '🇬🇧',
   es: '🇪🇸',
+  ru: 'RU',
 }
